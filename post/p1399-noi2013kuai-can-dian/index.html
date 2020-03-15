@@ -1,0 +1,372 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>P1399 [NOI2013]快餐店 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1584245465905">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="P1399 [NOI2013]快餐店 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="NOI系列
+上午颓了1.5h自闭了.....TAT
+点开题随便看看感觉是求树的直径然后输出中间点,这个和之前那个集训队作业很像集训队作业nb
+然后仔细一看是基环树/惊恐
+
+基环树直径怎么求呢?
+
+
+
+找出那个环,这里有个很妙的方法,就是根据..." />
+    <meta name="keywords" content="基环树,NOI系列,树的直径" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1584245465905" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              P1399 [NOI2013]快餐店
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-03-15
+              </span>
+              <span>
+                6 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/fTAwGbVDt/" class="post-tag">
+                  # 基环树
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/B3bL-fv2n/" class="post-tag">
+                  # NOI系列
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/GrK4ZVO52/" class="post-tag">
+                  # 树的直径
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="https://xiaxiaoguang.github.io/post-images/p1399-noi2013kuai-can-dian.jpg" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>NOI系列</p>
+<p>上午颓了1.5h自闭了.....TAT</p>
+<p>点开题随便看看感觉是求树的直径然后输出中间点,这个和之前那个集训队作业很像<s>集训队作业nb</s></p>
+<p>然后仔细一看是基环树/惊恐</p>
+<ul>
+<li>基环树直径怎么求呢?</li>
+</ul>
+<ol>
+<li>
+<p>找出那个环,这里有个很妙的方法,就是根据dfn大小关系和fa数组横跳就可以得到整个环,具体看代码</p>
+</li>
+<li>
+<p>环上的点所在的树以环上点为根,求一个内部直径更新答案,同时得到最长链</p>
+</li>
+<li>
+<p>求一遍前缀sum+最长链长度最大值,即图1,同时求一下从前面某个点到i这段构成直径的最大值,即图2</p>
+</li>
+<li>
+<p>把3从求前缀变为求后缀</p>
+</li>
+<li>
+<p>枚举每个位置进行组合</p>
+</li>
+</ol>
+<p>没有了</p>
+<p>图1:<br>
+<img src="https://xiaxiaoguang.github.io/post-images/1584245388713.png" alt="" loading="lazy"></p>
+<p>图2:<br>
+<img src="https://xiaxiaoguang.github.io/post-images/1584245404456.png" alt="" loading="lazy"></p>
+<p>code:</p>
+<pre><code class="language-cpp">
+#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+#include&lt;queue&gt;
+#include&lt;cmath&gt;
+#include&lt;map&gt;
+using namespace std;
+#define ll long long
+const int MAXN=2e5+7;
+const int inf=0x3f3f3f3f;
+const int P=1e9+7;
+int n;
+struct rec {
+	int to,nxt,w;
+} edge[MAXN&lt;&lt;1];
+int home[MAXN&lt;&lt;1],ccnt=0;
+int huan[MAXN],huan_cnt=0,huan_zhi[MAXN],cost[MAXN],fa[MAXN],huan_sign[MAXN];
+int dfn[MAXN],timee=0;
+ll dis[MAXN];
+ll ans=0,ans1=0;
+ll A[MAXN],B[MAXN];
+ll C[MAXN],D[MAXN];
+
+namespace fastIO {
+#define BUF_SIZE (1&lt;&lt;19)
+	static char buf[BUF_SIZE],*p1=buf+BUF_SIZE,*pend=buf+BUF_SIZE;
+	inline char nc() {
+		if(p1==pend) {
+			pend=buf+fread(buf,1,BUF_SIZE,stdin);
+			p1=buf;
+		}
+		return *p1++;
+	}
+	inline int read() {
+		int x=0,f=1;
+		register char s=nc();
+		for(; !isdigit(s); s=nc())if(s=='-')f=-1;
+		for(; isdigit(s); s=nc())x=(x&lt;&lt;1)+(x&lt;&lt;3)+s-'0';
+		return x*f;
+	}
+}
+using namespace fastIO;
+
+inline void add(int x,int y,int z) {
+	edge[++ccnt].to=y;
+	edge[ccnt].w=z;
+	edge[ccnt].nxt=home[x];
+	home[x]=ccnt;
+}
+
+inline void input() {
+//	freopen(&quot;test.in&quot;,&quot;r&quot;,stdin);
+	int xx,yy,zz;
+	n=read();
+	for(int i=1; i&lt;=n; ++i) {
+		fa[i]=i;
+		xx=read();
+		yy=read();
+		zz=read();
+	//	printf(&quot;%d %d %d\n&quot;,xx,yy,zz);
+		add(xx,yy,zz);
+		add(yy,xx,zz);
+	}
+}
+
+inline void dfs(int u) {
+	dfn[u]=++timee;
+//	printf(&quot;%d:\n&quot;,u);
+	for(int i=home[u]; i; i=edge[i].nxt) {
+		int v=edge[i].to;
+		if(v!=fa[u]) {
+			if(!dfn[v]) {
+			//	printf(&quot;%d %d !\n&quot;,u,v);
+				fa[v]=u;
+				cost[v]=edge[i].w;
+				dfs(v);
+			} else if(dfn[v]&gt;dfn[u]) {
+			//	printf(&quot;%d %d?\n&quot;,u,v);
+			//	printf(&quot;%d %d???\n&quot;,u,v);
+				for(; v!=u; v=fa[v])
+				{
+				//	printf(&quot;%d %d????\n&quot;,u,v);
+					huan_sign[v]=1;
+					huan[++huan_cnt]=v;
+					huan_zhi[huan_cnt]=cost[v];
+				}
+				huan_sign[u]=1;
+				huan[++huan_cnt]=u;
+				huan_zhi[huan_cnt]=edge[i].w;
+			}
+		}
+	}
+	//找环并统计环上边权
+}
+
+inline void DP(int u,int FA) {
+	for(int i=home[u]; i; i=edge[i].nxt) {
+		int v=edge[i].to;
+		if(!huan_sign[v]&amp;&amp;v!=FA) {
+			DP(v,u);
+			ans=max(1ll*dis[u]+dis[v]+edge[i].w,ans);
+			// 第一类答案
+			dis[u]=max(dis[u],dis[v]+edge[i].w);
+		}
+	}//树形dp ,求出环上子树的最长链
+}
+
+inline void solve() {
+	dfs(1);
+	for(int i=1; i&lt;=huan_cnt; ++i)
+		DP(huan[i],0);
+	//先dpqwq
+//	for(int i=1; i&lt;=huan_cnt; ++i)printf(&quot;%d??\n&quot;,huan[i]);
+	ll sum=0,maxx=0;
+	for(int i=1; i&lt;=huan_cnt; ++i) {
+		sum+=huan_zhi[i-1];//sum是前缀环权和
+		A[i]=max(A[i-1],dis[huan[i]]+sum);//A[i]是从环上1号点-&gt;i最长的qwq
+		B[i]=max(B[i-1],sum+maxx+dis[huan[i]]);//B[i]是从之前的某点出发到i的最大 (不绕环
+		maxx=max(maxx,dis[huan[i]]-sum);
+	}
+	sum=maxx=0;
+	int tmp=huan_zhi[huan_cnt];
+	huan_zhi[huan_cnt]=0;
+
+	for(int i=huan_cnt; i&gt;=1; --i) {
+		sum+=huan_zhi[i];
+		C[i]=max(C[i+1],dis[huan[i]]+sum);
+		//前驱从1-&gt;sth最大的
+		D[i]=max(D[i+1],sum+maxx+dis[huan[i]]);
+		maxx=max(maxx,dis[huan[i]]-sum);
+		//这里从后到前再考虑后缀,从i到后面
+	}
+	ll tep;
+	ans1=B[huan_cnt];
+	for(int i=1; i&lt;huan_cnt; ++i) {
+		tep=max(B[i],D[i+1]);//要么只考虑i左端点
+
+		tep=max(tep,A[i]+C[i+1]+tmp);//要么从i到前一段+从i到后一段绕过整个环
+		ans1=min(ans1,tep);
+	}
+	ans=max(ans,ans1);
+	if(ans&amp;1)printf(&quot;%lld.5\n&quot;,ans&gt;&gt;1);
+	else printf(&quot;%lld.0\n&quot;,ans&gt;&gt;1);
+}
+
+int main() {
+	input();
+	solve();
+	return 0;
+}
+
+
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/cf504e-misha-and-lcp-on-tree/">
+              <h3 class="post-title">
+                CF504E Misha and LCP on Tree
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
