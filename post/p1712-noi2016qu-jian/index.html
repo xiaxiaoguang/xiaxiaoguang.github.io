@@ -1,0 +1,281 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>P1712 [NOI2016]区间 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1584371191231">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="P1712 [NOI2016]区间 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="NOI2016D1T1
+其实相当简单,我一开始想了一个在序列上暴力用平衡树维护差分的做法,就是开三个平衡树?,其中中间一个保持大小为M,就是维护答案集合,其他两个一个维护比答案集合中最大值大的值,一个比最小值小的值,那么打好差分标记后加入删..." />
+    <meta name="keywords" content="线段树,NOI系列,尺取法" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1584371191231" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              P1712 [NOI2016]区间
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-03-16
+              </span>
+              <span>
+                4 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/i0TglRCqu/" class="post-tag">
+                  # 线段树
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/B3bL-fv2n/" class="post-tag">
+                  # NOI系列
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/P3pb8HW6j/" class="post-tag">
+                  # 尺取法
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="https://s1.ax1x.com/2020/03/16/8JjPsS.jpg" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>NOI2016D1T1</p>
+<p>其实相当简单,我一开始想了一个在序列上暴力用平衡树维护差分的做法,就是开三个平衡树?,其中中间一个保持大小为M,就是维护答案集合,其他两个一个维护比答案集合中最大值大的值,一个比最小值小的值,那么打好差分标记后加入删除对应也很简单,但是很容易T掉</p>
+<p>我们看到最大值-最小值最大这个显然就是尺取,尺取这个最大值-最小值,那么显然是在值域上尺取,所以我们要按照每条线段的长度排序尺取</p>
+<p>有了这个想法,如何满足恰好M的限制呢?线段树区间加线段,如果全局最大值&gt;=m说明此时合法了,不难看出尺取法的删线段在线段树上也很好维护,这样就可以做到<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(nlogn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>了</p>
+<p>code:<br>
+<s>虽然丑但是是本人写的</s></p>
+<pre><code class="language-cpp">//From:Dawn light
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+#include&lt;cmath&gt;
+#include&lt;vector&gt;
+#define ll long long
+using namespace std;
+const int MAXN=6e5+7;
+vector&lt;int&gt; v;
+int n,m;
+struct node {
+	int mx,ad;
+} tr[MAXN&lt;&lt;2];
+
+struct rec {
+	int l,r,len;
+	bool operator&lt;(const rec &amp;x)const {
+		return len&lt;x.len;
+	}
+} a[MAXN];
+
+#define mid ((x+y)&gt;&gt;1)
+#define ls (k&lt;&lt;1)
+#define rs (k&lt;&lt;1|1)
+
+inline void pushup(int k) {
+	tr[k].mx=max(tr[ls].mx,tr[rs].mx);
+}
+
+inline void pushdown(int k) {
+	if(tr[k].ad) {
+		tr[ls].ad+=tr[k].ad;
+		tr[ls].mx+=tr[k].ad;
+		tr[rs].ad+=tr[k].ad;
+		tr[rs].mx+=tr[k].ad;
+		tr[k].ad=0;
+	}
+}
+
+inline void add(int k,int x,int y,int l,int r,int va) {
+//	printf(&quot;%d %d %d %d %d\n&quot;,k,x,y,l,r);
+	if(x&gt;=l&amp;&amp;y&lt;=r) {
+		tr[k].ad+=va;
+		tr[k].mx+=va;
+		return ;
+	}
+
+	pushdown(k);
+	if(l&lt;=mid)add(ls,x,mid,l,r,va);
+	if(r&gt;mid)add(rs,mid+1,y,l,r,va);
+	pushup(k);
+}
+
+int main() {
+	//freopen(&quot;test.in&quot;,&quot;r&quot;,stdin);
+	scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+	for(int i=1; i&lt;=n; ++i) {
+		scanf(&quot;%d%d&quot;,&amp;a[i].l,&amp;a[i].r);
+		v.push_back(a[i].l);
+		v.push_back(a[i].r);
+	}
+	sort(v.begin(),v.end());
+	v.erase(unique(v.begin(),v.end()),v.end());
+	for(int i=1; i&lt;=n; ++i) {
+		a[i].len=a[i].r-a[i].l;
+		a[i].l=lower_bound(v.begin(),v.end(),a[i].l)-v.begin();
+		a[i].r=lower_bound(v.begin(),v.end(),a[i].r)-v.begin();
+		//	printf(&quot;%d %d\n&quot;,a[i].l,v[a[i].l]);
+	}
+	sort(a+1,a+n+1);
+//	for(int i=1; i&lt;=n; ++i) {
+//		printf(&quot;%d %d\n&quot;,v[a[i].l],v[a[i].r]);
+//	}
+	int L=1,R=0;
+	ll ans=1e18;
+	for(R=1; R&lt;=n; ++R) {
+
+		add(1,1,2*n+2,a[R].l+1,a[R].r+1,1);
+		//	if(tr[1].mx&gt;=m)ans=min(ans,1ll*v[a[R].r]-v[a[R].l]-v[a[L].r]+v[a[L].l]);
+
+		while(tr[1].mx==m) {
+			ans=min(ans,1ll*a[R].len-a[L].len);
+			//	puts(&quot;qwq&quot;);
+			//	printf(&quot;%d %d %d\n&quot;,L,R,ans);
+			add(1,1,2*n+2,a[L].l+1,a[L].r+1,-1);
+			++L;
+		}
+	}
+	if(ans&gt;1e17)return puts(&quot;-1&quot;),0;
+	printf(&quot;%d\n&quot;,ans);
+	return 0;
+
+}
+
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/p5319-bjoi2019ao-zhu-shen-zhang/">
+              <h3 class="post-title">
+                P5319 [BJOI2019]奥术神杖
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
