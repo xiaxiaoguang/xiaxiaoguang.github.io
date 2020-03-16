@@ -3,7 +3,7 @@
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>CF506E Mr. Kitayuta&#39;s Gift | 夏晓光(loveJY)的博客</title>
-<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1584318125939">
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1584323866108">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
 <link rel="alternate" type="application/atom+xml" title="CF506E Mr. Kitayuta&#39;s Gift | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
@@ -17,7 +17,7 @@
 给定一个小写字符串 sss 和一个正整数 nnn。
 要求在 sss 中插入恰好 nnn 个小写字符使其回文的方案数。
 ∣s∣≤200|s| \le 200∣s∣≤2..." />
-    <meta name="keywords" content="" />
+    <meta name="keywords" content="专属标签:压缩自动机,字符串,集训队作业,动态规划" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
     <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
   </head>
@@ -26,7 +26,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://xiaxiaoguang.github.io">
-  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1584318125939" alt="">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1584323866108" alt="">
   </a>
   <h1 class="site-title">
     夏晓光(loveJY)的博客
@@ -86,10 +86,28 @@
                 2020-03-16
               </span>
               <span>
-                7 min read
+                14 min read
               </span>
               
+                <a href="https://xiaxiaoguang.github.io/tag/7koh6J6WS/" class="post-tag">
+                  # 专属标签:压缩自动机
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/k8ekJE9lH/" class="post-tag">
+                  # 字符串
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/HzrxzC7K1/" class="post-tag">
+                  # 集训队作业
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/CJ-ugjBAY/" class="post-tag">
+                  # 动态规划
+                </a>
+              
             </div>
+            
+              <img class="post-feature-image" src="https://xiaxiaoguang.github.io/post-images/cf506e-mr-kitayutas-gift.jpg" alt="">
             
             <div class="post-content-wrapper">
               <div class="post-content">
@@ -144,7 +162,149 @@
 <p>这又有什么用处呢?我们仔细观察图上每一条路径,大部分的时间我们都在走自环了!经过的点的种类却很少,最多经过<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">∣</mi><mi>S</mi><mi mathvariant="normal">∣</mi></mrow><annotation encoding="application/x-tex">|S|</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">∣</span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord">∣</span></span></span></span>个点,这个观察状态转移方程不难得出</p>
 <p>那我们把路径按照经过点的点集分类,一类路径就是走相同的点集到终点的路径,那么一类路径中不同的路径就一定是走自环的方式不同了</p>
 <p>其中26的限制只有在终点上有,我们只需要暴力乘进去就行了</p>
-<p>而24和25的点呢?我们发现一个性质,如果已知一条路径(经过的点写成序列)有a个自环数为24的点,那么一定有经过自环数为25的点<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>⌈</mo><mfrac><mrow><mi>n</mi><mo>−</mo><mi>a</mi></mrow><mn>2</mn></mfrac><mo>⌉</mo></mrow><annotation encoding="application/x-tex">\lceil{\frac{n-a}{2}}\rceil</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1473309999999999em;vertical-align:-0.345em;"></span><span class="mopen">⌈</span><span class="mord"><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.802331em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span><span class="mbin mtight">−</span><span class="mord mathdefault mtight">a</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span><span class="mclose">⌉</span></span></span></span>,这个可以有DP</p>
+<p>而24和25的点呢?我们发现一个性质,如果已知一条路径(经过的点写成序列)有a个自环数为24的点,那么一定有经过自环数为25的点<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>⌈</mo><mfrac><mrow><mi>n</mi><mo>−</mo><mi>a</mi></mrow><mn>2</mn></mfrac><mo>⌉</mo></mrow><annotation encoding="application/x-tex">\lceil{\frac{n-a}{2}}\rceil</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1473309999999999em;vertical-align:-0.345em;"></span><span class="mopen">⌈</span><span class="mord"><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.802331em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span><span class="mbin mtight">−</span><span class="mord mathdefault mtight">a</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span><span class="mclose">⌉</span></span></span></span>,这个可以由DP转移特性得出,因为我们走环为24的点时就消耗一个字符,而走自环为25的点消耗两个字符,又因为我们只走这两种点,所以可以,为什么上取整呢?因为经过<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>i</mi><mo separator="true">,</mo><mi>i</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">(i,i)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">i</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">i</span><span class="mclose">)</span></span></span></span>时环长25但是只花了1个字符呢</p>
+<p>这个性质告诉我们什么?本质不同的路径条数只有O(|S|)种!!!因为只有包含自环24的点数量不同的路径才本质不同,否则一定相同,因为自环25的点数可以推出来</p>
+<p>考虑原图的自动机是不是就可以压缩了?</p>
+<p>原来是一个复杂的图,可能长这样<img src="https://www.xht37.com/wp-content/uploads/2020/02/61e9c25b977bad7af00165b92070a9acabf16704.png" alt="qwq" loading="lazy"></p>
+<p>然而我们只需要自环24的点不同,求这些路径本质不同方案数,所以可以压缩为<br>
+<img src="https://www.xht37.com/wp-content/uploads/2020/02/1077980-20180401083928510-472522990.png" alt="qwq" loading="lazy"></p>
+<p>在这上面矩阵乘法</p>
+<p>当然,我们还需要求出有k个红点链的总数量,这个只要在原图中用记忆化搜索处理一下即可<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi mathvariant="normal">∣</mi><mi>S</mi><msup><mi mathvariant="normal">∣</mi><mn>3</mn></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(|S|^3)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">∣</span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord"><span class="mord">∣</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></p>
+<p>|S|条链,每个链|S|个点,这个过程不难发现是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi mathvariant="normal">∣</mi><mi>S</mi><msup><mi mathvariant="normal">∣</mi><mn>4</mn></msup><mi>l</mi><mi>o</mi><mi>g</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(|S|^4log...)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">∣</span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord"><span class="mord">∣</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">4</span></span></span></span></span></span></span></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord">.</span><span class="mord">.</span><span class="mord">.</span><span class="mclose">)</span></span></span></span></p>
+<p>显然照T不误,我们再考虑优化一下,因为我们有一个O(|S|^2)大小矩阵但是只用其中的一个数...</p>
+<p>矩阵乘法其实支持多个源点和汇点的,<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>C</mi><mo>(</mo><mi>i</mi><mo separator="true">,</mo><mi>j</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">C(i,j)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mopen">(</span><span class="mord mathdefault">i</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mclose">)</span></span></span></span>就表示从i走到j的方案数呢,所以我们要尽可能的利用一个矩阵内的信息,怎么办?重构图让他满足</p>
+<p>所以我们再把自动机压缩一下!!!<img src="https://www.xht37.com/wp-content/uploads/2020/02/1077980-20180401083928510-472522990.png" alt="qaq" loading="lazy"></p>
+<p>这一步我们会发现原来每类链都能在这个图中表示出来!压缩后的自动机点数就只有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi mathvariant="normal">∣</mi><mi>S</mi><mi mathvariant="normal">∣</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(|S|)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">∣</span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord">∣</span><span class="mclose">)</span></span></span></span>个了.......这时候再次矩阵快速幂,就有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi mathvariant="normal">∣</mi><mi>S</mi><msup><mi mathvariant="normal">∣</mi><mn>3</mn></msup><mi>l</mi><mi>o</mi><mi>g</mi><mo>(</mo><mi>n</mi><mo>+</mo><mi>S</mi><mo>)</mo><mo>)</mo></mrow><annotation encoding="application/x-tex">O(|S|^3log(n+S))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">∣</span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord"><span class="mord">∣</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span></p>
+<p>自己核算一下,还是过不了的,毕竟100w*30....</p>
+<p>那么我们只需要卡常就行了!让他跑不满!!</p>
+<p>我们设计图的时候只让编号小的向编号大的点转移,这样矩阵乘法只需要一个上三角矩阵,这样矩阵乘法的复杂度就除了6,看上去可过</p>
+<blockquote>
+<p>奇数长度串处理方式</p>
+</blockquote>
+<p>唯一的区别好像是case1,j-i=1的时候不能一下转移完了,所以要剪掉这些部分,就只保留这样的链,同时去掉终点自环(因为他只能填中间固定的那个字符了),再算一下就是我们要去掉的方案数了</p>
+<p>而其他状态都可以中心字符随便搞</p>
+<p>就这样,这道神仙题完了</p>
+<p>code:</p>
+<pre><code class="language-cpp">
+#include&lt;iostream&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int MAXN=2*1e2+10;
+const int P=10007;
+int tr[MAXN][MAXN];
+int tp[MAXN*MAXN];
+int n;
+char mde[MAXN];
+int m,ctt,S,ans;
+int trp[MAXN&lt;&lt;1][MAXN&lt;&lt;1];
+struct Grph {
+	int to[2*MAXN*MAXN];
+	int nxt[2*MAXN*MAXN];
+	int ccnt;
+	int home[MAXN*MAXN],dp[MAXN][MAXN*MAXN];
+	bool book[MAXN][MAXN*MAXN];
+	inline void add(int u,int v) {
+		to[++ccnt]=v;
+		nxt[ccnt]=home[u];
+		home[u]=ccnt;
+	}
+	inline int dfs(int cnt,int u) {
+		if(cnt&lt;0)return 0;
+		if(book[cnt][u])return dp[cnt][u];//记忆化搜索
+		book[cnt][u]=1;//这个状态算过了
+		for(int i=home[u]; i; i=nxt[i])(dp[cnt][u]+=dfs(cnt-tp[u],to[i]))%=P;//加上
+		return dp[cnt][u];
+	}
+} g2;
+
+struct mar {
+	int mp[MAXN&lt;&lt;1][MAXN&lt;&lt;1];
+	inline int* operator[](const int x) {
+		return mp[x];
+	}
+	void operator*=(const mar &amp;b) {
+		for(int i=1; i&lt;=S; ++i)
+			for(int j=1; j&lt;=S; ++j)trp[i][j]=0;
+		for(int i=1; i&lt;=S; ++i)
+			for(int k=i; k&lt;=S; ++k)
+				for(int j=k; j&lt;=S; ++j)
+					(trp[i][j]+=mp[i][k]*b.mp[k][j])%=P;
+		for(int i=1; i&lt;=S; ++i)
+			for(int j=1; j&lt;=S; ++j)mp[i][j]=trp[i][j];
+	}
+} trs,res;
+
+
+int f[MAXN],g[MAXN];
+int main() {
+	scanf(&quot;%s&quot;,mde+1);
+	scanf(&quot;%d&quot;,&amp;m);
+	for(n=1; mde[n+1]!='\0'; ++n);
+	for(int i=1; i&lt;=n; ++i)
+		for(int j=i; j&lt;=n; ++j)
+			tr[i][j]=++ctt;//这里原来是重编号,保证了从编号小的向编号大的转移
+	++ctt;
+	for(int i=1; i&lt;=n; ++i) {
+		for(int j=i; j&lt;=n; ++j) {
+			if(mde[i]==mde[j]) {
+				if(j-i&lt;=1)g2.add(ctt,tr[i][j]);//只连一条边
+
+				else g2.add(tr[i+1][j-1],tr[i][j]);//否则从i+1,j-1可以转移到i,j
+			} else {
+				tp[tr[i][j]]=1;//这个东西
+
+				g2.add(tr[i+1][j],tr[i][j]),g2.add(tr[i][j-1],tr[i][j]);
+				//先构建原图来记搜
+			}
+		}
+	}
+	for(int i=0; i&lt;n; ++i)g2.book[i][tr[1][n]]=1;
+	g2.dp[tp[tr[1][n]]][tr[1][n]]=1;
+	//靠,这是设计初状态.....
+	for(int i=0; i&lt;n; ++i)g2.dfs(i,ctt);
+	//记忆化搜索每个填的
+	for(int i=1; i&lt;n; ++i)trs[i][i]=24;
+	//这些点只可24
+	int t=(n+1)/2;
+	for(int i=0; i&lt;t; ++i)trs[i+n][n+i]=25;
+	//这些点是25
+	for(int i=0; i&lt;t; ++i)trs[n+t+i][n+t+i]=26;
+	//终点
+	for(int i=1; i&lt;n+t-1; ++i)trs[i][i+1]++;
+	//你想像一下之前的那个两条链的图第一条链相邻点的边
+	for(int i=0; i&lt;t; ++i)trs[n+i][n+t+i]++;
+	//这个是第二条链的对应边
+//	for(int i=0; i&lt;n; ++i) {
+//		for(int j=0; j&lt;n; ++j) {
+//			printf(&quot;%d &quot;,trs[i][j]);
+//		}
+//		puts(&quot;&quot;);
+//	}
+	S=n+(t&lt;&lt;1)-1;
+	for(int i=1; i&lt;=S; ++i)res[i][i]=1;
+	//单位矩阵
+	for(int p=(n+m)&gt;&gt;1; p; p&gt;&gt;=1,trs*=trs)if(p&amp;1)res*=trs;//靠,快速幂
+
+	for(int i=0,v; i&lt;n; ++i)v=(n-i+1)/2,f[i]=res[n-i][n+t+v-1],g[i]=res[n-i][n+v-1];//这个g其实是最后到单个字符的 
+	//这是在枚举所有路径类,然后得到对应
+	if((n+m)&amp;1) {
+		for(int i=0; i&lt;n; ++i)(ans+=f[i]*g2.dp[i][ctt])%=P;//路径类*路径条,ctt是重点 
+		(ans*=26)%=P;//终点的自环
+		for(int i=1; i&lt;=26; ++i) {
+			for(int j=1; j&lt;=n; ++j) {//枚举最后是啥
+				if(mde[j]=='a'+i-1)//如果这个可以做最后
+					for(int k=0; k&lt;n; ++k)(ans+=g[k]*g2.dp[k][tr[j][j]])%=P;//再加上到这个单个字符点可以的 
+			}
+		}
+	} else {
+		for(int i=0; i&lt;n; ++i)(ans+=f[i]*g2.dp[i][ctt])%=P;
+	}
+	printf(&quot;%d&quot;,ans);
+	return 0;
+}
+
+
+</code></pre>
 
               </div>
               <div class="toc-container">
