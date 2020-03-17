@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://xiaxiaoguang.github.io</id>
     <title>夏晓光(loveJY)的博客</title>
-    <updated>2020-03-17T03:54:45.850Z</updated>
+    <updated>2020-03-17T15:03:47.246Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://xiaxiaoguang.github.io"/>
     <link rel="self" href="https://xiaxiaoguang.github.io/atom.xml"/>
@@ -10,6 +10,114 @@
     <logo>https://xiaxiaoguang.github.io/images/avatar.png</logo>
     <icon>https://xiaxiaoguang.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 夏晓光(loveJY)的博客</rights>
+    <entry>
+        <title type="html"><![CDATA[P1721 [NOI2016]国王饮水记]]></title>
+        <id>https://xiaxiaoguang.github.io/post/p1721-noi2016guo-wang-yin-shui-ji/</id>
+        <link href="https://xiaxiaoguang.github.io/post/p1721-noi2016guo-wang-yin-shui-ji/">
+        </link>
+        <updated>2020-03-17T14:45:32.000Z</updated>
+        <content type="html"><![CDATA[<p>NOI2016D2T2</p>
+<p>还有一个D1T1咕着没写呢qaq</p>
+<p><code></code>于是，跳蚤国在每个城市都修建了一个圆柱形水箱，这些水箱完全相同且足够高。一个雨天后，第 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span> 个城市收集到了高度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>h</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">h_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">h</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 的水。由于地理和天气因素的影响，任何两个不同城市收集到的水高度互不相同。</p>
+<p>跳蚤国王也请来蚂蚁工匠帮忙，建立了一个庞大的地下连通系统。跳蚤国王每次使用地下连通系统时，可以指定任意多的城市，将这些城市的水箱用地下连通系统连接起来足够长的时间之后，再将地下连通系统关闭。由连通器原理，这些城市的水箱中的水在这次操作后会到达同一高度，并且这一高度等于指定的各水箱高度的平均值。</p>
+<p>由于地下连通系统的复杂性，跳蚤国王至多只能使用<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span></span></span></span>次地下连通系统。</p>
+<p>跳蚤国王请你告诉他，首都 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 号城市水箱中的水位最高能有多高？ <code></code></p>
+<p>首先分析一下题目的性质:</p>
+<ol>
+<li>那些高度小于首都的点一定没用可以扔掉</li>
+<li>我们合并一定先低后高!因为设h_2&gt;h_1,要么先<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>h</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">h_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">h</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>=<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mi mathvariant="normal">/</mi><mn>2</mn><msub><mi>h</mi><mn>1</mn></msub><mo>+</mo><mn>1</mn><mi mathvariant="normal">/</mi><mn>4</mn><msub><mi>h</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">1/2h_1+1/4h_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord">/</span><span class="mord">2</span><span class="mord"><span class="mord mathdefault">h</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord">/</span><span class="mord">4</span><span class="mord"><span class="mord mathdefault">h</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>&gt;先<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>h</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">h_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">h</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>=<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mi mathvariant="normal">/</mi><mn>4</mn><msub><mi>h</mi><mn>1</mn></msub><mo>+</mo><mn>1</mn><mi mathvariant="normal">/</mi><mn>2</mn><msub><mi>h</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">1/4h_1+1/2h_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord">/</span><span class="mord">4</span><span class="mord"><span class="mord mathdefault">h</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord">/</span><span class="mord">2</span><span class="mord"><span class="mord mathdefault">h</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></li>
+<li>最高的前k个被优先合并<s>显然</s></li>
+</ol>
+<p>所以有了这个在原数组上排序一下DP就没后效性了</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><mi>p</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>[</mo><mi>j</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">dp[i][j]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">p</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mclose">]</span></span></span></span>表示到位置i,之前进行了j轮</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><mi>p</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>[</mo><mi>j</mi><mo>]</mo><mo>=</mo><mi>m</mi><mi>a</mi><mi>x</mi><mo>(</mo><mfrac><mrow><mi>f</mi><mo>[</mo><mi>k</mi><mo>]</mo><mo>[</mo><mi>j</mi><mo>−</mo><mn>1</mn><mo>]</mo><mo>+</mo><msub><mi>s</mi><mi>i</mi></msub><mo>−</mo><msub><mi>s</mi><mi>k</mi></msub></mrow><mrow><mi>j</mi><mo>−</mo><mi>k</mi><mo>+</mo><mn>1</mn></mrow></mfrac><mo>)</mo></mrow><annotation encoding="application/x-tex">dp[i][j]=max(\frac{f[k][j-1]+s_i-s_k}{j-k+1})
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">p</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.30744em;vertical-align:-0.8804400000000001em;"></span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault">x</span><span class="mopen">(</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.427em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord">1</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord">1</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord"><span class="mord mathdefault">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord"><span class="mord mathdefault">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.8804400000000001em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose">)</span></span></span></span></span></p>
+<p>相当于划分一下然后求平均</p>
+<p>这个式子显然可以斜率优化,所求就是一个最大的斜率<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>k</mi><mo>−</mo><mn>1</mn><mo separator="true">,</mo><msub><mi>s</mi><mi>k</mi></msub><mo>−</mo><mi>f</mi><mo>[</mo><mi>i</mi><mo>−</mo><mn>1</mn><mo>]</mo><mo>[</mo><mi>k</mi><mo>]</mo><mo>)</mo></mrow><annotation encoding="application/x-tex">(k-1,s_k-f[i-1][k])</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mclose">]</span><span class="mclose">)</span></span></span></span>和(s_j,j)构成直线斜率</p>
+<p>又因为是max,所以维护一个下凸壳,也不难发现<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>s</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">s_j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.716668em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>单增</p>
+<p>然而这道题要输出答案后3000位小数......有一个700多行的高精度小数类,我们不可能用对吧</p>
+<p>我们遵循如下贪心原则</p>
+<ul>
+<li>能一次用2个就不用多个</li>
+<li>如果要加入城市进连通器,那水位一定要高与当前</li>
+</ul>
+<p>证明1:把一下3个分成两下2个显然会更好吧</p>
+<p>证明2:否则的话为什么加?倒流吗?</p>
+<p>有了这两个东西,就不难构造了</p>
+<p>code:</p>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+#define ll long long
+using namespace std;
+int N,n,m,p;
+int h[8192],s[8192];
+double f[16][8192];
+int g[16][8192];
+int a[400];
+#define P pair&lt;int,double&gt;
+double operator%(const P&amp;a,const P&amp;b) {
+	return (b.second-a.second)/(b.first-a.first);
+}
+void div(int x) {
+	ll q=0;
+	for(int i=0; i&lt;=p; ++i) {
+		q=q*1000000000+a[i];
+		a[i]=q/x;
+		q%=x;
+	}
+}
+
+int main() {
+	scanf(&quot;%d%d%d&quot;,&amp;N,&amp;m,&amp;p);
+	p=p/9+1;
+	scanf(&quot;%d&quot;,&amp;h[n=1]);
+	for(int i=2; i&lt;=N; ++i) {
+		int t;
+		scanf(&quot;%d&quot;,&amp;t);
+		if(h[1]&lt;t)h[++n]=t;
+		//直接弃掉
+	}
+	sort(h+1,h+n+1);
+	if(m&gt;n)m=n;
+	for(int i=1; i&lt;=n; ++i)f[0][i]=h[1],s[i]=s[i-1]+h[i];
+	//s是前缀和
+	int l=14;//你问这一手有什么用?我只能告诉你这是玄学优化,连14次就最优.....
+	if(l&gt;m)l=m;
+	for(int i=1; i&lt;=l; ++i) {
+		static P q[8024];//队列
+//		memset(q,0,sizeof(q));
+
+		for(int j=2,l=1,r=0; j&lt;=n; ++j) {
+			P c=P(j-2,s[j-1]-f[i-1][j-1]);
+			//维护(k-1,s[k]-f[i-1][k])
+			for(; l&lt;r&amp;&amp;(q[r-1]%q[r])&gt;(q[r]%c); r--);//盘一下斜率
+			q[++r]=c;//把k-1加入决策序列
+			P t=P(j,s[j]);//s[j]随j的单调递增而递增
+			for(; l&lt;r&amp;&amp;(q[l]%t)&lt;(q[l+1]%t); ++l);
+			g[i][j]=q[l].first+1;
+			//	printf(&quot;%d\n&quot;,g[i][j]);
+			//记录一下转移最优决策点,注意first代表哪个数 
+			f[i][j]=(q[l]%t);
+		}
+	}
+///	puts(&quot;QWQ&quot;);
+	int b[16];
+
+	b[l]=n-(m-l);
+	//这个等于最后存活数?
+	//当n=m,我们连了l次
+	for(int i=l; i; i--)b[i-1]=g[i][b[i]];//找到这些每次选择的序列点 
+	a[0]=h[1];
+	for(int i=1; i&lt;=l; ++i)a[0]+=s[b[i]]-s[b[i-1]],div(b[i]-b[i-1]+1);//l次连一定先连大的再小的.因为h已经排序了...
+	for(int i=b[l]+1; i&lt;=n; ++i)a[0]+=h[i],div(2);//有多余的,可以考虑再勇两个练一下
+	printf(&quot;%d.&quot;,a[0]);
+	for(int i=1; i&lt;=p; ++i)printf(&quot;%09d&quot;,a[i]);
+	return 0;
+}
+
+
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[庆祝博文过百!]]></title>
         <id>https://xiaxiaoguang.github.io/post/qing-zhu-bo-wen-guo-bai/</id>
@@ -1122,199 +1230,6 @@ int main() {
 		}
 		printf(&quot;%d\n&quot;,query(1,1,lim,st+1,st+n));//所有0就是自闭
 	}
-	return 0;
-}
-
-
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[P1399 [NOI2013]快餐店]]></title>
-        <id>https://xiaxiaoguang.github.io/post/p1399-noi2013kuai-can-dian/</id>
-        <link href="https://xiaxiaoguang.github.io/post/p1399-noi2013kuai-can-dian/">
-        </link>
-        <updated>2020-03-15T04:01:57.000Z</updated>
-        <content type="html"><![CDATA[<p>NOI系列</p>
-<p>上午颓了1.5h自闭了.....TAT</p>
-<p>点开题随便看看感觉是求树的直径然后输出中间点,这个和之前那个集训队作业很像<s>集训队作业nb</s></p>
-<p>然后仔细一看是基环树/惊恐</p>
-<ul>
-<li>基环树直径怎么求呢?</li>
-</ul>
-<ol>
-<li>
-<p>找出那个环,这里有个很妙的方法,就是根据dfn大小关系和fa数组横跳就可以得到整个环,具体看代码</p>
-</li>
-<li>
-<p>环上的点所在的树以环上点为根,求一个内部直径更新答案,同时得到最长链</p>
-</li>
-<li>
-<p>求一遍前缀sum+最长链长度最大值,即图1,同时求一下从前面某个点到i这段构成直径的最大值,即图2</p>
-</li>
-<li>
-<p>把3从求前缀变为求后缀</p>
-</li>
-<li>
-<p>枚举每个位置进行组合</p>
-</li>
-</ol>
-<p>没有了</p>
-<p>图1:<br>
-<img src="https://xiaxiaoguang.github.io/post-images/1584245388713.png" alt="" loading="lazy"></p>
-<p>图2:<br>
-<img src="https://xiaxiaoguang.github.io/post-images/1584245404456.png" alt="" loading="lazy"></p>
-<p>code:</p>
-<pre><code class="language-cpp">
-#include&lt;iostream&gt;
-#include&lt;cstdio&gt;
-#include&lt;cstring&gt;
-#include&lt;algorithm&gt;
-#include&lt;queue&gt;
-#include&lt;cmath&gt;
-#include&lt;map&gt;
-using namespace std;
-#define ll long long
-const int MAXN=2e5+7;
-const int inf=0x3f3f3f3f;
-const int P=1e9+7;
-int n;
-struct rec {
-	int to,nxt,w;
-} edge[MAXN&lt;&lt;1];
-int home[MAXN&lt;&lt;1],ccnt=0;
-int huan[MAXN],huan_cnt=0,huan_zhi[MAXN],cost[MAXN],fa[MAXN],huan_sign[MAXN];
-int dfn[MAXN],timee=0;
-ll dis[MAXN];
-ll ans=0,ans1=0;
-ll A[MAXN],B[MAXN];
-ll C[MAXN],D[MAXN];
-
-namespace fastIO {
-#define BUF_SIZE (1&lt;&lt;19)
-	static char buf[BUF_SIZE],*p1=buf+BUF_SIZE,*pend=buf+BUF_SIZE;
-	inline char nc() {
-		if(p1==pend) {
-			pend=buf+fread(buf,1,BUF_SIZE,stdin);
-			p1=buf;
-		}
-		return *p1++;
-	}
-	inline int read() {
-		int x=0,f=1;
-		register char s=nc();
-		for(; !isdigit(s); s=nc())if(s=='-')f=-1;
-		for(; isdigit(s); s=nc())x=(x&lt;&lt;1)+(x&lt;&lt;3)+s-'0';
-		return x*f;
-	}
-}
-using namespace fastIO;
-
-inline void add(int x,int y,int z) {
-	edge[++ccnt].to=y;
-	edge[ccnt].w=z;
-	edge[ccnt].nxt=home[x];
-	home[x]=ccnt;
-}
-
-inline void input() {
-//	freopen(&quot;test.in&quot;,&quot;r&quot;,stdin);
-	int xx,yy,zz;
-	n=read();
-	for(int i=1; i&lt;=n; ++i) {
-		fa[i]=i;
-		xx=read();
-		yy=read();
-		zz=read();
-	//	printf(&quot;%d %d %d\n&quot;,xx,yy,zz);
-		add(xx,yy,zz);
-		add(yy,xx,zz);
-	}
-}
-
-inline void dfs(int u) {
-	dfn[u]=++timee;
-//	printf(&quot;%d:\n&quot;,u);
-	for(int i=home[u]; i; i=edge[i].nxt) {
-		int v=edge[i].to;
-		if(v!=fa[u]) {
-			if(!dfn[v]) {
-			//	printf(&quot;%d %d !\n&quot;,u,v);
-				fa[v]=u;
-				cost[v]=edge[i].w;
-				dfs(v);
-			} else if(dfn[v]&gt;dfn[u]) {
-			//	printf(&quot;%d %d?\n&quot;,u,v);
-			//	printf(&quot;%d %d???\n&quot;,u,v);
-				for(; v!=u; v=fa[v])
-				{
-				//	printf(&quot;%d %d????\n&quot;,u,v);
-					huan_sign[v]=1;
-					huan[++huan_cnt]=v;
-					huan_zhi[huan_cnt]=cost[v];
-				}
-				huan_sign[u]=1;
-				huan[++huan_cnt]=u;
-				huan_zhi[huan_cnt]=edge[i].w;
-			}
-		}
-	}
-	//找环并统计环上边权
-}
-
-inline void DP(int u,int FA) {
-	for(int i=home[u]; i; i=edge[i].nxt) {
-		int v=edge[i].to;
-		if(!huan_sign[v]&amp;&amp;v!=FA) {
-			DP(v,u);
-			ans=max(1ll*dis[u]+dis[v]+edge[i].w,ans);
-			// 第一类答案
-			dis[u]=max(dis[u],dis[v]+edge[i].w);
-		}
-	}//树形dp ,求出环上子树的最长链
-}
-
-inline void solve() {
-	dfs(1);
-	for(int i=1; i&lt;=huan_cnt; ++i)
-		DP(huan[i],0);
-	//先dpqwq
-//	for(int i=1; i&lt;=huan_cnt; ++i)printf(&quot;%d??\n&quot;,huan[i]);
-	ll sum=0,maxx=0;
-	for(int i=1; i&lt;=huan_cnt; ++i) {
-		sum+=huan_zhi[i-1];//sum是前缀环权和
-		A[i]=max(A[i-1],dis[huan[i]]+sum);//A[i]是从环上1号点-&gt;i最长的qwq
-		B[i]=max(B[i-1],sum+maxx+dis[huan[i]]);//B[i]是从之前的某点出发到i的最大 (不绕环
-		maxx=max(maxx,dis[huan[i]]-sum);
-	}
-	sum=maxx=0;
-	int tmp=huan_zhi[huan_cnt];
-	huan_zhi[huan_cnt]=0;
-
-	for(int i=huan_cnt; i&gt;=1; --i) {
-		sum+=huan_zhi[i];
-		C[i]=max(C[i+1],dis[huan[i]]+sum);
-		//前驱从1-&gt;sth最大的
-		D[i]=max(D[i+1],sum+maxx+dis[huan[i]]);
-		maxx=max(maxx,dis[huan[i]]-sum);
-		//这里从后到前再考虑后缀,从i到后面
-	}
-	ll tep;
-	ans1=B[huan_cnt];
-	for(int i=1; i&lt;huan_cnt; ++i) {
-		tep=max(B[i],D[i+1]);//要么只考虑i左端点
-
-		tep=max(tep,A[i]+C[i+1]+tmp);//要么从i到前一段+从i到后一段绕过整个环
-		ans1=min(ans1,tep);
-	}
-	ans=max(ans,ans1);
-	if(ans&amp;1)printf(&quot;%lld.5\n&quot;,ans&gt;&gt;1);
-	else printf(&quot;%lld.0\n&quot;,ans&gt;&gt;1);
-}
-
-int main() {
-	input();
-	solve();
 	return 0;
 }
 
