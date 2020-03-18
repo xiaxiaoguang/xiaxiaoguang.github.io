@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://xiaxiaoguang.github.io</id>
     <title>夏晓光(loveJY)的博客</title>
-    <updated>2020-03-17T15:03:47.246Z</updated>
+    <updated>2020-03-18T02:08:02.047Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://xiaxiaoguang.github.io"/>
     <link rel="self" href="https://xiaxiaoguang.github.io/atom.xml"/>
@@ -10,6 +10,160 @@
     <logo>https://xiaxiaoguang.github.io/images/avatar.png</logo>
     <icon>https://xiaxiaoguang.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 夏晓光(loveJY)的博客</rights>
+    <entry>
+        <title type="html"><![CDATA[P1117 [NOI2016]优秀的拆分 ]]></title>
+        <id>https://xiaxiaoguang.github.io/post/p1117-noi2016you-xiu-de-chai-fen/</id>
+        <link href="https://xiaxiaoguang.github.io/post/p1117-noi2016you-xiu-de-chai-fen/">
+        </link>
+        <updated>2020-03-17T23:58:15.000Z</updated>
+        <content type="html"><![CDATA[<p>NOI2016D1T1</p>
+<p>之前提到咕了,所以来补上</p>
+<p>先考虑喜闻乐见的95pts算法</p>
+<p>我们可以枚举一个中间点,计算一下他向前能形成的AA总串数,向后能形成的BB串的总串数</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi><mi>n</mi><mi>s</mi><mo>=</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mrow><mi>a</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>∗</mo><mi>b</mi><mo>[</mo><mi>i</mi><mo>]</mo></mrow></mrow><annotation encoding="application/x-tex">ans=\sum_{i=1}^n{a[i]*b[i]}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">a</span><span class="mord mathdefault">n</span><span class="mord mathdefault">s</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.929066em;vertical-align:-1.277669em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.6513970000000002em;"><span style="top:-1.872331em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.050005em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.3000050000000005em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.277669em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault">b</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span></span></span></span></span></span></p>
+<p>这个<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>n</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">n^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></p>
+<p>然后再考虑5pts做法(</p>
+<p>我们考虑枚举一个len,然后计算每个点是否是一个长度为2len的AA串的开头</p>
+<p>那我们每个len放一个tag,这样每个2*len的串都至少经过2个tag</p>
+<p>我们想,好像要快一点就只能求个LCS或LCP快一点了......</p>
+<p>那么我们对相邻两个tag求个前缀的LCS,而后缀求一个LCP,得到下图</p>
+<p>蓝是LCS,绿是LCP</p>
+<figure data-type="image" tabindex="1"><img src="https://i.loli.net/2018/12/08/5c0b394224f12.png" alt="qwq" loading="lazy"></figure>
+<p>此时一定没有一个长度为2*len的AA串经过,因为这最大相等两段根本不连续,其中长度为A的一段和下一段一定有一个位置不同</p>
+<p>再考虑如果这个长度足够长呢?</p>
+<figure data-type="image" tabindex="2"><img src="https://i.loli.net/2018/12/08/5c0b3c8bcaa8c.png" alt="qwq" loading="lazy"></figure>
+<p>那么粉色开头到红色结尾一段都可以作为起始点,而绿色一段中都可以作为结尾点</p>
+<p>这个就是一个差分的标记了,最后统计答案就行了</p>
+<p>code:</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+#include&lt;map&gt;
+#define ll long long
+using namespace std;
+const int MAXN=6e4+3;
+int n;
+string s;
+int res1[MAXN],res2[MAXN];
+
+struct SAM {
+	int c[MAXN],sa[MAXN],fa[MAXN],len[MAXN],tag[MAXN];
+	int f[MAXN],son[MAXN],top[MAXN],siz[MAXN],dep[MAXN];
+	int cnt,lst;
+	map&lt;char,int&gt; ch[MAXN];
+	struct edge {
+		int to,nxt;
+	} e[MAXN&lt;&lt;1];
+	struct Gr {
+		int ccnt,home[MAXN];
+		struct edge {
+			int to,nxt;
+		} e[MAXN&lt;&lt;1];
+		inline void add(int u,int v) {
+			e[++ccnt]= {v,home[u]},home[u]=ccnt;
+			e[++ccnt]= {u,home[v]},home[v]=ccnt;
+		};
+	} G;
+	inline void ins(char c,int id) {
+		int p=lst;
+		int np=++cnt;
+		//	printf(&quot;%d?%d\n&quot;,p,np);
+		lst=np,tag[id]=np,len[np]=len[p]+1;
+		for(; p&amp;&amp;!ch[p][c]; p=fa[p])ch[p][c]=np;
+		if(!p)fa[np]=1;
+		else {
+			int q=ch[p][c];
+			if(len[q]==len[p]+1)fa[np]=q;
+			else {
+				int nq=++cnt;
+				len[nq]=len[p]+1,ch[nq]=ch[q];
+				fa[nq]=fa[q],fa[q]=fa[np]=nq;
+				for(; p&amp;&amp;ch[p][c]==q; p=fa[p]) ch[p][c]=nq;
+			}
+		}
+	}
+	void dfs(int u,int fa) {
+		siz[u]=1;
+		//printf(&quot;%d?%d\n&quot;,u,fa);
+		for(int i=G.home[u]; i; i=G.e[i].nxt) {
+			int v=G.e[i].to;
+			if(v!=fa) {
+				dep[v]=dep[u]+1;
+				f[v]=u;
+				dfs(v,u);
+				siz[u]+=siz[v];
+				son[u]=siz[v]&gt;siz[son[u]]?v:son[u];
+			}
+		}
+	}
+	void dfs(int u) {
+		if(!top[u])top[u]=u;
+		if(son[u])top[son[u]]=top[u],dfs(son[u]);
+		for(int i=G.home[u]; i; i=G.e[i].nxt) {
+			int v=G.e[i].to;
+			if(v^f[u]&amp;&amp;v^son[u])dfs(v);
+		}
+	}
+	inline void init() {
+		for(int i=1; i&lt;=cnt; ++i)f[i]=fa[i],G.add(f[i],i);//fail
+		dfs(1,0),dfs(1);
+	}
+	inline int query(int u,int v) {
+		u=tag[u],v=tag[v];
+		for(; top[u]^top[v]; u=f[top[u]]) {
+			if(dep[top[u]]&lt;dep[top[v]])swap(u,v);
+		}
+		return len[dep[u]&lt;dep[v]?u:v];
+	}
+} samp,saml,zero;
+
+inline int Min(int a,int b) {
+	return a&lt;b?a:b;
+}
+
+int main() {
+	//freopen(&quot;test.in&quot;,&quot;r&quot;,stdin);
+	//ios::sync_with_stdio(false);
+//	puts(&quot;qwq&quot;);
+	int T;
+	cin&gt;&gt;T;
+//	cout&lt;&lt;T&lt;&lt;'\n';
+	zero.cnt=zero.lst=1;
+	while(T--&gt;0) {
+		s.clear(),cin&gt;&gt;s,n=s.length();
+		memset(res1,0,n+3&lt;&lt;3);
+		memset(res2,0,n+3&lt;&lt;3);
+		samp=zero,saml=zero;
+		//puts(&quot;233&quot;);
+		for(int i=0; i&lt;=n-1; ++i)samp.ins(s[i],i+1);
+		//	puts(&quot;233&quot;);
+		for(int i=n-1; i&gt;=0; --i)saml.ins(s[i],i+1);//建反串
+		samp.init(),saml.init();
+		for(int len=1; len&lt;=(n&gt;&gt;1); ++len) {
+			for(int i=len; i+len-1&lt;=n; i+=len) {
+				int j=i+len,hm=0,qm=0;
+				if(j&lt;=n)hm=Min(saml.query(i,j),len);
+				if(i&gt;1)qm=Min(samp.query(i-1,j-1),len-1);
+				if(qm+hm&lt;len)continue;
+				--res1[j+hm],++res1[j+hm-1-(qm+hm-len)];
+				++res2[i-qm],--res2[i-qm+1+(qm+hm-len)];
+                //对于结尾和开头分别差分
+			}
+		}
+		for(int i=1; i&lt;=n; ++i)res1[i]+=res1[i-1],res2[i]+=res2[i-1];
+        //求前缀和
+		ll ans=0;
+		for(int i=2; i&lt;=n; ++i)ans+=1ll*res1[i-1]*res2[i];
+		printf(&quot;%lld \n&quot;,ans);
+	}
+	return 0;
+}
+
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[P1721 [NOI2016]国王饮水记]]></title>
         <id>https://xiaxiaoguang.github.io/post/p1721-noi2016guo-wang-yin-shui-ji/</id>
@@ -1053,183 +1207,6 @@ int main() {
 		a1=a,b1=b;
 	}
 	printf(&quot;%d\n&quot;,a1);
-	return 0;
-}
-
-
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[P5324 [BJOI2019]删数]]></title>
-        <id>https://xiaxiaoguang.github.io/post/p5324-bjoi2019shan-shu/</id>
-        <link href="https://xiaxiaoguang.github.io/post/p5324-bjoi2019shan-shu/">
-        </link>
-        <updated>2020-03-15T10:44:43.000Z</updated>
-        <content type="html"><![CDATA[<p>听取大佬意见做BJOI2019</p>
-<p>对于任意一个数列，如果能在有限次进行下列删数操作后将其删为空数列，则称这个数列可以删空。一次删数操作定义如下：</p>
-<pre><code>记当前数列长度为$k$ ，则删掉数列中所有等于$k$的数。
-</code></pre>
-<p>现有一个长度为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span>的数列<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi></mrow><annotation encoding="application/x-tex">a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">a</span></span></span></span>，有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">m</span></span></span></span>次修改操作，第<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span>次修改后你要回答：<br>
-经过<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span>次修改后的数列<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi></mrow><annotation encoding="application/x-tex">a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">a</span></span></span></span>，至少还需要修改几个数才可删空？</p>
-<p>每次修改操作为单点修改或数列整体加一或数列整体减一。</p>
-<p>数据结构里的思维题233</p>
-<p>首先我们考虑一次询问<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mi>n</mi><mn>2</mn></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>因为这样是有3个点的</p>
-<p>考虑dp,<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><mi>p</mi><mo>[</mo><mi>i</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">dp[i]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">p</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span></span></span></span>表示满足长度为i的合法序列用的操作数是多少,一个序列是合法的当且仅当他能通过题目中的删除操作删光</p>
-<p>那么</p>
-<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><mi>p</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>=</mo><mi>m</mi><mi>i</mi><msub><mi>n</mi><mrow><mi>j</mi><mo>&lt;</mo><mi>i</mi></mrow></msub><mo>(</mo><mi>f</mi><mo>[</mo><mi>j</mi><mo>]</mo><mo>+</mo><mi>m</mi><mi>a</mi><mi>x</mi><mo>(</mo><mn>0</mn><mo separator="true">,</mo><mo>(</mo><mi>i</mi><mo>−</mo><mi>j</mi><mo>)</mo><mo>−</mo><mi>n</mi><mi>u</mi><mi>m</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>)</mo></mrow><annotation encoding="application/x-tex">dp[i]=min_{j&lt;i}(f[j]+max(0,(i-j)-num[i])
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">p</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.036108em;vertical-align:-0.286108em;"></span><span class="mord mathdefault">m</span><span class="mord mathdefault">i</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span><span class="mrel mtight">&lt;</span><span class="mord mathdefault mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault">x</span><span class="mopen">(</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mopen">(</span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">n</span><span class="mord mathdefault">u</span><span class="mord mathdefault">m</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span><span class="mclose">)</span></span></span></span></span></p>
-<p>这个式子相当于如果i-j=k,k&lt;num[i],我们就需要一些操作来填满这段区间</p>
-<p>为什么他是对的呢?引出贪心<s>猜结论</s></p>
-<p>一个序列可以k次操作变得合法,当且仅当每个数在其值域上向左推倒后(即覆盖[i-num[i]+1,i])值域还剩下k个空余位置</p>
-<p>证明:如果存在k个空白位置,那么一定存在k个重复覆盖的位置,把那些位置上的数修改到空白就可以了</p>
-<p>所以根据这个贪心不难发现可以优化dp</p>
-<h2 id="数据结构">数据结构!</h2>
-<p>用一颗在值域上的线段树,维护区间最小值,最小值出现次数,0的次数,加法标记</p>
-<p>每次单点修改就对应某种数的推到所能覆盖大小的变化,询问就是0个数,整体移动就是线段树值域上&quot;0&quot;位置的移动,同时要把边界减去或者加上</p>
-<p>具体看代码</p>
-<p>code:</p>
-<pre><code class="language-cpp">#include&lt;iostream&gt;
-#include&lt;cstdio&gt;
-#include&lt;cstring&gt;
-using namespace std;
-#define ll long long
-const int MAXN=4e5+5e4+7;
-namespace fastIO {
-#define BUF_SIZE (1&lt;&lt;19)
-	static char buf[BUF_SIZE],*p1=BUF_SIZE+buf,*pend=BUF_SIZE+buf;
-	inline char nc() {
-		if(p1==pend) {
-			p1=buf;
-			pend=buf+fread(buf,1,BUF_SIZE,stdin);
-		}
-		return *p1++;
-	}
-	inline int read() {
-		int x=0,f=1;
-		register char s=nc();
-		for(; !isdigit(s); s=nc())if(s=='-')f=-1;
-		for(; isdigit(s); s=nc())x=(x&lt;&lt;1)+(x&lt;&lt;3)+s-'0';
-		return x*f;
-	}
-}
-using namespace fastIO;
-int k,n,m;
-#define mid ((x+y)&gt;&gt;1)
-#define ls (k&lt;&lt;1)
-#define rs (k&lt;&lt;1|1)
-
-struct Node {
-	int mi,cnt,ans,ad;
-} t[MAXN*15];
-int a[MAXN],buc[MAXN];
-int st,lim;
-void pushup(int k) {
-	t[k].mi=min(t[ls].mi,t[rs].mi);
-	//min
-	t[k].cnt=(t[ls].mi==t[k].mi?t[ls].cnt:0)+(t[rs].mi==t[k].mi?t[rs].cnt:0);
-	//cnt是最小值出现次数
-	t[k].ans=t[ls].ans+t[rs].ans;
-	//ans是0的sum
-	//向上合并
-}
-void tag(int x,int c) {
-	t[x].mi+=c;
-	//最小值区间加
-	t[x].ans=(t[x].mi==0)?t[x].cnt:0;
-	//如果有0,就统计一下答案,维护0的次数吗
-	t[x].ad+=c;
-	// ad是加法标记
-}
-
-void pushdown(int k) {
-	if(t[k].ad) {
-		tag(ls,t[k].ad);
-		tag(rs,t[k].ad);
-		t[k].ad=0;
-	}
-}
-
-void built(int k,int x,int y) {
-	if(x==y) {
-		t[k].cnt=1;
-		t[k].ans=1;//一开始都是0
-		return ;
-	}
-	built(ls,x,mid);
-	built(rs,mid+1,y);
-	pushup(k);
-}
-
-void update(int k,int x,int y,int l,int r,int c) {
-	if(x&gt;=l&amp;&amp;y&lt;=r) {
-		tag(k,c);
-		return ;
-	}
-	pushdown(k);
-	if(l&lt;=mid)update(ls,x,mid,l,r,c);
-	if(mid&lt;r)update(rs,mid+1,y,l,r,c);
-	pushup(k);
-}
-
-inline int query(int k,int x,int y,int l,int r) {
-	if(x&gt;=l&amp;&amp;y&lt;=r) {
-		return t[k].ans;
-	}
-	pushdown(k);
-	if(r&lt;=mid)return query(ls,x,mid,l,r);
-	if(mid&lt;l)return query(rs,mid+1,y,l,r);
-	return query(ls,x,mid,l,r)+query(rs,mid+1,y,l,r);
-}
-
-void chan(int x,int c) {
-	int k=x-buc[x]+1-(c&gt;0);//算出推倒后区间左端点 
-	update(1,1,lim,k,k,c);//扩展一下 
-	buc[x]+=c;//加上这数量
-}
-
-int main() {
-	//freopen(&quot;test.in&quot;,&quot;r&quot;,stdin);
-	n=read();
-	m=read();
-	st=1e5+5e4+2,lim=450000+7;
-	built(1,1,lim);
-	for(register int i=1; i&lt;=n; ++i) {
-		a[i]=read();
-		a[i]+=st;//平移
-		chan(a[i],1);
-		//	printf(&quot;%d?\n&quot;,a[i]);
-	}
-	int p,x;
-	while(m--) {
-		p=read();
-		x=read();
-		if(p&gt;0) {
-			if(a[p]&lt;=st+n) {//单点修
-				chan(a[p],-1);
-			} else {//判断&lt;=st+n?st是basic
-				--buc[a[p]];
-				//能用的货又少一个/kk
-			}
-			a[p]=st+x;
-			if(a[p]&lt;=st+n) {
-				chan(a[p],1);
-			} else {
-				++buc[a[p]];//又多一个w
-			}
-		} else if(x&gt;0) {
-			int pos=st+n;
-			//直接移动基准
-			if(buc[pos])update(1,1,lim,pos-buc[pos]+1,pos,-1);
-			//如果在哪个位置有数,那么他们都累赘了,清了吧
-			--st;
-		} else {
-			++st;
-			int pos=st+n;
-			if(buc[pos])update(1,1,lim,pos-buc[pos]+1,pos,1);//他们生效了
-		}
-		printf(&quot;%d\n&quot;,query(1,1,lim,st+1,st+n));//所有0就是自闭
-	}
 	return 0;
 }
 
