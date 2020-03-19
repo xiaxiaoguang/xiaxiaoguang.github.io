@@ -1,0 +1,394 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>P3825 [NOI2017]游戏 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1584590204923">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="P3825 [NOI2017]游戏 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="NOI2017D2T1
+早就压在我的任务清单里了...
+另外打算开完十年(左右)NOI系列的坑就去开集训队作业和Ynoi吧
+为什么呢?因为PKWUC2020数据结构大赛,做过Ynoi和没做过的肯定不一样
+小 L 计划进行nnn场游戏，每场游..." />
+    <meta name="keywords" content="图论,2-SAT,枚举,暴力,NOI系列" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1584590204923" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              P3825 [NOI2017]游戏
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-03-19
+              </span>
+              <span>
+                8 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/vkAXDJ4vz/" class="post-tag">
+                  # 图论
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/WCerfDS3an/" class="post-tag">
+                  # 2-SAT
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/m9bDuVPLs0/" class="post-tag">
+                  # 枚举
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/hHHqIfSi2F/" class="post-tag">
+                  # 暴力
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/B3bL-fv2n/" class="post-tag">
+                  # NOI系列
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="https://img.ivsky.com/img/tupian/pre/201910/07/huanghun_wanxia.jpg" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>NOI2017D2T1</p>
+<p>早就压在我的任务清单里了...</p>
+<p>另外打算开完十年(左右)NOI系列的坑就去开集训队作业和Ynoi吧</p>
+<p>为什么呢?因为PKWUC2020数据结构大赛,做过Ynoi和没做过的肯定不一样</p>
+<p>小 L 计划进行<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span>场游戏，每场游戏使用一张地图，小 L 会选择一辆车在该地图上完成游戏。</p>
+<p>小 L 的赛车有三辆，分别用大写字母A、B、C表示。地图一共有四种，分别用小写字母x、a、b、c表示。其中，赛车A不适合在地图a上使用，赛车B不适合在地图b上使用，赛车C不适合在地图c上使用，而地图x则适合所有赛车参加。适合所有赛车参加的地图并不多见，最多只会有d张。</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span>场游戏的地图可以用一个小写字母组成的字符串描述。例如：S=xaabxcbc表示小 L 计划进行<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>8</mn></mrow><annotation encoding="application/x-tex">8</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">8</span></span></span></span>场游戏，其中第<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>场和第<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>5</mn></mrow><annotation encoding="application/x-tex">5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">5</span></span></span></span>场的地图类型是x，适合所有赛车，第<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn></mrow><annotation encoding="application/x-tex">2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span>场和第<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>3</mn></mrow><annotation encoding="application/x-tex">3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span></span></span></span>场的地图是a，不适合赛车A，第<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>4</mn></mrow><annotation encoding="application/x-tex">4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">4</span></span></span></span>场和第<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>7</mn></mrow><annotation encoding="application/x-tex">7</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">7</span></span></span></span>场的地图是b，不适合赛车B，第<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>6</mn></mrow><annotation encoding="application/x-tex">6</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">6</span></span></span></span>场和第<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>8</mn></mrow><annotation encoding="application/x-tex">8</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">8</span></span></span></span>场的地图是c，不适合赛车C。</p>
+<p>小 L 对游戏有一些特殊的要求，这些要求可以用四元组 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>i</mi><mo separator="true">,</mo><msub><mi>h</mi><mi>i</mi></msub><mo separator="true">,</mo><mi>j</mi><mo separator="true">,</mo><msub><mi>h</mi><mi>j</mi></msub><mo>)</mo></mrow><annotation encoding="application/x-tex">(i, h_i, j, h_j)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.036108em;vertical-align:-0.286108em;"></span><span class="mopen">(</span><span class="mord mathdefault">i</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">h</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">h</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>来描述，表示若在第<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span>场使用型号为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>h</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">h_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">h</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>​的车子，则第<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>j</mi></mrow><annotation encoding="application/x-tex">j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span></span></span></span>场游戏要使用型号为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>h</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">h_j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault">h</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>的车子。</p>
+<p>你能帮小 L 选择每场游戏使用的赛车吗？如果有多种方案，输出任意一种方案。如果无解，输出<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">−</span><span class="mord">1</span></span></span></span>（不含双引号）。</p>
+<p>首先其实不难发现这是一个2-SAT题,因为他要求构造方案,而且有一些<code>很像</code>2-SAT的限制条件,另外赛车只有三种,一个地图限制了1种,所以只有两种可用的赛车这样子</p>
+<p>所以我们想去掉x地图是不是就是个2-SAT裸题了啊,怎么解决x的限制呢,3-SAT好像是没有确定性多项式算法的.....而n又这么大</p>
+<p>看一眼x的数量,<code>小于等于8</code>.....这个不是明摆着让你枚举吗?????</p>
+<p>好吧,我承认,难度在于写代码,所以仔细看看代码,里面有很不错的trick,比如利用tran函数找到相关的点</p>
+<p>code:</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+
+namespace fastIO {
+#define BUF_SIZE (1&lt;&lt;19)
+	static char buf[BUF_SIZE],*p1=buf+BUF_SIZE,*pend=buf+BUF_SIZE;
+
+	inline char nc() {
+		if(p1==pend) {
+			p1=buf;
+			pend=buf+fread(buf,1,BUF_SIZE,stdin);
+		}
+		return *p1++;
+	}
+
+	inline int read() {
+		int x=0,f=1;
+		char s=nc();
+		for(; !isdigit(s); s=nc())if(s=='-')f=-1;
+		for(; isdigit(s); s=nc())x=(x&lt;&lt;1)+(x&lt;&lt;3)+s-'0';
+		//	printf(&quot;%d??\n&quot;,x);
+		return x*f;
+	}
+	inline char get() {
+		char c=nc();
+		for(; !isalpha(c); c=nc());
+		return c;
+	}
+	inline void _gets(char *s) {
+		int tot=1;
+		s[tot]=nc();
+		for(; !isalpha(s[tot]); s[tot]=nc());
+		for(; isalpha(s[tot]); s[tot]=nc())++tot;
+		return ;
+	}
+}
+using namespace fastIO;
+const int MAXN=2e5+7;
+int n,d,m,a1[MAXN],b1[MAXN],ccnt,nxt[MAXN],home[MAXN],to[MAXN],dfn[MAXN],low[MAXN],
+    times,num,bel[MAXN],top,stk[MAXN],cyx[MAXN];
+char s[MAXN],a2[MAXN],b2[MAXN],orz[MAXN];
+bool ins[MAXN],flag;
+
+inline void add(int u,int v) {
+	nxt[++ccnt]=home[u];
+	home[u]=ccnt;
+	to[ccnt]=v;
+}
+
+inline int neg(int x) {
+	return x&gt;n?x-n:x+n;
+}
+
+inline int tran(int x,char c) {
+	if(s[x]=='a')return c=='B'?x:x+n;
+	if(s[x]=='b'||s[x]=='c')return c=='A'?x:x+n;
+	if(c=='C')return x+n;
+
+	//说实话,这个tran就是
+	//如果搬掉A,那么就用B为真,C为假
+	//搬掉b,同理A真C假
+	//啥都没搬,硬点x搬掉A或者B
+	//为C一定false,否则可能为A或者B
+	return x;
+}
+
+inline void tarjan(int u) {
+	dfn[u]=low[u]=++times;
+	ins[stk[++top]=u]=1;
+	for(int i=home[u]; i; i=nxt[i]) {
+		int v=to[i];
+		if(!dfn[v]) {
+			tarjan(v);
+			low[u]=min(low[u],low[v]);
+		} else if(ins[v]) {
+			low[u]=min(low[u],dfn[v]);
+		}
+	}
+	if(dfn[u]==low[u]) {
+		int v;
+		bel[u]=++num;
+		ins[u]=0;
+		while (v = stk[top--], v != u) bel[v] = num, ins[v] = 0;
+	}
+}
+
+bool solve() {
+	int i;
+	ccnt=times=num=0;
+	for(int i=1; i&lt;=(n&lt;&lt;1); ++i)bel[i]=home[i]=dfn[i]=0;
+	for(int i=1; i&lt;=m; ++i) if(s[a1[i]]!='x'&amp;&amp;s[b1[i]]!='x') {
+			if(a2[i]==s[a1[i]]-32)continue;//厉害的是,这场比赛根本不让用
+			int u=tran(a1[i],a2[i]),v;
+			if(b2[i]==s[b1[i]]-32) {
+				add(u,neg(u));//厉害的是,另一边的比赛根本不让用
+				//所以你也不让用
+				continue;
+			}
+			v=tran(b1[i],b2[i]);
+			add(u,v);
+			add(neg(v),neg(u));
+			//相当于如果这场比赛a1你用a2,可推出b1用b2
+			//否则b1不用b2,可推出a1不用a2
+		} else {
+			char o=s[a1[i]],p=s[b1[i]];
+			int u,v,x=cyx[a1[i]],y=cyx[b1[i]];
+			if(o=='x'&amp;&amp;p=='x') {
+				if(a2[i]==orz[x])continue;//orzx是不能用的之前dfs的
+				u=tran(a1[i],a2[i]),v;
+				if(b2[i]==orz[y]) {
+					add(u,neg(u));
+					continue;
+				}
+				v=tran(b1[i],b2[i]);
+				add(u,v);
+				add(neg(v),neg(u));
+			} else if(o=='x'&amp;&amp;p!='x') {
+				if(a2[i]==orz[x])continue;
+				u=tran(a1[i],a2[i]),v;
+				if(b2[i]==s[b1[i]]-32) {
+					add(u,neg(u));
+					continue;
+				}
+				v=tran(b1[i],b2[i]);
+				add(u,v);
+				add(neg(v),neg(u));
+			} else {
+				if(a2[i]==s[a1[i]]-32)continue;
+				u=tran(a1[i],a2[i]),v;
+				if(b2[i]==orz[y]) {
+					add(u,neg(u));
+					continue;
+				}
+				v=tran(b1[i],b2[i]);
+				add(u,v);
+				add(neg(v),neg(u));
+			}
+		}
+	for(int i=1; i&lt;=(n&lt;&lt;1); ++i)if(!dfn[i])tarjan(i);
+	for(int i=1; i&lt;=n; ++i)if(bel[i]==bel[i+n])return 0;//判合法?
+	for(int i=1; i&lt;=n; ++i) {
+		if(bel[i]&lt;bel[i+n]) {
+			if(s[i]=='a')putchar('B');
+			else if(s[i]=='b'||s[i]=='C')putchar('A');
+			else if(orz[cyx[i]]=='A')putchar('B');
+			else putchar('A');
+		} else {
+			if(s[i]=='a'||s[i]=='b')putchar('C');
+			else if(s[i]=='c')putchar('B');
+			else if(orz[cyx[i]]=='A')putchar('C');
+			else putchar('B');
+		}
+	}
+	return 1;
+}
+
+void dfs(int dep) {
+	if(dep&gt;d) {
+		if(!flag)flag=solve();
+		if(flag)exit(0);
+		return;
+	}
+	orz[dep]='A';
+	dfs(dep+1);
+	orz[dep]='B';
+	dfs(dep+1);
+	//原来这只是个dfs
+}
+
+int main() {
+//	freopen(&quot;test.in&quot;,&quot;r&quot;,stdin);
+//	scanf(&quot;%d&quot;,&amp;n);
+	n=read();
+	int ___;
+	___=read();
+	_gets(s);
+	m=read();
+	register int i;
+	for(i=1; i&lt;=n; ++i)if(s[i]=='x')cyx[i]=++d;
+	for(i=1; i&lt;=m; ++i)a1[i]=read(),a2[i]=get(),b1[i]=read(),b2[i]=get();//printf(&quot;%c %c\n&quot;,a2[i],b2[i]);
+	dfs(1);
+	if(!flag)puts(&quot;-1&quot;);
+	return 0;
+}
+
+
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/p1117-noi2016you-xiu-de-chai-fen/">
+              <h3 class="post-title">
+                P1117 [NOI2016]优秀的拆分 
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
