@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://xiaxiaoguang.github.io</id>
     <title>夏晓光(loveJY)的博客</title>
-    <updated>2020-03-19T23:48:38.304Z</updated>
+    <updated>2020-03-20T13:49:29.167Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://xiaxiaoguang.github.io"/>
     <link rel="self" href="https://xiaxiaoguang.github.io/atom.xml"/>
@@ -10,6 +10,72 @@
     <logo>https://xiaxiaoguang.github.io/images/avatar.png</logo>
     <icon>https://xiaxiaoguang.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 夏晓光(loveJY)的博客</rights>
+    <entry>
+        <title type="html"><![CDATA[P3826 [NOI2017]蔬菜]]></title>
+        <id>https://xiaxiaoguang.github.io/post/p3826-noi2017shu-cai/</id>
+        <link href="https://xiaxiaoguang.github.io/post/p3826-noi2017shu-cai/">
+        </link>
+        <updated>2020-03-20T10:41:47.000Z</updated>
+        <content type="html"><![CDATA[<p>NOI2017D2T2</p>
+<p>说实话,D2T2就这种程度吗?甚至不能称为黑题吧233</p>
+<p>开题不难发现我们再每天要准确做出一个决策才行,要不然这个数据范围根本动态规划不了的</p>
+<p><code>按照某种规律直接决策</code>不就是贪心吗?</p>
+<p>而且这个也很像之前做的CF集训队作业题那个题就是每天竹子会上涨,可以通过时光倒流变成竹子要下跌,为题就完全变样子了</p>
+<p>所以这个题也可以用时光倒流的做法,变成倒着运菜进来,那么显然我们每次选择最优的就行了,难度在于模拟啊</p>
+<p>这里提供一种不一样的做法:我们把时光倒流的本质思考出来,单独分析每个菜</p>
+<ol>
+<li>每个菜都是在他<code>最贵的</code>时候被选择卖,也就是对应<code>每次选最优的</code></li>
+<li>每个菜都是在他<code>快要腐烂</code>的时候被卖,也就是对应<code>倒着运菜</code></li>
+</ol>
+<p>有了这两个性质,我们只需要得到一个卖菜序列,然后在卖菜序列上通过并查集操作就行了</p>
+<p>具体看code:</p>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+using namespace std;
+#define mkp(x,y) (make_pair(x,y))
+#define ll long long
+const int MAXN=1e6+7,mx=1e5+7;
+int n,m,k;
+int a[MAXN],s[MAXN],c[MAXN],x[MAXN];
+int fa[MAXN],num[MAXN];
+ll ans[MAXN];
+priority_queue&lt;pair&lt;int,int&gt; &gt; q;
+inline int getf(int x) {
+	return x==fa[x]?x:fa[x]=getf(fa[x]);
+}
+
+int main() {
+	scanf(&quot;%d%d%d&quot;,&amp;n,&amp;m,&amp;k);
+	for(int i=1; i&lt;=n; ++i) {
+		scanf(&quot;%d%d%d%d&quot;,&amp;a[i],&amp;s[i],&amp;c[i],&amp;x[i]);
+		q.push(mkp(a[i]+s[i],i));
+	}
+	for(int i=1; i&lt;=mx; ++i)fa[i]=i,num[i]=m;
+	int cnt=0,profit,t,day;
+	while(!q.empty()) {
+		profit= q.top().first,t=q.top().second;
+		q.pop();
+		if(!x[t])day=getf(mx);
+		else day=getf(min(mx,(c[t]-1)/x[t]+1));
+        //找到要T的时间
+		if(!day)continue;
+		c[t]--;
+		num[day]--;
+		cnt++;
+        //处理每天能卖的上限
+		if(!num[day])fa[day]=getf(day-1);
+		if(c[t])q.push(mkp(a[t],t));
+		ans[cnt]=ans[cnt-1]+profit;
+        //卖菜序列
+	}
+	int qaq;
+	while(k--)scanf(&quot;%d&quot;,&amp;qaq),printf(&quot;%lld\n&quot;,ans[min(cnt,m*qaq)]);
+	return 0;
+}
+
+
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[P3824 [NOI2017]泳池]]></title>
         <id>https://xiaxiaoguang.github.io/post/p3824-noi2017yong-chi/</id>
@@ -1411,68 +1477,6 @@ int main() {
 		}
 	}
 	puts(&quot;-1 -1&quot;);
-	return 0;
-}
-
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[P3830 [SHOI2012]随机树]]></title>
-        <id>https://xiaxiaoguang.github.io/post/p3830-shoi2012sui-ji-shu/</id>
-        <link href="https://xiaxiaoguang.github.io/post/p3830-shoi2012sui-ji-shu/">
-        </link>
-        <updated>2020-03-16T03:06:52.000Z</updated>
-        <content type="html"><![CDATA[<p>根据zhqwq的刷题记录来的</p>
-<p>首先这是一道期望题,而且是经典树形DP题</p>
-<p>第一问:</p>
-<p>我一开始sb了,<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>[</mo><mi>i</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">f[i]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span></span></span></span>显然表示有i个叶子树的叶子深度期望均值,然后我枚举了左右子树的叶子个数并算出对应概率来转移,这显然是复杂的....</p>
-<p>只需要考虑从i-1个叶子到第i个叶子,显然深度会增加2,平均后深度增加2/i,所以<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>=</mo><mi>f</mi><mo>[</mo><mi>i</mi><mo>−</mo><mn>1</mn><mo>]</mo><mo>+</mo><mn>2</mn><mi mathvariant="normal">/</mi><mi>i</mi></mrow><annotation encoding="application/x-tex">f[i]=f[i-1]+2/i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">2</span><span class="mord">/</span><span class="mord mathdefault">i</span></span></span></span></p>
-<p>第二问:</p>
-<p>不过我之前的想法还是有用处的,例如第二问?</p>
-<p>根据第一问状态不难得到第二问状态是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><mi>p</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>[</mo><mi>j</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">dp[i][j]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">p</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mclose">]</span></span></span></span>表示有i个叶子且树深度恰好为j的期望</p>
-<p>转移时我们要枚举左右儿子的叶子数和深度,<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mi>n</mi><mn>4</mn></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n^4)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">4</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>,真自闭</p>
-<p>所以我们有个经典trick----放松状态的限制!</p>
-<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><mi>p</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>[</mo><mi>j</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">dp[i][j]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">p</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mclose">]</span></span></span></span>表示有i个叶子且树深度大于等于j的期望</p>
-<p>这样转移的时候有一部分很好想出来</p>
-<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><mi>p</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>[</mo><mi>j</mi><mo>]</mo><mo>=</mo><munderover><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>i</mi><mo>−</mo><mn>1</mn></mrow></munderover><mrow><mi>d</mi><mi>p</mi><mo>[</mo><mi>k</mi><mo>]</mo><mo>[</mo><mi>j</mi><mo>−</mo><mn>1</mn><mo>]</mo><mo>+</mo><mi>d</mi><mi>p</mi><mo>[</mo><mi>i</mi><mo>−</mo><mi>k</mi><mo>]</mo><mo>[</mo><mi>j</mi><mo>−</mo><mn>1</mn><mo>]</mo><mo>−</mo><mi>d</mi><mi>p</mi><mo>[</mo><mi>i</mi><mo>−</mo><mi>k</mi><mo>]</mo><mo>[</mo><mi>j</mi><mo>−</mo><mn>1</mn><mo>]</mo><mo>∗</mo><mi>d</mi><mi>p</mi><mo>[</mo><mi>k</mi><mo>]</mo><mo>[</mo><mi>j</mi><mo>−</mo><mn>1</mn><mo>]</mo></mrow></mrow><annotation encoding="application/x-tex">dp[i][j]=\sum_{k=1}^{i-1}{dp[k][j-1]+dp[i-k][j-1]-dp[i-k][j-1]*dp[k][j-1]}
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">p</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:3.1137820000000005em;vertical-align:-1.302113em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.8116690000000002em;"><span style="top:-1.8478869999999998em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.0500049999999996em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.300005em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.302113em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">d</span><span class="mord mathdefault">p</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord">1</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">p</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord">1</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">p</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord">1</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">p</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span></span></span></p>
-<p>看上去很不错,然而是错的 ,因为我们还没有乘上每种情况的概率呢</p>
-<p><s>其实在第二问思考O(n^4)的时候就已经解决这个问题了,不过当时想的是右边只有1个叶子的情况</s></p>
-<p>考虑组合计数</p>
-<p>首先生成一个典开的序列方案数是第一次1个选择,第二次2个选择....<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>k</mi><mo>−</mo><mn>1</mn><mo>)</mo><mo>!</mo></mrow><annotation encoding="application/x-tex">(k-1)!</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mclose">!</span></span></span></span>种不同的方案</p>
-<p>而生成左子树是(k-1)!,右子树就是(i-k-1)!</p>
-<p>而我们又发现左子树右子树组合在一起形成一个01序列,0表示典开在左子树,1表示典开在右子树,这样的序列一共有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mrow><mo fence="true">(</mo><mfrac linethickness="0px"><mrow><mi>i</mi><mo>−</mo><mi>k</mi><mo>−</mo><mn>1</mn><mo>+</mo><mi>k</mi><mo>−</mo><mn>1</mn></mrow><mrow><mi>k</mi><mo>−</mo><mn>1</mn></mrow></mfrac><mo fence="true">)</mo></mrow><mo>=</mo><mfrac><mrow><mo>(</mo><mi>i</mi><mo>−</mo><mn>2</mn><mo>)</mo><mo>!</mo></mrow><mrow><mo>(</mo><mi>i</mi><mo>−</mo><mi>k</mi><mo>−</mo><mn>1</mn><mo>)</mo><mo>!</mo><mo>(</mo><mi>k</mi><mo>−</mo><mn>1</mn><mo>)</mo><mo>!</mo></mrow></mfrac></mrow><annotation encoding="application/x-tex">\binom{i-k-1+k-1}{k-1}=\frac{(i-2)!}{(i-k-1)!(k-1)!}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.3334389999999998em;vertical-align:-0.403331em;"></span><span class="mord"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size1">(</span></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9301079999999999em;"><span style="top:-2.355em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.144em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mbin mtight">−</span><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span><span class="mbin mtight">−</span><span class="mord mtight">1</span><span class="mbin mtight">+</span><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.403331em;"><span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size1">)</span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.53em;vertical-align:-0.52em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.01em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mathdefault mtight">i</span><span class="mbin mtight">−</span><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span><span class="mbin mtight">−</span><span class="mord mtight">1</span><span class="mclose mtight">)</span><span class="mclose mtight">!</span><span class="mopen mtight">(</span><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span><span class="mbin mtight">−</span><span class="mord mtight">1</span><span class="mclose mtight">)</span><span class="mclose mtight">!</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.485em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mathdefault mtight">i</span><span class="mbin mtight">−</span><span class="mord mtight">2</span><span class="mclose mtight">)</span><span class="mclose mtight">!</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.52em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></p>
-<p>发现了什么?我们这三个乘积是左子树k个右子树i-k个的总方案数,而这个东西是一定值</p>
-<p>意味着每种情况的方案数相同</p>
-<p>所以每种情况占比相同,都是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mi mathvariant="normal">/</mi><mo>(</mo><mi>i</mi><mo>−</mo><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">1/(i-1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord">/</span><span class="mopen">(</span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span></p>
-<p>code:</p>
-<pre><code class="language-cpp">#include&lt;iostream&gt;
-#include&lt;cstring&gt;
-#include&lt;cstdio&gt;
-using namespace std;
-int p,n;
-double f[110],dp[110][110],ans;
-
-int main() {
-	scanf(&quot;%d%d&quot;,&amp;p,&amp;n);
-	if(p==1) {
-		f[1]=0;
-		for(int i=2; i&lt;=n; ++i)f[i]=f[i-1]+2.0/i;
-		printf(&quot;%.6f&quot;,f[n]);
-	} else {
-		for(int i=1; i&lt;=n; ++i)dp[i][0]=1;
-		for(int i=2; i&lt;=n; ++i) {
-			for(int j=1; j&lt;i; ++j) {
-				for(int k=1; k&lt;i; ++k) {
-					dp[i][j]+=dp[k][j-1]+dp[i-k][j-1]-dp[k][j-1]*dp[i-k][j-1];
-				}
-				dp[i][j]/=(i-1);
-			}
-		}
-		for(int i=1; i&lt;n; ++i)ans+=dp[n][i];
-		printf(&quot;%.6f&quot;,ans);
-	}
 	return 0;
 }
 
