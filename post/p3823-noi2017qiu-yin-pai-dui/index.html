@@ -1,0 +1,332 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>P3823 [NOI2017]蚯蚓排队 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1584803133537">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="P3823 [NOI2017]蚯蚓排队 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="NOI2017D1T2
+其实就是个复杂(简单的)暴力啊,不需要任何高级技巧
+可能手写hash表算一个?
+1.把两个字符串合并
+2.把两个字符串分裂
+3.询问一个模式串S长度为k的所有子串在所有文本串出现次数之积
+∑∣S∣&lt;=1e7,k..." />
+    <meta name="keywords" content="枚举,暴力,NOI系列,字符串,字符串hash" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1584803133537" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              P3823 [NOI2017]蚯蚓排队
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-03-21
+              </span>
+              <span>
+                5 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/m9bDuVPLs0/" class="post-tag">
+                  # 枚举
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/hHHqIfSi2F/" class="post-tag">
+                  # 暴力
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/B3bL-fv2n/" class="post-tag">
+                  # NOI系列
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/k8ekJE9lH/" class="post-tag">
+                  # 字符串
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/pvSHTbX74u/" class="post-tag">
+                  # 字符串hash
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="https://s1.ax1x.com/2020/03/21/8hykgH.png" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>NOI2017D1T2</p>
+<p>其实就是个复杂(<s>简单的</s>)暴力啊,不需要任何高级技巧</p>
+<p>可能手写hash表算一个?</p>
+<p>1.把两个字符串合并</p>
+<p>2.把两个字符串分裂</p>
+<p>3.询问一个模式串S长度为k的所有子串在所有文本串出现次数之积</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>∑</mo><mrow><mi mathvariant="normal">∣</mi><mi>S</mi><mi mathvariant="normal">∣</mi></mrow><mo>&lt;</mo><mo>=</mo><mn>1</mn><mi>e</mi><mn>7</mn><mo separator="true">,</mo><mi>k</mi><mo>&lt;</mo><mo>=</mo><mn>50</mn></mrow><annotation encoding="application/x-tex">\sum{|S|}&lt;=1e7,k&lt;=50</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.00001em;vertical-align:-0.25001em;"></span><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord">∣</span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord">∣</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord">1</span><span class="mord mathdefault">e</span><span class="mord">7</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">5</span><span class="mord">0</span></span></span></span></p>
+<p>这个题主要的思想其实就是围绕着这个询问来考虑修改</p>
+<p>因为这个k你不觉得很突兀吗?只有50?</p>
+<p>那我们是不是可以把文本串中所有小于等于k的子串压成一个hash值存在hash表中呢?</p>
+<p>这样查询总复杂度就是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>∑</mo><mrow><mi mathvariant="normal">∣</mi><mi>S</mi><mi mathvariant="normal">∣</mi></mrow></mrow><annotation encoding="application/x-tex">\sum{|S|}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.00001em;vertical-align:-0.25001em;"></span><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord">∣</span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord">∣</span></span></span></span></span>的了!</p>
+<p>我们只需要考虑小于等于k的子串压在一起,所以合并就相当于枚举新产生k^2个子串暴力加入hash表,删除就相当于暴力删了...这好像就完了</p>
+<p>具体hash表写法看代码</p>
+<p>code:</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#define ll long long
+//using namespace std;
+#define ULL unsigned long long
+using namespace std;
+namespace fastIO {
+
+	inline int read() {
+		int x=0,f=1;
+		register char s=getchar();
+		for(; !isdigit(s); s=getchar())if(s=='-')f=-1;
+		for(; isdigit(s); s=getchar())x=(x&lt;&lt;1)+(x&lt;&lt;3)+s-'0';
+		return x*f;
+	}
+}
+using namespace fastIO;
+const int MAXN=6e5+7;
+const int MAX_K=52;
+const int P1=1145145;
+const int P=998244353;
+int n,m,q,a[MAXN],pre[MAXN],nxt[MAXN],cnt[MAXN],f[MAX_K*2+10];
+ULL g[MAX_K*2+16],bin[MAX_K*2];
+const int MOD=(1&lt;&lt;24)-1;
+
+struct OPO {
+	struct edge {
+		ULL x;
+		int cnt,nxt;
+	} e[21000000];
+
+	int home[MOD+1],cnt_e;
+
+	void add(ULL x,int d) {
+		int u=(x&amp;MOD);
+		for(int i=home[u]; i; i=e[i].nxt) {
+			if(e[i].x==x) {//把具体hash值比一下,如果这都相同你命没了
+				e[i].cnt+=d;
+				return ;
+			}
+		}
+		e[++cnt_e]=(edge) {
+			x,d,home[u]
+		};
+		home[u]=cnt_e;
+	}
+
+	int query(ULL x) {
+		int u=(x&amp;MOD);
+		for(int i=home[u]; i; i=e[i].nxt) {
+			if(e[i].x==x)return e[i].cnt;
+		}
+		return 0;
+	}
+} _;
+
+void merge() {
+	int x=read(),y=read();
+	memset(f,0,sizeof(f));
+	int L=MAX_K,R=L-1;
+	for(int i=x; i&amp;&amp;L&gt;1; i=pre[i]) {
+		f[--L]=a[i];
+	}
+//左端点
+	for(int i=y; i&amp;&amp;R+1&lt;MAX_K*2; i=nxt[i]) {
+		f[++R]=a[i];
+	}
+//右端点
+	for(int i=1; i&lt;=R; ++i)g[i]=g[i-1]*P1+f[i];
+//这个是处理新长为2*k的序列hash
+	for(int i=L; i&lt;MAX_K; ++i)
+		for(int j=MAX_K; j&lt;=min(R,i+49); ++j) {
+			_.add((g[j]-g[i-1]*bin[j-i+1]),1);
+			//k^2暴力
+		}
+	nxt[x]=y;
+	pre[y]=x;
+}
+
+inline void split() {
+	int x=read(),y=nxt[x];
+	memset(f,0,sizeof(f));
+	int L=MAX_K,R=L-1;
+	for(int i=x; i&amp;&amp;L&gt;1; i=pre[i])
+		f[--L]=a[i];
+	for(int i=y; i&amp;&amp;R+1&lt;MAX_K*2; i=nxt[i])
+		f[++R]=a[i];
+	for(int i=1; i&lt;=R; ++i)g[i]=g[i-1]*P1+f[i];
+	for(int i=L; i&lt;MAX_K; ++i)
+		for(int j=MAX_K; j&lt;=min(R,i+49); ++j) {
+			_.add(g[j]-g[i-1]*bin[j-i+1],-1);//move
+		}
+	nxt[x]=pre[y]=0;//重新成为队尾或队头
+}
+char s[11000000];
+int query() {
+	scanf(&quot;%s&quot;,s+1);
+	int k=read(),n=strlen(s+1);
+	ll ans=1;
+	ULL val=0;
+	if(k==1)for(int i=1; i&lt;=n; ++i)ans=(1ll*ans*cnt[s[i]])%P;
+	else for(int i=1; i&lt;=n; ++i) {
+			val=val*P1+s[i];
+			if(i&gt;k)val-=bin[k]*s[i-k];
+			if(i&gt;=k)ans=1ll*ans*_.query(val)%P;
+		}
+	return ans;
+}
+
+int main() {
+	int n=read(),q=read();
+	bin[0]=1;
+	for(int i=1; i&lt;MAX_K; ++i)bin[i]=bin[i-1]*P1;
+	for(int i=1; i&lt;=n; ++i)cnt[a[i]=read()+'0']++;
+	while(q--) {
+		//	printf(&quot;%d?\n&quot;,q);
+		int opt=read();
+		if(opt==1)merge();
+		else if(opt==2)split();
+		else printf(&quot;%d\n&quot;,query());
+	}
+	return 0;
+}
+
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/p3826-noi2017shu-cai/">
+              <h3 class="post-title">
+                P3826 [NOI2017]蔬菜
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
