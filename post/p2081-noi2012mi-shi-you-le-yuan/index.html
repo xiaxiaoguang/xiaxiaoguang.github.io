@@ -3,7 +3,7 @@
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>P2081 [NOI2012]迷失游乐园 | 夏晓光(loveJY)的博客</title>
-<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1584852441547">
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1584889847455">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
 <link rel="alternate" type="application/atom+xml" title="P2081 [NOI2012]迷失游乐园 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
@@ -16,7 +16,7 @@
 给定一棵带权树/基环树，随机选一点出发走不重复路径，问期望带权路径长度.
 我们还是先考虑树的部分,一个经典状态设计,
 down[i]do..." />
-    <meta name="keywords" content="" />
+    <meta name="keywords" content="概率,期望,基环树,NOI系列,动态规划" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
     <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
   </head>
@@ -25,7 +25,7 @@ down[i]do..." />
       <div class="main-content">
         <div class="site-header">
   <a href="https://xiaxiaoguang.github.io">
-  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1584852441547" alt="">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1584889847455" alt="">
   </a>
   <h1 class="site-title">
     夏晓光(loveJY)的博客
@@ -85,8 +85,28 @@ down[i]do..." />
                 2020-03-22
               </span>
               <span>
-                2 min read
+                7 min read
               </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/tiQQY2AsE/" class="post-tag">
+                  # 概率
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/XzVbJ7xF8I/" class="post-tag">
+                  # 期望
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/fTAwGbVDt/" class="post-tag">
+                  # 基环树
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/B3bL-fv2n/" class="post-tag">
+                  # NOI系列
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/CJ-ugjBAY/" class="post-tag">
+                  # 动态规划
+                </a>
               
             </div>
             
@@ -104,11 +124,195 @@ down[i]do..." />
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mord mathdefault">n</span><span class="mopen">[</span><span class="mord mathdefault">u</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.598815em;vertical-align:-1.2773750000000001em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.32144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">s</span><span class="mord mathdefault">o</span><span class="mord mathdefault">n</span><span class="mopen">[</span><span class="mord mathdefault">u</span><span class="mclose">]</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.936em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.050005em;"><span style="top:-1.8999949999999997em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">v</span><span class="mrel mtight">⊂</span><span class="mord mathdefault mtight">u</span></span></span></span><span style="top:-3.0500049999999996em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.2773750000000001em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">d</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mord mathdefault">n</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.15139200000000003em;"><span style="top:-2.5500000000000003em;margin-left:-0.02691em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">u</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight" style="margin-right:0.03588em;">v</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span></span></span></p>
 <p>就是枚举每个儿子考虑走下去啊,注意概率不是son[u]+1是因为我们硬点了</p>
 <p>再是up,需要down数组辅助才行</p>
-<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow></mrow><annotation encoding="application/x-tex"></annotation></semantics></math></span><span class="katex-html" aria-hidden="true"></span></span></span></p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>u</mi><mi>p</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>=</mo><msub><mi>w</mi><mrow><mi>i</mi><mo separator="true">,</mo><mi>f</mi><mi>a</mi></mrow></msub><mo>+</mo><mfrac><mrow><mi>u</mi><mi>p</mi><mo>[</mo><mi>f</mi><mi>a</mi><mo>]</mo><mo>+</mo><mi>d</mi><mi>o</mi><mi>w</mi><mi>n</mi><mo>[</mo><mi>f</mi><mi>a</mi><mo>]</mo><mo>∗</mo><mi>s</mi><mi>o</mi><mi>n</mi><mo>[</mo><mi>f</mi><mi>a</mi><mo>]</mo><mo>−</mo><mi>d</mi><mi>o</mi><mi>w</mi><mi>n</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>−</mo><msub><mi>w</mi><mrow><mi>i</mi><mo separator="true">,</mo><mi>k</mi></mrow></msub></mrow><mrow><mi>s</mi><mi>o</mi><mi>n</mi><mo>[</mo><mi>f</mi><mi>a</mi><mo>]</mo></mrow></mfrac></mrow><annotation encoding="application/x-tex">up[i]=w_{i,fa}+\frac{up[fa]+down[fa]*son[fa]-down[i]-w_{i,k}}{son[fa]}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">u</span><span class="mord mathdefault">p</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8694379999999999em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.02691em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight" style="margin-right:0.10764em;">f</span><span class="mord mathdefault mtight">a</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:2.363em;vertical-align:-0.936em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.427em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">s</span><span class="mord mathdefault">o</span><span class="mord mathdefault">n</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault">a</span><span class="mclose">]</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">u</span><span class="mord mathdefault">p</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault">a</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mord mathdefault">n</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault">a</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">o</span><span class="mord mathdefault">n</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault">a</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mord mathdefault">n</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.02691em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.936em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<p>这个直接理解就是父亲可以走的边有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mi>o</mi><mi>n</mi><mo>[</mo><mi>f</mi><mi>a</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">son[fa]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">o</span><span class="mord mathdefault">n</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault">a</span><span class="mclose">]</span></span></span></span>条,每条的期望考虑一下就是了</p>
+<p>易知每个点的答案<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi><mi>n</mi><msub><mi>s</mi><mi>i</mi></msub><mo>=</mo><mfrac><mrow><mi>u</mi><mi>p</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>+</mo><mi>d</mi><mi>o</mi><mi>w</mi><mi>n</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>∗</mo><mi>s</mi><mi>o</mi><mi>n</mi><mo>[</mo><mi>i</mi><mo>]</mo></mrow><mrow><mi>s</mi><mi>o</mi><mi>n</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>+</mo><mn>1</mn></mrow></mfrac></mrow><annotation encoding="application/x-tex">Ans_i=\frac{up[i]+down[i]*son[i]}{son[i]+1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord mathdefault">A</span><span class="mord mathdefault">n</span><span class="mord"><span class="mord mathdefault">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.53em;vertical-align:-0.52em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.01em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">s</span><span class="mord mathdefault mtight">o</span><span class="mord mathdefault mtight">n</span><span class="mopen mtight">[</span><span class="mord mathdefault mtight">i</span><span class="mclose mtight">]</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.485em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">u</span><span class="mord mathdefault mtight">p</span><span class="mopen mtight">[</span><span class="mord mathdefault mtight">i</span><span class="mclose mtight">]</span><span class="mbin mtight">+</span><span class="mord mathdefault mtight">d</span><span class="mord mathdefault mtight">o</span><span class="mord mathdefault mtight" style="margin-right:0.02691em;">w</span><span class="mord mathdefault mtight">n</span><span class="mopen mtight">[</span><span class="mord mathdefault mtight">i</span><span class="mclose mtight">]</span><span class="mbin mtight">∗</span><span class="mord mathdefault mtight">s</span><span class="mord mathdefault mtight">o</span><span class="mord mathdefault mtight">n</span><span class="mopen mtight">[</span><span class="mord mathdefault mtight">i</span><span class="mclose mtight">]</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.52em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></p>
+<h3 id="再来考虑基环树吧">再来考虑基环树吧</h3>
+<p>对于一个环上每个点up[i],我们考虑重新列式子</p>
+<p>第一遍,硬点每个点只能第一步顺时针走求出一个概率,第二遍,硬点每个点只能向右走求出一个概率两遍求个均值</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>u</mi><mi>p</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>=</mo><mo>∑</mo><mrow><msub><mi>P</mi><mi>j</mi></msub><mo>∗</mo><mo>(</mo><mfrac><mrow><mi>s</mi><mi>o</mi><mi>n</mi><mo>[</mo><mi>j</mi><mo>]</mo><mo>∗</mo><mi>d</mi><mi>o</mi><mi>w</mi><mi>n</mi><mo>[</mo><mi>j</mi><mo>]</mo></mrow><mrow><mi>s</mi><mi>o</mi><mi>n</mi><mo>[</mo><mi>j</mi><mo>]</mo><mo>+</mo><mn>1</mn></mrow></mfrac><mo>+</mo><msub><mi>w</mi><mrow><mi>i</mi><mo separator="true">,</mo><mi>j</mi></mrow></msub><mo>)</mo></mrow></mrow><annotation encoding="application/x-tex">up[i]=\sum{P_j*(\frac{son[j]*down[j]}{son[j]+1}+w_{i,j})}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">u</span><span class="mord mathdefault">p</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.363em;vertical-align:-0.936em;"></span><span class="mop op-symbol large-op" style="position:relative;top:-0.000004999999999977245em;">∑</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mopen">(</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.427em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">s</span><span class="mord mathdefault">o</span><span class="mord mathdefault">n</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord">1</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">s</span><span class="mord mathdefault">o</span><span class="mord mathdefault">n</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mord mathdefault">n</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mclose">]</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.936em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:-0.02691em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span></span></p>
+<p>注意,i和j在环上是连续的,<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>P</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">P_j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>表示i到环上第j个点的概率</p>
+<p>因为环很小很小所以这个可以环^2呢</p>
+<p>那么这个<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>P</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">P_j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>怎么求?还是环^2就行,在有之前硬点的情况下,我们从i出发dfs到i+1,则<span class='katex-error' title='ParseError: KaTeX parse error: Undefined control sequence: \farc at position 15: P_{i+1}=P_{i}*\̲f̲a̲r̲c̲{1}{(son[i]+2)}'>P_{i+1}=P_{i}*\farc{1}{(son[i]+2)}</span></p>
+<p>这样就可以了,细节实现时候我们可以 把环拎出来建虚环或者用双向链表</p>
+<p>code:</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+using namespace std;
+const int MAXN = 2e5 + 10;
+int home[MAXN], tag[MAXN], circle[MAXN], pre[MAXN], nex[MAXN];
+
+double son[MAXN], fa[MAXN], up[MAXN], down[MAXN];
+
+int n, m, ccnt, tot, flag;
+double dis[25][25], ans;
+bool vis[MAXN];
+struct edge {
+    int to, nxt;
+    double w;
+} e[MAXN &lt;&lt; 1];
+
+inline void ct(int u, int v, double w) {
+    e[++ccnt].to = v;
+    e[ccnt].nxt = home[u];
+    e[ccnt].w = w;
+    home[u] = ccnt;
+}
+
+void find_circle(int u, int F) {
+    vis[u] |= 1;
+    for(register int i = home[u]; i; i = e[i].nxt) {
+        int v = e[i].to;
+        if(v == F)continue;
+        if(vis[v]) {
+            flag = v;
+            return ;
+        }
+        find_circle(v, u);
+        if(flag &gt; 0) {
+            if(flag == u)flag = -1;
+            return ;
+        }
+        if(flag == -1)break;
+    }
+    vis[u] = 0;
+}//如果一个节点在环上则vis=1
+
+void dfs_down(int u, int F) {
+    for(register int i = home[u]; i; i = e[i].nxt) {
+        int v = e[i].to;
+        if(vis[v] || v == F)continue;
+        fa[v] = 1;
+        dfs_down(v, u);
+        son[u]++;
+        down[u] += down[v] + e[i].w;
+    }
+    if(son[u])down[u] /= son[u];
+    // printf(&quot;%d %lf\n&quot;,u,down[u]);
+}
+
+void dfs_up(int u, int F, double w) {
+    up[u] = w;
+    if(fa[F] + son[F] &gt; 1)up[u] += (fa[F] * up[F] + son[F] * down[F] - down[u] - w) / (fa[F] + son[F] - 1);
+    //如果不大于1就说明他已经走到了叶子
+    //命秒没
+    for(register int i = home[u]; i; i = e[i].nxt) {
+        int v = e[i].to;
+        if(v != F)dfs_up(v, u, e[i].w);
+    }
+}
+
+void dfs_circle(int u, int F) {
+    if(tag[u])return ;//可能绕完回来了
+    circle[++tot] = u;
+    tag[u] = tot;
+    //u是环上的第几号点
+    fa[u] = 2;
+    for(register int i = home[u]; i; i = e[i].nxt) {
+        int v = e[i].to;
+        if(!vis[v] || v == F)continue;
+        pre[v] = u;
+        nex[u] = v;
+        //链表
+        dfs_circle(v, u);
+        int nw = tag[u], to = tag[v];
+        dis[nw][to] = dis[to][nw] = e[i].w;
+        break;
+        //走一步就行
+    }
+}
+
+inline void type1() {
+    find_circle(1, 0);
+    //puts(&quot;qwq&quot;);
+    for(register int i = 1; i &lt;= n; ++i) {
+        if(vis[i]) {
+            dfs_circle(i, 0);
+            //把双向链表搞出来
+            break;
+        }
+    }
+    //puts(&quot;qaq&quot;);
+    for(register int i = 1; i &lt;= tot; ++i)dfs_down(circle[i], 0);
+    //qwq
+    for(register int i = 1; i &lt;= tot; ++i) {
+        int u = circle[i];
+        double P1 = 1, P2 = 1;
+        for(register int j = nex[u]; j != u; j = nex[j]) {
+            int w = dis[tag[pre[j]]][tag[j]];
+            if(nex[j] == u)up[u] += P1 * (w + down[j]);
+            else up[u] += P1 * (w + (down[j] * son[j]) / (son[j] + 1));
+            P1 /= (son[j] + 1);
+        }
+        for(register int j = pre[u]; j != u; j = pre[j]) {
+            int w = dis[tag[nex[j]]][tag[j]];
+            if(pre[j] == u)up[u] += P2 * (w + down[j]); //相邻啊
+            else up[u] += P2 * (w + (down[j] * son[j]) / (son[j] + 1));
+            P2 /= (son[j] + 1); //不相邻
+        }
+        up[u] /= 2;//顺着和逆着的概率一样
+    }
+    for(register int j = 1; j &lt;= tot; ++j) {
+        for(register int i = home[circle[j]]; i; i = e[i].nxt) {
+            int v = e[i].to;
+            if(!vis[v]) {
+                dfs_up(v, circle[j], e[i].w);
+            }
+        }
+    }
+}
+
+inline void type2() {
+    dfs_down(1, 0);
+    for(register int i = home[1]; i; i = e[i].nxt) {
+        dfs_up(e[i].to, 1, e[i].w);
+    }
+}
+
+int main() {
+    scanf(&quot;%d%d&quot;, &amp;n, &amp;m);
+    for(register int i = 1, u, v, w; i &lt;= m; ++i) {
+        scanf(&quot;%d%d%d&quot;, &amp;u, &amp;v, &amp;w);
+        ct(u, v, w);
+        ct(v, u, w);
+    }
+    m == n ? type1() : type2();
+    for(register int i = 1; i &lt;= n; ++i) {
+        ans += (up[i] * fa[i] + down[i] * son[i]) / (fa[i] + son[i]);
+        //统计每个点作为起点权值
+    }
+    ans /= n;
+    //乘上概率
+    printf(&quot;%.5lf\n&quot;, ans);
+    return 0;
+}
+/*
+4 4
+1 2 3
+2 3 1
+3 4 4
+4 1 2
+*/
+
+</code></pre>
 
               </div>
               <div class="toc-container">
-                
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#%E5%86%8D%E6%9D%A5%E8%80%83%E8%99%91%E5%9F%BA%E7%8E%AF%E6%A0%91%E5%90%A7">再来考虑基环树吧</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
               </div>
             </div>
           </article>
