@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://xiaxiaoguang.github.io</id>
     <title>夏晓光(loveJY)的博客</title>
-    <updated>2020-03-22T15:14:23.978Z</updated>
+    <updated>2020-03-23T00:59:23.757Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://xiaxiaoguang.github.io"/>
     <link rel="self" href="https://xiaxiaoguang.github.io/atom.xml"/>
@@ -10,6 +10,302 @@
     <logo>https://xiaxiaoguang.github.io/images/avatar.png</logo>
     <icon>https://xiaxiaoguang.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 夏晓光(loveJY)的博客</rights>
+    <entry>
+        <title type="html"><![CDATA[P4689 [Ynoi2016]这是我自己的发明]]></title>
+        <id>https://xiaxiaoguang.github.io/post/p4689-ynoi2016zhe-shi-wo-zi-ji-de-fa-ming/</id>
+        <link href="https://xiaxiaoguang.github.io/post/p4689-ynoi2016zhe-shi-wo-zi-ji-de-fa-ming/">
+        </link>
+        <updated>2020-03-23T00:44:38.000Z</updated>
+        <content type="html"><![CDATA[<p>Ynoi2016不知哪道题</p>
+<p>俗话说得好<code>在你膨胀的时候做一下Ynoi</code>,立刻就能让你感到自己的弱小</p>
+<p>如果这种难度的数据结构也能秒掉那你可以PKUWC2020AK了</p>
+<p>1 x 将树根换为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span>。</p>
+<p>2 x y 给出两个点 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mo separator="true">,</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">x,y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span></span></span></span>，从 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span> 的子树中选每一个点，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span></span></span></span> 的子树中选每一个点，求点权相等的情况数。</p>
+<p>首先我们要有一个第一选择,就是大体上有什么数据结构做这个事情</p>
+<p>你会敏锐的发现好像<code>两两点权相等总方案</code>只适合带根号做法......所以我们要树上莫队</p>
+<p>但是怎么莫队呢??我们先搞出dfs序然后再换根的前提下就是两个区间的查询</p>
+<p>莫队的询问信息不能有四维啊....所以我们先考虑差分一下变成两维</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>(</mo><mi>l</mi><mn>1</mn><mo separator="true">,</mo><mi>r</mi><mn>1</mn><mo separator="true">,</mo><mi>l</mi><mn>2</mn><mo separator="true">,</mo><mi>r</mi><mn>2</mn><mo>)</mo><mo>=</mo><mi>f</mi><mo>(</mo><mn>1</mn><mo separator="true">,</mo><mi>r</mi><mn>1</mn><mo separator="true">,</mo><mn>1</mn><mo separator="true">,</mo><mi>r</mi><mn>2</mn><mo>)</mo><mo>−</mo><mi>f</mi><mo>(</mo><mn>1</mn><mo separator="true">,</mo><mi>l</mi><mn>1</mn><mo>−</mo><mn>1</mn><mo separator="true">,</mo><mn>1</mn><mo separator="true">,</mo><mi>r</mi><mn>2</mn><mo>)</mo><mo>−</mo><mi>f</mi><mo>(</mo><mn>1</mn><mo separator="true">,</mo><mi>r</mi><mn>1</mn><mo separator="true">,</mo><mn>1</mn><mo separator="true">,</mo><mi>l</mi><mn>2</mn><mo>−</mo><mn>1</mn><mo>)</mo><mo>+</mo><mi>f</mi><mo>(</mo><mn>1</mn><mo separator="true">,</mo><mi>l</mi><mn>1</mn><mo>−</mo><mn>1</mn><mo separator="true">,</mo><mn>1</mn><mo separator="true">,</mo><mi>l</mi><mn>2</mn><mo>−</mo><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">f(l1,r1,l2,r2)=f(1,r1,1,r2)-f(1,l1-1,1,r2)-f(1,r1,1,l2-1)+f(1,l1-1,1,l2-1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord">2</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord">2</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord">2</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span></p>
+<p>所以这个就变成了一个二维的问题,虽然询问数*4了</p>
+<p>有了这个莫队部分就很显然了</p>
+<p>再来考虑换根....哎好像是<code>假的</code>?</p>
+<p>情况一   x=root，很显然此时应当查询整棵树。<br>
+<img src="https://img-blog.csdn.net/20150514113344299?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvTGNvbXlu/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="qwq" loading="lazy"><br>
+情况二 lca(root,x)!=x ,此时直接查询x的子树即可，与换根无关。<br>
+<img src="https://img-blog.csdn.net/20150514113901346?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvTGNvbXlu/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="qwq" loading="lazy"><br>
+情况三，lca(root,x)=x，此时我们应当查询与x相邻的节点中与root最近的点v在整棵树中的补集<br>
+<img src="https://img-blog.csdn.net/20150514114150100?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvTGNvbXlu/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="qwq" loading="lazy"><br>
+可以发现v一定在root到x的链上，且一定是x在这条链上的儿子，倍增法可以求得v</p>
+<p>好的,也就是说如果有情况3我们原本两段dfs区间会变成4段,再差分变成16个询问QAQ</p>
+<p>所以这个就是卡常毒瘤啊,40多行编译优化</p>
+<p>code:</p>
+<pre><code class="language-cpp">
+#pragma G++ optimize(2)
+#pragma G++ optimize(3)
+
+#pragma G++ target(&quot;avx&quot;)
+#pragma G++ optimize(&quot;Ofast&quot;)
+#pragma G++ optimize(&quot;inline&quot;)
+#pragma G++ optimize(&quot;-fgcse&quot;)
+#pragma G++ optimize(&quot;-fgcse-lm&quot;)
+#pragma G++ optimize(&quot;-fipa-sra&quot;)
+#pragma G++ optimize(&quot;-ftree-pre&quot;)
+#pragma G++ optimize(&quot;-ftree-vrp&quot;)
+#pragma G++ optimize(&quot;-fpeephole2&quot;)
+#pragma G++ optimize(&quot;-ffast-math&quot;)
+#pragma G++ optimize(&quot;-fsched-spec&quot;)
+#pragma G++ optimize(&quot;unroll-loops&quot;)
+#pragma G++ optimize(&quot;-falign-jumps&quot;)
+#pragma G++ optimize(&quot;-falign-loops&quot;)
+#pragma G++ optimize(&quot;-falign-labels&quot;)
+#pragma G++ optimize(&quot;-fdevirtualize&quot;)
+#pragma G++ optimize(&quot;-fcaller-saves&quot;)
+#pragma G++ optimize(&quot;-fcrossjumping&quot;)
+#pragma G++ optimize(&quot;-fthread-jumps&quot;)
+#pragma G++ optimize(&quot;-funroll-loops&quot;)
+#pragma G++ optimize(&quot;-fwhole-program&quot;)
+#pragma G++ optimize(&quot;-freorder-blocks&quot;)
+#pragma G++ optimize(&quot;-fschedule-insns&quot;)
+#pragma G++ optimize(&quot;inline-functions&quot;)
+#pragma G++ optimize(&quot;-ftree-tail-merge&quot;)
+#pragma G++ optimize(&quot;-fschedule-insns2&quot;)
+#pragma G++ optimize(&quot;-fstrict-aliasing&quot;)
+#pragma G++ optimize(&quot;-fstrict-overflow&quot;)
+#pragma G++ optimize(&quot;-falign-functions&quot;)
+#pragma G++ optimize(&quot;-fcse-skip-blocks&quot;)
+#pragma G++ optimize(&quot;-fcse-follow-jumps&quot;)
+#pragma G++ optimize(&quot;-fsched-interblock&quot;)
+#pragma G++ optimize(&quot;-fpartial-inlining&quot;)
+#pragma G++ optimize(&quot;no-stack-protector&quot;)
+#pragma G++ optimize(&quot;-freorder-functions&quot;)
+#pragma G++ optimize(&quot;-findirect-inlining&quot;)
+#pragma G++ optimize(&quot;-fhoist-adjacent-loads&quot;)
+#pragma G++ optimize(&quot;-frerun-cse-after-loop&quot;)
+#pragma G++ optimize(&quot;inline-small-functions&quot;)
+#pragma G++ optimize(&quot;-finline-small-functions&quot;)
+#pragma G++ optimize(&quot;-ftree-switch-conversion&quot;)
+#pragma G++ optimize(&quot;-foptimize-sibling-calls&quot;)
+#pragma G++ optimize(&quot;-fexpensive-optimizations&quot;)
+#pragma G++ optimize(&quot;-funsafe-loop-optimizations&quot;)
+#pragma G++ optimize(&quot;inline-functions-called-once&quot;)
+#pragma G++ optimize(&quot;-fdelete-null-pointer-checks&quot;)
+
+
+#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+#include&lt;cmath&gt;
+#define ll long long
+using namespace std;
+const int MAXN = 5e5 + 20;
+namespace fastIO {
+#define BUF_SIZE (1&lt;&lt;19)
+	static char buf[BUF_SIZE], *p1 = buf + BUF_SIZE, *pend = buf + BUF_SIZE;
+	inline char nc() {
+		if(p1 == pend) {
+			p1 = buf;
+			pend = buf + fread(buf, 1, BUF_SIZE, stdin);
+		}
+		return *p1++;
+	}
+	inline int read() {
+		int x = 0, f = 1;
+		register char s = nc();
+		for(; !isdigit(s); s = nc())if(s == '-')f = -1;
+		for(; isdigit(s); s = nc())x = (x &lt;&lt; 1) + (x &lt;&lt; 3) + s - '0';
+		return x * f;
+	}
+}
+using namespace fastIO;
+void write(ll x) {
+	if(x &gt; 9) write(x / 10);
+	putchar(x % 10 + 48);
+}
+int ccnt;
+struct edge {
+	int to, nxt;
+} e[MAXN];
+
+struct Qry {
+	int l, r, id, f;
+} q[8000010];
+
+int Q, m, in[MAXN], out[MAXN], idx, _dfn, st[MAXN][21], dfn[MAXN], dep[MAXN], fa[MAXN], home[MAXN],
+	rt, cnt[MAXN][2], is_q[MAXN], top[MAXN], son[MAXN], siz[MAXN], tl[MAXN], tr[MAXN], o[MAXN], c[MAXN], a[MAXN], n,
+	lg2[MAXN];
+ll ans[MAXN], ima, _c, SIZ;
+
+void ct(int u, int v) {
+	e[++ccnt] = (edge) {
+		v, home[u]
+	};
+	home[u] = ccnt;
+}
+
+bool cmp(Qry a, Qry b) {
+	return a.l / SIZ == b.l / SIZ ? a.r &lt; b.r : a.l &lt; b.l;
+}
+
+void dfs1(int u, int F) {
+	st[++idx][0] = u;
+	in[u] = ++_dfn;
+	dfn[u] = idx;
+	c[_dfn] = a[u];
+	dep[u] = dep[F] + 1;
+	fa[u] = F;
+	siz[u] = 1;
+	for(int i = home[u]; i; i = e[i].nxt) {
+		int v = e[i].to;
+		if(v == F)continue;
+		dfs1(v, u);
+		st[++idx][0] = u;
+		siz[u] += siz[v];
+		if(siz[v] &gt; siz[son[u]])son[u] = v;
+	}
+	out[u] = _dfn;
+	//printf(&quot;%d %d %d %d %d %d\n&quot;, u, dfn[u], in[u], dep[u], son[u], fa[u]);
+}
+
+void dfs2(int u, int topf) {
+	top[u] = topf;
+	if(son[u])dfs2(son[u], topf);
+	for(int i = home[u]; i; i = e[i].nxt) {
+		int v = e[i].to;
+		if(v != son[u] &amp;&amp; v != fa[u])
+			dfs2(v, v);
+	}
+	//	printf(&quot;%d %d\n &quot;, u, top[u]);
+}
+//找一下x在y的哪一个子树里面
+int find(int y, int x) {
+	int u;
+	while(top[x] != top[y]) {
+		u = top[x];
+		x = fa[u];
+	}
+	return x == y ? u : son[y];
+}
+
+void init() {
+	dep[1] = 1;
+	dfs1(1, 1);
+	dfs2(1, 1);
+	for(int i = 2; i &lt;= (n &lt;&lt; 1); ++i)lg2[i] = lg2[i &gt;&gt; 1] + 1;
+	for(int j = 1; j &lt;= 21; ++j) {
+		for(int i = 1; i + (1 &lt;&lt; j) - 1 &lt;= (n &lt;&lt; 1); ++i) {
+			st[i][j] = dep[st[i][j - 1]] &lt; dep[st[i + (1 &lt;&lt; (j - 1))][j - 1]] ? st[i][j - 1] : st[i + (1 &lt;&lt; (j - 1))][j - 1];
+		}
+	}
+}
+
+int LCA(int u, int v) {
+	int x = dfn[u], y = dfn[v];
+	if(x &gt; y)swap(x, y);
+	int k = lg2[y - x + 1];
+	return dep[st[x][k]] &lt; dep[st[y - (1 &lt;&lt; k) + 1][k]] ? st[x][k] : st[y - (1 &lt;&lt; k) + 1][k];
+}
+
+void RC(int l1, int r1, int l2, int r2, int id) {
+	q[++m] = (Qry) {
+		r1, r2, id, 1
+	};
+	q[++m] = (Qry) {
+		l1 - 1, l2 - 1, id, 1
+	};
+	q[++m] = (Qry) {
+		r1, l2 - 1, id, -1
+	};
+	q[++m] = (Qry) {
+		l1 - 1, r2, id, -1
+	};
+	//二维前缀和/jk
+}
+
+void devide(int x) {
+	if(x == rt)tl[++_c] = 1, tr[_c] = n;//哇偶我就是根
+	else {
+		int z = LCA(x, rt);
+		//	printf(&quot;%d %d %dQAQ\n&quot;, x, rt, z);
+		if(z != x) {
+			tl[++_c] = in[x];
+			tr[_c] = out[x];
+			//相当于还是你自己整棵
+		} else {
+			int y = find(x, rt);
+			//找到这个儿子
+			if(1 &lt;= in[y] - 1)tl[++_c] = 1;
+			tr[_c] = in[y] - 1;
+			//我们先把第一段这个加进去
+			//这一部分要减去
+			if(out[y] + 1 &lt;= n)tl[++_c] = out[y] + 1, tr[_c] = n;
+			//再把第二段加进去
+			//outy+1就对应了另一段,n是最后一个
+		}
+	}
+}
+
+void build(int x, int y, int id) {
+	_c = 0;
+	//	printf(&quot;%d %d %d?\n&quot;, x, y, id);
+	devide(x);
+	int mid = _c;
+	devide(y);
+	//下面是压行写法233
+	for(int i = 1; i &lt;= mid; ++i) {
+		for(int j = mid + 1; j &lt;= _c; ++j) {
+			//	printf(&quot;%d %d %d %d &amp;\n&quot;, tl[i], tr[i], tl[j], tr[j]);
+			RC(tl[i], tr[i], tl[j], tr[j], id);
+			//把这些信息计入Q
+		}
+	}
+}
+
+void add(int x, int p) {
+	ima += cnt[c[x]][p ^ 1];
+	++cnt[c[x]][p];
+}
+void del(int x, int p) {
+	ima -= cnt[c[x]][p ^ 1];
+	--cnt[c[x]][p];
+}
+
+
+int main() {
+	//freopen(&quot;test.in&quot;, &quot;r&quot;, stdin);
+	n = read();
+	Q = read();
+	SIZ = sqrt(n);
+	for(register int i = 1; i &lt;= n; ++i)a[i] = read(), o[i] = a[i];
+	sort(o + 1, o + n + 1);
+	int _n = unique(o + 1, o + n + 1) - o - 1;
+	for(register int i = 1; i &lt;= n; ++i)a[i] = lower_bound(o + 1, o + _n + 1, a[i]) - o;
+	for(register int u, v, i = 1; i &lt; n; ++i)u = read(), v = read(), ct(u, v), ct(v, u);
+	init();
+	rt = 1;
+	for(register int opt, x, y, i = 1; i &lt;= Q; ++i) {
+		opt = read();
+		x = read();
+		if(opt == 1)rt = x;
+		else is_q[i] = 1, y = read(), build(x, y, i);
+	}
+	for(int i = 1; i &lt;= m; ++i)if(q[i].l &gt; q[i].r)swap(q[i].l, q[i].r);
+	sort(q + 1, q + m + 1, cmp);
+	for(register int L = 0, R = 0, i = 1; i &lt;= m; ++i) {
+		int l = q[i].l, r = q[i].r;
+		//	printf(&quot;%d %d %d %d\n&quot;, q[i].l, q[i].r, q[i].id, q[i].f);
+		while(L &lt; l)add(++L, 0);
+		while(L &gt; l)del(L--, 0);
+		while(R &lt; r)add(++R, 1);
+		while(R &gt; r)del(R--, 1);
+		ans[q[i].id] += ima * q[i].f;
+	}
+	for(int i = 1; i &lt;= Q; ++i)if(is_q[i])write(ans[i]), putchar('\n');
+	return 0;
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[P3750 [六省联考2017]分手是祝愿]]></title>
         <id>https://xiaxiaoguang.github.io/post/p3750-liu-sheng-lian-kao-2017fen-shou-shi-zhu-yuan/</id>
@@ -1444,17 +1740,6 @@ int main() {
 
 
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[庆祝博文过百!]]></title>
-        <id>https://xiaxiaoguang.github.io/post/qing-zhu-bo-wen-guo-bai/</id>
-        <link href="https://xiaxiaoguang.github.io/post/qing-zhu-bo-wen-guo-bai/">
-        </link>
-        <updated>2020-03-17T03:46:30.000Z</updated>
-        <content type="html"><![CDATA[<p>😃🎉<br>
-当然,这里仅有12篇,洛谷哪里还有89篇,只是没有搬过来而已,过百已是事实</p>
-<p>记录于2020.3.17,covid19时期</p>
 ]]></content>
     </entry>
 </feed>
