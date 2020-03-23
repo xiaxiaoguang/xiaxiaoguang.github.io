@@ -1,0 +1,287 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>P4688 [Ynoi2016]掉进兔子洞 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1584928413232">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="P4688 [Ynoi2016]掉进兔子洞 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="Ynoi做的第二道题
+感言:
+有 mmm 个询问，每次询问三个区间，把三个区间中同时出现的数一个一个删掉，问最后三个区间剩下的数的个数和，询问独立。
+注意这里删掉指的是一个一个删，不是把等于这个值的数直接删完，比如三个区间是  [1,2,2..." />
+    <meta name="keywords" content="bitset,卡空间,Ynoi,莫队" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1584928413232" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              P4688 [Ynoi2016]掉进兔子洞
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-03-23
+              </span>
+              <span>
+                6 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/1o93BnutI/" class="post-tag">
+                  # bitset
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/yyJ9qlF57f/" class="post-tag">
+                  # 卡空间
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/wfB0T4QxNe/" class="post-tag">
+                  # Ynoi
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/b3vFjw7FJ/" class="post-tag">
+                  # 莫队
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/4pNOqgOvBLvj4yTC9qc55dhDNQJbty1lljwPHpE7TJ8hRhQi0UkoiFh.hoPO*KnsXzn7s1gDUYLfYTmjoF96CGpGA7K0YNlpcmZkrp07Nf8!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>Ynoi做的第二道题<br>
+感言:<img src="https://cdn.luogu.com.cn/upload/pic/21091.png" alt="" loading="lazy"></p>
+<p>有 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">m</span></span></span></span> 个询问，每次询问三个区间，把三个区间中同时出现的数一个一个删掉，问最后三个区间剩下的数的个数和，询问独立。</p>
+<p>注意这里删掉指的是一个一个删，不是把等于这个值的数直接删完，比如三个区间是  <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mn>1</mn><mo separator="true">,</mo><mn>2</mn><mo separator="true">,</mo><mn>2</mn><mo separator="true">,</mo><mn>3</mn><mo separator="true">,</mo><mn>3</mn><mo separator="true">,</mo><mn>3</mn><mo separator="true">,</mo><mn>3</mn><mo>]</mo></mrow><annotation encoding="application/x-tex">[1,2,2,3,3,3,3]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mclose">]</span></span></span></span>，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mn>1</mn><mo separator="true">,</mo><mn>2</mn><mo separator="true">,</mo><mn>2</mn><mo separator="true">,</mo><mn>3</mn><mo separator="true">,</mo><mn>3</mn><mo separator="true">,</mo><mn>3</mn><mo separator="true">,</mo><mn>3</mn><mo>]</mo></mrow><annotation encoding="application/x-tex">[1,2,2,3,3,3,3]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mclose">]</span></span></span></span> 与<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mn>1</mn><mo separator="true">,</mo><mn>1</mn><mo separator="true">,</mo><mn>2</mn><mo separator="true">,</mo><mn>3</mn><mo separator="true">,</mo><mn>3</mn><mo>]</mo></mrow><annotation encoding="application/x-tex">[1,1,2,3,3]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mclose">]</span></span></span></span>，就一起扔掉了 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 个 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 个 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn></mrow><annotation encoding="application/x-tex">2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span>，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn></mrow><annotation encoding="application/x-tex">2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span> 个 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>3</mn></mrow><annotation encoding="application/x-tex">3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span></span></span></span>。</p>
+<p>好的我们一开题就直接完蛋自闭了没有做过如此强大的套路弃疗了</p>
+<p>正经的,我们需要对三个区间支持类似于数点去重的东西....而且还要支持1e5次询问</p>
+<p>三维数点我只会bitset.....<s>然而并没有想到啊</s></p>
+<p>如果我们能有一个神奇的bitset把三个区间的信息记录下来然后&amp;一下不就是得到要去掉的数的个数了吗?</p>
+<p>而你又神奇的发现好像只需要一个莫队就能消掉区间的限制,而且bitset单点加入和查询O1!</p>
+<p>然而问题又来了,bitset他现在还不够神奇,不能够记录重复了多少个...因为每个位置上的信息只有0/1</p>
+<p>我们再想一下能不能莫队来帮助记录??因为我们总共的数字数是n大小的</p>
+<p>那么参照之前BJOI那道题推倒的做法我们可以这样更改bitset记录方式</p>
+<p>val[p]表示bitsetp位置的权值是什么,cnt[p]表示这个权值在原序列出现次数</p>
+<p>每个位置p到<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>p</mi><mo>−</mo><mi>c</mi><mi>n</mi><mi>t</mi><mo>[</mo><mi>v</mi><mi>a</mi><mi>l</mi><mo>[</mo><mi>p</mi><mo>]</mo><mo>]</mo></mrow><annotation encoding="application/x-tex">p-cnt[val[p]]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7777700000000001em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">p</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">c</span><span class="mord mathdefault">n</span><span class="mord mathdefault">t</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mopen">[</span><span class="mord mathdefault">p</span><span class="mclose">]</span><span class="mclose">]</span></span></span></span>记录了这<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi><mi>n</mi><mi>t</mi><mo>[</mo><mi>p</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">cnt[p]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">c</span><span class="mord mathdefault">n</span><span class="mord mathdefault">t</span><span class="mopen">[</span><span class="mord mathdefault">p</span><span class="mclose">]</span></span></span></span>个数出现情况,也就是说出现第一次位置p是1,出现第二次把位置p-1置为1....第k次把p-k置为1</p>
+<p>这样and起来就真的是要删掉的数个数了!</p>
+<p>还有个问题,我们空间开不下啊</p>
+<p>所以我们可以把1e5次询问分成3组,然后循环利用同一个ansbitset就行了,典型的以空间换时间</p>
+<p>code:</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;bitset&gt;
+#include&lt;map&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int MAXN = 1e5 + 10;
+const int M = 34010;
+#define ll long long
+int a[MAXN], n, m, nans[MAXN], tp, tot, cnt[MAXN];
+map&lt;int, int&gt; mp;
+bitset&lt;MAXN&gt; ans[M], nb;
+struct Qry {
+	int l, r, t;
+} q[M*3];
+inline bool cmp1(const Qry &amp;a, const Qry &amp;b) {
+	return a.l &lt; b.l;
+}
+inline bool cmp2(const Qry &amp;a, const Qry &amp;b) {
+	return a.r &lt; b.r;
+}
+inline void ins(int p) {
+	nb[p - cnt[p]] = 1;
+	cnt[p]++;
+}
+inline void del(int p) {
+	cnt[p]--;
+	nb[p - cnt[p]] = 0;
+}
+inline void solve() {
+	if(tot &gt;= m)return ;
+	for(int i = 1; i &lt;= M - 10 &amp;&amp; tot &lt;= m; ++i, ++tot) {
+		++tp;
+		scanf(&quot;%d%d&quot;, &amp;q[tp].l, &amp;q[tp].r);
+		q[tp].t = i; nans[i] += q[tp].r - q[tp].l + 1;
+		++tp;
+		scanf(&quot;%d%d&quot;, &amp;q[tp].l, &amp;q[tp].r);
+		q[tp].t = i; nans[i] += q[tp].r - q[tp].l + 1;
+		++tp;
+		scanf(&quot;%d%d&quot;, &amp;q[tp].l, &amp;q[tp].r);
+		q[tp].t = i; nans[i] += q[tp].r - q[tp].l + 1;
+	}
+	for(int i = 1; i &lt;= tp / 3; ++i)ans[i].set();
+	sort(q + 1, q + tp + 1, cmp1);
+	int nl = 0, nr = 0;
+	for(int i = 1; i &lt;= tp; i += 320) {
+		int r = min(tp, i + 319);
+		sort(q + i, q + r + 1, cmp2);
+		//分块的神仙排序法
+	}
+	for(int i = 1; i &lt;= tp; ++i) {
+		if(nr &lt; q[i].l) {
+			for(int j = nl; j &lt;= nr; ++j)del(a[j]);
+			nl = q[i].l; nr = q[i].r;
+			for(int j = nl; j &lt;= nr; ++j)ins(a[j]);
+			//优化?
+		} else {
+			while(nl &lt; q[i].l)del(a[nl]), ++nl;
+			while(nl &gt; q[i].l)--nl, ins(a[nl]);
+			while(nr &lt; q[i].r)nr++, ins(a[nr]);
+			while(nr &gt; q[i].r)del(a[nr]), nr--;
+		}
+		ans[q[i].t] &amp;= nb;
+	}
+	for(int i = nl; i &lt;= nr; ++i)del(a[i]);
+	for(int i = 1; i &lt;= tp / 3; ++i)printf(&quot;%lld\n&quot;, nans[i] - ans[i].count() * 3);
+	for(int i = 1; i &lt;= tp / 3; ++i)nans[i] = 0; tp = 0;
+}
+int main() {
+	tot = 1;
+	scanf(&quot;%d%d&quot;, &amp;n, &amp;m);
+	for(int i = 1; i &lt;= n; ++i)scanf(&quot;%d&quot;, &amp;a[i]);
+	for(int i = 1; i &lt;= n; ++i)mp[a[i]]++;
+	map&lt;int, int&gt;::iterator it, it1;
+	for(it = mp.begin(), it1 = it, ++it1; it1 != mp.end(); ++it, ++it1)it1-&gt;second += it-&gt;second;
+	for(int i = n; i &gt;= 1; --i)a[i] = mp[a[i]];
+	solve();
+	solve();
+	solve();
+	return 0;
+}
+
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/p4689-ynoi2016zhe-shi-wo-zi-ji-de-fa-ming/">
+              <h3 class="post-title">
+                P4689 [Ynoi2016]这是我自己的发明
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
