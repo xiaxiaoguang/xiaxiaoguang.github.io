@@ -1,0 +1,359 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>P5311 [Ynoi2011]成都七中 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1585098093831">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="P5311 [Ynoi2011]成都七中 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="Ynoi2011某道题
+&quot;和我一起去qbxt听课的有一位ljh，他初二拿了普及组省第一，初三考提高组差点拿了一等奖，我一直以他为竞争对手，每次考试的时候都在和他比划比划成绩，但基本上都是我输。&quot;
+我是谁?你不会真当是博主..." />
+    <meta name="keywords" content="点分治,高维数点,Ynoi" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1585098093831" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              P5311 [Ynoi2011]成都七中
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-03-24
+              </span>
+              <span>
+                7 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/C6OfrSnce/" class="post-tag">
+                  # 点分治
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/SVFSyfvaQe/" class="post-tag">
+                  # 高维数点
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/wfB0T4QxNe/" class="post-tag">
+                  # Ynoi
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/4pNOqgOvBLvj4yTC9qc55f2t44fZW87Hg7It0xv3WzLMrMYM4rpxIEl.onjHWRvGYWYr09ZfPLUJuImyYldzp91E6oMS9u*dEXMDcjSkTLs!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>Ynoi2011某道题</p>
+<p><code>&quot;和我一起去qbxt听课的有一位ljh，他初二拿了普及组省第一，初三考提高组差点拿了一等奖，我一直以他为竞争对手，每次考试的时候都在和他比划比划成绩，但基本上都是我输。&quot;</code></p>
+<p>我是谁?你不会真当是博主了吧?</p>
+<p>给你一棵 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span>个节点的树，每个节点有一种颜色，有 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">m</span></span></span></span> 次查询操作。</p>
+<p>查询操作给定参数 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi><mtext> </mtext><mi>r</mi><mtext> </mtext><mi>x</mi></mrow><annotation encoding="application/x-tex">l \  r\  x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mspace"> </span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mspace"> </span><span class="mord mathdefault">x</span></span></span></span>，需输出：</p>
+<p>将树中编号在 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mi>l</mi><mo separator="true">,</mo><mi>r</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">[l,r]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mclose">]</span></span></span></span> 内的所有节点保留，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span> 所在联通块中颜色种类数。</p>
+<p>每次查询操作独立。</p>
+<p>总的来说分两步,这个题就难在第一步上:</p>
+<p>&quot;我们考虑把它变成一个点子树内的询问&quot;....这个谁想得到啊??之前做连通块计数那题只不是是启发式合并而已/QAQ</p>
+<p>是的,就是变成一个子树内询问,然后对于每个点全部离线处理</p>
+<p>然而想想都知道这个要用点分治来分子树,因为</p>
+<ol>
+<li>支持暴力查找有多少根包含他(log大小)</li>
+<li>保证每个询问都有合法包含</li>
+<li>现成算法提供现成划分套路(</li>
+</ol>
+<p>然后我们来用点分树,把<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mi>l</mi><mo separator="true">,</mo><mi>r</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">[l,r]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mclose">]</span></span></span></span>都包含在一个点分支中心子树里面,然后这个询问就挂在这上面了</p>
+<p>问题变成从根节点出发只走子树内编号范围在[l,r]的点可以到达的颜色总数?</p>
+<p>第二歩,离线处理每个点的询问,考虑记录每个点到根经过最大的编号和最小的编号</p>
+<p>那么只要经过最大编号比询问最大小,最小编号比询问最小大的点就能算作答案了</p>
+<p>那这就是二维偏序了....按照最大排序,最小用树状数组</p>
+<p>code:</p>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+using namespace std;
+#define ll long long
+const int MAXN = 2e5 + 7;
+
+namespace fastIO {
+#define BUF_SIZE (1&lt;&lt;19)
+	static char buf[BUF_SIZE], *p1 = buf + BUF_SIZE, *pend = buf + BUF_SIZE;
+	inline char nc() {
+		if(p1 == pend) {
+			p1 = buf;
+			pend = buf + fread(buf, 1, BUF_SIZE, stdin);
+		}
+		return *p1++;
+	}
+	inline int read() {
+		int x = 0, f = 1;
+		register char s = nc();
+		for(; !isdigit(s); s = nc())if(s == '-')f = -1;
+		for(; isdigit(s); s = nc())x = (x &lt;&lt; 1) + (x &lt;&lt; 3) + s - '0';
+		return x * f;
+	}
+}
+using namespace fastIO;
+
+int n, m, xi, yi, zi, root;
+int col[MAXN], ans[MAXN], cx[MAXN],
+	nxt[MAXN], to[MAXN], home[MAXN], ccnt
+	, siz[MAXN], used[MAXN],  tot, dp[MAXN];
+
+struct node {
+	int l, r, id;
+	node(): l(0), r(0), id(0) {};
+	node(int L, int R, int ID): l(L), r(R), id(ID) {};
+	bool operator&lt;(const node &amp;d)const {
+		return l == d.l ? id &gt; d.id : l &gt; d.l;
+	}
+
+};
+vector&lt;node&gt; v[MAXN], q[MAXN];
+
+inline void ct(int x, int y) {
+	++ccnt;
+	nxt[ccnt] = home[x];
+	home[x] = ccnt;
+	to[ccnt] = y;
+}
+
+inline void dfs1(int u, int fa) {
+	dp[u] = siz[u] = 1;
+	//printf(&quot;%d %d??\n&quot;, u, fa);
+	for(int v, i = home[u]; i; i = nxt[i]) {
+		v = to[i];
+		//printf(&quot;%d %d!\n&quot;, u, v);
+		if(v != fa &amp;&amp; !used[v]) {
+			dfs1(v, u);
+			siz[u] += siz[v];
+			dp[u] = max(dp[u], siz[v]);
+		}
+	}
+	dp[u] = max(dp[u], tot - siz[u]);
+	if(dp[u] &lt; dp[root])root = u;
+}
+
+inline void dfs2(int u, int fa, int mx, int mn) {
+	siz[u] = 1;
+
+	v[u].push_back((node) {
+		mn, mx, root
+	});//查询答案要用,每个点归到各个分治中心
+	q[root].push_back((node) {
+		mn, mx, col[u]
+	});//二维数点要用,每个分治中心管好子树内的点
+	for(int v, i = home[u]; i; i = nxt[i]) {
+		if((v = to[i]) != fa &amp;&amp; !used[v]) {
+			dfs2(v, u, max(mx, v), min(v, mn));
+			siz[u] += siz[v];
+		}
+	}
+}
+
+inline void vp(int u) {
+	tot = siz[u];
+	dp[0] = 0x3f3f3f3f;
+	root = 0;
+	dfs1(u, 0);
+	//printf(&quot;%d?\n&quot;, root);
+	used[root] = 1;
+	dfs2(u = root, 0, root, root);
+	for(int v, i = home[u]; i; i = nxt[i]) {
+		if(!used[(v = to[i])])vp(v);
+	}
+}
+//点分治部分,写的很垃圾
+int tree[MAXN &lt;&lt; 1];
+#define lowbit(x) (x&amp;(-x))
+inline void update(int pos, int v) {
+	for(; pos &lt;= n; pos += lowbit(pos))tree[pos] += v;
+}
+
+inline ll query(int pos) {
+	ll ret = 0;
+	for(; pos; pos -= lowbit(pos))ret += tree[pos];
+	return ret;
+}
+
+int main() {
+	//freopen(&quot;test.in&quot;, &quot;r&quot;, stdin);
+	n = read();
+	m = read();
+	for(int i = 1; i &lt;= n; ++i)col[i] = read();
+	for(int i = 1; i &lt; n; ++i)xi = read(), yi = read(), ct(xi, yi), ct(yi, xi); //printf(&quot;%d %d?\n&quot;, xi, yi);
+	siz[1] = n;
+	//system(&quot;pause&quot;);
+	vp(1);
+	for(int i = 1; i &lt;= m; ++i) {
+		xi = read();
+		yi = read();
+		zi = read();
+		for(vector&lt;node&gt;::iterator id = v[zi].begin(); id != v[zi].end(); ++id) {
+			node j = *id;
+			//你考虑每个vector里面存的是一个编号连续的点分树根
+			//那么我能只要第一个找到的就是最优包含了x在查询的所有的
+			if(j.l &gt;= xi &amp;&amp; j.r &lt;= yi) {
+				q[j.id].push_back((node) {
+					xi, yi, -i//为什么-i因为他是询问
+				});
+				break;
+			}
+		}
+	}
+	for(int i = 1; i &lt;= n; ++i) {
+		sort(q[i].begin(), q[i].end());
+		//考虑每个点做根
+		//排序是按照最大标号来,小的放前面,消掉第一维
+		for(vector&lt;node&gt;::iterator id = q[i].begin(); id != q[i].end(); ++id) {
+			node j = *id;
+			//呵呵
+			if(j.id &lt; 0)ans[-j.id] = query(j.r);
+			//树状数组消去第二维
+			else {
+				if(cx[j.id] &gt; j.r)update(cx[j.id], -1), cx[j.id] = 0;
+				//清掉他,他已经不够优秀
+				if(!cx[j.id])update(j.r, 1), cx[j.id] = j.r;
+				//更优秀的放进去
+			}
+		}
+		for(vector&lt;node&gt;::iterator id = q[i].begin(); id != q[i].end(); ++id) {
+			node j = *id;
+			if(j.id &gt; 0 &amp;&amp; cx[j.id] == j.r)update(j.r, -1), cx[j.id] = 0;
+		}
+		//清空
+	}
+	for(int i = 1; i &lt;= m; ++i)printf(&quot;%d\n&quot;, ans[i]);
+	return 0;
+}
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/p1232-noi2013shu-de-ji-shu/">
+              <h3 class="post-title">
+                P1232 [NOI2013]树的计数
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
