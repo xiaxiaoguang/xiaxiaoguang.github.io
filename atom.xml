@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://xiaxiaoguang.github.io</id>
     <title>夏晓光(loveJY)的博客</title>
-    <updated>2020-03-26T15:05:52.290Z</updated>
+    <updated>2020-03-27T23:51:30.676Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://xiaxiaoguang.github.io"/>
     <link rel="self" href="https://xiaxiaoguang.github.io/atom.xml"/>
@@ -11,95 +11,207 @@
     <icon>https://xiaxiaoguang.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 夏晓光(loveJY)的博客</rights>
     <entry>
+        <title type="html"><![CDATA[CF526G Spiders Evil Plan]]></title>
+        <id>https://xiaxiaoguang.github.io/post/cf526g-spiders-evil-plan/</id>
+        <link href="https://xiaxiaoguang.github.io/post/cf526g-spiders-evil-plan/">
+        </link>
+        <updated>2020-03-27T23:16:09.000Z</updated>
+        <content type="html"><![CDATA[<p>IOI2020集训队作业</p>
+<p>最近莫名其妙的繁忙,是文化课更用功了吗?因为感觉不像颓了啊....</p>
+<figure data-type="image" tabindex="1"><img src="https://xiaxiaoguang.github.io/post-images/1585351069348.png" alt="" loading="lazy"></figure>
+<ul>
+<li>给定一棵 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 个节点的无根树，每条边有边权。</li>
+<li>有 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>q</mi></mrow><annotation encoding="application/x-tex">q</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span></span></span></span> 次询问，每次询问给出 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mo separator="true">,</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">x,y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span></span></span></span>，你需要选择 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span></span></span></span> 条树上的路径，使这些路径形成一个包含 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span> 的连通块，且连通块中包含的边权和最大。</li>
+<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo separator="true">,</mo><mi>q</mi><mo>≤</mo><mn>1</mn><msup><mn>0</mn><mn>5</mn></msup></mrow><annotation encoding="application/x-tex">n, q \le 10^5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8304100000000001em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">n</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">5</span></span></span></span></span></span></span></span></span></span></span>，强制在线。</li>
+</ul>
+<p>well,我承认一开始看成选边了,然后一点也没做出来,想了一个很假的n^2(</p>
+<p>既然要选就选一条路径,那么我们可以考虑拿出一个结论</p>
+<blockquote>
+<p>任意一个有k个叶子的树我们只需要k/2上取整条路径就能全覆盖</p>
+</blockquote>
+<p>有了这个结论我们贪心就好贪了,问题变成在原树中选取一些叶子,使他们组成的极小连通块边权和最大</p>
+<p>我们会发现直径的某一端点一定会被选,但是直径不定被选上...比如只有一条路径的情况</p>
+<p>然后我们就可以分别以这两个直径端点为根建树,然后问题就是在其中子树选2k-1个叶子,最大化打通他们<code>到根</code>的边权和...<s>还是不会做</s></p>
+<p>考虑带边权的长链剖分啊所以我们只需要选前2y-1个最长链就好啦!!!实现的时候我们可以先把链头都存到数组里排序一下....</p>
+<p>不过显然选完之后不一定经过x,需要微调</p>
+<h2 id="case-1">case 1</h2>
+<p>先选前2k-2条长链,然后第k条选择从x上方一个在前2k-2条长链中的点到x子树的叶子最大的</p>
+<p>就是:<img src="https://xiaxiaoguang.github.io/post-images/1585352713244.png" alt="" loading="lazy"></p>
+<p>##case 2</p>
+<p>选择前2k-1条长链,然后x去更换某条长链</p>
+<p>就是<img src="https://xiaxiaoguang.github.io/post-images/1585352967733.png" alt="" loading="lazy"></p>
+<p>code:</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+#define pi pair&lt;int,int&gt;
+using std::max;
+using std::sort;
+const int MAXN = 4e5 + 7;
+int n, q, k, s, ans, ccnt;
+int home[MAXN], nxt[MAXN], to[MAXN], len[MAXN];
+
+
+inline void ct(int x, int y, int z) {
+	ccnt++;
+	nxt[ccnt] = home[x];
+	home[x] = ccnt;
+	to[ccnt] = y;
+	len[ccnt] = z;
+}
+
+namespace fastIO {
+#define BUF_SIZE (1&lt;&lt;19)
+	static char buf[BUF_SIZE], *p1 = buf + BUF_SIZE, *pend = BUF_SIZE + buf;
+	inline char nc() {
+		if(p1 == pend) {
+			p1 = buf;
+			pend = buf + fread(buf, 1, BUF_SIZE, stdin);
+		}
+		return *p1++;
+	}
+	inline int read() {
+		int x = 0, f = 1;
+		register char s = nc();
+		for(; !isdigit(s); s = nc())if(s == '-')f = -1;
+		for(; isdigit(s); s = nc())x = (x &lt;&lt; 1) + (x &lt;&lt; 3) + s - '0';
+		return x * f;
+	}
+
+}
+using namespace fastIO;
+const int MAXM = 2e5 + 7;
+struct rec {
+	int root, f[MAXM][21], g[MAXM][21], d[MAXN], dep[MAXN], son[MAXN], top[MAXN], rnk[MAXN];
+	int l[MAXN], r[MAXN], s[MAXN], t;
+
+	void dfs1(int u, int F) {
+		//printf(&quot;%d %d\n&quot;,u,F);
+		for(int i = home[u]; i; i = nxt[i]) {
+			int v = to[i];
+			if(v != F) {
+				d[v] = d[u] + len[i],
+					   dfs1(v, u);
+                       //得到dis值
+			}
+		}
+	}
+
+	void dfs2(int u) {
+		for(int i = home[u]; i; i = nxt[i]) {
+			int v = to[i];
+			if(v != f[u][0]) {
+				f[v][0] = u;
+				g[v][0] = len[i];
+				for(int j = 0; f[v][j]; ++j) {
+					f[v][j + 1] = f[f[v][j]][j];
+					g[v][j + 1] = g[v][j] + g[f[v][j]][j];
+				}
+				d[v] = d[u] + len[i];
+				dfs2(v);
+				if(dep[v] + len[i] &gt; dep[u])
+					dep[u] = dep[v] + len[i], son[u] = v;
+                    //深度最大的
+			}
+		}//长链剖分??
+		for(int i = home[u]; i; i = nxt[i]) {
+			int v = to[i];
+			if(v != f[u][0] &amp;&amp; v != son[u])
+				s[l[++t] = v] = dep[v] + len[i];
+                //其他边向上到链头的距离
+			    //其实就是把链头拿出来了
+		}
+	}
+
+	void getroot(int u) {
+		dfs1(u, 0);
+		root = u;
+		for(int i = 1; i &lt;= n; ++i)if(d[i] &gt; d[root])root = i;
+		//直径一端点
+		d[root] = 0;
+		dfs2(root);
+		s[l[++t] = root] = dep[root];
+		sort(l + 1, l + t + 1, [&amp;](int i, int j) {
+			return s[i] &gt; s[j];
+		});
+		//按照dep从大到小
+		for(int i = 1; i &lt;= t; ++i)r[i] = r[i - 1] + s[l[i]];
+		for(int i = 1; i &lt;= t; ++i) {
+			int x = l[i], p = x;
+			while(x) {
+				top[x] = p;
+				rnk[x] = i;//第几条长链,这里是按照长度排过序的
+				//处理top
+				x = son[x];
+			}
+		}
+		//for(int i=1; i&lt;=n; ++i) {
+		//	printf(&quot;%d %d %d %d %d %d %d %d\n&quot;,s[i],top[i],rnk[i],son[i],dep[i],d[i],f[i][0],g[i][1]);
+		///}
+	}
+
+	inline int plan1(int x, int y) {
+		int z = dep[x];
+		for(int i = 20; ~i; --i) {
+			if(rnk[f[x][i]] &gt;= y)z += g[x][i], x = f[x][i];
+		}
+		return r[y - 1] + z + g[x][0];
+		//先用z-1条链
+		//再用一条从x的叶子-&gt;z最长的打通x
+	}
+
+	inline int plan2(int x, int y) {
+		int z = dep[x];
+		for(int i = 20; ~i; --i) {
+			if(rnk[f[x][i]] &gt; y)z += g[x][i], x = f[x][i];
+		}
+		return r[y] - dep[f[x][0]] + z + g[x][0];
+		//选前y条,然后扣去第y条后半部分接上x
+	}
+	inline int ask(int x, int y) {
+		y = 2 * y - 1;
+		return rnk[x] &lt;= y ? r[y] : max(plan1(x, y), plan2(x, y));
+	}
+
+} t[2];
+int in[MAXN];
+int main() {
+	///freopen(&quot;test.in&quot;,&quot;r&quot;,stdin);
+	n = read();
+	q = read();
+	for(int i = 1, x, y, z; i &lt; n; ++i) {
+		x = read(), y = read(), z = read();
+		ct(x, y, z);
+		ct(y, x, z);
+		in[x]++;
+		in[y]++;
+		s += z;
+	}
+	for(int i = 1; i &lt;= n; ++i)k += (in[i] == 1);
+	//	printf(&quot;%d?\n&quot;, k);
+	t[0].getroot(1), t[1].getroot(t[0].root);
+
+	for(int i = 1, x, y; i &lt;= q; ++i) {
+		x = read(), y = read();
+		x = (x + ans - 1) % n + 1;
+		y = (y + ans - 1) % n + 1;
+		ans = (2 * y &gt;= k ? s : max(t[0].ask(x, y), t[1].ask(x, y)));
+		printf(&quot;%d\n&quot;, ans);
+	}
+	return 0;
+}
+
+
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[CF521E Cycling City]]></title>
         <id>https://xiaxiaoguang.github.io/post/cf521e-cycling-city/</id>
         <link href="https://xiaxiaoguang.github.io/post/cf521e-cycling-city/">
         </link>
         <updated>2020-03-26T13:47:27.000Z</updated>
-        <summary type="html"><![CDATA[<p>IOI2020集训队作业</p>
-<p>已经预感不能再像现在这样刷题了...唉,准备开学吧</p>
-<ul>
-<li>给定一张 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 个点 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">m</span></span></span></span> 条边的无向简单图。</li>
-<li>问图中能否找到两个点，满足这两个点之间有至少三条完全不相交的简单路径。</li>
-<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo separator="true">,</mo><mi>m</mi><mo>≤</mo><mn>2</mn><mo>×</mo><mn>1</mn><msup><mn>0</mn><mn>5</mn></msup></mrow><annotation encoding="application/x-tex">n,m \le 2 \times 10^5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8304100000000001em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">n</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">5</span></span></span></span></span></span></span></span></span></span></span>，图不保证连通。</li>
-</ul>
-<p>这个题真的是构造题啊....因为我们只需要构造出一种通用的情境满足题意就行了QAQ,所以图论好像大部分这样裸的都是构造啊</p>
-<p>怎么构造呢?先观察样例<img src="https://xiaxiaoguang.github.io/post-images/1585230661234.png" alt="" loading="lazy"></p>
-<p>不难发现一个合法的一对点一定是<code>两个环重复的部分</code></p>
-<p>这个显然充分,必要性....因为是无向图好像是一样的吧QAQ....</p>
-<p>所以问题变成了找有没有这样被两环覆盖的,经典问题</p>
-<p>考虑先建出dfs树,然后对于一条非树边暴力覆盖到另一端点上所有点,然后直到某一刻有一个点被覆盖了2次,说明他是两环重复了</p>
-<p>我们覆盖时也并不直接记次数,而是记哪条非树边覆盖他</p>
-<p>不妨令 dfs 树作为生成树，令 b 为 a 的祖先，d 为 c 的祖先，b 的深度比 d 的深度浅。</p>
-<p>不需要任何分类讨论，画个图就很容易明白，三条路径铁定就是：</p>
-<ul>
-<li>d -&gt; lca(a, c)</li>
-<li>d -&gt; b -&gt; a -&gt; lca(a, c)</li>
-<li>d -&gt; c -&gt; lca(a, c)</li>
-</ul>
-<figure data-type="image" tabindex="1"><img src="https://cdn.luogu.com.cn/upload/image_hosting/062uwbm4.png" alt="" loading="lazy"></figure>
-<p>这样就好了所以我们还差个复杂度分析/jk</p>
-<p>你会惊人的发现每个点最多被这样暴力跳过一次,因为如果暴力跳过两次就相当于找到答案了</p>
-<p>所以复杂度是线性的</p>
-<p>code:</p>
-<pre><code class="language-cpp">
-#include&lt;iostream&gt;
-#include&lt;cstdio&gt;
-#include&lt;cstring&gt;
-#include&lt;vector&gt;
-#include&lt;algorithm&gt;
-#define ll long long
-#define CT const int&amp;
-using std::reverse;
-const int MAXN = 6e5 + 7;
-int n, m, ccnt;
-int home[MAXN], nxt[MAXN], to[MAXN];
-bool vis[MAXN], ins[MAXN];
-int fa[MAXN], deep[MAXN];
-int cx[MAXN], cy[MAXN];
-
-int LCA(int x, int y) {
-	while(deep[x] &gt; deep[y])x = fa[x];
-	while(deep[y] &gt; deep[x])y = fa[y];
-	while(x != y)x = fa[x], y = fa[y];
-	return x;
-}
-
-int tmp[MAXN], tp;
-
-inline void ct(CT x, CT y) {
-	ccnt++;
-	nxt[ccnt] = home[x];
-	home[x] = ccnt;
-	to[ccnt] = y;
-}
-
-void addpath(int x, int y) {
-	while(x != y) {
-		tmp[++tp] = x;
-		x = fa[x];
-	}
-	tmp[++tp] = y;
-}
-void print() {
-	printf(&quot;%d &quot;, tp);
-	for(int i = 1; i &lt;= tp; ++i) {
-		printf(&quot;%d &quot;, tmp[i]);
-	}
-	puts(&quot;&quot;);
-	tp = 0;
-}
-
-#define swap(x,y) (x^=y^=x^=y)
-inline void get(int a, int b, int c, int d) {
-	if(deep[b] &gt; deep[d]) {
-		swap(a, c);
-		swap(b, d);
-	}
-	int e = LCA(a, c);
-	puts(&quot;YES&quot;);
-</code></pre>
-]]></summary>
         <content type="html"><![CDATA[<p>IOI2020集训队作业</p>
 <p>已经预感不能再像现在这样刷题了...唉,准备开学吧</p>
 <ul>
@@ -182,7 +294,6 @@ inline void get(int a, int b, int c, int d) {
 	}
 	int e = LCA(a, c);
 	puts(&quot;YES&quot;);
-&lt;!-- more --&gt;
 
     //就是对应了上图画的三种情况啊
 	addpath(e, d);
@@ -1602,104 +1713,6 @@ int main() {
 		ans[q[i].id] += ima * q[i].f;
 	}
 	for(int i = 1; i &lt;= Q; ++i)if(is_q[i])write(ans[i]), putchar('\n');
-	return 0;
-}
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[P3750 [六省联考2017]分手是祝愿]]></title>
-        <id>https://xiaxiaoguang.github.io/post/p3750-liu-sheng-lian-kao-2017fen-shou-shi-zhu-yuan/</id>
-        <link href="https://xiaxiaoguang.github.io/post/p3750-liu-sheng-lian-kao-2017fen-shou-shi-zhu-yuan/">
-        </link>
-        <updated>2020-03-22T14:55:37.000Z</updated>
-        <content type="html"><![CDATA[<p>六省联考D2T3</p>
-<p>首先果然代码不长不毒瘤,而且这个关灯博弈之前还看过,就是忘了</p>
-<p>然后有一些也推不太出来吧.....总的来说并不难,没有做D2T3潜质</p>
-<p>题意：有一个长度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 的 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>01</mn></mrow><annotation encoding="application/x-tex">01</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span><span class="mord">1</span></span></span></span> 串，下标编号 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 到 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span>。对位置 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>p</mi></mrow><annotation encoding="application/x-tex">p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">p</span></span></span></span> 操作一次可以使所有编号为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>p</mi></mrow><annotation encoding="application/x-tex">p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">p</span></span></span></span> 的约数的位置 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> 变 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 变 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>。目标是使所有位置变成 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>。B 君先随机操作若干次，等到当前局面可以在 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span></span></span></span> 次操作以内达成目标时就使用最优策略，达成目标后结束操作。求期望操作次数。</p>
-<p>看见期望和奇怪的限制肯定是dp,但是并让人不好下手</p>
-<p>于是本题最重要的一个贪心思想出现了</p>
-<blockquote>
-<p>任何一个按键带来的影响都不能通过其他按键的组合表示出来</p>
-</blockquote>
-<p>也就是说,如果这个按键现在是暗的,你按了的他,就一定要再按一次,否则一定不会达到全局暗的局面</p>
-<p>这个形式好像就来源于唯一分解定理?</p>
-<p>有了这个就真的可以DP了,我们考虑按照需要按的键数来设计状态,<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>[</mo><mi>i</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">f[i]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span></span></span></span>表示当前有i个需要按的键变到只需要有i-1个键的期望步数</p>
-<p>然后我们考虑转移,</p>
-<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>=</mo><mfrac><mi>i</mi><mi>n</mi></mfrac><mo>+</mo><mfrac><mrow><mi>n</mi><mo>−</mo><mi>i</mi></mrow><mi>i</mi></mfrac><mo>(</mo><mi>f</mi><mo>[</mo><mi>i</mi><mo>+</mo><mn>1</mn><mo>]</mo><mo>+</mo><mi>f</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>+</mo><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">f[i]=\frac{i}{n}+\frac{n-i}{i}(f[i+1]+f[i]+1)
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.02252em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3365200000000002em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">n</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:2.02252em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3365200000000002em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">i</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span></span></p>
-<p>这个式子相当于我们有i/n概率按中正确的,而又有n-i/n概率炸掉,然后再按回来</p>
-<p>整理一下<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>=</mo><mfrac><mrow><mi>n</mi><mo>+</mo><mo>(</mo><mi>n</mi><mo>−</mo><mi>i</mi><mo>)</mo><mo>∗</mo><mo>(</mo><mi>f</mi><mo>[</mo><mi>i</mi><mo>+</mo><mn>1</mn><mo>]</mo><mo>)</mo></mrow><mi>i</mi></mfrac></mrow><annotation encoding="application/x-tex">f[i]=\frac{n+(n-i)*(f[i+1])}{i}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.355em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.01em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.485em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span><span class="mbin mtight">+</span><span class="mopen mtight">(</span><span class="mord mathdefault mtight">n</span><span class="mbin mtight">−</span><span class="mord mathdefault mtight">i</span><span class="mclose mtight">)</span><span class="mbin mtight">∗</span><span class="mopen mtight">(</span><span class="mord mathdefault mtight" style="margin-right:0.10764em;">f</span><span class="mopen mtight">[</span><span class="mord mathdefault mtight">i</span><span class="mbin mtight">+</span><span class="mord mtight">1</span><span class="mclose mtight">]</span><span class="mclose mtight">)</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></p>
-<p>就可以O(n)递推了</p>
-<p>假设原局面要cnt步</p>
-<p>我们有了f数组,随机按之后到k就相当于只需要<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>[</mo><mi>c</mi><mi>n</mi><mi>t</mi><mo>]</mo><mo>+</mo><mi>f</mi><mo>[</mo><mi>c</mi><mi>n</mi><mi>t</mi><mo>−</mo><mn>1</mn><mo>]</mo><mo>+</mo><mi>f</mi><mo>[</mo><mi>c</mi><mi>n</mi><mi>t</mi><mo>−</mo><mn>2</mn><mo>]</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi>f</mi><mo>[</mo><mi>k</mi><mo>+</mo><mn>1</mn><mo>]</mo><mo>+</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">f[cnt]+f[cnt-1]+f[cnt-2]....f[k+1]+k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord mathdefault">c</span><span class="mord mathdefault">n</span><span class="mord mathdefault">t</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord mathdefault">c</span><span class="mord mathdefault">n</span><span class="mord mathdefault">t</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord mathdefault">c</span><span class="mord mathdefault">n</span><span class="mord mathdefault">t</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">2</span><span class="mclose">]</span><span class="mord">.</span><span class="mord">.</span><span class="mord">.</span><span class="mord">.</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span></span></span></span>这么多期望步就行了</p>
-<p>如果k&gt;=cnt?输出cnt啊你在想什么</p>
-<p>注意乘上阶乘</p>
-<p>code:</p>
-<pre><code class="language-cpp">#include&lt;iostream&gt;
-#include&lt;cstdio&gt;
-#include&lt;cstring&gt;
-const int MAXN = 2e5 + 7;
-const int P = 100003;
-int n, k;
-int a[MAXN], vis[MAXN];
-int fac[MAXN], ifac[MAXN];
-int f[MAXN];
-
-inline int ksm(long long x, int y) {
-	long long ans = 1;
-	while(y) {
-		if(y &amp; 1)ans = ans * x % P;
-		x = x * x % P;
-		y &gt;&gt;= 1;
-	}
-	return ans;
-}
-
-inline void init() {
-	fac[0] = ifac[0] = 1;
-	ifac[1] = 1;
-	for(int i = 1; i &lt;= n; ++i)fac[i] = 1ll * fac[i - 1] * i % P;
-	ifac[n] = ksm(fac[n], P - 2);
-	for(int i = n - 1; i &gt;= 2; --i)ifac[i] = 1ll * ifac[i + 1] * (i + 1) % P;
-	return ;
-}
-
-inline int ni(int x) {
-	return 1ll * ifac[x] * fac[x - 1] % P;
-}
-
-int main() {
-	scanf(&quot;%d%d&quot;, &amp;n, &amp;k);
-	for(int i = 1; i &lt;= n; ++i) {
-		scanf(&quot;%d&quot;, &amp;a[i]);
-		vis[i] = a[i];
-	}
-	init();
-	//printf(&quot;%d %d\n&quot;, fac[n], ifac[2]);
-	int cnt = 0;
-	for(int i = n; i &gt;= 1; --i) {
-		if(vis[i]) {
-			for(int j = 1; j * j &lt;= i; ++j) {
-				if(i % j == 0) {
-					vis[j] ^= 1;
-					if(j != i / j)vis[i / j] ^= 1;
-                    //判断原局面步数
-				}
-			}
-			cnt++;
-		}
-	}
-	if(k &gt;= cnt)return printf(&quot;%lld\n&quot;, 1ll * cnt * fac[n] % P), 0;
-	for(int i = n; i &gt;= 1; --i) {
-		f[i] = (n + (1ll * n - i) * f[i + 1]) * ni(i) % P;
-		//printf(&quot;%d\n&quot;, f[i]);
-	}//dp部分
-	long long ans = k;
-	for(int i = cnt; i &gt; k; --i) {
-		(ans += f[i]) %= P;
-	}//统计答案
-	printf(&quot;%lld\n&quot;, ans * fac[n] % P);
 	return 0;
 }
 </code></pre>

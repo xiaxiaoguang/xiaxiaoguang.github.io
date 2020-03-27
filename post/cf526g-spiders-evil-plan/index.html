@@ -1,0 +1,382 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CF526G Spiders Evil Plan | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1585353083258">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="CF526G Spiders Evil Plan | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="IOI2020集训队作业
+最近莫名其妙的繁忙,是文化课更用功了吗?因为感觉不像颓了啊....
+
+
+给定一棵 nnn 个节点的无根树，每条边有边权。
+有 qqq 次询问，每次询问给出 x,yx,yx,y，你需要选择 yyy 条树上的路径，使这..." />
+    <meta name="keywords" content="倍增,构造,长链剖分,集训队作业" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1585353083258" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              CF526G Spiders Evil Plan
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-03-28
+              </span>
+              <span>
+                7 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/lzY108Fv7/" class="post-tag">
+                  # 倍增
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/nuL1JOWcod/" class="post-tag">
+                  # 构造
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/ZBFIkGAi5/" class="post-tag">
+                  # 长链剖分
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/HzrxzC7K1/" class="post-tag">
+                  # 集训队作业
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/4pNOqgOvBLvj4yTC9qc55T73abXUcyrt.YXM*cbJNkt0Alr47zRPLilTabeWXBXcDaU0ommMpS9*RNOFE5qvyWrXywJR2VYKqkJlEcEAQ6M!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>IOI2020集训队作业</p>
+<p>最近莫名其妙的繁忙,是文化课更用功了吗?因为感觉不像颓了啊....</p>
+<figure data-type="image" tabindex="1"><img src="https://xiaxiaoguang.github.io/post-images/1585351069348.png" alt="" loading="lazy"></figure>
+<ul>
+<li>给定一棵 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 个节点的无根树，每条边有边权。</li>
+<li>有 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>q</mi></mrow><annotation encoding="application/x-tex">q</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span></span></span></span> 次询问，每次询问给出 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mo separator="true">,</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">x,y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span></span></span></span>，你需要选择 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span></span></span></span> 条树上的路径，使这些路径形成一个包含 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span> 的连通块，且连通块中包含的边权和最大。</li>
+<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo separator="true">,</mo><mi>q</mi><mo>≤</mo><mn>1</mn><msup><mn>0</mn><mn>5</mn></msup></mrow><annotation encoding="application/x-tex">n, q \le 10^5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8304100000000001em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">n</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">5</span></span></span></span></span></span></span></span></span></span></span>，强制在线。</li>
+</ul>
+<p>well,我承认一开始看成选边了,然后一点也没做出来,想了一个很假的n^2(</p>
+<p>既然要选就选一条路径,那么我们可以考虑拿出一个结论</p>
+<blockquote>
+<p>任意一个有k个叶子的树我们只需要k/2上取整条路径就能全覆盖</p>
+</blockquote>
+<p>有了这个结论我们贪心就好贪了,问题变成在原树中选取一些叶子,使他们组成的极小连通块边权和最大</p>
+<p>我们会发现直径的某一端点一定会被选,但是直径不定被选上...比如只有一条路径的情况</p>
+<p>然后我们就可以分别以这两个直径端点为根建树,然后问题就是在其中子树选2k-1个叶子,最大化打通他们<code>到根</code>的边权和...<s>还是不会做</s></p>
+<p>考虑带边权的长链剖分啊所以我们只需要选前2y-1个最长链就好啦!!!实现的时候我们可以先把链头都存到数组里排序一下....</p>
+<p>不过显然选完之后不一定经过x,需要微调</p>
+<h2 id="case-1">case 1</h2>
+<p>先选前2k-2条长链,然后第k条选择从x上方一个在前2k-2条长链中的点到x子树的叶子最大的</p>
+<p>就是:<img src="https://xiaxiaoguang.github.io/post-images/1585352713244.png" alt="" loading="lazy"></p>
+<p>##case 2</p>
+<p>选择前2k-1条长链,然后x去更换某条长链</p>
+<p>就是<img src="https://xiaxiaoguang.github.io/post-images/1585352967733.png" alt="" loading="lazy"></p>
+<p>code:</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+#define pi pair&lt;int,int&gt;
+using std::max;
+using std::sort;
+const int MAXN = 4e5 + 7;
+int n, q, k, s, ans, ccnt;
+int home[MAXN], nxt[MAXN], to[MAXN], len[MAXN];
+
+
+inline void ct(int x, int y, int z) {
+	ccnt++;
+	nxt[ccnt] = home[x];
+	home[x] = ccnt;
+	to[ccnt] = y;
+	len[ccnt] = z;
+}
+
+namespace fastIO {
+#define BUF_SIZE (1&lt;&lt;19)
+	static char buf[BUF_SIZE], *p1 = buf + BUF_SIZE, *pend = BUF_SIZE + buf;
+	inline char nc() {
+		if(p1 == pend) {
+			p1 = buf;
+			pend = buf + fread(buf, 1, BUF_SIZE, stdin);
+		}
+		return *p1++;
+	}
+	inline int read() {
+		int x = 0, f = 1;
+		register char s = nc();
+		for(; !isdigit(s); s = nc())if(s == '-')f = -1;
+		for(; isdigit(s); s = nc())x = (x &lt;&lt; 1) + (x &lt;&lt; 3) + s - '0';
+		return x * f;
+	}
+
+}
+using namespace fastIO;
+const int MAXM = 2e5 + 7;
+struct rec {
+	int root, f[MAXM][21], g[MAXM][21], d[MAXN], dep[MAXN], son[MAXN], top[MAXN], rnk[MAXN];
+	int l[MAXN], r[MAXN], s[MAXN], t;
+
+	void dfs1(int u, int F) {
+		//printf(&quot;%d %d\n&quot;,u,F);
+		for(int i = home[u]; i; i = nxt[i]) {
+			int v = to[i];
+			if(v != F) {
+				d[v] = d[u] + len[i],
+					   dfs1(v, u);
+                       //得到dis值
+			}
+		}
+	}
+
+	void dfs2(int u) {
+		for(int i = home[u]; i; i = nxt[i]) {
+			int v = to[i];
+			if(v != f[u][0]) {
+				f[v][0] = u;
+				g[v][0] = len[i];
+				for(int j = 0; f[v][j]; ++j) {
+					f[v][j + 1] = f[f[v][j]][j];
+					g[v][j + 1] = g[v][j] + g[f[v][j]][j];
+				}
+				d[v] = d[u] + len[i];
+				dfs2(v);
+				if(dep[v] + len[i] &gt; dep[u])
+					dep[u] = dep[v] + len[i], son[u] = v;
+                    //深度最大的
+			}
+		}//长链剖分??
+		for(int i = home[u]; i; i = nxt[i]) {
+			int v = to[i];
+			if(v != f[u][0] &amp;&amp; v != son[u])
+				s[l[++t] = v] = dep[v] + len[i];
+                //其他边向上到链头的距离
+			    //其实就是把链头拿出来了
+		}
+	}
+
+	void getroot(int u) {
+		dfs1(u, 0);
+		root = u;
+		for(int i = 1; i &lt;= n; ++i)if(d[i] &gt; d[root])root = i;
+		//直径一端点
+		d[root] = 0;
+		dfs2(root);
+		s[l[++t] = root] = dep[root];
+		sort(l + 1, l + t + 1, [&amp;](int i, int j) {
+			return s[i] &gt; s[j];
+		});
+		//按照dep从大到小
+		for(int i = 1; i &lt;= t; ++i)r[i] = r[i - 1] + s[l[i]];
+		for(int i = 1; i &lt;= t; ++i) {
+			int x = l[i], p = x;
+			while(x) {
+				top[x] = p;
+				rnk[x] = i;//第几条长链,这里是按照长度排过序的
+				//处理top
+				x = son[x];
+			}
+		}
+		//for(int i=1; i&lt;=n; ++i) {
+		//	printf(&quot;%d %d %d %d %d %d %d %d\n&quot;,s[i],top[i],rnk[i],son[i],dep[i],d[i],f[i][0],g[i][1]);
+		///}
+	}
+
+	inline int plan1(int x, int y) {
+		int z = dep[x];
+		for(int i = 20; ~i; --i) {
+			if(rnk[f[x][i]] &gt;= y)z += g[x][i], x = f[x][i];
+		}
+		return r[y - 1] + z + g[x][0];
+		//先用z-1条链
+		//再用一条从x的叶子-&gt;z最长的打通x
+	}
+
+	inline int plan2(int x, int y) {
+		int z = dep[x];
+		for(int i = 20; ~i; --i) {
+			if(rnk[f[x][i]] &gt; y)z += g[x][i], x = f[x][i];
+		}
+		return r[y] - dep[f[x][0]] + z + g[x][0];
+		//选前y条,然后扣去第y条后半部分接上x
+	}
+	inline int ask(int x, int y) {
+		y = 2 * y - 1;
+		return rnk[x] &lt;= y ? r[y] : max(plan1(x, y), plan2(x, y));
+	}
+
+} t[2];
+int in[MAXN];
+int main() {
+	///freopen(&quot;test.in&quot;,&quot;r&quot;,stdin);
+	n = read();
+	q = read();
+	for(int i = 1, x, y, z; i &lt; n; ++i) {
+		x = read(), y = read(), z = read();
+		ct(x, y, z);
+		ct(y, x, z);
+		in[x]++;
+		in[y]++;
+		s += z;
+	}
+	for(int i = 1; i &lt;= n; ++i)k += (in[i] == 1);
+	//	printf(&quot;%d?\n&quot;, k);
+	t[0].getroot(1), t[1].getroot(t[0].root);
+
+	for(int i = 1, x, y; i &lt;= q; ++i) {
+		x = read(), y = read();
+		x = (x + ans - 1) % n + 1;
+		y = (y + ans - 1) % n + 1;
+		ans = (2 * y &gt;= k ? s : max(t[0].ask(x, y), t[1].ask(x, y)));
+		printf(&quot;%d\n&quot;, ans);
+	}
+	return 0;
+}
+
+
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#case-1">case 1</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/cf521e-cycling-city/">
+              <h3 class="post-title">
+                CF521E Cycling City
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
