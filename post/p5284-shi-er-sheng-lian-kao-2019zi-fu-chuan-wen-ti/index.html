@@ -1,0 +1,367 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>P5284 [十二省联考2019]字符串问题 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1585540027640">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="P5284 [十二省联考2019]字符串问题 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="十二省联考D1T2
+没啥感想,就是10s时限确实毒瘤
+给出一个母串SSS。
+有一些AAA类串和一些BBB类串，都是SSS的子串，以左右端点的方式给出。
+给出一些AAA类串对BBB类串的支配关系。
+我们需要用若干个AAA类串首位顺次相连，要求..." />
+    <meta name="keywords" content="建图,图论,后缀自动机,各省省选" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1585540027640" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              P5284 [十二省联考2019]字符串问题
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-03-30
+              </span>
+              <span>
+                8 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/xAnkr98Aw/" class="post-tag">
+                  # 建图
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/vkAXDJ4vz/" class="post-tag">
+                  # 图论
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/m2-tF6st0/" class="post-tag">
+                  # 后缀自动机
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/KY7VyyrtD/" class="post-tag">
+                  # 各省省选
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/4pNOqgOvBLvj4yTC9qc55XJB0xK7vdqT5lu2vrOgFuHbf3PFpLROMTOuncb86MXMt8KcWRSY9ORS4lGbjoNDcIe8bP5ZZidw1TTVxPgZkdA!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>十二省联考D1T2</p>
+<p>没啥感想,就是10s时限确实毒瘤</p>
+<p>给出一个母串<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi></mrow><annotation encoding="application/x-tex">S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span></span></span></span>。</p>
+<p>有一些<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault">A</span></span></span></span>类串和一些<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>B</mi></mrow><annotation encoding="application/x-tex">B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span></span></span></span>类串，都是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi></mrow><annotation encoding="application/x-tex">S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span></span></span></span>的子串，以左右端点的方式给出。</p>
+<p>给出一些<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault">A</span></span></span></span>类串对<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>B</mi></mrow><annotation encoding="application/x-tex">B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span></span></span></span>类串的支配关系。</p>
+<p>我们需要用若干个<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault">A</span></span></span></span>类串首位顺次相连，要求对于每相邻两个<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault">A</span></span></span></span>类串，必须存在一个<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>B</mi></mrow><annotation encoding="application/x-tex">B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span></span></span></span>类串被前一个串支配，且是后一个串前缀。我们想让连接后的串尽量长，输出这个长度。如果可以无限长，输出&quot;-1&quot;。</p>
+<p>首先这是省选,而且考字符串,所以盲猜要后缀数据结构</p>
+<p>用脑子想想暴力做法就是枚举两个点然后判断能不能连边....接着跑一个拓扑排序求最长链,如果有环就是-1</p>
+<p>问题是直接这样做什么都过不了,复杂度<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mi>n</mi><mn>2</mn></msup><mo>∗</mo><mi>m</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n^2*m)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">m</span><span class="mclose">)</span></span></span></span>我们考虑建图时间浪费在哪里</p>
+<ol>
+<li>
+<p>判断两个点是否是可以做前后相接的关系,就是A是不是B所支配的某个点的一个扩集</p>
+</li>
+<li>
+<p>枚举两个点这个过程本身,也就是连边太慢了</p>
+</li>
+</ol>
+<p>所以我们先建立反串的SAM,为什么不是SA?因为我不会为什么是反串?因为我们需要后缀树,这样他的超集就在子树和本节点比他长的串上了</p>
+<p>然后我们边分两种</p>
+<ol>
+<li>从A连向被支配的B,A的权值是长度,B的权值是0</li>
+<li>从B指向以他为前缀的A</li>
+</ol>
+<p>我们发现难度主要在2号点,不过想想后缀树其实也并不难</p>
+<p>首先要用倍增的方式得到子串在原树上的位置,就是子串开头节点是谁,记录在结尾节点上</p>
+<p>然后,我们这样的方式连边<img src="https://xiaxiaoguang.github.io/post-images/1585539795419.png" alt="" loading="lazy"></p>
+<p>也就是说,我们在五号点把接收到的上方节点先按照长度从小到大排序,再B串前A串后,然后每个串都由他最近的B连向他!!</p>
+<p>最后每个结尾点都记录了离得最近的一个B点,我们再用后缀树的树边,把这个b点向他的儿子连边就好了</p>
+<p>这样仔细一想完全可以体现前缀</p>
+<p>所以这题做完了</p>
+<p>code:</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;vector&gt;
+#include&lt;algorithm&gt;
+#include&lt;queue&gt;
+#define ll long long
+using namespace std;
+const int MAXN = 2e5 + 100;
+int n, na, nb, m, sz, a[MAXN], b[MAXN], isa[MAXN &lt;&lt; 2];
+char s[MAXN];
+int lst, T, id[MAXN], last[MAXN &lt;&lt; 1], f[MAXN &lt;&lt; 1][20], ch[MAXN &lt;&lt; 1][26], fa[MAXN &lt;&lt; 1], len[MAXN &lt;&lt; 2];
+int in[MAXN &lt;&lt; 2], home[MAXN &lt;&lt; 2], to[MAXN &lt;&lt; 3], nxt[MAXN &lt;&lt; 3], ccnt;
+vector&lt;int&gt; g[MAXN &lt;&lt; 2];
+ll dis[MAXN &lt;&lt; 2];
+
+inline void ins(int c) {
+	int p = lst, np = ++T;
+	lst = np;
+	len[np] = len[p] + 1;
+	for(; p &amp;&amp; !ch[p][c]; p = fa[p])ch[p][c] = np;
+	if(!p)fa[np] = 1;
+	else {
+		int q = ch[p][c];
+		if(len[p] + 1 == len[q])fa[np] = q;
+		else {
+			int nq = ++T;
+			len[nq] = len[p] + 1;
+			memcpy(ch[nq], ch[q], sizeof(ch[q]));
+			fa[nq] = fa[q];
+			fa[q] = fa[np] = nq;
+			for(; p &amp;&amp; ch[p][c] == q; p = fa[p])ch[p][c] = nq;
+		}
+	}
+
+}
+
+inline void judge(int b) {
+	int l, r;
+	scanf(&quot;%d%d&quot;, &amp;l, &amp;r);
+	//读入l,r字符串区间
+	r = r - l + 1;
+	l = id[l];
+	//前缀所在节点
+	for(int i = 19; i &gt;= 0; --i) {
+		if(f[l][i] &amp;&amp; len[f[l][i]] &gt;= r)l = f[l][i];
+	}
+	//树上倍增,找到他真正表示节点
+	isa[++sz] = b;
+	//这一步其实是拆点了
+	len[sz] = r;
+	g[l].push_back(sz);
+	//前缀所在节点记录一下
+}
+
+inline bool cmp(const int &amp;x, const int &amp;y) {
+	return len[x] &gt; len[y] || (len[x] == len[y] &amp;&amp; isa[x] &gt; isa[y]);
+}
+
+inline void ct(int x, int y) {
+	to[++ccnt] = y;
+	nxt[ccnt] = home[x];
+	home[x] = ccnt;
+	in[y]++;
+}
+
+inline void solve() {
+	scanf(&quot;%s&quot;, s + 1);
+	n = strlen(s + 1);
+	lst = T = 1;
+	for(int i = n; i &gt;= 1; --i)ins(s[i] - 'a'), id[i] = lst;// printf(&quot;%d? &quot;, lst);
+	//puts(&quot;&quot;);
+	for(int i = 1; i &lt;= T; ++i)f[i][0] = fa[i];
+	for(int j = 1; j &lt;= 19; ++j) {
+		for(int i = 1; i &lt;= T; ++i) {
+			f[i][j] = f[f[i][j - 1]][j - 1];
+			//树上倍增部分
+		}
+	}
+	scanf(&quot;%d&quot;, &amp;na);
+	sz = T;
+	//printf(&quot;%d!!\n&quot;, T);
+	for(int i = 1; i &lt;= na; ++i)judge(1), a[i] = sz;
+	//第一类串,我们强行定位,sz是定位后对于isa和len数组位置
+	scanf(&quot;%d&quot;, &amp;nb);
+	for(int i = 1; i &lt;= nb; ++i)judge(0), b[i] = sz;
+	//再招每一个b串
+	for(int i = 1; i &lt;= T; ++i)sort(g[i].begin(), g[i].end(), cmp);
+	//对于每个点排序
+	for(int i = 1; i &lt;= T; ++i) {
+		int lst = i;
+		//找到lst
+		for(int j = g[i].size() - 1; j &gt;= 0; --j) {
+			int nw = g[i][j];
+			//提出节点,注意这里是反序的...所以应该可以把cmp改改变正序
+			ct(lst, nw);
+			//从最近B向他连边
+			if(!isa[nw])lst = nw;
+			//如果终末点是b号点
+			//我们就拿b号点作为最近终末点搞一下
+		}
+		last[i] = lst;
+		//记录他最近是哪个b节点
+	}
+	for(int i = 2; i &lt;= T; ++i)ct(last[fa[i]], i);
+	//父亲最近的b向i连边
+	for(int i = 1; i &lt;= sz; ++i)if(!isa[i])len[i] = 0;
+	//b节点len清空
+	scanf(&quot;%d&quot;, &amp;m);
+	int x, y, f = 0;
+	ll ans = 0;
+	for(int i = 1; i &lt;= m; ++i)scanf(&quot;%d%d&quot;, &amp;x, &amp;y), ct(a[x], b[y]);
+	//直接按照支配关系连边
+	queue&lt;int&gt; q;
+	//唯一看得懂的部分啊
+	for(int i = 1; i &lt;= sz; ++i) {
+		if(!in[i])q.push(i);
+	}
+	while(!q.empty()) {
+		x = q.front();
+		q.pop();
+		ans = max(ans, dis[x] + len[x]);
+		for(int i = home[x]; i; i = nxt[i]) {
+			int v = to[i];
+			dis[v] = max(dis[v], dis[x] + len[x]);
+			if(!--in[v])q.push(v);
+		}
+	}
+	for(int i = 1; i &lt;= sz; ++i) {
+		if(in[i]) {
+			f = 1;
+			break;
+		}
+	}
+	if(f)puts(&quot;-1&quot;);
+	else printf(&quot;%lld\n&quot;, ans);
+	while(!q.empty())q.pop();
+	for(int i = 1; i &lt;= T; ++i)fa[i] = 0, memset(ch[i], 0, sizeof(ch[i]));
+	for(int i = 1; i &lt;= sz; ++i)g[i].clear(), isa[i] = len[i] = home[i] = dis[i] = in[i] = 0;
+	lst = T = sz = ccnt = 0;
+}
+
+int main() {
+	int T;
+	scanf(&quot;%d&quot;, &amp;T);
+	while(T-- &gt; 0)solve();
+	return 0;
+}
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/cf536d-tavas-in-kansas/">
+              <h3 class="post-title">
+                CF536D Tavas in Kansas
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
