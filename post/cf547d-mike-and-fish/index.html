@@ -1,0 +1,286 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CF547D Mike and Fish | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1585608522770">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="CF547D Mike and Fish | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="IOI2020集训队作业
+为什么CF题会有一些奇怪的插图?
+Orz
+
+给定 nnn 个整点。
+你要给每个点染成红色或蓝色。
+要求同一水平线或垂直线上两种颜色的数量最多相差 111。
+n,xi,yi≤2×105n,x_i, y_i \le 2..." />
+    <meta name="keywords" content="欧拉路,回路,建图,图论,集训队作业" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1585608522770" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              CF547D Mike and Fish
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-03-31
+              </span>
+              <span>
+                4 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/wvzgVAoon/" class="post-tag">
+                  # 欧拉路
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/u_KhUgGZ4d/" class="post-tag">
+                  # 回路
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/xAnkr98Aw/" class="post-tag">
+                  # 建图
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/vkAXDJ4vz/" class="post-tag">
+                  # 图论
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/HzrxzC7K1/" class="post-tag">
+                  # 集训队作业
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/4pNOqgOvBLvj4yTC9qc55e7zH16bSp0gcMxEolllSD.ozHBMs8Ki41esoiGJQGaLz*m8yIJG8hlARpTpi6UpzkgxW62G14EpZs6zohKgDp4!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>IOI2020集训队作业</p>
+<p>为什么CF题会有一些奇怪的插图?<img src="https://cdn.luogu.com.cn/upload/vjudge_pic/CF547D/031dc6fdab66492c31079b30a48004c3918930a2.png" alt="" loading="lazy"></p>
+<p>Orz</p>
+<ul>
+<li>给定 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 个整点。</li>
+<li>你要给每个点染成红色或蓝色。</li>
+<li>要求同一水平线或垂直线上两种颜色的数量最多相差 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>。</li>
+<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo separator="true">,</mo><msub><mi>x</mi><mi>i</mi></msub><mo separator="true">,</mo><msub><mi>y</mi><mi>i</mi></msub><mo>≤</mo><mn>2</mn><mo>×</mo><mn>1</mn><msup><mn>0</mn><mn>5</mn></msup></mrow><annotation encoding="application/x-tex">n,x_i, y_i \le 2 \times 10^5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8304100000000001em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">n</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">5</span></span></span></span></span></span></span></span></span></span></span>。</li>
+</ul>
+<p>一眼看上去真的很难判断是什么算法,如果是DP的话,那我们要记的状态可能有点复杂?</p>
+<p>如果是贪心暴力的话...后效性?而且染色不一定有最优的啊</p>
+<p>另外还要输出方案,好像图论算法就很不错?</p>
+<p>先考虑建图,由网络流24题不难发现我们可以建行点和列点,然后同一行列有点我们就连一条边</p>
+<p>边的方向?会不会就是点的颜色呢??/jk</p>
+<p>如果就是点的颜色,我们就是要给每条边定向了,之前做的边定向题好像都转化成欧拉回路了!</p>
+<p>那么我们这个题也可以,因为如果一个点是奇度数点,入度出度差1!是偶度数点则入度出度相等</p>
+<p>而我们要欧拉回路还需要再建一个虚拟点,然后所有奇度数点向他连边.....不难发现他的度数一定是偶数</p>
+<p>这样就做完了///</p>
+<p>code:</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+const int MAXN = 1e6 + 7;
+int n, m;
+int ccnt, home[MAXN], nxt[MAXN], to[MAXN], vis[MAXN], deg[MAXN], res[MAXN];
+
+namespace fastIO {
+#define BUF_SIZE (1&lt;&lt;19)
+	static char buf[BUF_SIZE], *p1 = buf + BUF_SIZE, *pend = BUF_SIZE + buf;
+	inline char nc() {
+		if(p1 == pend) {
+			p1 = buf;
+			pend = buf + fread(buf, 1, BUF_SIZE, stdin);
+		}
+		return *p1++;
+	}
+	inline int read() {
+		int x = 0, f = 1;
+		register char s = nc();
+		for(; !isdigit(s); s = nc())if(s == '-')f = -1;
+		for(; isdigit(s); s = nc())x = (x &lt;&lt; 1) + (x &lt;&lt; 3) + s - '0';
+		return x * f;
+	}
+}
+using namespace fastIO;
+
+inline void ct(int x, int y) {
+	ccnt++;
+	nxt[ccnt] = home[x];
+	home[x] = ccnt;
+	to[ccnt] = y;
+	++deg[x];
+}
+
+inline void dfs(int u) {
+	//printf(&quot;%d &quot;, u);
+	for(int &amp;i = home[u], e; i; i = nxt[i]) {
+		int v = to[i];
+		if(!vis[e = i &gt;&gt; 1]) {
+            //你会发现这其实是让同一条无向边只被标记一次
+            //比如2,3&gt;&gt;1都是1,也就其中一个会被标记
+			vis[e] = 1;
+			if(e &lt;= n)res[e] = i &amp; 1;
+			dfs(to[i]);
+
+		}
+	}
+}
+
+int main() {
+	//freopen(&quot;test.in&quot;, &quot;r&quot;, stdin);
+	n = read();
+	ccnt = 1;
+	//puts(&quot;QWQ&quot;);
+	for(int i = 1, u, v; i &lt;= n; ++i) {
+		u = read();
+		v = read() + 200000;//这个是列点
+		ct(u, v);
+		ct(v, u);
+	}
+	//puts(&quot;QAQ&quot;);
+	for(int i = 1; i &lt;= 400000; ++i)
+		if(deg[i] &amp; 1)ct(0, i), ct(i, 0);//虚拟点起效
+	for(int i = 1; i &lt;= 400000; ++i) {
+		dfs(i); //if(i % 10000 == 0)printf(&quot;%d\n&quot;, i); //枚举每行每列
+
+	}
+	//printf(&quot;%d?\n&quot;, n);
+	for(int i = 1; i &lt;= n; ++i)putchar(res[i] ? 'b' : 'r');
+	return 0;
+}
+</code></pre>
+<p>金色暗影封面图很快就有的~</p>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/p5284-shi-er-sheng-lian-kao-2019zi-fu-chuan-wen-ti/">
+              <h3 class="post-title">
+                P5284 [十二省联考2019]字符串问题
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
