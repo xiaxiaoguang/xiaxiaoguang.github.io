@@ -1,0 +1,310 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CF547E Mike and Friends | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1585706983124">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="CF547E Mike and Friends | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="IOI2020集训队作业
+呐,你想要的的小暗
+最近集训队作业加大难度了啊?
+而且你谷愚人节随机名字颜色真不错
+给定 nnn 个字符串 s1…ns_{1 \dots n}s1…n​​。
+qqq 次询问 skss_kssk​s 在 sl…rs_..." />
+    <meta name="keywords" content="线段树合并,后缀自动机,集训队作业" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1585706983124" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              CF547E Mike and Friends
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-04-01
+              </span>
+              <span>
+                5 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/i5COEV3Vw/" class="post-tag">
+                  # 线段树合并
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/m2-tF6st0/" class="post-tag">
+                  # 后缀自动机
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/HzrxzC7K1/" class="post-tag">
+                  # 集训队作业
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/4pNOqgOvBLvj4yTC9qc55SIddg6heFE50tNP5OlE2WI2vwXzLSEik5BRDN0k7GWoDA0e6ebmR3KdpM0tB4QN1KNRErjF3yPYGxsAeDIQkBA!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>IOI2020集训队作业</p>
+<p><s>呐,你想要的的小暗</s></p>
+<p>最近集训队作业加大难度了啊?</p>
+<p>而且你谷愚人节随机名字颜色真不错</p>
+<p>给定 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 个字符串 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>s</mi><mrow><mn>1</mn><mo>…</mo><mi>n</mi></mrow></msub></mrow><annotation encoding="application/x-tex">s_{1 \dots n}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="minner mtight">…</span><span class="mord mathdefault mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>​。<br>
+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>q</mi></mrow><annotation encoding="application/x-tex">q</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span></span></span></span> 次询问 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>s</mi><mi>k</mi></msub><mi>s</mi></mrow><annotation encoding="application/x-tex">s_ks</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathdefault">s</span></span></span></span> 在 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>s</mi><mrow><mi>l</mi><mo>…</mo><mi>r</mi></mrow></msub></mrow><annotation encoding="application/x-tex">s_{l \dots r}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span><span class="minner mtight">…</span><span class="mord mathdefault mtight" style="margin-right:0.02778em;">r</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>​ 中出现了多少次。<br>
+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo separator="true">,</mo><mo>∑</mo><mi mathvariant="normal">∣</mi><mi>s</mi><mi mathvariant="normal">∣</mi><mo>≤</mo><mn>2</mn><mo>×</mo><mn>1</mn><msup><mn>0</mn><mn>5</mn></msup></mrow><annotation encoding="application/x-tex">n, \sum |s| \le 2 \times 10^5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.00001em;vertical-align:-0.25001em;"></span><span class="mord mathdefault">n</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∣</span><span class="mord mathdefault">s</span><span class="mord">∣</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">5</span></span></span></span></span></span></span></span></span></span></span> <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>q</mi><mo>≤</mo><mn>5</mn><mo>×</mo><mn>1</mn><msup><mn>0</mn><mn>5</mn></msup></mrow><annotation encoding="application/x-tex">q \le 5 \times 10^5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8304100000000001em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">5</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">5</span></span></span></span></span></span></span></span></span></span></span>。</p>
+<p>主要是考虑区间这一维限制怎么消掉</p>
+<p>你发现我们完全可以用类似于莫队的扩展方式来消掉,也就是维护一个编号的数组</p>
+<p>但是我们查询在建出SAM后就变成了对于一个子树里编号集合的查询...莫队好像没啥意义</p>
+<p>因为我们有线段树合并啊w,用线段树维护编号的数组</p>
+<p>线段树合并到fail树那个节点就可以处理这个节点上的所有查询了,直接区间查询和就好</p>
+<p>但问题来了,这样很可能MLE啊QAQ</p>
+<p>所以我们建立广义SAM时还需要注意不能开直接开新点,不过这个好像和之前写广义SAM写法是一样的,不过要拆开近似点</p>
+<p>看下代码什么都懂啦</p>
+<p>code:</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+const int MAXN = 5e5 + 7;
+const int INF = 1e7;
+namespace Tree {
+	int root[MAXN], T, lc[INF], rc[INF], w[INF];
+#define lt lc[k], l, mid
+#define rt rc[k],mid+1,r
+	inline void modi(int &amp;k, int l, int r, int x) {
+		if(!k)k = ++T;
+		w[k]++;
+		if(l == r)return ;
+		register int mid = (l + r) &gt;&gt; 1;
+		if(x &lt;= mid)modi(lt, x);
+		else modi(rt, x);
+	}
+	inline int query(int k, int l, int r, int x, int y) {
+		if(x &gt; r || y &lt; l || !k)return 0;
+		if(x &lt;= l &amp;&amp; r &lt;= y)return w[k];
+		register int mid = (l + r) &gt;&gt; 1;
+		return query(lt, x, y) + query(rt, x, y);
+	}
+	inline int merge(int x, int y) {
+		if(!x || !y)return x + y;
+		register int now = ++T;
+		w[now] = w[x] + w[y];
+		lc[now] = merge(lc[x], lc[y]);
+		rc[now] = merge(rc[x], rc[y]);
+		return now;
+	}
+};
+
+namespace SAM {
+	int ch[MAXN][27], len[MAXN], link[MAXN], T, lst, p, q, cur, cle;
+	int buc[MAXN], sa[MAXN], id[MAXN];
+	inline void init() {
+		lst = 1;
+		T = 1;
+	}
+	inline void add(int x) {
+		if(ch[lst][x]) {
+			p = lst;
+			q = ch[p][x];
+			if(len[p] + 1 == len[q]) {
+				lst = q;
+				return ;
+			}
+			cle = ++T;
+			len[cle] = len[p] + 1;
+			link[cle] = link[q];
+			memcpy(ch[cle], ch[q], sizeof(ch[q]));
+			while(p &amp;&amp; ch[p][x] == q)ch[p][x] = cle, p = link[p];
+			lst = cle;
+			link[q] = cle;
+			return ;
+		}
+		len[cur = ++T] = len[lst] + 1;
+		p = lst;
+		lst = cur;
+		while(p &amp;&amp; !ch[p][x])ch[p][x] = cur, p = link[p];
+		if(!p) {
+			link[cur] = 1;
+			return ;
+		}
+		q = ch[p][x];
+		if(len[p] + 1 == len[q]) {
+			link[cur] = q;
+			return ;
+		}
+		cle = ++T;
+		len[cle] = len[p] + 1;
+		link[cle] = link[q];
+		memcpy(ch[cle], ch[q], sizeof(ch[q]));
+		while(p &amp;&amp; ch[p][x] == q)ch[p][x] = cle, p = link[p];
+		link[cur] = link[q] = cle;
+	}
+	inline void sort() {
+		for(int i = 1; i &lt;= T; ++i)buc[len[i]]++;
+		for(int i = 1; i &lt;= T; ++i)buc[i] += buc[i - 1];
+		for(int i = T; i &gt;= 1; --i)sa[buc[len[i]]--] = i;
+		for(int i = T; i &gt;= 1; --i) {
+			if(sa[i] == 1)continue;
+			//printf(&quot;%d %d %d\n&quot;, sa[i], len[i], link[i]);
+			Tree::root[link[sa[i]]] = Tree::merge(Tree::root[link[sa[i]]], Tree::root[sa[i]]);
+		}
+	}
+};
+char c[MAXN];
+int n, m, X, Y, W;
+int main() {
+	scanf(&quot;%d%d&quot;, &amp;n, &amp;m);
+	SAM::init();
+	for(int i = 1; i &lt;= n; ++i) {
+		scanf(&quot;%s&quot;, c + 1);
+		SAM::lst = 1;
+		int len = strlen(c + 1);
+		for(int j = 1; j &lt;= len; ++j) {
+			SAM::add(c[j] - 'a' + 1);
+			Tree::modi(Tree::root[SAM::lst], 1, n, i);
+		}
+		SAM::id[i] = SAM::lst;
+	}
+	SAM::sort();
+	while(m-- &gt; 0) {
+		scanf(&quot;%d%d%d&quot;, &amp;X, &amp;Y, &amp;W);
+		printf(&quot;%d\n&quot;, Tree::query(Tree::root[SAM::id[W]], 1, n, X, Y));
+	}
+	return 0;
+}
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/cf547d-mike-and-fish/">
+              <h3 class="post-title">
+                CF547D Mike and Fish
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
