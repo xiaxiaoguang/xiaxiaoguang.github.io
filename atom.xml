@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://xiaxiaoguang.github.io</id>
     <title>夏晓光(loveJY)的博客</title>
-    <updated>2020-04-01T02:09:48.444Z</updated>
+    <updated>2020-04-02T06:12:12.673Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://xiaxiaoguang.github.io"/>
     <link rel="self" href="https://xiaxiaoguang.github.io/atom.xml"/>
@@ -11,12 +11,113 @@
     <icon>https://xiaxiaoguang.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 夏晓光(loveJY)的博客</rights>
     <entry>
+        <title type="html"><![CDATA[CF559E Gerald and Path]]></title>
+        <id>https://xiaxiaoguang.github.io/post/cf559e-gerald-and-path/</id>
+        <link href="https://xiaxiaoguang.github.io/post/cf559e-gerald-and-path/">
+        </link>
+        <updated>2020-04-01T08:11:25.000Z</updated>
+        <content type="html"><![CDATA[<p>IOI2020集训队作业</p>
+<p>小清新?这还是在跳过那倒计算几何题前提下....不过也很容易第一眼就误解</p>
+<ul>
+<li>有 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 条线段。</li>
+<li>每条线段给定其中一端的位置及长度。</li>
+<li>求所有线段覆盖的最大长度。</li>
+<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>≤</mo><mn>100</mn></mrow><annotation encoding="application/x-tex">n \le 100</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mord">0</span></span></span></span>。</li>
+</ul>
+<p>你直接离散化想统计答案是不行的,为什么不行?因为你没法决定每条线段是向左还是向右更优</p>
+<p>所以要DP(</p>
+<p>设f_{i,j}表示前i条线段,最右端覆盖到j的覆盖最长长度是什么,然后我们考虑i线段是向左延伸还是向右延伸...</p>
+<h3 id="case-1-向右延伸">case 1 向右延伸</h3>
+<p>这种情况不会和之前做的决策产生冲突,所以直接转移即可</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>f</mi><mrow><mi>i</mi><mo separator="true">,</mo><mi>j</mi></mrow></msub><mo>=</mo><mi>m</mi><mi>a</mi><mi>x</mi><mrow><msub><mi>f</mi><mrow><mi>i</mi><mo>−</mo><mn>1</mn><mo separator="true">,</mo><mi>p</mi></mrow></msub><mo>+</mo><mi>d</mi><mi>i</mi><mi>s</mi><mi>t</mi><mo>(</mo><mi>p</mi><mo separator="true">,</mo><mi>j</mi><mo>)</mo></mrow><mo separator="true">,</mo><mi>j</mi><mo>∈</mo><mo>[</mo><mi>p</mi><mo separator="true">,</mo><mi>r</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">f_{i,j}=max{f_{i-1,p}+dist(p,j)},j \in [p,r]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.036108em;vertical-align:-0.286108em;"></span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault">x</span><span class="mord"><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mbin mtight">−</span><span class="mord mtight">1</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight">p</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">i</span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mopen">(</span><span class="mord mathdefault">p</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mclose">)</span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathdefault">p</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mclose">]</span></span></span></span></p>
+<h3 id="case-2-向左延伸">case 2 向左延伸</h3>
+<p>这种情况可能和之前决策产生重叠然后自闭掉....</p>
+<p>所以因为可能这样存在一些线段使他们原本的右端点在更右边,因为我们第二维是只有考虑前i-1条线段的情况</p>
+<p>我们直接枚举 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span></span></span></span> 并令 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi><mo>∼</mo><mi>i</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">k\sim i-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∼</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.74285em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 这些线段都向右放。令 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>R</mi></mrow><annotation encoding="application/x-tex">R</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span></span></span></span> 表示右端点最右的位置。则 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>f</mi><mrow><mi>i</mi><mo separator="true">,</mo><mi>j</mi></mrow></msub><mo>=</mo><mi>max</mi><mo>⁡</mo><mo>{</mo><msub><mi>f</mi><mrow><mi>k</mi><mo>−</mo><mn>1</mn><mo separator="true">,</mo><mi>l</mi></mrow></msub><mo>+</mo><mrow><mi mathvariant="normal">d</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">t</mi></mrow><mo>(</mo><mi>l</mi><mo separator="true">,</mo><mi>R</mi><mo>)</mo><mo>}</mo></mrow><annotation encoding="application/x-tex">f_{i,j}=\max\{f_{k-1,l}+\mathrm{dist}(l,R)\}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.036108em;vertical-align:-0.286108em;"></span><span class="mop">max</span><span class="mopen">{</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span><span class="mbin mtight">−</span><span class="mord mtight">1</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathrm">d</span><span class="mord mathrm">i</span><span class="mord mathrm">s</span><span class="mord mathrm">t</span></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mclose">)</span><span class="mclose">}</span></span></span></span></p>
+<p>这样子转移就不会有冲突问题了,注意我们处理的前提是我们可以考虑一条线段的长度不固定,也就是说题目中给出的是最大长度,这样我们的状态才能够贴切实际情况</p>
+<p>直接枚举的复杂度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mi>n</mi><mn>3</mn></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n^3)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>。考虑 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span></span></span></span> 从大到小枚举，更新 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>R</mi></mrow><annotation encoding="application/x-tex">R</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span></span></span></span> 的值。令<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>g</mi><mo>[</mo><mi>R</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">g[R]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mclose">]</span></span></span></span> 表示右端点为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>R</mi></mrow><annotation encoding="application/x-tex">R</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span></span></span></span> 时的最大答案。</p>
+<p>我们直接算出 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>g</mi><mo>[</mo><mi>R</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">g[R]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mclose">]</span></span></span></span> 后，还要对其做一遍后缀的处理。就是相当于取前缀计算贡献。具体可以见代码里的处理。</p>
+<p>code:</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+#include&lt;vector&gt;
+
+using namespace std;
+vector&lt;int&gt; vec;
+const int MAXN = 215;
+struct rec {
+	int l, r, p;
+	inline bool operator&lt;(const rec &amp;x) const {
+		return p &lt; x.p;
+	}
+} d[MAXN];//线段
+
+int n, f[MAXN][MAXN * 3], g[MAXN * 3];
+
+inline int find(int &amp;x) {
+	x = lower_bound(vec.begin(), vec.end(), x) - vec.begin();
+}
+
+int main() {
+	scanf(&quot;%d&quot;, &amp;n);
+	vec.push_back(-1e9);
+	for(int i = 1; i &lt;= n; ++i) {
+		int a, l;
+		scanf(&quot;%d%d&quot;, &amp;a, &amp;l);
+		d[i] = (rec) {
+			a - l, a + l, a
+		};
+		vec.push_back(d[i].l);
+		vec.push_back(d[i].r);
+		vec.push_back(d[i].p);
+	}
+	sort(vec.begin(), vec.end());
+	vec.erase(unique(vec.begin(), vec.end()), vec.end());
+	for(int i = 1; i &lt;= n; ++i)find(d[i].l), find(d[i].r), find(d[i].p);
+    //以上部分我们离散化
+	int m = vec.size() - 1;
+	sort(d + 1, d + n + 1);
+	for(int i = 1; i &lt;= n; ++i) {
+		memcpy(f[i], f[i - 1], sizeof * f);
+        //这里要开始DP
+		int L = d[i].l, R = d[i].r, p = d[i].p;
+		memset(g, 0, sizeof(g));
+		int nr = p;
+		g[nr] = f[i - 1][L] + vec[nr] - vec[L];
+        //这里先更新i向左覆盖的答案
+		for(int j = i - 1; j; --j) {
+            //把i-1到0所有线段考虑向右最多能覆盖到哪里
+			nr = max(nr, d[j].r);
+			g[nr] = max(g[nr], f[j - 1][L] + vec[nr] - vec[L]);
+            //计算新的贡献,用上这条线段
+		}
+		for(int j = m; j &gt;= L; --j) {
+			f[i][j] = max(f[i][j], g[j]);
+            //更新新的答案,这条线段加进去可能会有所不同
+			g[j - 1] = max(g[j - 1], g[j] - vec[j] + vec[j - 1]);
+            //更新这个g数组,表示我们可以考虑把j点的答案去掉
+		}
+		for(int j = p; j &lt;= R; ++j)f[i][j] = max(f[i][j], f[i - 1][p] + vec[j] - vec[p]);
+        //在考虑有多点就好
+		for(int j = 1; j &lt;= m; ++j)f[i][j] = max(f[i][j], f[i][j - 1]);
+	}
+	printf(&quot;%d\n&quot;, f[n][m]);
+	return 0;
+}
+</code></pre>
+<p>咕咕咕</p>
+]]></content>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[CF547E Mike and Friends]]></title>
         <id>https://xiaxiaoguang.github.io/post/cf547e-mike-and-friends/</id>
         <link href="https://xiaxiaoguang.github.io/post/cf547e-mike-and-friends/">
         </link>
         <updated>2020-04-01T01:25:08.000Z</updated>
         <content type="html"><![CDATA[<p>IOI2020集训队作业</p>
+<figure data-type="image" tabindex="1"><img src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/4pNOqgOvBLvj4yTC9qc55d5Rb5zCL6GYefLJ8qYiplTaliv7R2LqiZmz*XoE8g.YTbM8OekMFYwnXtTNNRrczXczjg0.Raqs3bmoKAg6tyo!/r" alt="" loading="lazy"></figure>
 <p><s>呐,你想要的的小暗</s></p>
 <p>最近集训队作业加大难度了啊?</p>
 <p>而且你谷愚人节随机名字颜色真不错</p>
@@ -1480,182 +1581,6 @@ int main() {
 	work();
 	return 0;
 }
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[CF516E Drazil and His Happy Friends]]></title>
-        <id>https://xiaxiaoguang.github.io/post/cf516e-drazil-and-his-happy-friends/</id>
-        <link href="https://xiaxiaoguang.github.io/post/cf516e-drazil-and-his-happy-friends/">
-        </link>
-        <updated>2020-03-25T22:54:14.000Z</updated>
-        <content type="html"><![CDATA[<p>IOI2020集训队作业</p>
-<p>果然集训队作业里面什么都有啊qwq</p>
-<ul>
-<li>有 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 个男生 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">m</span></span></span></span> 个女生，编号分别为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn><mo>∼</mo><mi>n</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0 \sim n - 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∼</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 和 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn><mo>∼</mo><mi>m</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0 \sim m - 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∼</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>。</li>
-<li>有 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>b</mi></mrow><annotation encoding="application/x-tex">b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">b</span></span></span></span> 个男生和 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>g</mi></mrow><annotation encoding="application/x-tex">g</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span></span></span></span> 个女生是快乐的，其他人是不快乐的。</li>
-<li>在第 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span> 天，编号为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi><mtext> </mtext><mrow><mi mathvariant="normal">m</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">d</mi></mrow><mtext> </mtext><mi>n</mi></mrow><annotation encoding="application/x-tex">i \bmod n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mspace" style="margin-right:0.05555555555555555em;"></span><span class="mbin"><span class="mord"><span class="mord mathrm">m</span><span class="mord mathrm">o</span><span class="mord mathrm">d</span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mspace" style="margin-right:0.05555555555555555em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 的男生和编号为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi><mtext> </mtext><mrow><mi mathvariant="normal">m</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">d</mi></mrow><mtext> </mtext><mi>m</mi></mrow><annotation encoding="application/x-tex">i \bmod m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mspace" style="margin-right:0.05555555555555555em;"></span><span class="mbin"><span class="mord"><span class="mord mathrm">m</span><span class="mord mathrm">o</span><span class="mord mathrm">d</span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mspace" style="margin-right:0.05555555555555555em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">m</span></span></span></span> 的女生会一起玩。<br>
-如果他们俩中有一个人是快乐的，则另一个人也会变快乐。<br>
-求至少要多少天所有人都会变快乐，或者判断不可能所有人都变快乐。</li>
-<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo separator="true">,</mo><mi>m</mi><mo>≤</mo><mn>1</mn><msup><mn>0</mn><mn>9</mn></msup></mrow><annotation encoding="application/x-tex">n,m \le 10^9</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8304100000000001em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">n</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">9</span></span></span></span></span></span></span></span></span></span></span>，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>b</mi><mo separator="true">,</mo><mi>g</mi><mo>≤</mo><mn>1</mn><msup><mn>0</mn><mn>5</mn></msup></mrow><annotation encoding="application/x-tex">b,g \le 10^5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">b</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">5</span></span></span></span></span></span></span></span></span></span></span>。</li>
-</ul>
-<p>看上去很可以暴力的样子,然而这个题是CF题,没有部分分....</p>
-<p>我们首先想错位对齐有哪些数永远对不上...<br>
-<img src="https://xiaxiaoguang.github.io/post-images/1585177883846.png" alt="" loading="lazy"><br>
-发现可以mod gcd分组,同一组内至少要有一个1,这样至少在n*m天后能全开心,否则无解啊</p>
-<p>所以只需要每一组答案求出来取个max就行</p>
-<p>假设n&gt;m,且gcd(n,m)=1</p>
-<p>那么如果有n个男生快乐了,除非天数小于m,所有的女生也一定快乐了,这是因为女生每天都至少被多影响一个人</p>
-<p>所以我们只需要求出最后一个变快乐男生的时间,假定如果初始时女生快乐对应男生也快乐</p>
-<p>那么一个男生x在t天变快乐了,就可以再经过m轮让使他变快乐的那个女生把<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>t</mi><mo>+</mo><mi>m</mi><mo>)</mo><mtext> </mtext><mrow><mi mathvariant="normal">m</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">d</mi></mrow><mtext> </mtext><mi>n</mi></mrow><annotation encoding="application/x-tex">(t+m)\bmod n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">t</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">m</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mspace" style="margin-right:0.05555555555555555em;"></span><span class="mbin"><span class="mord"><span class="mord mathrm">m</span><span class="mord mathrm">o</span><span class="mord mathrm">d</span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mspace" style="margin-right:0.05555555555555555em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span>男生也快乐了</p>
-<p>这个相当于同余最短路啊...连边<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi><mo>−</mo><mo>&gt;</mo><mo>(</mo><mi>i</mi><mo>+</mo><mi>m</mi><mo>)</mo><mtext> </mtext><mrow><mi mathvariant="normal">m</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">d</mi></mrow><mtext> </mtext><mi>n</mi></mrow><annotation encoding="application/x-tex">i-&gt;(i+m)\bmod n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.74285em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">i</span><span class="mord">−</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">m</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mspace" style="margin-right:0.05555555555555555em;"></span><span class="mbin"><span class="mord"><span class="mord mathrm">m</span><span class="mord mathrm">o</span><span class="mord mathrm">d</span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mspace" style="margin-right:0.05555555555555555em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span>长为m的边另外我们从S-&gt;i连一条长为i的边,因为第i天女生才能让他快乐</p>
-<p>这样所有点最短路最大值就是答案啦,可是这个是1e9个点的,不可能过</p>
-<p>考虑节省点数,压缩没有用的答案,因为初始快乐并不多所以我们考虑i和<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>i</mi><mo>+</mo><mi>m</mi><mo>)</mo><mtext> </mtext><mrow><mi mathvariant="normal">m</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">d</mi></mrow><mtext> </mtext><mi>n</mi></mrow><annotation encoding="application/x-tex">(i+m)\bmod n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">m</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mspace" style="margin-right:0.05555555555555555em;"></span><span class="mbin"><span class="mord"><span class="mord mathrm">m</span><span class="mord mathrm">o</span><span class="mord mathrm">d</span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mspace" style="margin-right:0.05555555555555555em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span>二者如果都不快乐,那么i一定会在<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>i</mi><mo>+</mo><mi>m</mi><mo>)</mo><mtext> </mtext><mrow><mi mathvariant="normal">m</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">d</mi></mrow><mtext> </mtext><mi>n</mi></mrow><annotation encoding="application/x-tex">(i+m)\bmod n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">m</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mspace" style="margin-right:0.05555555555555555em;"></span><span class="mbin"><span class="mord"><span class="mord mathrm">m</span><span class="mord mathrm">o</span><span class="mord mathrm">d</span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mspace" style="margin-right:0.05555555555555555em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span>前快乐,所以他的答案就没有用处了,我们把连向i的边连向<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>i</mi><mo>+</mo><mi>m</mi><mo>)</mo><mtext> </mtext><mrow><mi mathvariant="normal">m</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">d</mi></mrow><mtext> </mtext><mi>n</mi></mrow><annotation encoding="application/x-tex">(i+m)\bmod n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">m</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mspace" style="margin-right:0.05555555555555555em;"></span><span class="mbin"><span class="mord"><span class="mord mathrm">m</span><span class="mord mathrm">o</span><span class="mord mathrm">d</span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mspace" style="margin-right:0.05555555555555555em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span>即可</p>
-<p>这个思路是可以归纳到<code>只保留i或(i+m) mod n为快乐节点的节点</code>这个结论的,这样点数就只有b+g级别了</p>
-<p>然后难点在于连边....我们考虑分几类边</p>
-<ul>
-<li>源点到初始快乐节点</li>
-<li>被保留的第二类节点到初始快乐节点边长为m</li>
-<li>从初始快乐节点到被保留某个节点,边长xm</li>
-</ul>
-<p>要求出第三类边长...我们考虑求那个被保留节点+m modn后的初始快乐节点是谁,那其实就相当于求modn意义下,每次向前跳m步,这样的一个初始快乐i遇到第一个初始快乐j是什么.....</p>
-<p>直接做是n^2的,但是这个让人感觉有单调性,所以我们只需要把编号最小的那个点拿出来,对其他节点做一遍exgcd求出那个x,然后把那些节点按照x值排序,就可以得到快乐点i经过顺序,也就是要求的了</p>
-<p>总复杂度O((b+g)log(b+g))?</p>
-<p>code:</p>
-<pre><code class="language-cpp">
-#include&lt;iostream&gt;
-#include&lt;cstdio&gt;
-#include&lt;cstring&gt;
-#include&lt;algorithm&gt;
-#include&lt;queue&gt;
-#include&lt;map&gt;
-#include&lt;vector&gt;
-#define ui unsigned int
-using namespace std;
-#define pi pair&lt;int,int&gt;
-#define mp(x,y) make_pair(x,y)
-#define ll long long
-#define se second
-#define fi first
-//#define swap(x,y) (x^=y^=x^=y)
-
-const int MAXN = 1e5 + 7;
-const ll inf = 0x3f3f3f3f3f3f3f;
-int n, m, d, B, G, b[MAXN], g[MAXN];
-vector&lt;int&gt; a[MAXN &lt;&lt; 1], f[MAXN &lt;&lt; 1];
-ll ans;
-
-int gcd(int a, int b) {
-    return b ? gcd(b, a % b) : a;
-}
-
-int exgcd(int a, int b, int &amp;x, int &amp;y, int d = 0) {
-    return b ? (d = exgcd(b, a % b, y, x), y -= a / b * x, d) : (x = 1, y = 0, a);
-}
-
-
-
-namespace fastIO {
-#define BUF_SIZE (1&lt;&lt;19)
-    static char buf[BUF_SIZE], *p1 = buf + BUF_SIZE, *pend = buf + BUF_SIZE;
-    inline char nc() {
-        if(p1 == pend) {
-            p1 = buf;
-            pend = buf + fread(buf, 1, BUF_SIZE, stdin);
-        }
-        return *p1++;
-    }
-
-    inline int read() {
-        int x = 0, f = 1;
-        register char s = nc();
-        for(; !isdigit(s); s = nc())if(s == '-')f = -1;
-        for(; isdigit(s); s = nc())x = (x &lt;&lt; 1) + (x &lt;&lt; 3) + s - '0';
-        return x * f;
-    }
-
-}
-using namespace fastIO;
-
-inline ll solve(vector&lt;int&gt; a, vector&lt;int&gt; b) {
-    vector&lt;int&gt; s = a;
-    for(ui i = 0; i &lt; b.size(); ++i)s.push_back(b[i]);
-    sort(s.begin(), s.end());
-    int k = unique(s.begin(), s.end()) - s.begin(), x, y;
-    //去重之后
-    if(n == k) {
-        //puts(&quot;QWQ&quot;);
-        int c[m];
-        memset(c, 0, sizeof(c));
-        for(ui i = 0; i &lt; a.size(); ++i)if(a[i] &lt; m)++c[a[i]];
-        for(ui i = 0; i &lt; b.size(); ++i)if(b[i] &lt; m)++c[b[i]];
-        for(int i = m - 1; ~i; --i)if(c[i] == 1)return i;
-        return -1;
-    }
-    vector&lt;pair&lt;int, ll &gt; &gt; e[2 * k + 1];
-    //printf(&quot;%d?%d\n&quot;, m, k);
-    for(int i = 0; i &lt; k; ++i)e[2 * k].push_back(mp(i, s[i])), e[i + k].push_back(mp(i, m));
-    //S-&gt;s[i]
-    exgcd(m, n, x, y);
-    x = (x % n + n) % n;
-    //printf(&quot;%d@\n&quot;, x);
-    pi p[k];
-    for(int i = 0; i &lt; k; ++i)p[i] = mp(1ll * x * (s[i] - s[0]) % n, i); //printf(&quot;%d*%d\n&quot;, p[i].fi, p[i].se);
-    sort(p, p + k);
-    for(int i = 0, j = 1 % k; i &lt; k; ++i, j = (++j == k) ? 0 : j)e[p[i].se].push_back(mp(p[j].se + k, 1ll * m * (p[j].fi - p[i].fi - 1 &lt; 0 ? p[j].fi - p[i].fi - 1 + n : p[j].fi - p[i].fi - 1)));
-    map&lt;int, int&gt; h;
-    for(int i = 0; i &lt; k; ++i)h[s[i]] = i;
-    for(int i = 0; i &lt; k; ++i) {
-        if(h.find((s[i] + m) % n) != h.end()) {
-            int j = h[(s[i] + m) % n];
-            e[i].push_back(mp(j + k, 0)), e[j + k].push_back(mp(i, 0));
-        }
-    }
-    priority_queue&lt;pair&lt;ll, int&gt; &gt; q;
-    int v[2 * k + 1];
-    ll d[2 * k + 1], now = 0;
-    memset(v, 0, sizeof(v));
-    memset(d, 0x3f, sizeof(d));
-    q.push(mp(0, 2 * k)), d[2 * k] = 0;
-    while(!q.empty()) {
-        int x = q.top().se;
-        q.pop();
-        //printf(&quot;%d?\n&quot;, x);
-        if(v[x])continue;
-        v[x] = 1;
-        now = max(now, d[x]);
-        //所有最短路最长的
-        for(ui i = 0; i &lt; e[x].size(); ++i) {
-            int v = e[x][i].fi;
-            ll z = e[x][i].se;
-            if((d[v] &gt; d[x] + z))d[v] = d[x] + z, q.push(mp(-d[v], v));
-        }
-    }
-    return now;
-}
-
-int main() {
-   // freopen(&quot;test.in&quot;, &quot;r&quot;, stdin);
-    n = read();
-    m = read();
-    B = read();
-    for(int i = 1; i &lt;= B; ++i)b[i] = read();
-    G = read();
-    for(int i = 1; i &lt;= G; ++i)g[i] = read();
-    if(n &lt; m)swap(n, m), swap(B, G), swap(b, g);
-    if((d = gcd(n, m)) &gt; (B + G))return puts(&quot;-1&quot;), 0;
-    n /= d; m /= d;
-    //printf(&quot;%d!\n&quot;, d);
-    for(int i = 1; i &lt;= B; ++i)a[b[i] % d].push_back(b[i] / d);
-    for(int i = 1; i &lt;= G; ++i)f[g[i] % d].push_back(g[i] / d);
-    for(int i = 0; i &lt; d; ++i)
-        if(!a[i].size() &amp;&amp; !f[i].size())
-            return puts(&quot;-1&quot;), 0;//一组都没有开心
-    for(int i = 0; i &lt; d; ++i)ans = max(ans, solve(a[i], f[i]) * d + i);//再乘d才是一轮
-    printf(&quot;%lld\n&quot;, ans);
-    return 0;
-}
-
 </code></pre>
 ]]></content>
     </entry>
