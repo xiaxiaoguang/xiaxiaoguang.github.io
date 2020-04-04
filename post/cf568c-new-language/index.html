@@ -3,7 +3,7 @@
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>CF568C New Language | 夏晓光(loveJY)的博客</title>
-<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1586009499565">
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1586011512391">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
 <link rel="alternate" type="application/atom+xml" title="CF568C New Language | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
@@ -14,8 +14,9 @@
     <meta name="description" content="IOI2020集训队作业
 集训队作业完成22/150祭
 为什么祭?因为我认为比写我颓死了更好
+这里写的没有洛谷上写的详细
 
-输入一个划分方案,将 a∼a+l−1\texttt{a} \sim \texttt{a} + l - 1a∼a+l−1 这 lll 个字符分成 ..." />
+输入一个划分方案,将 a∼a+l−1\texttt{a} \sim \texttt{a} + l - 1a∼a+l−..." />
     <meta name="keywords" content="2-SAT,枚举,构造,贪心,字符串,集训队作业" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
     <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
@@ -25,7 +26,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://xiaxiaoguang.github.io">
-  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1586009499565" alt="">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1586011512391" alt="">
   </a>
   <h1 class="site-title">
     夏晓光(loveJY)的博客
@@ -121,6 +122,7 @@
                 <p>IOI2020集训队作业</p>
 <p>集训队作业完成22/150祭</p>
 <p>为什么祭?因为我认为比写我颓死了更好</p>
+<p>这里写的没有<a href="https://www.luogu.com.cn/blog/xxg/cf568c-new-language">洛谷</a>上写的详细</p>
 <ul>
 <li>输入一个划分方案,将 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mtext mathvariant="monospace">a</mtext><mo>∼</mo><mtext mathvariant="monospace">a</mtext><mo>+</mo><mi>l</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\texttt{a} \sim \texttt{a} + l - 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord text"><span class="mord texttt">a</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∼</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord text"><span class="mord texttt">a</span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.77777em;vertical-align:-0.08333em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 这 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi></mrow><annotation encoding="application/x-tex">l</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span></span></span></span> 个字符分成 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mtext mathvariant="monospace">V,C</mtext></mrow><annotation encoding="application/x-tex">\texttt{V,C}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.75em;vertical-align:-0.13889em;"></span><span class="mord text"><span class="mord texttt">V,C</span></span></span></span></span> 两个集合。</li>
 <li>你需要构造一个长度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 且满足 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">m</span></span></span></span>个限制且不小于另一个长度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 的字符串 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi></mrow><annotation encoding="application/x-tex">s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">s</span></span></span></span> 的最小字符串。</li>
