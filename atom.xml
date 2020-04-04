@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://xiaxiaoguang.github.io</id>
     <title>夏晓光(loveJY)的博客</title>
-    <updated>2020-04-03T23:45:36.438Z</updated>
+    <updated>2020-04-04T00:12:18.952Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://xiaxiaoguang.github.io"/>
     <link rel="self" href="https://xiaxiaoguang.github.io/atom.xml"/>
@@ -709,8 +709,7 @@ int main() {
 <p>最后比较<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><mi>p</mi><msub><mn>1</mn><mrow><mn>0</mn><mo separator="true">,</mo><mn>0</mn></mrow></msub></mrow><annotation encoding="application/x-tex">dp1_{0,0}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">p</span><span class="mord"><span class="mord">1</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.301108em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">0</span><span class="mpunct mtight">,</span><span class="mord mtight">0</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>和<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></msubsup><msub><mi>v</mi><mi>i</mi></msub><mo>−</mo><mi>d</mi><mi>p</mi><msub><mn>1</mn><mrow><mn>0</mn><mo separator="true">,</mo><mn>0</mn></mrow></msub></mrow><annotation encoding="application/x-tex">\sum_{i=1}^nv_i-dp1_{0,0}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.104002em;vertical-align:-0.29971000000000003em;"></span><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.804292em;"><span style="top:-2.40029em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.2029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.29971000000000003em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">p</span><span class="mord"><span class="mord">1</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.301108em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">0</span><span class="mpunct mtight">,</span><span class="mord mtight">0</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span></p>
 <p>QAQ还是不太会啊</p>
 <p>code:</p>
-<pre><code class="language-cpp">
-#include&lt;bits/stdc++.h&gt;
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
 #define ll long long
 #define int long long
 
@@ -746,12 +745,14 @@ inline void dij(int s, ll *d, int &amp;c) {
 			if(d[v] &gt; d[x] + z)d[v] = d[x] + z, q.push(mp(-d[v], v));
 		}
 	}
+	//dijkstra部分,他没有用比较算子所以用的-
 	//puts(&quot;\n&quot;);
 	for(int i = 1; i &lt;= n; ++i)num[i] = d[i];// printf(&quot;%d &quot;, num[i]);
 	sort(num + 1, num + n + 1);
 	c = unique(num + 1, num + n + 1) - (num + 1);
 	for(int i = 1; i &lt;= n; ++i)
 		d[i] = lower_bound(num + 1, num + c + 1, d[i]) - num;
+	//把权值排序去重
 }
 
 signed main() {
@@ -765,18 +766,33 @@ signed main() {
 		CT(v, u, w);
 	}
 	dij(S, ds, cs), dij(T, dt, ct);
+	//求出两个dis数组,cs是本质不同的
+	//ds是S的,dt是T的
 	for(int i = 1; i &lt;= n; ++i)++c[ds[i]][dt[i]], s[ds[i]][dt[i]] += a[i];
+	//sum,cnt...这个好像是处理了边界的一个
+	//就是第一维正好等于,第二维正好大于等于
 	for(int i = cs; i; --i) {
 		for(int j = ct; j; --j) {
+			//枚举两个半径,表示他两个选的半径大小
 			s[i][j] += s[i + 1][j] + s[i][j + 1] - s[i + 1][j + 1];
+			//s数组显然是高维后缀和就能处理的
 			ns[i][j] = min(i == cs ? cs : ns[i + 1][j], j == ct ? cs : ns[i][j + 1]);
+			//ns数组的记录是后缀的一个最小的i值,就是第一维
+			//并且对于每个k&gt;=i,e&gt;=j,c(k,e)&lt;c(i,j)...的最小,所以这样可以O1转移
+			//你会发现他的转移显然要么是i+1
 			nt[i][j] = min(i == cs ? ct : nt[i + 1][j], j == ct ? ct : nt[i][j + 1]);
+			//nt数组定义是后缀最小的j值,就是第二维
 			if(c[i][j])ns[i][j] = i, nt[i][j] = j;
+			//这一步是处理如果这有人,那么接下来一定是后缀最小
+			//就可以直接拿出来转移
 			f[0][i][j] = s[i][j] - f[1][ns[i][j] + 1][j];
 			f[1][i][j] = s[i][j] - f[0][i][nt[i][j] + 1];
+			//直接转移即可,注意这个+1,因为我们定义中这个&lt;并不严格,可能等于
 			if(i == 1 &amp;&amp; j == 1)continue;
+			//这个特判不多BB
 			f[0][i][j] = min(f[0][i][j], f[0][i][j + 1]);
 			f[1][i][j] = min(f[1][i][j], f[1][i + 1][j]);
+			//否则我呢也可以从上一个状态继承过来,而且是看上去更劣的
 		}
 	}
 	ll ans = s[1][1] - 2 * f[0][1][1];
