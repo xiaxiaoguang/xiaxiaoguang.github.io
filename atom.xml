@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://xiaxiaoguang.github.io</id>
     <title>夏晓光(loveJY)的博客</title>
-    <updated>2020-04-06T01:54:27.800Z</updated>
+    <updated>2020-04-06T08:51:14.046Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://xiaxiaoguang.github.io"/>
     <link rel="self" href="https://xiaxiaoguang.github.io/atom.xml"/>
@@ -10,6 +10,187 @@
     <logo>https://xiaxiaoguang.github.io/images/avatar.png</logo>
     <icon>https://xiaxiaoguang.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 夏晓光(loveJY)的博客</rights>
+    <entry>
+        <title type="html"><![CDATA[P5361 [SDOI2019]热闹的聚会与尴尬的聚会]]></title>
+        <id>https://xiaxiaoguang.github.io/post/p5361-sdoi2019re-nao-de-ju-hui-yu-gan-ga-de-ju-hui/</id>
+        <link href="https://xiaxiaoguang.github.io/post/p5361-sdoi2019re-nao-de-ju-hui-yu-gan-ga-de-ju-hui/">
+        </link>
+        <updated>2020-04-06T08:36:32.000Z</updated>
+        <content type="html"><![CDATA[<p>SDOI2019D2T1..吗?</p>
+<p>唔母,他D几T几不重要,重要的是咕咕咕咕咕咕</p>
+<p>这当然是假的了,我怎么可能咕,强力推荐&lt;&lt;这就是僵尸啊&gt;&gt;两季</p>
+<p>他的联系薄上有 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 位好友，他们两两之间或者互相认识，或者互相不认识。小 Q 希望在周六办一个热闹的聚会，再在周日办一个尴尬的聚会。</p>
+<ul>
+<li>一场热闹度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>p</mi></mrow><annotation encoding="application/x-tex">p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">p</span></span></span></span> 的聚会请来了任意多位好友，对于每一位到场的好友来说都有至少 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>p</mi></mrow><annotation encoding="application/x-tex">p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">p</span></span></span></span> 位他认识的好友也参加了聚会，且至少对于一位到场的好友来说现场恰好有 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>p</mi></mrow><annotation encoding="application/x-tex">p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">p</span></span></span></span> 位他认识的好友；</li>
+<li>一场尴尬度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>q</mi></mrow><annotation encoding="application/x-tex">q</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span></span></span></span> 的聚会请来了恰好 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>q</mi></mrow><annotation encoding="application/x-tex">q</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span></span></span></span> 位好友，且他们两两互不认识。</li>
+</ul>
+<p>两场聚会可能有重复的参与者，联系薄上也有可能有某些好友同时缺席了两场聚会。</p>
+<p>小 Q 喜欢周六聚会的热闹度 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>p</mi></mrow><annotation encoding="application/x-tex">p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">p</span></span></span></span> 与周日聚会的尴尬度 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>q</mi></mrow><annotation encoding="application/x-tex">q</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span></span></span></span> 之间满足：$\left\lfloor \frac{n}{p+1} \right\rfloor! \le $ 且 $\left\lfloor \frac{n}{q+1} \right\rfloor! \le $</p>
+<p>请帮助小 Q 找出一个可行的邀请方案。</p>
+<p>这个题意其实并不需要简化,因为很容易读懂</p>
+<p>首先,看到这个尴尬的聚会,一眼就知道是求一个独立集,这好像是NPC问题啊,看看有没有什么丢掉的条件?</p>
+<p>好像只有一个人数的限制QAQ,最大独立集肯定求不了,所以我们要尽可能的求个小的独立集,由于人数的限制可以变成乘起来大于n,所以我们第一问的p要尽可能的大</p>
+<p>首先我们按照相识关系建立一个图,那么第一问就是要保留一个最小度数至少为p的子图,显然最后一个限制没啥意义,因为既然最小度数都有了.....</p>
+<p>这个显然可以二分一个最小度数,然后把原图中度数小于最小的度数的点删除,再看剩下的点最小的度数是否大于p.不大于就是继续删</p>
+<p>最后要么存在一些点,要么删光,就对应成立不成立...</p>
+<p>还有一个是链表的做法,你会发现我们最后的答案图一定满足所有点的最小度数作为答案对吧,如果我们想要答案变大首先要把那些最小度数的点全部删掉,然后再对应的减一下相邻点的度数,得到新的答案,重复这个过程直到没有点,那么过程中所有答案得到最大值就是答案了</p>
+<p>正确性显然吧</p>
+<p>有了操作1的p,操作2最小q直接枚举得到,然后我们随机一个序列,按这个序列的顺序去保存独立集,这样一个玄学随机算法就可以过掉此题,毕竟他出的题复杂度和数据范围不严格一致,所以我们也概率正确</p>
+<p>code:</p>
+<pre><code class="language-cpp">#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+#include&lt;iostream&gt;
+#include&lt;cstdlib&gt;
+#include&lt;ctime&gt;
+#define add(x,y) (ct(x,y),ct(y,x))
+using namespace std;
+
+namespace fastIO {
+#define BUF_SIZE (1&lt;&lt;19)
+	static char buf[BUF_SIZE], *p1 = BUF_SIZE + buf, *pend = buf + BUF_SIZE;
+	inline char nc() {
+		if(p1 == pend) {
+			p1 = buf;
+			pend = buf + fread(buf, 1, BUF_SIZE, stdin);
+		}
+		return *p1++;
+	}
+	inline int read() {
+		int x = 0, f = 1;
+		register char s = nc();
+		for(; !isdigit(s); s = nc())if(s == '-')f = -1;
+		for(; isdigit(s); s = nc())x = (x &lt;&lt; 1) + (x &lt;&lt; 3) + s - '0';
+		return x * f;
+	}
+}
+using namespace fastIO;
+const int MAXN = 3e5;
+int T, n, m;
+int to[MAXN], nxt[MAXN], home[MAXN], tot, ccnt, deg[MAXN], cnt[MAXN], ansp, ansq;
+int ans1[MAXN], ans2[MAXN], ans3[MAXN];
+inline void ct(int x, int y) {
+	//printf(&quot;%d %d\n&quot;, x, y);
+	++deg[x];
+	++ccnt;
+	nxt[ccnt] = home[x];
+	home[x] = ccnt;
+	to[ccnt] = y;
+}
+int Q[MAXN], ql, qr;
+inline int check(int v) {
+	int siz = n, i, x, y, p;
+	ql = 1, qr = 0;
+	for(i = 1; i &lt;= n; ++i) {
+		if(deg[i] &lt; v)ans3[i] = 0, Q[++qr] = i, --siz;
+		else ans3[i] = 1;
+
+	}
+	while(ql &lt;= qr &amp;&amp; siz &gt; v) {
+		x = Q[ql], ++ql;
+		//printf(&quot;%dQWE\n&quot;, x);
+		for(p = home[x]; p; p = nxt[p]) {
+			if(ans3[y = to[p]]) {
+				--deg[y];
+				if(deg[y] &lt; v) {
+					ans3[y] = 0;
+					Q[++qr] = y;
+					--siz;
+				}
+			}
+		}
+	}
+	memcpy(deg, cnt, (n + 2) *sizeof(int));
+	if(siz &gt; v) {
+		memcpy(ans1, ans3, (n + 2) *sizeof(int));
+		return 1;
+	}
+	return 0;
+}
+int id[MAXN], vis[MAXN];
+int main() {
+	//freopen(&quot;test.in&quot;, &quot;r&quot;, stdin);
+	srand(time(NULL));
+	int i, j, x, y, tot, p;
+	T = read();
+	while(T -- &gt; 0) {
+		n = read();
+		m = read();
+		ccnt = 0;
+		memset(home, 0, (n + 2) *sizeof(int));
+		memset(deg, 0, (n + 2) *sizeof(int));
+		//任何时间复杂度都不能放过
+		while(m-- &gt; 0)x = read(), y = read(), add(x, y);
+		memcpy(cnt, deg, (n + 2) *sizeof(int));
+		//for(int i = 1; i &lt;= n; ++i) {
+		//	printf(&quot;%d\n&quot;, deg[i]);
+		//}
+		int l = 1, r = n - 1, mid;
+		ansp = 0;
+		while(l &lt;= r) {
+			mid = (l + r) &gt;&gt; 1;
+			if(check(mid)) {
+				ansp = mid;
+				l = mid + 1;
+			} else {
+				r = mid - 1;
+			}
+		}
+		tot = 0;
+		for(i = 1; i &lt;= n; ++i) {
+			if(ans1[i])
+				++tot;
+			//printf(&quot;%d %d?\n&quot;, i, ans1[i]);
+		}
+		printf(&quot;%d &quot;, tot);
+		for(i = 1; i &lt;= n; ++i)
+			if(ans1[i])
+				printf(&quot;%d &quot;, i);
+		puts(&quot;&quot;);
+		//printf(&quot;%d\n&quot;, ansq);
+		for(i = 1; i &lt;= n; ++i) {
+			if(n / (ansp + 1) &lt;= i &amp;&amp; n / (i + 1) &lt;= ansp) {
+				ansq = i;
+				break;
+			}
+		}
+		if(ansq == 1) {
+			printf(&quot;1 1\n&quot;);
+			continue;
+		}
+		if(ansq == n) {
+			printf(&quot;%d &quot;, n);
+			for(i = 1; i &lt;= n; ++i)printf(&quot;%d &quot;, i);
+			puts(&quot;&quot;);
+		} else {
+			for(i = 1; i &lt;= n; ++i)id[i] = i;
+			while(1) {
+				tot = 0;
+				random_shuffle(id + 1, id + n + 1);
+				memset(vis, 0, (n + 2) *sizeof(int));
+				memset(ans2, 0, (n + 2) *sizeof(int));
+				for(i = 1; i &lt;= n &amp;&amp; tot &lt; ansq; ++i) {
+					if(!vis[x = id[i]]) {
+						ans2[x] = 1;
+						++tot;
+						for(p = home[x]; p; p = nxt[p])vis[to[p]] = 1;
+					}
+				}
+				if(tot == ansq) {
+					printf(&quot;%d &quot;, tot);
+					for(i = 1; i &lt;= n; ++i)if(ans2[i])printf(&quot;%d &quot;, i);
+					puts(&quot;&quot;);
+					break;
+				}
+			}
+		}
+	}
+	return 0;
+}
+
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[P5362 [SDOI2019]连续子序列]]></title>
         <id>https://xiaxiaoguang.github.io/post/p5362-sdoi2019lian-xu-zi-xu-lie/</id>
@@ -1178,229 +1359,6 @@ signed main() {
 	return 0;
 }
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[P5358 [SDOI2019]快速查询]]></title>
-        <id>https://xiaxiaoguang.github.io/post/p5358-sdoi2019kuai-su-cha-xun/</id>
-        <link href="https://xiaxiaoguang.github.io/post/p5358-sdoi2019kuai-su-cha-xun/">
-        </link>
-        <updated>2020-03-29T14:17:05.000Z</updated>
-        <content type="html"><![CDATA[<p>SDOI2019D1T1</p>
-<p><front size=1> P站真好 </front></p>
-<p>我自闭了,所以感想很简单:SDOI二轮果然还是没了好</p>
-<ul>
-<li>
-<p>1 i val ：将 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>a</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">a_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>​ 赋值为给定整数 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi><mi>a</mi><mi>l</mi></mrow><annotation encoding="application/x-tex">val</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span></span></span></span>；</p>
-</li>
-<li>
-<p>2 val ：将所有元素同时加上 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi><mi>a</mi><mi>l</mi></mrow><annotation encoding="application/x-tex">val</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span></span></span></span>；</p>
-</li>
-<li>
-<p>3 val ：将所有元素同时乘上 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi><mi>a</mi><mi>l</mi></mrow><annotation encoding="application/x-tex">val</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span></span></span></span>；</p>
-</li>
-<li>
-<p>4 val ：将所有元素同时赋值为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi><mi>a</mi><mi>l</mi></mrow><annotation encoding="application/x-tex">val</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span></span></span></span>；</p>
-</li>
-<li>
-<p>5 i ：询问第 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span> 个元素 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi><mi>i</mi></mrow><annotation encoding="application/x-tex">ai</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">a</span><span class="mord mathdefault">i</span></span></span></span>​ 现在的值是多少；</p>
-</li>
-<li>
-<p>6 ：询问现在所有元素的和。</p>
-</li>
-</ul>
-<p>n&lt;=1e9,p&lt;=1e7</p>
-<p>暴力就不用说了吧?动态开点线段树,挂个log,神威太湖之光跑起来轻轻松松</p>
-<p>说正解:这个题就是打标记</p>
-<p>首先你会发现我们有1e9个数但是只有1e7个询问或者修改,也就是说本质不同的数数量小于1e7,而且我们最多也就支持个单点查询,所以只需要维护每个数就好了</p>
-<p>他们的编号是1e9级别?手写一个哈希表存一下就行了...<s>什么?你哈希表模数被卡了?那我只能/kk</s></p>
-<p>然后这样单点查询和单点赋值就支持了,再考虑全局加乘,不难发现我们只需要打个标记就能解决他和单点操作的兼容??</p>
-<p>并不是这样,我们还是要推式子,设hash表里存<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi><mi>a</mi><mi>l</mi></mrow><annotation encoding="application/x-tex">val</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span></span></span></span>,乘法标记为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi><mi>u</mi><mi>l</mi></mrow><annotation encoding="application/x-tex">mul</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">m</span><span class="mord mathdefault">u</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span></span></span></span>,加法标记为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi><mi>d</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">add</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">a</span><span class="mord mathdefault">d</span><span class="mord mathdefault">d</span></span></span></span></p>
-<p>然后某数真实值是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi><mi>a</mi><mi>l</mi><mo>∗</mo><mi>m</mi><mi>u</mi><mi>l</mi><mo>+</mo><mi>a</mi><mi>d</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">val*mul+add</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.77777em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">m</span><span class="mord mathdefault">u</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">a</span><span class="mord mathdefault">d</span><span class="mord mathdefault">d</span></span></span></span></p>
-<p>现在要改成tmp,但我们hash表内要存x,<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi><mi>m</mi><mi>p</mi><mo>=</mo><mi>v</mi><mi>a</mi><mi>l</mi><mo>∗</mo><mi>x</mi><mo>+</mo><mi>a</mi><mi>d</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">tmp=val*x+add</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.80952em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">t</span><span class="mord mathdefault">m</span><span class="mord mathdefault">p</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">a</span><span class="mord mathdefault">d</span><span class="mord mathdefault">d</span></span></span></span></p>
-<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mo>=</mo><mfrac><mrow><mi>t</mi><mi>m</mi><mi>p</mi><mo>−</mo><mi>a</mi><mi>d</mi><mi>d</mi></mrow><mrow><mi>v</mi><mi>a</mi><mi>l</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">x=\frac{tmp-add}{val}
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.0574399999999997em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3714399999999998em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">t</span><span class="mord mathdefault">m</span><span class="mord mathdefault">p</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault">a</span><span class="mord mathdefault">d</span><span class="mord mathdefault">d</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
-<p>并不过瘾,但是这就够了,另外如果您是带师那么考虑在每个hash值上再多存一点东西替代推这个式子也是可以的,因为这个东西要算逆元,逆元是有坑的</p>
-<p>然后再考虑全局赋值和单点兼容性问题.....</p>
-<p>首先乘法标记和加法标记要清空,然后打上一个赋值标记,而且好像还要考虑在这之后的单点赋值标记又能够覆盖了他...?</p>
-<p>这里其实只需要在每个hash值处记录一下&quot;时间&quot;信息,然后我们发现有现成的数组,就是hash表中那个记当前有多少条边的那个,那正好也代表了边出现的顺序,所以只需要用那玩意记录一下时间信息就好了</p>
-<p>然后你会发现我们都兼容了,所以这个题就做完了.<s>只需要100行左右哦,快去写吧</s></p>
-<p><s>好吧我最后再多调了1个多h才做完/kk</s></p>
-<p>code:</p>
-<pre><code class="language-cpp">#include&lt;iostream&gt;
-#include&lt;cstdio&gt;
-#include&lt;cstring&gt;
-#define int long long
-#define ULL unsigned long long
-#define ll long long
-const int MOD = 1e7 + 19;
-const int MAXN = 2e5 + 7;
-const int P = 1e7 + 19;
-struct rec {
-	ll a, b, c;
-} q[MAXN];
-ll fac[P + 10], ifac[P + 10], inv[P + 10];
-ll sum, ans, nt, nfzv, mul, add, n, Q;
-int a[MAXN], b[MAXN];
-
-struct H_SH {
-	struct edge {
-		ll x;
-		ULL rx;
-		ll nxt;
-	} e[21000000];
-	int home[MOD + 1], cnt_e;
-
-	void add(ULL x, ll d) {
-		int u = (x % MOD) + 1;
-		// for(int i = home[u]; i; i = e[i].nxt) {
-		// 	if(e[i].x == x) { //
-		// 		e[i].cnt += d;
-		// 		return ;
-		// 	}
-		// }
-		e[++cnt_e] = (edge) {
-			d, x, home[u]
-		};
-		home[u] = cnt_e;
-		//老八蜜汁哈希表
-	}
-
-	ll query(ULL x, int &amp;o) {
-		int u = (x % MOD) + 1;
-		for(int i = home[u]; i; i = e[i].nxt) {
-			if(e[i].rx == x) {
-				o = i;
-				return e[i].x;
-			}
-		}
-		o = 0;
-		return 1e18;
-	}
-} _;
-
-inline void ddfz(int pos, int val) {
-	int lst;
-	ll V = _.query(pos, lst);
-	// printf(&quot;%lld %lld %lld %lld#\n&quot;, pos, val, V, lst);
-	if(nt &gt;= lst) {
-		sum = (sum - nfzv * mul % P - add + P) % P;
-	} else {
-		sum = (sum - V * mul % P - add + P ) % P;
-	}
-	//和要减去之前的
-	ll opr = (((val - add) % P + P) % P * inv[(mul + P) % P]) % P;
-	// printf(&quot;%lld &amp;\n&quot;, opr);
-	//反演
-	_.add(pos, opr);
-	sum = (sum + val) % P;
-}
-
-inline void Aadd(ll x) {
-	add = (add + x) % P;
-	sum = (sum + n * x % P) % P;
-}
-
-inline void Amul(ll x) {
-	add = (add * x) % P;
-	mul = (mul * x) % P;
-	sum = (sum * x) % P;
-}
-
-inline void Afz(ll x) {
-	nt = _.cnt_e;
-	nfzv = x;
-	add = 0;
-	mul = 1;
-	sum = (nfzv * n) % P;
-}
-
-inline void query(int x) {
-	int lst;
-	ll V = _.query(x, lst);
-	// printf(&quot;%lld %lld?\n&quot;, V, lst);
-	if(nt &gt;= lst) {
-		ans = (ans + nfzv * mul % P + add) % P;
-	} else {
-		ans = (ans +  V * mul % P + add) % P;
-	}
-}
-
-
-inline void solve(int x) {
-	// printf(&quot;%d?\n&quot;, x);
-	if(q[x].a == 1)
-		ddfz(q[x].c, q[x].b);
-	else if(q[x].a == 2)
-		Aadd(q[x].b);
-	else if(q[x].a == 3)
-		Amul(q[x].b);
-	else if(q[x].a == 4)
-		Afz(q[x].b);
-	else if(q[x].a == 5)
-		query(q[x].b);
-	else ans = (ans + sum) % P;
-	// printf(&quot;%lld %lld %lld\n&quot;, sum, mul, add);
-}
-
-inline ll ksm(ll x, ll y) {
-	ll ans = 1;
-	while(y) {
-		if(y &amp; 1)ans = ans * x % P;
-		x = x * x % P;
-		y &gt;&gt;= 1;
-	}
-	return ans;
-}
-
-inline void init() {
-	// fac[0] = fac[1] = 1;
-	// ifac[0] = ifac[1] = 1;
-	// for(register int i = 2; i &lt; P; ++i) {
-	// 	fac[i] = fac[i - 1] * i % P;
-	// }
-	// fac[P - 1] = ksm(fac[P - 1], P - 2);
-	// for(register int i = P - 2; i &gt;= 2; --i) {
-	// 	ifac[i] = ifac[i + 1] * (i + 1) % P;
-	// 	inv[i + 1] = fac[i + 1] * ifac[i] % P;
-	// }
-	// inv[2] = fac[2] * ifac[1] % P;
-	// printf(&quot;%lld?\n&quot;, inv[2]);
-	inv[0] = inv[1] = 1;
-	for (ll i = 2; i &lt;= P - 1; i++) {
-		inv[i] = (((P - P / i) % P) * inv[P % i]) % P;
-	}
-	return ;
-}
-
-signed main() {
-	//freopen(&quot;test.in&quot;, &quot;r&quot;, stdin);
-	mul = 1;
-	init();
-	scanf(&quot;%lld%lld&quot;, &amp;n, &amp;Q);
-	for(register int i = 1; i &lt;= Q; ++i) {
-		scanf(&quot;%lld&quot;, &amp;q[i].a);
-		if(q[i].a == 1)scanf(&quot;%lld%lld&quot;, &amp;q[i].c, &amp;q[i].b);
-		else if(q[i].a != 6) {
-			scanf(&quot;%lld&quot;, &amp;q[i].b);
-		}
-		if(q[i].a != 5)q[i].b %= P;
-	} int t;
-	scanf(&quot;%lld&quot;, &amp;t);
-	for(register int i = 1; i &lt;= t; ++i)scanf(&quot;%lld%lld&quot;, &amp;a[i], &amp;b[i]);
-	//puts(&quot;qwq&quot;);
-	for(register int i = 1; i &lt;= t; ++i) {
-		for(register int j = 1; j &lt;= Q; ++j) {
-			solve((a[i] + j * b[i] % Q) % Q + 1);
-		}
-		//	printf(&quot;???\n&quot;);
-	}
-	printf(&quot;%lld\n&quot;, (ans % P + P) % P);
-	return 0;
-}
-
-</code></pre>
-<p>尼康不见我,我恨凯信</p>
 ]]></content>
     </entry>
 </feed>

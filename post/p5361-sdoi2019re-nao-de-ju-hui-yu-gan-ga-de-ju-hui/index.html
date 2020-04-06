@@ -1,0 +1,392 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>P5361 [SDOI2019]热闹的聚会与尴尬的聚会 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1586163063253">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="P5361 [SDOI2019]热闹的聚会与尴尬的聚会 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="SDOI2019D2T1..吗?
+唔母,他D几T几不重要,重要的是咕咕咕咕咕咕
+这当然是假的了,我怎么可能咕,强力推荐&lt;&lt;这就是僵尸啊&gt;&gt;两季
+他的联系薄上有 nnn 位好友，他们两两之间或者互相认识，或者互相不认识..." />
+    <meta name="keywords" content="随机化,独立集,拓扑排序,二分答案,贪心,集训队作业" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1586163063253" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              P5361 [SDOI2019]热闹的聚会与尴尬的聚会
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-04-06
+              </span>
+              <span>
+                7 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/oSY3AAGWa/" class="post-tag">
+                  # 随机化
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/Ukf097KMXU/" class="post-tag">
+                  # 独立集
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/J_KkWe1NVv/" class="post-tag">
+                  # 拓扑排序
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/f5n-zt3hU/" class="post-tag">
+                  # 二分答案
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/m-043j5Q1/" class="post-tag">
+                  # 贪心
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/HzrxzC7K1/" class="post-tag">
+                  # 集训队作业
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/4pNOqgOvBLvj4yTC9qc55eXbdOIMKodnu.lvylI35wIGEKSYH6Rp0Kir9CMxVMFdYYDqnscHwQF7Ug7Yhm1AL7L58gmhhELrKLFHlIkouNE!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>SDOI2019D2T1..吗?</p>
+<p>唔母,他D几T几不重要,重要的是咕咕咕咕咕咕</p>
+<p>这当然是假的了,我怎么可能咕,强力推荐&lt;&lt;这就是僵尸啊&gt;&gt;两季</p>
+<p>他的联系薄上有 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 位好友，他们两两之间或者互相认识，或者互相不认识。小 Q 希望在周六办一个热闹的聚会，再在周日办一个尴尬的聚会。</p>
+<ul>
+<li>一场热闹度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>p</mi></mrow><annotation encoding="application/x-tex">p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">p</span></span></span></span> 的聚会请来了任意多位好友，对于每一位到场的好友来说都有至少 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>p</mi></mrow><annotation encoding="application/x-tex">p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">p</span></span></span></span> 位他认识的好友也参加了聚会，且至少对于一位到场的好友来说现场恰好有 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>p</mi></mrow><annotation encoding="application/x-tex">p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">p</span></span></span></span> 位他认识的好友；</li>
+<li>一场尴尬度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>q</mi></mrow><annotation encoding="application/x-tex">q</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span></span></span></span> 的聚会请来了恰好 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>q</mi></mrow><annotation encoding="application/x-tex">q</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span></span></span></span> 位好友，且他们两两互不认识。</li>
+</ul>
+<p>两场聚会可能有重复的参与者，联系薄上也有可能有某些好友同时缺席了两场聚会。</p>
+<p>小 Q 喜欢周六聚会的热闹度 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>p</mi></mrow><annotation encoding="application/x-tex">p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">p</span></span></span></span> 与周日聚会的尴尬度 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>q</mi></mrow><annotation encoding="application/x-tex">q</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span></span></span></span> 之间满足：$\left\lfloor \frac{n}{p+1} \right\rfloor! \le $ 且 $\left\lfloor \frac{n}{q+1} \right\rfloor! \le $</p>
+<p>请帮助小 Q 找出一个可行的邀请方案。</p>
+<p>这个题意其实并不需要简化,因为很容易读懂</p>
+<p>首先,看到这个尴尬的聚会,一眼就知道是求一个独立集,这好像是NPC问题啊,看看有没有什么丢掉的条件?</p>
+<p>好像只有一个人数的限制QAQ,最大独立集肯定求不了,所以我们要尽可能的求个小的独立集,由于人数的限制可以变成乘起来大于n,所以我们第一问的p要尽可能的大</p>
+<p>首先我们按照相识关系建立一个图,那么第一问就是要保留一个最小度数至少为p的子图,显然最后一个限制没啥意义,因为既然最小度数都有了.....</p>
+<p>这个显然可以二分一个最小度数,然后把原图中度数小于最小的度数的点删除,再看剩下的点最小的度数是否大于p.不大于就是继续删</p>
+<p>最后要么存在一些点,要么删光,就对应成立不成立...</p>
+<p>还有一个是链表的做法,你会发现我们最后的答案图一定满足所有点的最小度数作为答案对吧,如果我们想要答案变大首先要把那些最小度数的点全部删掉,然后再对应的减一下相邻点的度数,得到新的答案,重复这个过程直到没有点,那么过程中所有答案得到最大值就是答案了</p>
+<p>正确性显然吧</p>
+<p>有了操作1的p,操作2最小q直接枚举得到,然后我们随机一个序列,按这个序列的顺序去保存独立集,这样一个玄学随机算法就可以过掉此题,毕竟他出的题复杂度和数据范围不严格一致,所以我们也概率正确</p>
+<p>code:</p>
+<pre><code class="language-cpp">#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+#include&lt;iostream&gt;
+#include&lt;cstdlib&gt;
+#include&lt;ctime&gt;
+#define add(x,y) (ct(x,y),ct(y,x))
+using namespace std;
+
+namespace fastIO {
+#define BUF_SIZE (1&lt;&lt;19)
+	static char buf[BUF_SIZE], *p1 = BUF_SIZE + buf, *pend = buf + BUF_SIZE;
+	inline char nc() {
+		if(p1 == pend) {
+			p1 = buf;
+			pend = buf + fread(buf, 1, BUF_SIZE, stdin);
+		}
+		return *p1++;
+	}
+	inline int read() {
+		int x = 0, f = 1;
+		register char s = nc();
+		for(; !isdigit(s); s = nc())if(s == '-')f = -1;
+		for(; isdigit(s); s = nc())x = (x &lt;&lt; 1) + (x &lt;&lt; 3) + s - '0';
+		return x * f;
+	}
+}
+using namespace fastIO;
+const int MAXN = 3e5;
+int T, n, m;
+int to[MAXN], nxt[MAXN], home[MAXN], tot, ccnt, deg[MAXN], cnt[MAXN], ansp, ansq;
+int ans1[MAXN], ans2[MAXN], ans3[MAXN];
+inline void ct(int x, int y) {
+	//printf(&quot;%d %d\n&quot;, x, y);
+	++deg[x];
+	++ccnt;
+	nxt[ccnt] = home[x];
+	home[x] = ccnt;
+	to[ccnt] = y;
+}
+int Q[MAXN], ql, qr;
+inline int check(int v) {
+	int siz = n, i, x, y, p;
+	ql = 1, qr = 0;
+	for(i = 1; i &lt;= n; ++i) {
+		if(deg[i] &lt; v)ans3[i] = 0, Q[++qr] = i, --siz;
+		else ans3[i] = 1;
+
+	}
+	while(ql &lt;= qr &amp;&amp; siz &gt; v) {
+		x = Q[ql], ++ql;
+		//printf(&quot;%dQWE\n&quot;, x);
+		for(p = home[x]; p; p = nxt[p]) {
+			if(ans3[y = to[p]]) {
+				--deg[y];
+				if(deg[y] &lt; v) {
+					ans3[y] = 0;
+					Q[++qr] = y;
+					--siz;
+				}
+			}
+		}
+	}
+	memcpy(deg, cnt, (n + 2) *sizeof(int));
+	if(siz &gt; v) {
+		memcpy(ans1, ans3, (n + 2) *sizeof(int));
+		return 1;
+	}
+	return 0;
+}
+int id[MAXN], vis[MAXN];
+int main() {
+	//freopen(&quot;test.in&quot;, &quot;r&quot;, stdin);
+	srand(time(NULL));
+	int i, j, x, y, tot, p;
+	T = read();
+	while(T -- &gt; 0) {
+		n = read();
+		m = read();
+		ccnt = 0;
+		memset(home, 0, (n + 2) *sizeof(int));
+		memset(deg, 0, (n + 2) *sizeof(int));
+		//任何时间复杂度都不能放过
+		while(m-- &gt; 0)x = read(), y = read(), add(x, y);
+		memcpy(cnt, deg, (n + 2) *sizeof(int));
+		//for(int i = 1; i &lt;= n; ++i) {
+		//	printf(&quot;%d\n&quot;, deg[i]);
+		//}
+		int l = 1, r = n - 1, mid;
+		ansp = 0;
+		while(l &lt;= r) {
+			mid = (l + r) &gt;&gt; 1;
+			if(check(mid)) {
+				ansp = mid;
+				l = mid + 1;
+			} else {
+				r = mid - 1;
+			}
+		}
+		tot = 0;
+		for(i = 1; i &lt;= n; ++i) {
+			if(ans1[i])
+				++tot;
+			//printf(&quot;%d %d?\n&quot;, i, ans1[i]);
+		}
+		printf(&quot;%d &quot;, tot);
+		for(i = 1; i &lt;= n; ++i)
+			if(ans1[i])
+				printf(&quot;%d &quot;, i);
+		puts(&quot;&quot;);
+		//printf(&quot;%d\n&quot;, ansq);
+		for(i = 1; i &lt;= n; ++i) {
+			if(n / (ansp + 1) &lt;= i &amp;&amp; n / (i + 1) &lt;= ansp) {
+				ansq = i;
+				break;
+			}
+		}
+		if(ansq == 1) {
+			printf(&quot;1 1\n&quot;);
+			continue;
+		}
+		if(ansq == n) {
+			printf(&quot;%d &quot;, n);
+			for(i = 1; i &lt;= n; ++i)printf(&quot;%d &quot;, i);
+			puts(&quot;&quot;);
+		} else {
+			for(i = 1; i &lt;= n; ++i)id[i] = i;
+			while(1) {
+				tot = 0;
+				random_shuffle(id + 1, id + n + 1);
+				memset(vis, 0, (n + 2) *sizeof(int));
+				memset(ans2, 0, (n + 2) *sizeof(int));
+				for(i = 1; i &lt;= n &amp;&amp; tot &lt; ansq; ++i) {
+					if(!vis[x = id[i]]) {
+						ans2[x] = 1;
+						++tot;
+						for(p = home[x]; p; p = nxt[p])vis[to[p]] = 1;
+					}
+				}
+				if(tot == ansq) {
+					printf(&quot;%d &quot;, tot);
+					for(i = 1; i &lt;= n; ++i)if(ans2[i])printf(&quot;%d &quot;, i);
+					puts(&quot;&quot;);
+					break;
+				}
+			}
+		}
+	}
+	return 0;
+}
+
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/p5362-sdoi2019lian-xu-zi-xu-lie/">
+              <h3 class="post-title">
+                P5362 [SDOI2019]连续子序列
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
