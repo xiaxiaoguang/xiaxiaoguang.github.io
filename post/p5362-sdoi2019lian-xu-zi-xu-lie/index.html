@@ -1,0 +1,344 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>P5362 [SDOI2019]连续子序列 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1586138059943">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="P5362 [SDOI2019]连续子序列 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="SDOI2019D2T3
+唔母,这道题确实是不错的找规律+思维题,导致考场上没有人发现了规律然后就无人AC了
+一般来讲,SD能进国家集训队的几位总有人能AC掉D2T3,不过他就是毒瘤,所以就无人过掉QAQ
+我不想被人称为眼高手低,因为那只是..." />
+    <meta name="keywords" content="记忆化搜索,构造,各省省选,动态规划" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1586138059943" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              P5362 [SDOI2019]连续子序列
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-04-06
+              </span>
+              <span>
+                6 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/8NfBFqbhI/" class="post-tag">
+                  # 记忆化搜索
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/nuL1JOWcod/" class="post-tag">
+                  # 构造
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/KY7VyyrtD/" class="post-tag">
+                  # 各省省选
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/CJ-ugjBAY/" class="post-tag">
+                  # 动态规划
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/4pNOqgOvBLvj4yTC9qc55TbTVEsp1i9JCScdFrEN.gql*7Rdp0MTn42HkArJgPpCRC6v8eUFuoVZCTrY6ZAfDImeZWCHABueXLD0hyunvgQ!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>SDOI2019D2T3</p>
+<p>唔母,这道题确实是不错的找规律+思维题,导致考场上没有人发现了规律然后就无人AC了</p>
+<p>一般来讲,SD能进国家集训队的几位总有人能AC掉D2T3,不过他就是毒瘤,所以就无人过掉QAQ</p>
+<p>我不想被人称为眼高手低,因为那只是我的努力你看不见2333</p>
+<ul>
+<li>题目大意：有一个01串<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi><mi>m</mi></mrow><annotation encoding="application/x-tex">tm</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">t</span><span class="mord mathdefault">m</span></span></span></span>，满足<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi><mi>m</mi><mo>(</mo><mn>0</mn><mo>)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">tm(0)=0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">t</span><span class="mord mathdefault">m</span><span class="mopen">(</span><span class="mord">0</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>，<span class='katex-error' title='ParseError: KaTeX parse error: Expected &#039;EOF&#039;, got &#039;&amp;&#039; at position 18: …(i)=tm(i&gt;&gt;1)^(i&amp;̲1)'>tm(i)=tm(i&gt;&gt;1)^(i&amp;1)</span>。给定01串s和整数k，问有多少个本质不同的01串t满足：t是tm的子串，s是t的前缀，t的长度是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">∣</mi><mi>s</mi><mi mathvariant="normal">∣</mi><mo>+</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">|s|+k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">∣</span><span class="mord mathdefault">s</span><span class="mord">∣</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span></span></span></span>。</li>
+</ul>
+<p>这样的题我们首先要寻找TM序列的性质,否则我们没法做,因为TM序列长度是无限长的同时没有循环节,理论上可能任何一个0/1串都会出现在其中</p>
+<p>于是证明定理一:任何一个长度大于2的连续的0/1不会出现在TM序列里面</p>
+<p>打表可得显然成立,然而正规证法是啥啊?</p>
+<p>我们要用到一个trick,就是如果我们没法构造母串直接匹配,那么我们可以考虑按某种规律缩减子串来使得长度变短从而计算出方案</p>
+<p>TM序列的规律?包括翻转后接在后面好像都没法实现缩短.我们需要** 元素 **之间的扩张关系</p>
+<p>定理二:TM序列的扩展可以看做** 0后放1,1后放0 **进行展开</p>
+<p>这个也是打表可知正确,然后用定理二就可以反推定理一正确了</p>
+<p>好像走上了正道,我们再看看方案数怎么计数</p>
+<p>你发现了我们好像可以通过这个方法不断减少|S|,以及后面的k,从而达到一个很短的境地满足不能再缩了就是一种方案了</p>
+<p>这好像有点动态规划啊?f(S,k),S是原串,k是后面还要接k,的总方案数,我们来考虑状态转移</p>
+<ol>
+<li>
+<p>实际的状态数不多,我们要记搜</p>
+</li>
+<li>
+<p>考虑什么时候S不能再缩了,分...|S|+k&lt;=3吧...</p>
+</li>
+</ol>
+<h3 id="case-1s1">case 1:|S|=1</h3>
+<ol>
+<li>k=0</li>
+<li>k=1 2种</li>
+<li>k=2 3种,除去一个连续的000/111</li>
+</ol>
+<h3 id="case2s2">case2:|S|=2</h3>
+<ol>
+<li>k=0</li>
+<li>k=1,如果前面两个相等只有1种,否则两种</li>
+</ol>
+<h3 id="case3s3">case3:|S|=3</h3>
+<ol>
+<li>k=0 如果三个相同就0种</li>
+</ol>
+<p>然后在考虑每种压缩方式</p>
+<h3 id="case1-s10">case1 |S|&amp;1==0</h3>
+<p>我们考虑要么从第一个开始每个都分成两组,要么我们保留第一个和最后一个然后分成两组</p>
+<h3 id="case2-s11">case2 |S|&amp;1==1</h3>
+<p>要么保留第一个位置然后把剩下的分成两组,要么保留最后一个位置把剩下的分成两组</p>
+<p>如果分到有一组是11/00就挂掉了不行</p>
+<p>然后必要性显然,充分性....我们想,由于整个序列中不会出现连续三个1或0,所以可以认为我们错位一个分组一定能分到合法方案</p>
+<p>这一部k的变化也很显然对吧,所以这样搞下去就做完了</p>
+<p>code:</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;map&gt;
+using namespace std;
+#define fi first
+#define se second
+#define mp make_pair
+const int P = 1e9 + 9;
+#define ll long long
+int t;
+string s;
+long long k;
+#define par pair&lt;string,ll&gt;
+map&lt;par, ll&gt; mm;
+
+inline ll wk(par p) {
+	//puts(&quot;???&quot;);
+	if(p.fi.size() == 1) {
+		if(!p.se)return 1;
+		if(p.se == 1)return 2;
+		if(p.se == 2)return 3;
+		//s的大小为1
+	}
+	if(p.fi.size() == 2) {
+		if(!p.se)return 1;
+		if(p.se == 1)return (p.fi[0] == p.fi[1] ? 1 : 2);
+	}
+	if(p.fi.size() == 3 &amp;&amp; !p.se)return (p.fi[0] == p.fi[1] &amp;&amp; p.fi[1] == p.fi[2] ? 0 : 1);
+	//	puts(&quot;???&quot;);
+	if(mm.find(p) != mm.end())return mm[p];
+	ll as = 0;
+	//printf(&quot;%d %lld\n&quot;, p.fi.size(), p.se);
+	int i;
+	bool fg = 1;
+	string nxt;
+	nxt.clear();
+	for(i = 0; i &lt; p.fi.size(); i += 2) {
+		if(i == p.fi.size() - 1)nxt += p.fi[i];
+		else if(p.fi[i] == p.fi[i + 1]) {
+			fg = 0;
+			break;
+		} else nxt += p.fi[i];
+	}
+	if(fg)as += wk(mp(nxt, (p.fi.size() % 2 ? (p.se &gt;&gt; 1) : (p.se + 1 &gt;&gt; 1))));
+	fg = 1;
+	nxt.clear();
+	nxt += (p.fi[0] ^ 1);
+	for(i = 1; i &lt; p.fi.size(); i += 2) {
+		if(i == p.fi.size() - 1)nxt += p.fi[i];
+		else if(p.fi[i] == p.fi[i + 1]) {
+			fg = 0;
+			break;
+		} else nxt += p.fi[i];
+	}
+	if(fg)as += wk(mp(nxt, (p.fi.size() % 2 ? (p.se + 1 &gt;&gt; 1) : (p.se &gt;&gt; 1))));
+	return mm[p] = as;
+}
+
+
+int main() {
+	scanf(&quot;%d&quot;, &amp;t);
+	while(t--) {
+		std::cin &gt;&gt; s &gt;&gt; k;
+		printf(&quot;%lld\n&quot;, wk(mp(s, k)) % P);
+	}
+	return 0;
+}
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#case-1s1">case 1:|S|=1</a></li>
+<li><a href="#case2s2">case2:|S|=2</a></li>
+<li><a href="#case3s3">case3:|S|=3</a></li>
+<li><a href="#case1-s10">case1 |S|&amp;1==0</a></li>
+<li><a href="#case2-s11">case2 |S|&amp;1==1</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/cf571d-campus/">
+              <h3 class="post-title">
+                CF571D Campus
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
