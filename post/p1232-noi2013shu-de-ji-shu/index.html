@@ -3,7 +3,7 @@
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>P1232 [NOI2013]树的计数 | 夏晓光(loveJY)的博客</title>
-<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1586163063253">
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1586252050636">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
 <link rel="alternate" type="application/atom+xml" title="P1232 [NOI2013]树的计数 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
@@ -15,10 +15,12 @@
 不能再咕了,这个确实是思维好题呢,真实原因是真正的鸽子是有补救的时候的
 好了我在说什么啊这个开头已经越来越水了
 
-给出一个DFS序和一个BFS序求
 
-..." />
-    <meta name="keywords" content="" />
+给出一个DFS序和一个BFS序求所有满足这两个序的树的平均深度(其实就是期望)
+
+
+100100%1..." />
+    <meta name="keywords" content="构造,NOI系列" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
     <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
   </head>
@@ -27,7 +29,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://xiaxiaoguang.github.io">
-  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1586163063253" alt="">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1586252050636" alt="">
   </a>
   <h1 class="site-title">
     夏晓光(loveJY)的博客
@@ -87,10 +89,20 @@
                 2020-03-24
               </span>
               <span>
-                1 min read
+                5 min read
               </span>
               
+                <a href="https://xiaxiaoguang.github.io/tag/nuL1JOWcod/" class="post-tag">
+                  # 构造
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/B3bL-fv2n/" class="post-tag">
+                  # NOI系列
+                </a>
+              
             </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/4pNOqgOvBLvj4yTC9qc55ZQptW5Cu6.DeEUW0M4QHGZ8cVyjLz*euLRxKkmfZY0RwE2*PNgCiy68PxZFBiu8Pya01JwmuFuESTP7oJvWj3U!/r" alt="">
             
             <div class="post-content-wrapper">
               <div class="post-content">
@@ -98,8 +110,103 @@
 <p>不能再咕了,这个确实是思维好题呢,真实原因是真正的鸽子是有补救的时候的</p>
 <p>好了我在说什么啊这个开头已经越来越水了</p>
 <ul>
-<li>给出一个DFS序和一个BFS序求</li>
+<li>
+<p>给出一个DFS序和一个BFS序求所有满足这两个序的树的平均深度(其实就是期望)</p>
+</li>
+<li>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>100</mn></mrow><annotation encoding="application/x-tex">100%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mord">0</span></span></span></span>, <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn><mo>≤</mo><mi>n</mi><mo>≤</mo><mn>2</mn><mo>×</mo><mn>1</mn><msup><mn>0</mn><mn>5</mn></msup></mrow><annotation encoding="application/x-tex">2 \le n \le 2 \times 10^5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.78041em;vertical-align:-0.13597em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">5</span></span></span></span></span></span></span></span></span></span></span>。</p>
+</li>
 </ul>
+<p>看完题直接完蛋,我想起NOIP的染色游戏,从题解找思路!</p>
+<p>我们发现这个<code>答案</code>好像和BFS的段数有关啊....因为BFS每次多一段,树的深度就+1</p>
+<p>而把BFS随手分段算答案显然是不满足DFS序的QAQ</p>
+<p>那么考虑BFS序每个位置能不能分段,分三种情况</p>
+<ol>
+<li>必须分 1</li>
+<li>必须不能分 0</li>
+<li>可分可不分 0.5</li>
+</ol>
+<p>设节点i的dfs中出现位置是dfn[i],同理bfn[i]</p>
+<p>那么我们让i=bfn[i],id[i]=实际i,也就是说我们按照bfs序重新编号</p>
+<p>那么按照bfs序连续的两个点y,x,满足y=x+1</p>
+<p>然后dfn[y]&lt; dfn[x]你会发现我们一定要分新的一层</p>
+<figure data-type="image" tabindex="1"><img src="https://xiaxiaoguang.github.io/post-images/1586250465522.png" alt="" loading="lazy"></figure>
+<p>否则我们一定满足bfs序y&lt; x</p>
+<p>有了这个结论,我们不难发现如果dfn[x+1]&lt;dfn[x],就一定有1的贡献</p>
+<p>这个条件还不够如果dfn[x+1]&gt;dfn[x]呢?你会发现我们确定不了x+1和x的相对位置也就是说贡献是0.5</p>
+<p>如果dfs序连续呢?x,y的dfs序连续</p>
+<ol>
+<li>
+<p>x&gt;y-1 注意这里是bfs的大于啊说明y是x某个祖先的儿子,这个好像并不影响分层,也就说没啥用</p>
+</li>
+<li>
+<p>x==y-1 也就是说y作为x的兄弟还是儿子都是合法的,因为此时xy的dfs序也是连续的,一个是0一个是1</p>
+</li>
+</ol>
+<figure data-type="image" tabindex="2"><img src="https://cdn.luogu.com.cn/upload/pic/58147.png" alt="" loading="lazy"></figure>
+<p>所以还是没有任何影响/摊手</p>
+<ol start="2">
+<li>x&lt; y-1,此时y是x的儿子,这种情况好玩,我们画个图</li>
+</ol>
+<figure data-type="image" tabindex="3"><img src="https://xiaxiaoguang.github.io/post-images/1586251616703.png" alt="" loading="lazy"></figure>
+<p>然后你会发现其中一定有且只有一个位置他的贡献是1,其他的贡献都是0!</p>
+<p>这个也就是说我们[x,y)区间没有贡献</p>
+<p>其他位置...看来只能贡献0.5了</p>
+<p>然后最后这些限制显然必要,但是我们并不能证明他们是否充分啊QAQ</p>
+<p>因为这完全可以通过这道神仙题.....</p>
+<p>code:</p>
+<pre><code class="language-cpp">
+#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;algorithm&gt;
+#include&lt;cstring&gt;
+#include&lt;cmath&gt;
+using namespace std;
+typedef long long ll;
+inline int read() {
+	int x=0,f=1;
+	char ch=getchar();
+	while(ch&lt;'0'||ch&gt;'9') {
+		if(ch=='-') f=-1;
+		ch=getchar();
+	}
+	while(ch&gt;='0'&amp;&amp;ch&lt;='9') {
+		x=(x&lt;&lt;1)+(x&lt;&lt;3)+(ch^48);
+		ch=getchar();
+	}
+	return x*f;
+}
+const int N=2e6+7;
+int n;
+double ans;
+int dfn[N],pos[N],sum[N];//sum是差分数组
+//dfn是节点的dfs序，pos是dfn的反数组，所以有 pos[dfn[i]]=i,dfn[pos[i]]=i
+inline void mark(int x,int y) {
+	sum[x]++,sum[y+1]--;    //打差分标记
+}
+int main() {
+	// freopen(&quot;1.in&quot;,&quot;r&quot;,stdin);
+	n=read();
+	ans=1;
+	mark(1,1);//第一个节点一定要分一层
+	for(int i=1; i&lt;=n; i++) dfn[read()]=i; //读入初始dfs序
+	for(int i=1; i&lt;=n; i++) pos[dfn[read()]]=i; //用初始dfs序更新变化后的pos
+	//上面一行不太好想。因为bfs序重标号了，原来的节点read()就变成了i，所以pos[dfn[read()]]=i
+	for(int i=1; i&lt;=n; i++) dfn[pos[i]]=i; //用更新后的pos更新dfn
+	for(int i=1; i&lt;n; i++) { //注意i不取n
+		if(dfn[i]&gt;dfn[i+1]) ans++,mark(i,i);//注意这里也要打标记，之后不会再产生0.5的贡献
+		if(pos[i]&lt;pos[i+1]-1) mark(pos[i],pos[i+1]-1);//打标记
+	}
+	int now=0;
+	for(int i=1; i&lt;n; i++) now+=sum[i],ans+=(now ? 0 : 0.5); //如果这个位置不确定则贡献为0.5
+	//注意上一行i不取n,因为切的位置只有n-1个
+	ans+=1;//深度等于分的段数+1
+	// printf(&quot;%.3lf\n%.3lf\n%.3lf&quot;,ans-0.001,ans,ans+0.001);//BZOJ上要这样输出...
+	printf(&quot;%.3lf\n&quot;,ans);
+	return 0;
+}
+</code></pre>
+<p>所以我们可以把它改改毒瘤他人?</p>
 
               </div>
               <div class="toc-container">
