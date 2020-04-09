@@ -1,0 +1,273 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>P5473 [NOI2019]I 君的探险 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1586399273254">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="P5473 [NOI2019]I 君的探险 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="NOI2019D2T3
+交互题,你谷第一篇题解?
+首先解释交互题是什么,通俗一点,就是** 出题人把答案放在了输入数据里面! **但是你不能知道实际的全部输入信息,你只能根据他给出的几个信息和调用提前实现好的函数猜出这个输入数据
+这个解释可..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1586399273254" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              P5473 [NOI2019]I 君的探险
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-04-07
+              </span>
+              <span>
+                6 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>NOI2019D2T3</p>
+<p>交互题,<s>你谷第一篇题解?</s></p>
+<p>首先解释交互题是什么,通俗一点,就是** 出题人把答案放在了输入数据里面! **但是你不能知道实际的全部输入信息,你只能根据他给出的几个信息和调用提前实现好的函数猜出这个输入数据</p>
+<p><s>这个解释可能不太对,但对这个题是有用的</s></p>
+<figure data-type="image" tabindex="1"><img src="https://xiaxiaoguang.github.io/post-images/1586271869766.png" alt="" loading="lazy"></figure>
+<p>交互题不能没有这个啊</p>
+<h2 id="部分分1">部分分1</h2>
+<figure data-type="image" tabindex="2"><img src="https://xiaxiaoguang.github.io/post-images/1586271907001.png" alt="" loading="lazy"></figure>
+<p>照此过程模拟即可,只要你能成功实现交互!</p>
+<p>4pts</p>
+<h2 id="部分分2~5">部分分2~5</h2>
+<p>只要有一点点暴力的想法,你会发现,如果我们想找一个点周围的边,那么只需要把这个点modify一次,然后把所有点全部query一遍,其中是亮的我们就record他们之间的一条边,再把这个点modify回去就好</p>
+<p>然而直接这样是不行的,我们只需要稍稍优化下暴力,查询只查询和亮暗情况之前有变化的点,就可以省去最后改回来的一次,然后每次只query所有编号大于当前点的点,就可以让总查询数变成<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>n</mi><mn>2</mn></msup><mi mathvariant="normal">/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">n^2/2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mord">/</span><span class="mord">2</span></span></span></span>,过掉第5个点</p>
+<p>16pts</p>
+<h2 id="部分分-6~9">部分分 6~9</h2>
+<p>满足图由许多两个点的块组成,也就是我们要确定每个点是另外哪个点连着的</p>
+<p>这部分也不难想,因为我们仔细观察数据范围可以得出算法的消耗应该是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">nlogn</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">n</span></span></span></span></p>
+<p>而logn的算法...而且是交互题....比较泛用的好像有<code>二进制</code>啊?</p>
+<p>做法也就同样有了,我们按照点的编号第x位二进制是1/0把所有点分成两组,然后把所有是1的点提出来点亮,然后花费n的代价查一遍全局,我们得到一个亮暗集合...那么观察不难的出</p>
+<blockquote>
+<p>如果一个点和他的相连点这一位相同,那一定处于暗集合,这一位不同一定处于亮集合</p>
+</blockquote>
+<p>这样我们把所有位都做一遍,再处理一下每个点就能得到每个点对应的点了!</p>
+<p>复杂度...全都是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(nlogn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></p>
+<p>16pts</p>
+<h2 id="部分分10~11">部分分10~11</h2>
+<p><s>这一部分是最为关键的??</s></p>
+<p>满足编号大的只向编号小的连一条边</p>
+<p>乍一想和之前的做法好像没有任何关系....除了复杂度....</p>
+<p>所以我们还是要想一个log做法?好像还有二分也是log的</p>
+<p>那这个题我们对于一个点可以找到他二分范围和性质吗?</p>
+<p>很容易发现:<strong>二分范围就是这个点编号到1,性质就是点亮一个前缀看他亮不亮,在某个位置之后一定全都亮</strong></p>
+<p>有这个性质我们就可以对于单个点二分了....而我们有n个点?整体二分就好啦</p>
+<p>代价还是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(nlogn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></p>
+<p>8pts</p>
+<h2 id="部分分12~14">部分分12~14</h2>
+<p>满足图是一条链</p>
+<p>这一部分可能比较需要灵机一动?qwq</p>
+<p>因为做法很简单....每个点只会受到两个点的影响...如果我们先花掉O(n)的时间找到一个<code>初始点</code>,然后从初始点向两侧扩展...好像就满足每个点只受到一个点的影响了!因为另一个点已知,完全可以计算出那个点的影响</p>
+<p>只受到一个点的影响?回到第三档部分分</p>
+<p>12pts</p>
+<h2 id="部分分15~17">部分分15~17</h2>
+<p><s>被迫营业树的部分QAQ</s></p>
+<p>之前一部分已经提示我们可以通过一次次扩展点来消掉周围点异或值是一些点的异或和的做法...</p>
+<p>那么树,他没有环,我们应该也是可以通过以这个扩展消掉异或和的</p>
+<ul>
+<li>我们只需要求出每个点u周围点的编号的异或和,然后如果修改这个和表示的点导致u发生改变那么他们之间就有一条边</li>
+</ul>
+<p>为啥正确呢?首先你会发现叶子这个性质一定成立</p>
+<p>而非叶子我们只需要把叶子从这个树上<code>剥离</code>,也就是消掉他的影响,也总有一天会变成叶子就成立了</p>
+<p>12pts</p>
+<p>至此所有非正解做法都讲完了,其实这道<strong>NOID2T3</strong>的题对于真正NOI选手68pts都不难呢</p>
+<h2 id="正解">正解</h2>
+<p>你会发现我们现在都还没有用过这个check,所以正解一定很坑</p>
+<p>没错,正解需要一点随机化/xyx</p>
+<p>同时,我们可能还需要一个复杂度带log的做法...如果我们把之前的两个做法融合一下,我们可以想到能不能<strong>划分出一个集合,然后在集合里整体二分呢?</strong></p>
+<p>这看上去完全是硬凑,但是想一下和之前的区别,之前是知道一定只有一条边在前面,所以我们一定能满足单调性</p>
+<p>但如果我们限制一下二分的过程,然后把奇偶性作为判断的标准呢?你会发现我们一定可以对于前面是奇数条边的点连出边,而前面是偶数的由于整体二分可能判断不了有没有边,因为点亮前缀后他状态没变</p>
+<p>所以我们直接按照这个方法去做,就可以连好某个排列里面满足前面边是奇数的那些边</p>
+<figure data-type="image" tabindex="3"><img src="https://xiaxiaoguang.github.io/post-images/1586398957313.png" alt="" loading="lazy"></figure>
+<p>但是显然连得不够啊....所以我们只需要random_shuffle一个新的排列,然后再在这个排列上做这个事情,就又能够连出去一些边了!</p>
+<p>其中check可以用来减少运算量的,如果一个点的周围的边都被标记了下次整体二分就不要把这个点加进去了</p>
+<p>然后你肯定要问这样怎么保证复杂度啊</p>
+<p>题解有一个结论:rand的一个排列里面有差不多<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mi mathvariant="normal">/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">n/3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">n</span><span class="mord">/</span><span class="mord">3</span></span></span></span>个点向前连边是奇数个</p>
+<p>不会证,但这道题做完了,完结散花!!</p>
+<p><a href="https://loj.ac/submission/783398">你谷交不了呢QAQ</a></p>
+<p><s>写的还不错吧留个赞再走呗</s></p>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E9%83%A8%E5%88%86%E5%88%861">部分分1</a></li>
+<li><a href="#%E9%83%A8%E5%88%86%E5%88%862~5">部分分2~5</a></li>
+<li><a href="#%E9%83%A8%E5%88%86%E5%88%86-6~9">部分分 6~9</a></li>
+<li><a href="#%E9%83%A8%E5%88%86%E5%88%8610~11">部分分10~11</a></li>
+<li><a href="#%E9%83%A8%E5%88%86%E5%88%8612~14">部分分12~14</a></li>
+<li><a href="#%E9%83%A8%E5%88%86%E5%88%8615~17">部分分15~17</a></li>
+<li><a href="#%E6%AD%A3%E8%A7%A3">正解</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/at2383-agc015e-mraoki-incubator/">
+              <h3 class="post-title">
+                AT2383 [AGC015E] Mr.Aoki Incubator
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
