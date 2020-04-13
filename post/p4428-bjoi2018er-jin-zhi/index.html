@@ -1,0 +1,551 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>P4428 [BJOI2018]二进制 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1586753822854">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="P4428 [BJOI2018]二进制 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="BJOI2018D1T2
+不得不说人家BJOI的题一个个都是神仙,给人全新的做题体验---暴力出奇迹???
+简要题意:
+
+查询一段另一区间有多少个子区间满足重排之后能构成一个%3=0的二进制数
+
+一看就不可做,20pts跑路,O(n2q)O..." />
+    <meta name="keywords" content="动态DP,规律,各省省选,线段树,动态规划" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1586753822854" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              P4428 [BJOI2018]二进制
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-04-13
+              </span>
+              <span>
+                14 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/51PqjSaGa/" class="post-tag">
+                  # 动态DP
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/7_IfX1dbIw/" class="post-tag">
+                  # 规律
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/KY7VyyrtD/" class="post-tag">
+                  # 各省省选
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/i0TglRCqu/" class="post-tag">
+                  # 线段树
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/CJ-ugjBAY/" class="post-tag">
+                  # 动态规划
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/4pNOqgOvBLvj4yTC9qc55cB70SaVvjjtlcd4Ov5RckfQShJY5Xg4ktSN4iKZRKdjnUIy5jADNkxPh2LTYWgAnsDBVJkxzu3AVYcdkYE*Nro!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>BJOI2018D1T2</p>
+<p>不得不说人家BJOI的题一个个都是神仙,给人全新的做题体验---暴力出奇迹???</p>
+<p>简要题意:</p>
+<ul>
+<li>查询一段另一区间有多少个子区间满足重排之后能构成一个%3=0的二进制数</li>
+</ul>
+<p>一看就不可做,20pts跑路,<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mi>n</mi><mn>2</mn></msup><mi>q</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n^2q)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span><span class="mclose">)</span></span></span></span></p>
+<p>50pts...可能是每个询问我们都DP一次吗?然后DP可以<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>n</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">n^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span>??</p>
+<p>好吧直接开正解</p>
+<blockquote>
+<p>&quot;传说中的动态dp？反正极其毒瘤就是了&quot;</p>
+</blockquote>
+<p>肯定先要推结论的,我一开始想直接找出0/1串的规律,挂了....</p>
+<p>所以我们缩小到每个元素的性质而不是直接找整体的</p>
+<ul>
+<li>对于1个1,如果他在奇数位置,那他会对答案贡献2,如果在偶数位置则会对答案贡献1,最后要求贡献%3=0</li>
+</ul>
+<p>这个结论很显然对吧,因为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mrow><mi mathvariant="normal">偶</mi><mi mathvariant="normal">数</mi></mrow></msup><mo>≡</mo><mn>1</mn><mo>(</mo><mi>m</mi><mi>o</mi><mi>d</mi><mn>3</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">2^{偶数}\equiv 1(mod 3)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.363em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord cjk_fallback mtight">偶</span><span class="mord cjk_fallback mtight">数</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≡</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mopen">(</span><span class="mord mathdefault">m</span><span class="mord mathdefault">o</span><span class="mord mathdefault">d</span><span class="mord">3</span><span class="mclose">)</span></span></span></span>,<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mrow><mi mathvariant="normal">奇</mi><mi mathvariant="normal">数</mi></mrow></msup><mo>≡</mo><mn>2</mn><mo>(</mo><mi>m</mi><mi>o</mi><mi>d</mi><mn>3</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">2^{奇数} \equiv 2(mod 3)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.363em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord cjk_fallback mtight">奇</span><span class="mord cjk_fallback mtight">数</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≡</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">2</span><span class="mopen">(</span><span class="mord mathdefault">m</span><span class="mord mathdefault">o</span><span class="mord mathdefault">d</span><span class="mord">3</span><span class="mclose">)</span></span></span></span></p>
+<p>那么我们考虑下合法的情况?....如果1的个数是偶数,那么一定可以,因为我们可以奇偶平分啊</p>
+<p>如果1的个数是奇数?必须满足奇数的个数是偶数个数多至少3,为什么呢?否则我们奇偶配对后一定%3=1/2对吧</p>
+<p>而大于3?如果是5,那么显然我们可以给偶数放个1,就又变成多3的情况,如果是4?你不觉得1的个数是偶数了吗?</p>
+<p>所以综上所述,这个不太行,我们要补集转化</p>
+<p>我们先想1的个数一定是奇数对吧,而且我们要满足能够构造出奇数比偶数多3?</p>
+<ul>
+<li>1.只有1个1</li>
+<li>2.奇数个1,而且0的个数小于等于1</li>
+</ul>
+<p>否则我们有2个零?就一定可以构造出奇数比偶数多的假象</p>
+<p>eg: 3个1,2个0 10101,7个1,2个0,101011111</p>
+<p>这样我们就来快速找到一个区间的答案吧!动态DP啊!或者说DP过程分治化并记录?线段树!</p>
+<p>我们要记录什么信息呢?包含不包含左右端点,4中情况第一维,有奇数个1还是偶数个,有0/1还是1/1,有0/1还是1/0,共四维,怎么转移啊?</p>
+<p>所以我们把两个问题分开计数,然后最后减去算重的 部分就好</p>
+<p>第一个线段树上存这样的dp数组<br>
+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>D</mi><msub><mi>p</mi><mrow><mi>i</mi><mo separator="true">,</mo><mi>j</mi><mo separator="true">,</mo><mi>k</mi></mrow></msub></mrow><annotation encoding="application/x-tex">Dp_{i,j,k}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">D</span><span class="mord"><span class="mord mathdefault">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span></p>
+<p>其中i的定义和一开始的定义一样</p>
+<p>j表示这个区间有奇数个1或者偶数个1</p>
+<p>k表示这个区间有0个0或1个0</p>
+<p>另一个线段树存这样的dp数组</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>D</mi><msub><mi>p</mi><mrow><mi>i</mi><mo separator="true">,</mo><mi>j</mi></mrow></msub><mi mathvariant="normal">​</mi></mrow><annotation encoding="application/x-tex">Dp_{i,j}​</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">D</span><span class="mord"><span class="mord mathdefault">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mord">​</span></span></span></span></p>
+<p>i的定义还是和开始的定义一样，</p>
+<p>j表示这个区间有0个1或者1个1</p>
+<p>考虑第一个条件的转移我们需要对于每个节点维护:</p>
+<ul>
+<li>前缀零的个数,后缀零的个数</li>
+<li>包括了1个1的前缀和后缀的个数</li>
+</ul>
+<p>那你会发现因为我们要计算跨过中间点的答案,所以就是左边0后缀0*右边前驱只有1个1的前缀+右边同理就是答案</p>
+<p>然后再考虑第二种情况</p>
+<p>设 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>R</mi><mrow><mi>i</mi><mo separator="true">,</mo><mi>j</mi></mrow></msub></mrow><annotation encoding="application/x-tex">R_{i, j}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:-0.00773em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>​ 为线段后缀中满足 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> 的数量为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span>，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 的数量 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mtext> </mtext><mrow><mi mathvariant="normal">m</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">d</mi></mrow><mtext> </mtext><mn>2</mn><mo>=</mo><mi>j</mi></mrow><annotation encoding="application/x-tex">\bmod 2 = j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mspace" style="margin-right:0.05555555555555555em;"></span><span class="mord"><span class="mord"><span class="mord mathrm">m</span><span class="mord mathrm">o</span><span class="mord mathrm">d</span></span></span><span class="mspace" style="margin-right:0.05555555555555555em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span></span></span></span> 的数量。<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>L</mi></mrow><annotation encoding="application/x-tex">L</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault">L</span></span></span></span> 统计前缀，对称地是类似的。</p>
+<p>那么你枚举 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi><mi mathvariant="normal">.</mi><msub><mi>R</mi><mrow><mi>a</mi><mo separator="true">,</mo><mi>b</mi></mrow></msub><mo separator="true">,</mo><mi>B</mi><mi mathvariant="normal">.</mi><msub><mi>L</mi><mrow><mi>c</mi><mo separator="true">,</mo><mi>d</mi></mrow></msub></mrow><annotation encoding="application/x-tex">A.R_{a, b}, B.L_{c, d}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="mord mathdefault">A</span><span class="mord">.</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.00773em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">a</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight">b</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="mord">.</span><span class="mord"><span class="mord mathdefault">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">c</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight">d</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>​ 考虑能否产生贡献：</p>
+<ul>
+<li>若 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi><mo>+</mo><mi>c</mi><mo>≤</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">a+c \le 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">a</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mord mathdefault">c</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 且<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>b</mi><mo>+</mo><mi>d</mi></mrow><annotation encoding="application/x-tex">b + d</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.77777em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">b</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">d</span></span></span></span> 为奇数，那么则可以产生对答案有他们俩乘积的贡献。</li>
+</ul>
+<p>还有一个重复的就是1的个数和10/01的个数会被减重复对吧,这个直接用一个树状数组就能维护</p>
+<p>然后没什么了,其他细节也不会,学个大概qwq</p>
+<p>真的太难了</p>
+<p>code:</p>
+<pre><code class="language-cpp">#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;iostream&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int MAXN = 1e5 + 10;
+typedef long long ll;
+int n, mk, m;
+int a[MAXN];
+
+struct linetree1 {
+	ll v[4 * MAXN][4][2][2];
+	inline void merge(int p, int p1, int p2) { //非常恶心的merge函数
+		for(int i = 0; i &lt;= 1; i++)for(int k = 0; k &lt;= 1; k++) //加法转移们
+				v[p][0][i][k] = v[p1][0][i][k] + v[p2][0][i][k] + v[p1][2][i][k] + v[p2][1][i][k];
+		for(int i = 0; i &lt;= 1; i++)for(int k = 0; k &lt;= 1; k++)v[p][1][i][k] = v[p1][3][i][k] + v[p1][1][i][k];
+		for(int i = 0; i &lt;= 1; i++)for(int k = 0; k &lt;= 1; k++)v[p][2][i][k] = v[p2][3][i][k] + v[p2][2][i][k];
+		for(int i = 0; i &lt;= 1; i++)for(int k = 0; k &lt;= 1; k++)v[p][3][i][k] = 0;
+		for(int i = 0; i &lt;= 1; i++) //乘法转移,这里for枚举p1,p2各选多少个0
+			for(int j = 0; i + j &lt;= 1; j++) //手动枚举了奇偶性的转移
+				v[p][0][0][i + j] += v[p1][2][0][i] * v[p2][1][0][j] + v[p1][2][1][i] * v[p2][1][1][j],
+									 v[p][0][1][i + j] += v[p1][2][0][i] * v[p2][1][1][j] + v[p1][2][1][i] * v[p2][1][0][j],
+											 v[p][1][0][i + j] += v[p1][3][0][i] * v[p2][1][0][j] + v[p1][3][1][i] * v[p2][1][1][j],
+													 v[p][1][1][i + j] += v[p1][3][0][i] * v[p2][1][1][j] + v[p1][3][1][i] * v[p2][1][0][j],
+															 v[p][2][0][i + j] += v[p1][2][0][i] * v[p2][3][0][j] + v[p1][2][1][i] * v[p2][3][1][j],
+																	 v[p][2][1][i + j] += v[p1][2][0][i] * v[p2][3][1][j] + v[p1][2][1][i] * v[p2][3][0][j],
+																			 v[p][3][0][i + j] += v[p1][3][0][i] * v[p2][3][0][j] + v[p1][3][1][i] * v[p2][3][1][j],
+																					 v[p][3][1][i + j] += v[p1][3][0][i] * v[p2][3][1][j] + v[p1][3][1][i] * v[p2][3][0][j];
+	}
+	inline void modify(int p, int l, int r, int pos) {
+		if(r - l == 1) {
+			if(a[r]) {
+				v[p][3][1][0] = 1;
+				v[p][3][0][1] = 0;
+			} else {
+				v[p][3][0][1] = 1;
+				v[p][3][1][0] = 0;
+			}
+			return ;
+		}
+		int mid = (l + r) / 2;
+		if(pos &lt;= mid) {
+			modify(p &lt;&lt; 1, l, mid, pos);
+		} else {
+			modify(p &lt;&lt; 1 | 1, mid, r, pos);
+		}
+		merge(p, p &lt;&lt; 1, p &lt;&lt; 1 | 1);
+	}
+	inline void query(int p, int l, int r, int dl, int dr) {
+		if(dl == l &amp;&amp; dr == r) {
+			if(mk == 0) {
+				for(int i = 0; i &lt;= 3; ++i) {
+					for(int j = 0; j &lt;= 1; ++j) {
+						for(int k = 0; k &lt;= 1; ++k) {
+							v[0][i][j][k] = v[p][i][j][k];
+						}
+					}
+				}
+				mk = 1;
+			} else {
+				for(int i = 0; i &lt;= 3; ++i) {
+					for(int j = 0; j &lt;= 1; ++j) {
+						for(int k = 0; k &lt;= 1; ++k) {
+							v[4 * n + 1][i][j][k] = v[0][i][j][k];
+						}
+					}
+				}
+				merge(0, 4 * n + 1, p);
+			}
+			return ;
+		}
+		int mid = (l + r) / 2;
+		if(dl &lt; mid) {
+			query(p &lt;&lt; 1, l, mid, dl, min(dr, mid));
+		}
+		if(mid &lt; dr) {
+			query(p &lt;&lt; 1 | 1, mid, r, max(dl, mid), dr);
+		}
+	}
+	inline ll cquery(int l, int r) {
+		for(int i = 0; i &lt;= 3; ++i) {
+			for(int j = 0; j &lt;= 1; ++j) {
+				for(int k = 0; k &lt;= 1; ++k) {
+					v[0][i][j][k] = 0;
+				}
+			}
+		}
+		mk = 0;
+		query(1, 0, n, l, r);
+		ll ret = 0;
+		for(int i = 0; i &lt;= 3; ++i)ret += v[0][i][1][0] + v[0][i][1][1];
+		return ret;
+	}
+	inline void build(int p, int l, int r) {
+		if(r - l == 1) {
+			// printf(&quot;%d %d %d %d\n&quot;, p, l, r, a[r]);
+			if(a[r]) {
+				v[p][3][1][0] = 1;
+			} else {
+				v[p][3][0][1] = 1;
+			}
+			return;
+		}
+		int mid = (l + r) / 2;
+		build(p &lt;&lt; 1, l, mid);
+		build(p &lt;&lt; 1 | 1, mid, r);
+		merge(p, p &lt;&lt; 1, p &lt;&lt; 1 | 1);
+	}
+} lt1;
+
+struct linetree2 {
+	ll v[4 * MAXN][4][2];
+	inline void merge(int p, int p1, int p2) {
+		for(int i = 0; i &lt;= 1; ++i)v[p][0][i] = v[p1][0][i] + v[p2][0][i] + v[p1][2][i] + v[p2][1][i];
+		for(int i = 0; i &lt;= 1; ++i)v[p][1][i] = v[p1][3][i] + v[p1][1][i];
+		for(int i = 0; i &lt;= 1; ++i)v[p][2][i] = v[p2][3][i] + v[p2][2][i];
+		for(int i = 0; i &lt;= 1; ++i)v[p][3][i] = 0;
+
+		for(int i = 0; i &lt;= 1; i++)
+			for(int j = 0; i + j &lt;= 1; j++) {
+				v[p][0][i + j] += v[p1][2][i] * v[p2][1][j];
+
+				v[p][1][i + j] += v[p1][3][i] * v[p2][1][j];
+
+				v[p][2][i + j] += v[p1][2][i] * v[p2][3][j];
+
+				v[p][3][i + j] += v[p1][3][i] * v[p2][3][j];
+			}
+	}
+	inline void modify(int p, int l, int r, int pos) {
+		if(r - l == 1) {
+			if(a[r]) {
+				v[p][3][1] = 1;
+				v[p][3][0] = 0;
+			} else {
+				v[p][3][0] = 1;
+				v[p][3][1] = 0;
+			}
+			return ;
+		}
+		int mid = (l + r) &gt;&gt; 1;
+		if(pos &lt;= mid) {
+			modify(p &lt;&lt; 1, l, mid, pos);
+		} else {
+			modify(p &lt;&lt; 1 | 1, mid, r, pos);
+		}
+		merge(p, p &lt;&lt; 1, p &lt;&lt; 1 | 1);
+		return ;
+	}
+
+	inline void query(int p, int l, int r, int dl, int dr) {
+		if(dl == l &amp;&amp; dr == r) {
+			if(mk == 0) {
+				for(int i = 0; i &lt;= 3; ++i)
+					for(int j = 0; j &lt;= 1; ++j) {
+						v[0][i][j] = v[p][i][j];
+					}
+				mk = 1;
+			} else {
+				for(int i = 0; i &lt;= 3; ++i)
+					for(int j = 0; j &lt;= 1; ++j) {
+						v[4 * n + 1][i][j] = v[0][i][j];
+					}
+				merge(0, 4 * n + 1, p);
+			}
+			return ;
+		}
+		int mid = (l + r) &gt;&gt; 1;
+		if(dl &lt; mid) {
+			query(p &lt;&lt; 1, l, mid, dl, min(dr, mid));
+		}
+		if(mid &lt; dr) {
+			query(p &lt;&lt; 1 | 1, mid, r, max(dl, mid), dr);
+		}
+	}
+	inline ll cquery(int l, int r) {
+		for(int i = 0; i &lt;= 3; ++i) {
+			for(int j = 0; j &lt;= 1; ++j) {
+				v[0][i][j] = 0;
+			}
+		}
+		mk = 0;
+		query(1, 0, n, l, r);
+		ll ret = 0;
+		for(int i = 0; i &lt;= 3; ++i)ret += v[0][i][1];
+		return ret;
+	}
+	inline void build(int p, int l, int r) {
+		if(r - l == 1) {
+			// printf(&quot;%d %d %d %d\n&quot;, p, l, r, a[r]);
+			if(a[r]) {
+				v[p][3][1] = 1;
+			} else {
+				v[p][3][0] = 1;
+			}
+			return ;
+		}
+		int mid = (l + r) / 2;
+		build(p &lt;&lt; 1, l, mid);
+		build(p &lt;&lt; 1 | 1, mid, r);
+		merge(p, p &lt;&lt; 1, p &lt;&lt; 1 | 1);
+
+	}
+} lt2;
+
+struct treearray {
+	int ta[MAXN];
+	inline void c(int x, int t) {
+		for(; x &lt;= n; x += x &amp; (-x))ta[x] += t;
+	}
+	inline int d(int x) {
+		int r = 0;
+		for(; x &gt; 0; x -= x &amp; (-x))r += ta[x];
+		return r;
+	}
+	inline ll q(int l, int r) {
+		return d(r) - d(l);
+	}
+} tr1, tr2;
+
+int main() {
+	scanf(&quot;%d&quot;, &amp;n);
+	for(int i = 1; i &lt;= n; ++i) {
+		scanf(&quot;%d&quot;, &amp;a[i]);
+	}
+	lt1.build(1, 0, n);
+	lt2.build(1, 0, n);
+	for(int i = 1; i &lt;= n; ++i) {
+		if(a[i]) {
+			tr1.c(i, 1);
+		}
+		if(a[i]^a[i + 1] &amp;&amp; i != n) {
+			tr2.c(i, 1);
+		}
+	}
+	scanf(&quot;%d&quot;, &amp;m);
+	for(int i = 1, t, l, r; i &lt;= m; ++i) {
+		scanf(&quot;%d&quot;, &amp;t);
+		// printf(&quot;%d?\n&quot;, i);
+		//puts(&quot;QWQ&quot;);
+		if(t == 1) {
+			scanf(&quot;%d&quot;, &amp;l);
+			a[l] ^= 1;
+			lt1.modify(1, 0, n, l);
+			// puts(&quot;QAQ&quot;);
+
+			lt2.modify(1, 0, n, l);
+			// puts(&quot;QAQ&quot;);
+			tr1.c(l, (a[l]) ? 1 : -1);
+			if(l != n) {
+				tr2.c(l, (a[l]^a[l + 1]) ? 1 : -1);
+			}
+			if(l != 1) {
+				tr2.c(l - 1, (a[l - 1]^a[l]) ? 1 : -1);
+			}
+		} else {
+			scanf(&quot;%d%d&quot;, &amp;l, &amp;r);
+			ll len = r - l + 1;
+			printf(&quot;%lld\n&quot;, len * (len + 1) / 2 - lt1.cquery(l - 1, r) - lt2.cquery(l - 1, r) + tr1.q(l - 1, r) + tr2.q(l - 1, r - 1));
+			// printf(&quot;%d &quot;, lt1.cquery(l - 1, r));
+			// printf(&quot;%d &quot;, lt2.cquery(l - 1, r));
+			// printf(&quot;%d &quot;, tr1.q(l - 1, r));
+			// printf(&quot;%d &quot;, tr2.q(l - 1, r - 1));
+			// puts(&quot;QAQ&quot;);
+
+		}
+	}
+	return 0;
+}
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/p5468-noi2019hui-jia-lu-xian/">
+              <h3 class="post-title">
+                P5468 [NOI2019]回家路线
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
