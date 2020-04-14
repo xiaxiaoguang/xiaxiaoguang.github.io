@@ -1,0 +1,378 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>P4364 [九省联考2018]IIIDX | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1586857990090">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="P4364 [九省联考2018]IIIDX | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="九省联考D1T2
+吐槽这样的弱者只会弄水题
+另外![](/.......)....本来这里应该有张p站的图的
+
+给你一颗树和一些权值,要求你给这个树分权值,满足父亲的权值小于儿子而且按照bfs序越靠前的点权值越大,输出方案
+
+n&lt;=1..." />
+    <meta name="keywords" content="线段树二分,贪心,各省省选,线段树" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1586857990090" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              P4364 [九省联考2018]IIIDX
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-04-14
+              </span>
+              <span>
+                6 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/hnr2LJn_z/" class="post-tag">
+                  # 线段树二分
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/m-043j5Q1/" class="post-tag">
+                  # 贪心
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/KY7VyyrtD/" class="post-tag">
+                  # 各省省选
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/i0TglRCqu/" class="post-tag">
+                  # 线段树
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/4pNOqgOvBLvj4yTC9qc55ZxmAdYYRRg9knBalQ3fz.BVUWCj*RlRJdZiaTRAOfhiWwTH4G0pjuBco5kYF5qtmL6dLtlYSmQmlhJ6LTzDlx0!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>九省联考D1T2</p>
+<p>吐槽这样的<img src="https://xiaxiaoguang.github.io/post-images/1586856430229.png" alt="" loading="lazy">弱者只会弄水题</p>
+<p>另外![](/.......)....本来这里应该有张p站的图的</p>
+<ul>
+<li>给你一颗树和一些权值,要求你给这个树分权值,满足父亲的权值小于儿子而且按照bfs序越靠前的点权值越大,输出方案</li>
+</ul>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>&lt;</mo><mo>=</mo><mn>1</mn><mi>e</mi><mn>5</mn></mrow><annotation encoding="application/x-tex">n&lt;=1e5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord mathdefault">e</span><span class="mord">5</span></span></span></span></p>
+<p>首先我们有个一眼的做法就是考虑直接贪心,就是给编号最小的儿子最大的siz个去组方案</p>
+<p>先把权值按照从大到小排序能快一点</p>
+<p>然而如果出现权值相等的情况就命没了,eg 4 2.0 1 1 2 1</p>
+<p>你会这样划分<img src="https://xiaxiaoguang.github.io/post-images/1586856792627.png" alt="" loading="lazy"></p>
+<p>然后命没了</p>
+<p>所以我们要改改这个做法</p>
+<p>为什么不对?因为我们是按照dfs序去划分,而题面中都提示你按照bfs序去做了</p>
+<p>所以我们再想直接按照bfs序去做要怎么搞</p>
+<p>也就是说我们要同时维护父亲预留大小和查询这个点的最大可能性</p>
+<p>线段树</p>
+<ul>
+<li>1.维护前缀有多少个点可以选</li>
+</ul>
+<p>没了</p>
+<p>然后你会发现一个之前贪心不用搞的事情,就是我们相等的权值一定要尽可能右边的,因为线段树上相等的一列按照这个方法做是右边更优左边更劣的...当然这是在同一层的视角下</p>
+<p>你会发现这篇题解非常消极</p>
+<p>谁知道呢?</p>
+<p>code:</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+#include&lt;cmath&gt;
+const int MAXN = 5e5 + 7;
+const int inf = 1e9;
+using namespace std;
+struct rec {
+    int mn, del;
+} tr[MAXN &lt;&lt; 2];
+int n, N;
+double k;
+int a[MAXN], b[MAXN], ans[MAXN], siz[MAXN], fa[MAXN], cnt[MAXN];
+
+namespace fastIO {
+#define BUF_SIZE (1&lt;&lt;19)
+    static char buf[BUF_SIZE], *p1 = buf + BUF_SIZE, *pend = buf + BUF_SIZE;
+    inline char nc() {
+        if(p1 == pend) {
+            p1 = buf;
+            pend = buf + fread(buf, 1, BUF_SIZE, stdin);
+        }
+        return *p1++;
+    }
+    inline int read() {
+        int x = 0, f = 1;
+        char s = nc();
+        for(; !isdigit(s); s = nc())if(s == '-')f = -1;
+        for(; isdigit(s); s = nc())x = (x &lt;&lt; 1) + (x &lt;&lt; 3) + s - '0';
+        return x * f;
+    }
+}
+using namespace fastIO;
+
+inline bool cmp(int a, int b) {
+    return a &gt; b;
+}
+
+inline void add(int x, int delta) {
+    tr[x].del += delta;
+    tr[x].mn += delta;
+}
+
+inline void up(int x) {
+    tr[x].mn = min(tr[x &lt;&lt; 1].mn, tr[x &lt;&lt; 1 | 1].mn);
+}
+
+inline void down(int x) {
+    add(x &lt;&lt; 1, tr[x].del);
+    add(x &lt;&lt; 1 | 1, tr[x].del);
+    tr[x].del = 0;
+}
+
+inline void build(int k, int l, int r) {
+    if(l == r) {
+        tr[k].mn = l;
+        return ;
+    }
+    int mid = (l + r) &gt;&gt; 1;
+    build(k &lt;&lt; 1, l, mid);
+    build(k &lt;&lt; 1 | 1, mid + 1, r);
+    up(k);
+}
+
+inline int query(int k, int l, int r, int qwq) {
+    if(l == r) {
+        return (tr[k].mn &gt;= qwq ? l : l + 1);
+    }
+    down(k);
+    int mid = (l + r) &gt;&gt; 1;
+    if(qwq &lt;= tr[k &lt;&lt; 1 | 1].mn)return query(k &lt;&lt; 1, l, mid, qwq);
+    else return query(k &lt;&lt; 1 | 1, mid + 1, r, qwq);
+}
+
+inline void update(int k, int l, int r, int L, int R, int D) {
+    if(L &lt;= l &amp;&amp; R &gt;= r) {
+        tr[k].mn += D;
+        tr[k].del += D;
+        return ;
+    }
+    down(k);
+    int mid = (l + r) &gt;&gt; 1;
+    if(L &lt;= mid)update(k &lt;&lt; 1, l, mid, L, R, D);
+    if(R &gt; mid)update(k &lt;&lt; 1 | 1, mid + 1, r, L, R, D);
+    up(k);
+}
+
+int main() {
+    // freopen(&quot;test.in&quot;, &quot;r&quot;, stdin);
+    scanf(&quot;%d&quot;, &amp;n);
+    scanf(&quot;%lf&quot;, &amp;k);
+    for(int i = 1; i &lt;= n; ++i)a[i] = read();// printf(&quot;%d?\n&quot;, a[i]);
+    sort(a + 1, a + n + 1, cmp);
+    for(int i = n - 1; i; i--) {
+        // printf(&quot;%d %d\n&quot;, a[i], a[i + 1]);
+        if(a[i] == a[i + 1])cnt[i] = cnt[i + 1] + 1;
+        else cnt[i] = 0;
+    }
+    for(int i = 1; i &lt;= n; ++i) {
+        fa[i] = (int)floor(i / k);
+        // printf(&quot;%d \n&quot;, fa[i]);
+        siz[i] = 1;
+    }
+    for(int i = n; i; --i) {
+        siz[fa[i]] += siz[i];
+        // printf(&quot;%d?\n &quot;, siz[i]);
+        //统计子树和
+        //SAM基操
+    }
+    build(1, 1, n);
+    for(int i = 1; i &lt;= n; ++i) {
+        // printf(&quot;%d %d?\n&quot;, fa[i], siz[fa[i]] - 1);
+        if(fa[i] &amp;&amp; fa[i] != fa[i - 1])
+            update(1, 1, n, ans[fa[i]], n, siz[fa[i]] - 1);
+        int x = query(1, 1, n, siz[i]);
+        // printf(&quot;%d %d\n&quot;, x, cnt[x]);
+
+        x += cnt[x];
+        // printf(&quot;%d ?&quot;, x);
+        cnt[x]++;
+        // printf(&quot;%d \n&quot;, cnt[x]);
+        // x -= (cnt[x] - 1);
+
+        ans[i] = x;
+        update(1, 1, n, x, n, -siz[i]);
+    }
+    for(int i = 1; i &lt;= n; ++i)printf(&quot;%d &quot;, a[ans[i]]);
+    return 0;
+}
+</code></pre>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mi>r</mi><mi>z</mi><mi>h</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">Orzhq
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="mord mathdefault">h</span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span></span></span></span></span></p>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/p6381-mdoi-r2-odyssey/">
+              <h3 class="post-title">
+                P6381 『MdOI R2』Odyssey
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
