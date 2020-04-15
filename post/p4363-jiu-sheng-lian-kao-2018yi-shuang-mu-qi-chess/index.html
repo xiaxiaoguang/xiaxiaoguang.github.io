@@ -1,0 +1,308 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>P4363 [九省联考2018]一双木棋chess | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1586936778526">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="P4363 [九省联考2018]一双木棋chess | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="九省联考D1T1
+哇偶,状压DP我果然还是不会的,要多做些才行呢
+如果考场考了是不是就TAT了啊
+简要题意没有了
+上去直接考虑n=2m=2,发现可以手算所有决策
+以及还有n=10m=1,会发现我们只能从左到右放
+然后没了,正解吧
+轮廓线DP..." />
+    <meta name="keywords" content="状态压缩,插头DP,各省省选,动态规划" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1586936778526" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              P4363 [九省联考2018]一双木棋chess
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-04-15
+              </span>
+              <span>
+                3 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/TN_5AiIbO/" class="post-tag">
+                  # 状态压缩
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/d-lHOvQnoE/" class="post-tag">
+                  # 插头DP
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/KY7VyyrtD/" class="post-tag">
+                  # 各省省选
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/CJ-ugjBAY/" class="post-tag">
+                  # 动态规划
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/4pNOqgOvBLvj4yTC9qc55RQREAE*KdAQNlK2yiVYuM8lG.yINwuKnXkpkLZuJKYBbxJkT2JAhbYzRWKPy.qON6JPFiYNB9c02fXL*5WMtnI!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>九省联考D1T1</p>
+<p>哇偶,状压DP我果然还是不会的,要多做些才行呢</p>
+<p>如果考场考了是不是就TAT了啊</p>
+<p>简要题意没有了</p>
+<p>上去直接考虑n=2m=2,发现可以手算所有决策</p>
+<p>以及还有n=10m=1,会发现我们只能从左到右放</p>
+<p>然后没了,正解吧</p>
+<p>轮廓线DP</p>
+<p>一种挺奇妙的DP状态设计方式啊!</p>
+<p>我们把n+m-1个行和列压起来,然后这一位为0表示轮廓线是横着的边,如果为1就表示轮廓线为竖着的边</p>
+<p>被轮廓线围住的三角形就是放棋子的格子</p>
+<p>然后你会发现这个状态的设计很不错,因为他充分利用了每个信息------这个棋盘一定满足放置是一个从右上到左下的三角形</p>
+<p>而且我们可以通过0/1来定位棋子具体在哪一个格子,从而实现转移qwq</p>
+<p>eg:</p>
+<figure data-type="image" tabindex="1"><img src="https://xiaxiaoguang.github.io/post-images/1586936687539.png" alt="" loading="lazy"></figure>
+<p>code:</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+using namespace std;
+
+namespace fastIO {
+#define BUF_SIZE (1&lt;&lt;19)
+	static char buf[BUF_SIZE], *p1 = buf + BUF_SIZE, *pend = buf + BUF_SIZE;
+	inline char nc() {
+		if(p1 == pend) {
+			p1 = buf;
+			pend = buf + fread(buf, 1, BUF_SIZE, stdin);
+		}
+		return *p1++;
+	}
+	inline int read() {
+		int x = 0, f = 1;
+		register char s = nc();
+		for(; !isdigit(s); s = nc())if(s == '-')f = -1;
+		for(; isdigit(s); s = nc())x = (x &lt;&lt; 1) + (x &lt;&lt; 3) + s - '0';
+		return x * f;
+	}
+}
+using namespace fastIO;
+const int MAXN = 10;
+const int P = 1e9 + 7;
+
+int a[MAXN][MAXN], b[MAXN][MAXN];
+
+int f[1 &lt;&lt; (MAXN &lt;&lt; 1)];
+
+int dfs(int sta, bool who, int n, int m) {
+	if(~f[sta])return f[sta];
+	f[sta] = who ? -P : P;
+	int x = n, y = 0;
+	for(int i = 0; i &lt; n + m - 1; ++i) {
+		if(sta &gt;&gt; i &amp; 1)x--;
+		else y++;
+		if((sta &gt;&gt; i &amp; 3) != 1)
+			continue;
+		int nxt = sta ^ (3 &lt;&lt; i);
+		if(who)
+			f[sta] = max(f[sta], dfs(nxt, who ^ 1, n, m) + a[x][y]);
+		else
+			f[sta] = min(f[sta], dfs(nxt, who ^ 1, n, m) - b[x][y]);
+	}
+	return f[sta];
+}
+
+
+int main() {
+	// freopen(&quot;test.in&quot;, &quot;r&quot;, stdin);
+	int n = read(), m = read();
+	for(int i = 0; i &lt; n; ++i) {
+		for(int j = 0; j &lt; m; ++j) {
+			a[i][j] = read();
+		}
+	}
+	for(int i = 0; i &lt; n; ++i) {
+		for(int j = 0; j &lt; m; ++j) {
+			b[i][j] = read();
+		}
+	}
+	memset(f, -1, sizeof(f));
+	f[((1 &lt;&lt; n) - 1) &lt;&lt; m] = 0;
+	printf(&quot;%d\n&quot;, dfs((1 &lt;&lt; n) - 1, 1, n, m));
+}
+
+</code></pre>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mi>r</mi><mi>z</mi><mi>l</mi><mi>j</mi><mi>h</mi></mrow><annotation encoding="application/x-tex">Orzljh
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mord mathdefault">h</span></span></span></span></span></p>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/p4364-jiu-sheng-lian-kao-2018iiidx/">
+              <h3 class="post-title">
+                P4364 [九省联考2018]IIIDX
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

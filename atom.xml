@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://xiaxiaoguang.github.io</id>
     <title>夏晓光(loveJY)的博客</title>
-    <updated>2020-04-14T09:53:43.814Z</updated>
+    <updated>2020-04-15T07:46:29.631Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://xiaxiaoguang.github.io"/>
     <link rel="self" href="https://xiaxiaoguang.github.io/atom.xml"/>
@@ -10,6 +10,101 @@
     <logo>https://xiaxiaoguang.github.io/images/avatar.png</logo>
     <icon>https://xiaxiaoguang.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 夏晓光(loveJY)的博客</rights>
+    <entry>
+        <title type="html"><![CDATA[P4363 [九省联考2018]一双木棋chess]]></title>
+        <id>https://xiaxiaoguang.github.io/post/p4363-jiu-sheng-lian-kao-2018yi-shuang-mu-qi-chess/</id>
+        <link href="https://xiaxiaoguang.github.io/post/p4363-jiu-sheng-lian-kao-2018yi-shuang-mu-qi-chess/">
+        </link>
+        <updated>2020-04-15T06:49:34.000Z</updated>
+        <content type="html"><![CDATA[<p>九省联考D1T1</p>
+<p>哇偶,状压DP我果然还是不会的,要多做些才行呢</p>
+<p>如果考场考了是不是就TAT了啊</p>
+<p>简要题意没有了</p>
+<p>上去直接考虑n=2m=2,发现可以手算所有决策</p>
+<p>以及还有n=10m=1,会发现我们只能从左到右放</p>
+<p>然后没了,正解吧</p>
+<p>轮廓线DP</p>
+<p>一种挺奇妙的DP状态设计方式啊!</p>
+<p>我们把n+m-1个行和列压起来,然后这一位为0表示轮廓线是横着的边,如果为1就表示轮廓线为竖着的边</p>
+<p>被轮廓线围住的三角形就是放棋子的格子</p>
+<p>然后你会发现这个状态的设计很不错,因为他充分利用了每个信息------这个棋盘一定满足放置是一个从右上到左下的三角形</p>
+<p>而且我们可以通过0/1来定位棋子具体在哪一个格子,从而实现转移qwq</p>
+<p>eg:</p>
+<figure data-type="image" tabindex="1"><img src="https://xiaxiaoguang.github.io/post-images/1586936687539.png" alt="" loading="lazy"></figure>
+<p>code:</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+using namespace std;
+
+namespace fastIO {
+#define BUF_SIZE (1&lt;&lt;19)
+	static char buf[BUF_SIZE], *p1 = buf + BUF_SIZE, *pend = buf + BUF_SIZE;
+	inline char nc() {
+		if(p1 == pend) {
+			p1 = buf;
+			pend = buf + fread(buf, 1, BUF_SIZE, stdin);
+		}
+		return *p1++;
+	}
+	inline int read() {
+		int x = 0, f = 1;
+		register char s = nc();
+		for(; !isdigit(s); s = nc())if(s == '-')f = -1;
+		for(; isdigit(s); s = nc())x = (x &lt;&lt; 1) + (x &lt;&lt; 3) + s - '0';
+		return x * f;
+	}
+}
+using namespace fastIO;
+const int MAXN = 10;
+const int P = 1e9 + 7;
+
+int a[MAXN][MAXN], b[MAXN][MAXN];
+
+int f[1 &lt;&lt; (MAXN &lt;&lt; 1)];
+
+int dfs(int sta, bool who, int n, int m) {
+	if(~f[sta])return f[sta];
+	f[sta] = who ? -P : P;
+	int x = n, y = 0;
+	for(int i = 0; i &lt; n + m - 1; ++i) {
+		if(sta &gt;&gt; i &amp; 1)x--;
+		else y++;
+		if((sta &gt;&gt; i &amp; 3) != 1)
+			continue;
+		int nxt = sta ^ (3 &lt;&lt; i);
+		if(who)
+			f[sta] = max(f[sta], dfs(nxt, who ^ 1, n, m) + a[x][y]);
+		else
+			f[sta] = min(f[sta], dfs(nxt, who ^ 1, n, m) - b[x][y]);
+	}
+	return f[sta];
+}
+
+
+int main() {
+	// freopen(&quot;test.in&quot;, &quot;r&quot;, stdin);
+	int n = read(), m = read();
+	for(int i = 0; i &lt; n; ++i) {
+		for(int j = 0; j &lt; m; ++j) {
+			a[i][j] = read();
+		}
+	}
+	for(int i = 0; i &lt; n; ++i) {
+		for(int j = 0; j &lt; m; ++j) {
+			b[i][j] = read();
+		}
+	}
+	memset(f, -1, sizeof(f));
+	f[((1 &lt;&lt; n) - 1) &lt;&lt; m] = 0;
+	printf(&quot;%d\n&quot;, dfs((1 &lt;&lt; n) - 1, 1, n, m));
+}
+
+</code></pre>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mi>r</mi><mi>z</mi><mi>l</mi><mi>j</mi><mi>h</mi></mrow><annotation encoding="application/x-tex">Orzljh
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mord mathdefault">h</span></span></span></span></span></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[P4364 [九省联考2018]IIIDX]]></title>
         <id>https://xiaxiaoguang.github.io/post/p4364-jiu-sheng-lian-kao-2018iiidx/</id>
@@ -1405,119 +1500,6 @@ int main() {
 	return 0;
 }
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[CF571D Campus]]></title>
-        <id>https://xiaxiaoguang.github.io/post/cf571d-campus/</id>
-        <link href="https://xiaxiaoguang.github.io/post/cf571d-campus/">
-        </link>
-        <updated>2020-04-04T13:49:57.000Z</updated>
-        <content type="html"><![CDATA[<p>IOI2020集训队作业</p>
-<p>唔母,这个算是比较简单的一道题了,我也是能找到跟着自己的思路做的解法qwq</p>
-<p>龙王桔梗赛高!<img src="https://xiaxiaoguang.github.io/post-images/1586008392070.jpg" alt="" loading="lazy"></p>
-<ul>
-<li>有一个长度为 nnn 的序列，初始全为 000。</li>
-<li>有两类对下标的集合，初始时每一类各有 nnn 个集合，编号为 iii 的集合里有下标 iii。</li>
-<li>一共有 mmm 个操作，操作有五种：<br>
-U x y 将第一类编号为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span></span></span></span> 的集合合并到编号为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span> 的集合里。<br>
-M x y 将第二类编号为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span></span></span></span> 的集合合并到编号为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span> 的集合里。<br>
-A x 将第一类编号为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span> 的集合中的所有下标在序列中对应的数加上 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span> 的集合大小。<br>
-Z x 将第二类编号为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span> 的集合中的所有下标在序列中对应的数设为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>。<br>
-Q x 询问序列中下标为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span> 的位置上的数。</li>
-<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo separator="true">,</mo><mi>m</mi><mo>≤</mo><mn>5</mn><mo>×</mo><mn>1</mn><msup><mn>0</mn><mn>5</mn></msup></mrow><annotation encoding="application/x-tex">n,m \le 5 \times 10^5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8304100000000001em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">n</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">5</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">5</span></span></span></span></span></span></span></span></span></span></span>。</li>
-</ul>
-<p>看到集合合并而且没有拆分,自然而然想到启发式合并</p>
-<p>又因为我们是单点查询而且是合并下标,所以不需要高级数据结构吧...就用并查集</p>
-<p>然后我们想先考虑第一类集合怎么做</p>
-<p>只需要在根上打一个标记,然后两级河合并的时候直接把要接到另一个根上的那个根标记减去另一个根上的标记就好,这样我们把一个点到根路径上经过所有点求个前缀和就一定是答案了</p>
-<p>好的,现在我们要兼容赋值操作/kk</p>
-<p>一个不难的想法是利用时间戳,我们每个赋值操作毕竟赋的值是一样的,所以我们可以在根上放时间戳,然后从节点到根的路径求一个最大时间就是我们这个点被赋值的最近时间啦</p>
-<p>然而这个东西还是不能够兼容之前的加法标记,因为每个点的具体时间不一样.....</p>
-<p>等等,我们是不是可以出卖复杂度更暴力的解决一下?或者我们忘记了并查集的什么性质吗?按秩合并???</p>
-<h2 id="树高均摊log">树高均摊log!</h2>
-<p>对了,有了这个操作也就意味我们第一个向上跳均摊log次,然后这nlogn次我们每次不用直接拿标记,而是把每次标记带着时间戳都记下来,然后直接在这些标记里面二分就好</p>
-<p>时间复杂度很低,O(nlog^2n),二分虽然是满的但其他的不是啊</p>
-<p>code:</p>
-<pre><code class="language-cpp">#include&lt;iostream&gt;
-#include&lt;cstdio&gt;
-#include&lt;cstring&gt;
-#include&lt;vector&gt;
-using namespace std;
-#define ll long long
-const int MAXN = 1e6 + 7;
-int gs[MAXN], fs[MAXN], n, m;
-int f[MAXN], g[MAXN], ft[MAXN], gt[MAXN];
-char opt[5];
-
-int find(int *f, int x) {
-    while(x ^ f[x])x = f[x];
-    return x;
-}
-
-inline void merge(int *f, int *siz, int *t, int x, int y, int k) {
-    x = find(f, x);
-    y = find(f, y);
-    if(siz[x] &lt; siz[y])swap(x, y);
-    siz[x] += siz[y];
-    //好像是启发式/kk也只能启发式了
-    f[y] = x;
-    t[y] = k;
-    //两棵树都是启发式合并的过程
-}
-int cls[MAXN];
-vector&lt;pair&lt;int, ll&gt; &gt; add[MAXN];
-#define MP make_pair
-
-int main() {
-    scanf(&quot;%d%d&quot;, &amp;n, &amp;m);
-    for(int i = 1; i &lt;= n; ++i)fs[f[i] = g[i] = i] = gs[i] = 1, add[i].push_back(MP(-1, 0));
-    for(int i = 1; i &lt;= m; ++i) {
-        scanf(&quot;%s&quot;, opt);
-        int x, y;
-        scanf(&quot;%d&quot;, &amp;x);
-        switch(opt[0]) {
-        case 'U': scanf(&quot;%d&quot;, &amp;y), merge(f, fs, ft, x, y, i); break;
-        case 'M': scanf(&quot;%d&quot;, &amp;y), merge(g, gs, gt, x, y, i); break;
-        case 'A': {
-            int k = find(f, x);
-            add[k].push_back(MP(i, fs[k] + add[k].back().second));
-            //这个我们在这个点上面,打下一个前缀和标记
-            //然后第一维时间戳
-            break;
-        }
-        case 'Z': {
-            int k = find(g, x);
-            cls[k] = i;
-            break;
-        }
-        case 'Q': {
-            int fx = x, tag = cls[x];
-            while(g[fx] != fx) {
-                if(cls[g[fx]] &gt; gt[fx])tag = max(tag, cls[g[fx]]);
-                //取max,找到最大的那个时间戳
-                fx = g[fx];
-            }
-            fx = x;
-            int l = lower_bound(add[x].begin(), add[x].end(), MP(tag, 0ll)) - add[x].begin();
-            ll ans = add[x].back().second - add[x][l - 1].second;
-            //二分原来的点的标记
-            while(f[fx] != fx) {
-                int tf = f[fx];
-                l = lower_bound(add[tf].begin(), add[tf].end(), MP(max(tag, ft[fx]), 0ll)) - add[tf].begin();
-                ans += add[tf].back().second - add[tf][l - 1].second;
-                fx = f[fx];
-                //一路向上跳父亲并且累加标记
-                //注意是前缀和哦
-            }
-            printf(&quot;%lld\n&quot;, ans);
-        }
-        }
-    }
-    return 0;
-}
-</code></pre>
-<p>果然数据结构还是很好懂的?/kk</p>
 ]]></content>
     </entry>
 </feed>
