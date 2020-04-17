@@ -3,7 +3,7 @@
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>P4364 [九省联考2018]IIIDX | 夏晓光(loveJY)的博客</title>
-<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1586936778526">
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1587127436391">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
 <link rel="alternate" type="application/atom+xml" title="P4364 [九省联考2018]IIIDX | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
@@ -27,7 +27,7 @@ n&lt;=1..." />
       <div class="main-content">
         <div class="site-header">
   <a href="https://xiaxiaoguang.github.io">
-  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1586936778526" alt="">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1587127436391" alt="">
   </a>
   <h1 class="site-title">
     夏晓光(loveJY)的博客
@@ -140,7 +140,12 @@ n&lt;=1..." />
 </ul>
 <p>没了</p>
 <p>然后你会发现一个之前贪心不用搞的事情,就是我们相等的权值一定要尽可能右边的,因为线段树上相等的一列按照这个方法做是右边更优左边更劣的...当然这是在同一层的视角下</p>
-<p>你会发现这篇题解非常消极</p>
+<p>update:将完课后被神仙队友爆锤,一堆锅....还现场模拟代码/xk/xk/xk</p>
+<p>你会发现我们可能会出现选完一个点预留好了然后又去选了左边使得预留不够吗?</p>
+<p>不可能,因为我们二分<strong>只看右边啊</strong></p>
+<p>你会发现如果我们出现一个点为0的情况而我们二分到了这个点吗?</p>
+<p>此时看代码会自动+1,这个+1也是为了处理这个而来的</p>
+<p>消极.</p>
 <p>谁知道呢?</p>
 <p>code:</p>
 <pre><code class="language-cpp">#include&lt;iostream&gt;
@@ -265,7 +270,6 @@ int main() {
         // printf(&quot;%d ?&quot;, x);
         cnt[x]++;
         // printf(&quot;%d \n&quot;, cnt[x]);
-        // x -= (cnt[x] - 1);
 
         ans[i] = x;
         update(1, 1, n, x, n, -siz[i]);
