@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://xiaxiaoguang.github.io</id>
     <title>夏晓光(loveJY)的博客</title>
-    <updated>2020-04-19T14:54:42.280Z</updated>
+    <updated>2020-04-20T01:54:58.813Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://xiaxiaoguang.github.io"/>
     <link rel="self" href="https://xiaxiaoguang.github.io/atom.xml"/>
@@ -10,6 +10,115 @@
     <logo>https://xiaxiaoguang.github.io/images/avatar.png</logo>
     <icon>https://xiaxiaoguang.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 夏晓光(loveJY)的博客</rights>
+    <entry>
+        <title type="html"><![CDATA[P3763 [TJOI2017]DNA]]></title>
+        <id>https://xiaxiaoguang.github.io/post/p3763-tjoi2017dna/</id>
+        <link href="https://xiaxiaoguang.github.io/post/p3763-tjoi2017dna/">
+        </link>
+        <updated>2020-04-20T01:46:08.000Z</updated>
+        <content type="html"><![CDATA[<p>TJOI2017DxTx</p>
+<p>铁憨憨又进了一波新图片qwq</p>
+<p>然后这道题在我的任务计划里躺了太久很不爽就做掉吧</p>
+<ul>
+<li>给你两个串,问有多少个l,r满足在第一个串中<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>S</mi><mrow><mi>l</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi>r</mi></mrow></msub></mrow><annotation encoding="application/x-tex">S_{l...r}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.05764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span><span class="mord mtight">.</span><span class="mord mtight">.</span><span class="mord mtight">.</span><span class="mord mathdefault mtight" style="margin-right:0.02778em;">r</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>与第二个串至多相差不超过三个字符,且<span class='katex-error' title='ParseError: KaTeX parse error: Double subscript at position 12: r-l+1=len_S_̲{2}'>r-l+1=len_S_{2}</span></li>
+<li>字符集小于4</li>
+</ul>
+<p>哇偶,一看所有子串类型题就是SAM啦</p>
+<p>我们先把SAM给建出来,然后从根节点开始往下搜,dfs函数中记录一下用了几个点,然后长度是什么</p>
+<p>一旦长度刚好大于<span class='katex-error' title='ParseError: KaTeX parse error: Double subscript at position 7: {len_S_̲2}'>{len_S_2}</span>我们就加上<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>S</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">S_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.05764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>中这个子串出现的次数</p>
+<p>非常简单的一个搜索就可以了.....复杂度为啥是对的呢?QWQ</p>
+<p>具体实现看看代码吧w<s>所以我们就考制胡窜这样的吗???</s></p>
+<p>code:</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+
+const int MAXN = 1e6 + 7;
+char s[MAXN];
+int ans, m, val[MAXN];
+namespace SAM {
+	int cnt[MAXN &lt;&lt; 1], fa[MAXN &lt;&lt; 1], ch[MAXN &lt;&lt; 1][4], len[MAXN &lt;&lt; 1], lst, T;
+	int a[MAXN], c[MAXN];
+	inline void init() {
+		memset(SAM::ch, 0, sizeof(ch));
+		memset(SAM::cnt, 0, sizeof(cnt));
+		T = lst = 1;
+	}
+	inline void ins(int c) {
+		int p = lst;
+		int np = lst = ++T;
+		len[np] = len[p] + 1;
+		cnt[np] = 1;//endpos
+		for(; p &amp;&amp; !ch[p][c]; p = fa[p])ch[p][c] = np;
+		if(!p) {
+			fa[np] = 1;
+		} else {
+			int q = ch[p][c];
+			if(len[q] == len[p] + 1)fa[np] = q;
+			else {
+				int nq = ++T;
+				len[nq] = len[p] + 1;
+				memcpy(ch[nq], ch[q], sizeof(ch[q]));
+				for(; ch[p][c] == q; p = fa[p])ch[p][c] = nq;
+				fa[nq] = fa[q];
+				fa[q] = fa[np] = nq;
+			}
+		}
+	}
+	inline void sort() {
+		memset(a, 0, sizeof(a));
+		for(int i = 1; i &lt;= T; ++i)++a[len[i]];
+		for(int i = 1; i &lt;= T; ++i)a[i] += a[i - 1];
+		for(int i = 1; i &lt;= T; ++i)c[a[len[i]]--] = i;
+		for(int i = T; i; --i) {
+			int p = c[i];
+			// printf(&quot;%d %d\n&quot;, p, fa[p]);
+			cnt[fa[p]] += cnt[p];
+			//子树中本质不同子串个数
+		}
+	}
+	inline void dfs(int u, int len, int j) {
+		if(len &gt; m)return (void)(ans += cnt[u]);//就是这样...
+		// printf(&quot;%d %d %d?\n&quot;, u, len, j);
+		for(int i = 0; i &lt; 4; ++i) {
+			if(!ch[u][i])continue;
+			if(val[s[len]] == i)dfs(ch[u][i], len + 1, j);
+			else if(j &lt; 3)dfs(ch[u][i], len + 1, j + 1);//不同?限制不能多选
+		}
+	}
+};
+
+
+
+int main() {
+	val['T'] = 0;
+	val['A'] = 1;
+	val['C'] = 2;
+	val['G'] = 3;
+	int T;
+	scanf(&quot;%d&quot;, &amp;T);
+	while(T--) {
+		SAM::init();
+		ans = 0;
+		scanf(&quot;%s&quot;, s + 1);
+		int L = strlen(s + 1);
+		for(int i = 1; i &lt;= L; ++i)SAM::ins(val[s[i]]);
+		SAM::sort();
+		scanf(&quot;%s&quot;, s + 1);
+		m = strlen(s + 1);
+		SAM::dfs(1, 1, 0);
+		printf(&quot;%d\n&quot;, ans);
+	}
+	return 0;
+}
+
+
+</code></pre>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mi>r</mi><mi>z</mi><mi>h</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">Orzhq
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="mord mathdefault">h</span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span></span></span></span></span></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[P4262 [Code+#3]白金元首与莫斯科]]></title>
         <id>https://xiaxiaoguang.github.io/post/p4262-code3bai-jin-yuan-shou-yu-mo-si-ke/</id>
@@ -1413,81 +1522,6 @@ int main() {
 	return 0;
 }
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[P5473 [NOI2019]I 君的探险]]></title>
-        <id>https://xiaxiaoguang.github.io/post/p5473-noi2019i-jun-de-tan-xian/</id>
-        <link href="https://xiaxiaoguang.github.io/post/p5473-noi2019i-jun-de-tan-xian/">
-        </link>
-        <updated>2020-04-07T14:58:59.000Z</updated>
-        <content type="html"><![CDATA[<p>NOI2019D2T3</p>
-<p>交互题,<s>你谷第一篇题解?</s></p>
-<p>首先解释交互题是什么,通俗一点,就是** 出题人把答案放在了输入数据里面! **但是你不能知道实际的全部输入信息,你只能根据他给出的几个信息和调用提前实现好的函数猜出这个输入数据</p>
-<p><s>这个解释可能不太对,但对这个题是有用的</s></p>
-<figure data-type="image" tabindex="1"><img src="https://xiaxiaoguang.github.io/post-images/1586271869766.png" alt="" loading="lazy"></figure>
-<p>交互题不能没有这个啊</p>
-<h2 id="部分分1">部分分1</h2>
-<figure data-type="image" tabindex="2"><img src="https://xiaxiaoguang.github.io/post-images/1586271907001.png" alt="" loading="lazy"></figure>
-<p>照此过程模拟即可,只要你能成功实现交互!</p>
-<p>4pts</p>
-<h2 id="部分分2~5">部分分2~5</h2>
-<p>只要有一点点暴力的想法,你会发现,如果我们想找一个点周围的边,那么只需要把这个点modify一次,然后把所有点全部query一遍,其中是亮的我们就record他们之间的一条边,再把这个点modify回去就好</p>
-<p>然而直接这样是不行的,我们只需要稍稍优化下暴力,查询只查询和亮暗情况之前有变化的点,就可以省去最后改回来的一次,然后每次只query所有编号大于当前点的点,就可以让总查询数变成<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>n</mi><mn>2</mn></msup><mi mathvariant="normal">/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">n^2/2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mord">/</span><span class="mord">2</span></span></span></span>,过掉第5个点</p>
-<p>16pts</p>
-<h2 id="部分分-6~9">部分分 6~9</h2>
-<p>满足图由许多两个点的块组成,也就是我们要确定每个点是另外哪个点连着的</p>
-<p>这部分也不难想,因为我们仔细观察数据范围可以得出算法的消耗应该是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">nlogn</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">n</span></span></span></span></p>
-<p>而logn的算法...而且是交互题....比较泛用的好像有<code>二进制</code>啊?</p>
-<p>做法也就同样有了,我们按照点的编号第x位二进制是1/0把所有点分成两组,然后把所有是1的点提出来点亮,然后花费n的代价查一遍全局,我们得到一个亮暗集合...那么观察不难的出</p>
-<blockquote>
-<p>如果一个点和他的相连点这一位相同,那一定处于暗集合,这一位不同一定处于亮集合</p>
-</blockquote>
-<p>这样我们把所有位都做一遍,再处理一下每个点就能得到每个点对应的点了!</p>
-<p>复杂度...全都是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(nlogn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></p>
-<p>16pts</p>
-<h2 id="部分分10~11">部分分10~11</h2>
-<p><s>这一部分是最为关键的??</s></p>
-<p>满足编号大的只向编号小的连一条边</p>
-<p>乍一想和之前的做法好像没有任何关系....除了复杂度....</p>
-<p>所以我们还是要想一个log做法?好像还有二分也是log的</p>
-<p>那这个题我们对于一个点可以找到他二分范围和性质吗?</p>
-<p>很容易发现:<strong>二分范围就是这个点编号到1,性质就是点亮一个前缀看他亮不亮,在某个位置之后一定全都亮</strong></p>
-<p>有这个性质我们就可以对于单个点二分了....而我们有n个点?整体二分就好啦</p>
-<p>代价还是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(nlogn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></p>
-<p>8pts</p>
-<h2 id="部分分12~14">部分分12~14</h2>
-<p>满足图是一条链</p>
-<p>这一部分可能比较需要灵机一动?qwq</p>
-<p>因为做法很简单....每个点只会受到两个点的影响...如果我们先花掉O(n)的时间找到一个<code>初始点</code>,然后从初始点向两侧扩展...好像就满足每个点只受到一个点的影响了!因为另一个点已知,完全可以计算出那个点的影响</p>
-<p>只受到一个点的影响?回到第三档部分分</p>
-<p>12pts</p>
-<h2 id="部分分15~17">部分分15~17</h2>
-<p><s>被迫营业树的部分QAQ</s></p>
-<p>之前一部分已经提示我们可以通过一次次扩展点来消掉周围点异或值是一些点的异或和的做法...</p>
-<p>那么树,他没有环,我们应该也是可以通过以这个扩展消掉异或和的</p>
-<ul>
-<li>我们只需要求出每个点u周围点的编号的异或和,然后如果修改这个和表示的点导致u发生改变那么他们之间就有一条边</li>
-</ul>
-<p>为啥正确呢?首先你会发现叶子这个性质一定成立</p>
-<p>而非叶子我们只需要把叶子从这个树上<code>剥离</code>,也就是消掉他的影响,也总有一天会变成叶子就成立了</p>
-<p>12pts</p>
-<p>至此所有非正解做法都讲完了,其实这道<strong>NOID2T3</strong>的题对于真正NOI选手68pts都不难呢</p>
-<h2 id="正解">正解</h2>
-<p>你会发现我们现在都还没有用过这个check,所以正解一定很坑</p>
-<p>没错,正解需要一点随机化/xyx</p>
-<p>同时,我们可能还需要一个复杂度带log的做法...如果我们把之前的两个做法融合一下,我们可以想到能不能<strong>划分出一个集合,然后在集合里整体二分呢?</strong></p>
-<p>这看上去完全是硬凑,但是想一下和之前的区别,之前是知道一定只有一条边在前面,所以我们一定能满足单调性</p>
-<p>但如果我们限制一下二分的过程,然后把奇偶性作为判断的标准呢?你会发现我们一定可以对于前面是奇数条边的点连出边,而前面是偶数的由于整体二分可能判断不了有没有边,因为点亮前缀后他状态没变</p>
-<p>所以我们直接按照这个方法去做,就可以连好某个排列里面满足前面边是奇数的那些边</p>
-<figure data-type="image" tabindex="3"><img src="https://xiaxiaoguang.github.io/post-images/1586398957313.png" alt="" loading="lazy"></figure>
-<p>但是显然连得不够啊....所以我们只需要random_shuffle一个新的排列,然后再在这个排列上做这个事情,就又能够连出去一些边了!</p>
-<p>其中check可以用来减少运算量的,如果一个点的周围的边都被标记了下次整体二分就不要把这个点加进去了</p>
-<p>然后你肯定要问这样怎么保证复杂度啊</p>
-<p>题解有一个结论:rand的一个排列里面有差不多<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mi mathvariant="normal">/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">n/3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">n</span><span class="mord">/</span><span class="mord">3</span></span></span></span>个点向前连边是奇数个</p>
-<p>不会证,但这道题做完了,完结散花!!</p>
-<p><a href="https://loj.ac/submission/783398">你谷交不了呢QAQ</a></p>
-<p><s>写的还不错吧留个赞再走呗</s></p>
 ]]></content>
     </entry>
 </feed>

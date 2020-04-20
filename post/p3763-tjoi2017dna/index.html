@@ -1,0 +1,311 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>P3763 [TJOI2017]DNA | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1587347689815">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="P3763 [TJOI2017]DNA | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="TJOI2017DxTx
+铁憨憨又进了一波新图片qwq
+然后这道题在我的任务计划里躺了太久很不爽就做掉吧
+
+给你两个串,问有多少个l,r满足在第一个串中Sl...rS_{l...r}Sl...r​与第二个串至多相差不超过三个字符,且r-l+..." />
+    <meta name="keywords" content="后缀自动机,各省省选" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1587347689815" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              P3763 [TJOI2017]DNA
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-04-20
+              </span>
+              <span>
+                4 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/m2-tF6st0/" class="post-tag">
+                  # 后缀自动机
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/KY7VyyrtD/" class="post-tag">
+                  # 各省省选
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/4pNOqgOvBLvj4yTC9qc55R1.9T*Y96O799bKmPDWgmdZr*lqcqkNTpg6ft3fX6.iQlA33wALm4IQ83YX2rwX7e2lmnRwGURhz.9VtukdCzg!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>TJOI2017DxTx</p>
+<p>铁憨憨又进了一波新图片qwq</p>
+<p>然后这道题在我的任务计划里躺了太久很不爽就做掉吧</p>
+<ul>
+<li>给你两个串,问有多少个l,r满足在第一个串中<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>S</mi><mrow><mi>l</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi>r</mi></mrow></msub></mrow><annotation encoding="application/x-tex">S_{l...r}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.05764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span><span class="mord mtight">.</span><span class="mord mtight">.</span><span class="mord mtight">.</span><span class="mord mathdefault mtight" style="margin-right:0.02778em;">r</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>与第二个串至多相差不超过三个字符,且<span class='katex-error' title='ParseError: KaTeX parse error: Double subscript at position 12: r-l+1=len_S_̲{2}'>r-l+1=len_S_{2}</span></li>
+<li>字符集小于4</li>
+</ul>
+<p>哇偶,一看所有子串类型题就是SAM啦</p>
+<p>我们先把SAM给建出来,然后从根节点开始往下搜,dfs函数中记录一下用了几个点,然后长度是什么</p>
+<p>一旦长度刚好大于<span class='katex-error' title='ParseError: KaTeX parse error: Double subscript at position 7: {len_S_̲2}'>{len_S_2}</span>我们就加上<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>S</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">S_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.05764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>中这个子串出现的次数</p>
+<p>非常简单的一个搜索就可以了.....复杂度为啥是对的呢?QWQ</p>
+<p>具体实现看看代码吧w<s>所以我们就考制胡窜这样的吗???</s></p>
+<p>code:</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+
+const int MAXN = 1e6 + 7;
+char s[MAXN];
+int ans, m, val[MAXN];
+namespace SAM {
+	int cnt[MAXN &lt;&lt; 1], fa[MAXN &lt;&lt; 1], ch[MAXN &lt;&lt; 1][4], len[MAXN &lt;&lt; 1], lst, T;
+	int a[MAXN], c[MAXN];
+	inline void init() {
+		memset(SAM::ch, 0, sizeof(ch));
+		memset(SAM::cnt, 0, sizeof(cnt));
+		T = lst = 1;
+	}
+	inline void ins(int c) {
+		int p = lst;
+		int np = lst = ++T;
+		len[np] = len[p] + 1;
+		cnt[np] = 1;//endpos
+		for(; p &amp;&amp; !ch[p][c]; p = fa[p])ch[p][c] = np;
+		if(!p) {
+			fa[np] = 1;
+		} else {
+			int q = ch[p][c];
+			if(len[q] == len[p] + 1)fa[np] = q;
+			else {
+				int nq = ++T;
+				len[nq] = len[p] + 1;
+				memcpy(ch[nq], ch[q], sizeof(ch[q]));
+				for(; ch[p][c] == q; p = fa[p])ch[p][c] = nq;
+				fa[nq] = fa[q];
+				fa[q] = fa[np] = nq;
+			}
+		}
+	}
+	inline void sort() {
+		memset(a, 0, sizeof(a));
+		for(int i = 1; i &lt;= T; ++i)++a[len[i]];
+		for(int i = 1; i &lt;= T; ++i)a[i] += a[i - 1];
+		for(int i = 1; i &lt;= T; ++i)c[a[len[i]]--] = i;
+		for(int i = T; i; --i) {
+			int p = c[i];
+			// printf(&quot;%d %d\n&quot;, p, fa[p]);
+			cnt[fa[p]] += cnt[p];
+			//子树中本质不同子串个数
+		}
+	}
+	inline void dfs(int u, int len, int j) {
+		if(len &gt; m)return (void)(ans += cnt[u]);//就是这样...
+		// printf(&quot;%d %d %d?\n&quot;, u, len, j);
+		for(int i = 0; i &lt; 4; ++i) {
+			if(!ch[u][i])continue;
+			if(val[s[len]] == i)dfs(ch[u][i], len + 1, j);
+			else if(j &lt; 3)dfs(ch[u][i], len + 1, j + 1);//不同?限制不能多选
+		}
+	}
+};
+
+
+
+int main() {
+	val['T'] = 0;
+	val['A'] = 1;
+	val['C'] = 2;
+	val['G'] = 3;
+	int T;
+	scanf(&quot;%d&quot;, &amp;T);
+	while(T--) {
+		SAM::init();
+		ans = 0;
+		scanf(&quot;%s&quot;, s + 1);
+		int L = strlen(s + 1);
+		for(int i = 1; i &lt;= L; ++i)SAM::ins(val[s[i]]);
+		SAM::sort();
+		scanf(&quot;%s&quot;, s + 1);
+		m = strlen(s + 1);
+		SAM::dfs(1, 1, 0);
+		printf(&quot;%d\n&quot;, ans);
+	}
+	return 0;
+}
+
+
+</code></pre>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mi>r</mi><mi>z</mi><mi>h</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">Orzhq
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="mord mathdefault">h</span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span></span></span></span></span></p>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/p4262-code3bai-jin-yuan-shou-yu-mo-si-ke/">
+              <h3 class="post-title">
+                P4262 [Code+#3]白金元首与莫斯科
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
