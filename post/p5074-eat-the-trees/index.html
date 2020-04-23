@@ -2,22 +2,23 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>关于 | 夏晓光(loveJY)的博客</title>
+<title>P5074 Eat the Trees | 夏晓光(loveJY)的博客</title>
 <link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1587617826072">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="关于 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="alternate" type="application/atom+xml" title="P5074 Eat the Trees | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 
 
-    <meta name="description" content="实在是不太会摆弄网页哈哈qwq
-🏠 关于本站?
-👨‍💻 博主是谁?洛谷蒟蒻loveJY
-⛹ 兴趣爱好?OI!
-📬 联系我呀?qwq
-..." />
-    <meta name="keywords" content="" />
+    <meta name="description" content="国家队队长李佳衡推荐插头DP练习题
+OrzljhOrzljhOrzljh
+不过这个题经过兔队之手真的好简单的样子啊
+直接设计状态f[S],S的0/1表示轮廓线上这一位有没有插头
+然后考虑继承前一个状态?直接右移1
+然后分类讨论吧
+考虑上面和..." />
+    <meta name="keywords" content="状态压缩,插头DP,动态规划" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
     <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
   </head>
@@ -85,44 +86,105 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              关于
+              P5074 Eat the Trees
             </h2>
             <div class="post-info">
               <span>
-                2019-01-25
+                2020-04-21
               </span>
               <span>
-                1 min read
+                3 min read
               </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/TN_5AiIbO/" class="post-tag">
+                  # 状态压缩
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/d-lHOvQnoE/" class="post-tag">
+                  # 插头DP
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/CJ-ugjBAY/" class="post-tag">
+                  # 动态规划
+                </a>
               
             </div>
             
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/4pNOqgOvBLvj4yTC9qc55Tt91MLwRjoegWM1*yAOOCOawnPXM.LOgsc82kDtFdTJUIpUTiZncwPLM2vcnnkcgaZoVmFdn7btI0INsIgJZus!/r" alt="">
+            
             <div class="post-content-wrapper">
               <div class="post-content">
-                <p>实在是不太会摆弄网页哈哈qwq</p>
-<h2 id="关于本站">🏠 <a href="https://xiaxiaoguang.github.io/post/bo-zhu-suo-shuo/">关于本站?</a></h2>
-<h2 id="博主是谁洛谷蒟蒻lovejy">👨‍💻 博主是谁?洛谷蒟蒻loveJY</h2>
-<h2 id="兴趣爱好oi">⛹ 兴趣爱好?OI!</h2>
-<h2 id="联系我呀qwq">📬 联系我呀?qwq</h2>
+                <p>国家队队长李佳衡推荐插头DP练习题</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mi>r</mi><mi>z</mi><mi>l</mi><mi>j</mi><mi>h</mi></mrow><annotation encoding="application/x-tex">Orzljh</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mord mathdefault">h</span></span></span></span></p>
+<p>不过这个题经过兔队之手真的好简单的样子啊</p>
+<p>直接设计状态f[S],S的0/1表示轮廓线上这一位有没有插头</p>
+<p>然后考虑继承前一个状态?直接右移1</p>
+<p>然后分类讨论吧</p>
+<p>考虑上面和左边的是0还是1</p>
+<p>case1: 11</p>
+<p>那么我们只能把他们在这个合成一个,不能向下右转移,00</p>
+<p>case2:10</p>
+<p>右边可以随便延伸或者停止,10,01,00</p>
+<p>case3:01</p>
+<p>好像和case2一样啊</p>
+<p>case3:00</p>
+<p>好像除了不铺线可以自由发挥啊,也就是说我们可以转移到10,01,11</p>
+<p>总结一下,如果为00那我们可以转移到他某位异或</p>
+<p>如果已获知为1可以转移到00和异或一样的</p>
+<p>11只能转移00</p>
+<p>code:</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#define ll long long
+int T, n, m, s, c[12][12];
+ll f[1 &lt;&lt; 13], g[1 &lt;&lt; 13];
+int main() {
+	for(scanf(&quot;%d&quot;, &amp;T); T--;) {
+		scanf(&quot;%d%d&quot;, &amp;n, &amp;m);
+		s = (1 &lt;&lt; m + 1);
+		for(int i = 0; i &lt; n; ++i) {
+			for(int j = 0; j &lt; m; ++j) {
+				scanf(&quot;%d&quot;, &amp;c[i][j]);
+			}
+		}
+		for(int i = 0; i &lt; s; ++i)g[i] = 0;
+		g[0] = 1;
+		for(int i = 0; i &lt; n; ++i) {
+			for(int j = 0; j &lt; m; ++j) {
+				for(int k = 0; k &lt; s; ++k)
+					f[k] = j ? g[k] : (k &amp; 1 ? 0 : g[k &gt;&gt; 1]);//滚动数组
+
+				if(!c[i][j])
+					for(int k = 0; k &lt; s; ++k)g[k] = k &gt;&gt; j &amp; 3 ? 0 : f[k];//不能铺线,最后一定由0,0转移来
+				else
+					for(int k = 0; k &lt; s; ++k)g[k] = f[k ^ 3 &lt;&lt; j] + ((k &gt;&gt; j &amp; 1) ^ (k &gt;&gt; j + 1 &amp; 1) ? f[k] : 0);//不一样可以再一个转移
+				//这个是直接做,考虑总结规律?
+			}
+		}
+		printf(&quot;%lld\n&quot;, g[0]);//有一个插头都不行
+	}
+	return 0;
+}
+</code></pre>
 
               </div>
               <div class="toc-container">
-                <ul class="markdownIt-TOC">
-<li>
-<ul>
-<li><a href="#%E5%85%B3%E4%BA%8E%E6%9C%AC%E7%AB%99">🏠 关于本站?</a></li>
-<li><a href="#%E5%8D%9A%E4%B8%BB%E6%98%AF%E8%B0%81%E6%B4%9B%E8%B0%B7%E8%92%9F%E8%92%BBlovejy">👨‍💻 博主是谁?洛谷蒟蒻loveJY</a></li>
-<li><a href="#%E5%85%B4%E8%B6%A3%E7%88%B1%E5%A5%BDoi">⛹ 兴趣爱好?OI!</a></li>
-<li><a href="#%E8%81%94%E7%B3%BB%E6%88%91%E5%91%80qwq">📬 联系我呀?qwq</a></li>
-</ul>
-</li>
-</ul>
-
+                
               </div>
             </div>
           </article>
         </div>
 
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/cf576e-painting-edges/">
+              <h3 class="post-title">
+                CF576E Painting Edges
+              </h3>
+            </a>
+          </div>
         
 
         

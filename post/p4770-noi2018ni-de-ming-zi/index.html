@@ -1,0 +1,402 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>P4770 [NOI2018]你的名字 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1587617826072">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="P4770 [NOI2018]你的名字 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="NOI2018D1T3
+你指尖跃动的电光,是我此生不变的信仰,为我后缀自动姬永世长存
+我走错片场了
+与后缀自动姬大战到晚上12点才过掉....QAQ
+
+以上是本题解全部娱乐部分
+
+给你一个模板串和一堆文本串,要求你求出有多少本质不同串出现在..." />
+    <meta name="keywords" content="线段树合并,后缀自动机,各省省选,字符串" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1587617826072" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              P4770 [NOI2018]你的名字
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-04-23
+              </span>
+              <span>
+                8 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/i5COEV3Vw/" class="post-tag">
+                  # 线段树合并
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/m2-tF6st0/" class="post-tag">
+                  # 后缀自动机
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/KY7VyyrtD/" class="post-tag">
+                  # 各省省选
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/k8ekJE9lH/" class="post-tag">
+                  # 字符串
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/4pNOqgOvBLvj4yTC9qc55SJmKnqw3IvSxJf4DStT19OmDhmEWPgq40AFEM5IQE2QldIHwQl3JubpoaLKzfU1rjgVx1Jkz.auYPBmXiPf5sM!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>NOI2018D1T3</p>
+<p>你指尖跃动的电光,是我此生不变的信仰,为我后缀自动姬永世长存</p>
+<p><s>我走错片场了</s></p>
+<p>与后缀自动姬大战到晚上12点才过掉....QAQ</p>
+<figure data-type="image" tabindex="1"><img src="https://xiaxiaoguang.github.io/post-images/1587606588428.png" alt="" loading="lazy"></figure>
+<p>以上是本题解全部娱乐部分</p>
+<ul>
+<li>给你一个模板串和一堆文本串,要求你求出有多少本质不同串出现在文本串中而不出现在模板串[l,r]区间里</li>
+<li>复杂度要求线性</li>
+</ul>
+<p>首先我们有一个一眼的做法,因为</p>
+<blockquote>
+<p>对于前 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>17</mn></mrow><annotation encoding="application/x-tex">17</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">7</span></span></span></span> 个测试点的所有询问有 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi><mo>=</mo><mn>1</mn><mo separator="true">,</mo><mi>r</mi><mo>=</mo><mi mathvariant="normal">∣</mi><mi>S</mi><mi mathvariant="normal">∣</mi></mrow><annotation encoding="application/x-tex">l=1,r=|S|</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">∣</span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord">∣</span></span></span></span>。</p>
+</blockquote>
+<p>也就是说我们只需要看整个模板串里的就行</p>
+<p>好像直接求有点复杂....我们考虑补集转化一下,变成求文本串中本质不同的子串-相同的本质不同的子串数</p>
+<p>然后考虑前者,我们可以:</p>
+<figure data-type="image" tabindex="2"><img src="https://xiaxiaoguang.github.io/post-images/1587606862895.png" alt="" loading="lazy"></figure>
+<p>然后对于后者,我们可以考虑把模板串建成一个SAM,然后我们拿文本串上去跑匹配,如果失配了就回跳,然后就能统计出每个前缀(最后一个位置强制被选)最大的匹配长度,又因为我们这样显然是统计了所有的情况</p>
+<p>好像我们答案就是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>∑</mo></mrow><annotation encoding="application/x-tex">\sum</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.00001em;vertical-align:-0.25001em;"></span><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span></span></span></span>前缀长度-最长匹配长度?</p>
+<p>哎,不对啊,本质不同被你吃掉了?所以我们好像还要强制放到后缀自动机上实现减的过程...</p>
+<p>所以我们考虑怎么放到后缀自动机上每个节点去处理答案</p>
+<p>很简单,我们只需要知道每个节点向前的前缀一个匹配长度</p>
+<p>然后我们处理本质不同的子串是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mo>∑</mo><mrow><mi>l</mi><mi>e</mi><mi>n</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>−</mo><mi>l</mi><mi>e</mi><mi>n</mi><mo>[</mo><mi>f</mi><mi>a</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>]</mo></mrow></msub></mrow><annotation encoding="application/x-tex">\sum_{len[i]-len[fa[i]]}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.22471em;vertical-align:-0.47471em;"></span><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.22528999999999993em;"><span style="top:-2.40029em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span><span class="mord mathdefault mtight">e</span><span class="mord mathdefault mtight">n</span><span class="mopen mtight">[</span><span class="mord mathdefault mtight">i</span><span class="mclose mtight">]</span><span class="mbin mtight">−</span><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span><span class="mord mathdefault mtight">e</span><span class="mord mathdefault mtight">n</span><span class="mopen mtight">[</span><span class="mord mathdefault mtight" style="margin-right:0.10764em;">f</span><span class="mord mathdefault mtight">a</span><span class="mopen mtight">[</span><span class="mord mathdefault mtight">i</span><span class="mclose mtight">]</span><span class="mclose mtight">]</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.47471em;"><span></span></span></span></span></span></span></span></span></span></p>
+<p>现在设长度为i的前缀匹配长度为p[i]</p>
+<p>答案就是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mo>∑</mo><mrow><mi>m</mi><mi>a</mi><mi>x</mi><mo>(</mo><mi>l</mi><mi>e</mi><mi>n</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>−</mo><mi>m</mi><mi>a</mi><mi>x</mi><mo>(</mo><mi>l</mi><mi>e</mi><mi>n</mi><mo>[</mo><mi>f</mi><mi>a</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>]</mo><mo>−</mo><mi>p</mi><mo>[</mo><mi>r</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>]</mo><mo>)</mo><mo separator="true">,</mo><mn>0</mn><mo>)</mo></mrow></msub></mrow><annotation encoding="application/x-tex">\sum_{max(len[i]-max(len[fa[i]]-p[r[i]]),0)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.22471em;vertical-align:-0.47471em;"></span><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.22528999999999993em;"><span style="top:-2.40029em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">m</span><span class="mord mathdefault mtight">a</span><span class="mord mathdefault mtight">x</span><span class="mopen mtight">(</span><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span><span class="mord mathdefault mtight">e</span><span class="mord mathdefault mtight">n</span><span class="mopen mtight">[</span><span class="mord mathdefault mtight">i</span><span class="mclose mtight">]</span><span class="mbin mtight">−</span><span class="mord mathdefault mtight">m</span><span class="mord mathdefault mtight">a</span><span class="mord mathdefault mtight">x</span><span class="mopen mtight">(</span><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span><span class="mord mathdefault mtight">e</span><span class="mord mathdefault mtight">n</span><span class="mopen mtight">[</span><span class="mord mathdefault mtight" style="margin-right:0.10764em;">f</span><span class="mord mathdefault mtight">a</span><span class="mopen mtight">[</span><span class="mord mathdefault mtight">i</span><span class="mclose mtight">]</span><span class="mclose mtight">]</span><span class="mbin mtight">−</span><span class="mord mathdefault mtight">p</span><span class="mopen mtight">[</span><span class="mord mathdefault mtight" style="margin-right:0.02778em;">r</span><span class="mopen mtight">[</span><span class="mord mathdefault mtight">i</span><span class="mclose mtight">]</span><span class="mclose mtight">]</span><span class="mclose mtight">)</span><span class="mpunct mtight">,</span><span class="mord mtight">0</span><span class="mclose mtight">)</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.47471em;"><span></span></span></span></span></span></span></span></span></span></p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi><mo>[</mo><mi>i</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">r[i]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span></span></span></span>是i的最近父亲某个前缀节点长度</p>
+<p>为什么这样是对的呢?</p>
+<p>考虑如果匹配长度为k,然后当前len[fa[i]]小于k,那么我们一定会有些串他是在S中出现所以不计数的</p>
+<p>如果len[fa[i]]&gt;k?我们只会当本质不同的子串全部计入答案</p>
+<p>然后再来考虑区间为[l,r]...</p>
+<p>你会发现我们又需要后缀自动姬的好朋友线段树合并了</p>
+<p>所以每个点就开一个线段树,然后从叶子合并上去</p>
+<p>维护什么?什么都不需要维护,因为我们只需要知道这个串在[l,r]有没有出现过就好</p>
+<p>那么我们怎么魔改匹配函数?</p>
+<p>假设当前匹配长度为l,我们只需要查询[l+L,R]区间里有没有右端点就行</p>
+<p>如果有,那么一定在[L,R]中有这个串</p>
+<p>否则我们减少l,继续查询</p>
+<p>这个好像会T,实际上不会qwq</p>
+<p>没了,代码一点都不长,只有亿点细节而已</p>
+<p>code:</p>
+<pre><code class="language-cpp">#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+#define ll long long
+using namespace std;
+int n;
+namespace Seg {
+	const int MAXN = 2e7 + 7;
+	int rs[MAXN], root[MAXN], ls[MAXN], T;
+#define mid ((l+r)&gt;&gt;1)
+	inline void ins(int &amp;k, int l, int r, int pos) {
+		if(!k)k = ++T;
+		// printf(&quot;%d %d %d %d\n&quot;, k, l, r, pos);
+		if(l == r)return ;
+		if(pos &lt;= mid)ins(ls[k],  l, mid, pos);
+		else ins(rs[k], mid + 1, r, pos);
+	}
+	inline int qaq(int x) {
+		int ret = ++T;
+		ins(T, 1, n, x);
+		return ret;
+	}
+	int merge(int x, int y) {
+		// printf(&quot;%d %d\n&quot;, x, y);
+		if(!x || !y)return x + y;
+		int nw = ++T;
+		ls[nw] = merge(ls[x], ls[y]);
+		rs[nw] = merge(rs[x], rs[y]);
+		return nw;
+	}
+	bool query(int k, int l, int r, int x, int y) {
+
+		// printf(&quot;%d %d %d %d %d\n&quot;, k, x, y, l, r);
+		if (!k || y &lt; l || r &lt; x) return 0;
+		if (x &lt;= l &amp;&amp; r &lt;= y) return 1;
+		return query(ls[k], l, mid, x, y) | query(rs[k], mid + 1, r, x, y);
+	}
+};
+const int MAXN = 3e6 + 7;
+int c[MAXN], a[MAXN];
+
+struct SAM {
+	int len[MAXN], fa[MAXN], R[MAXN], ch[MAXN][26], T, lst;
+	inline void init() {
+		T = lst = 1;
+		memset(ch[1], 0, sizeof(ch[1]));
+	}
+	void ins(int c, int bel ) {
+		int p = lst;
+		int np = lst = ++T;
+		R[np] = len[np] = len[p] + 1;
+		if(bel)Seg::root[np] = Seg::qaq(bel);
+		// printf(&quot;%d %d\n&quot;, np, root[np]);
+		memset(ch[np], 0, sizeof(ch[np]));
+		for(; p &amp;&amp; !ch[p][c]; p = fa[p])ch[p][c] = np;
+		if(!p)fa[np] = 1;
+		else {
+			int q = ch[p][c];
+			if(len[p] + 1 == len[q]) {
+				return (void)(fa[np] = q);
+			}
+			int nq = ++T;
+			len[nq] = len[p] + 1;
+			R[nq] = R[q];
+			memcpy(ch[nq], ch[q], sizeof(ch[q]));
+			fa[nq] = fa[q];
+			fa[np] = fa[q] = nq;
+			for(; p &amp;&amp; ch[p][c] == q; p = fa[p])ch[p][c] = nq;
+		}
+	}
+	void find(int &amp;p, int &amp;l, int L, int R, int c) {
+		for(;;) {
+
+			if(ch[p][c] &amp;&amp; Seg::query(Seg::root[ch[p][c]], 1, n, L + l, R)) {
+				++l;
+				p = ch[p][c];
+				return ;
+			}
+			if(!l)return ;
+			if(--l == len[fa[p]])p = fa[p]; ///kk
+		}
+	}
+	ll calc(int *p) {
+		ll ret = 0;
+		for(register int i = 2; i &lt;= T; ++i) {
+			// printf(&quot;%d %d %d %d\n&quot;, len[i], len[fa[i]], R[i], p[R[i]]);
+			ret += std::max(0, len[i] - std::max(len[fa[i]], p[R[i]]));
+		}
+		return ret;
+	}
+	inline void sort() {
+		// printf(&quot;%d?\n&quot;, T);
+		for(int i = 1; i &lt;= T; ++i) ++c[len[i]];
+		for(int i = 1; i &lt;= n; ++i)c[i] += c[i - 1];//n?你长度大于n给我康康
+		for(int i = 1; i &lt;= T; ++i)a[--c[len[i]]] = i;
+		// for(int i = 1; i &lt;= T; ++i)printf(&quot;%d\n&quot;, Seg::root[i]);
+		for(int i = T; --i;) {
+			int u = a[i];
+			// printf(&quot;%d %d %d\n&quot;, u, len[u], fa[u]);
+
+			Seg::root[fa[u]] = Seg::merge(Seg::root[fa[u]], Seg::root[u]);
+		}
+		return ;
+	}
+};
+SAM mac, mac2;
+
+char S[MAXN], T[MAXN];
+int p[MAXN];
+
+
+int main() {
+	scanf(&quot;%s&quot;, S + 1);
+	mac.init();
+	n = strlen(S + 1);
+	// printf(&quot;%d\n&quot;, n);
+	for(register int i = 1; i &lt;= n; ++i) {
+		mac.ins(S[i] - 'a', i);
+	}
+	mac.sort();
+	int Q;
+	scanf(&quot;%d&quot;, &amp;Q);
+	// printf(&quot;%d\n&quot;, Seg::root[1]);
+	while(Q-- &gt; 0) {
+		mac2.init();
+		int l, r;
+		scanf(&quot;%s%d%d&quot;, T + 1, &amp;l, &amp;r);
+		int len = strlen(T + 1), zhqwq = 1;
+		for(register int i = 1; i &lt;= len; ++i) {
+			p[i] = p[i - 1];//先上一个拿过来~
+			// printf(&quot;%d?\n&quot;, p[i]);
+			mac.find(zhqwq, p[i], l, r, T[i] - 'a');
+			// printf(&quot;%d!\n&quot;, p[i]);
+			mac2.ins(T[i] - 'a', 0);
+		}
+		printf(&quot;%lld\n&quot;, mac2.calc(p));
+	}
+	return 0;
+}
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/p5074-eat-the-trees/">
+              <h3 class="post-title">
+                P5074 Eat the Trees
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
