@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://xiaxiaoguang.github.io</id>
     <title>夏晓光(loveJY)的博客</title>
-    <updated>2020-04-23T05:51:16.293Z</updated>
+    <updated>2020-04-25T07:14:36.683Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://xiaxiaoguang.github.io"/>
     <link rel="self" href="https://xiaxiaoguang.github.io/atom.xml"/>
@@ -10,6 +10,99 @@
     <logo>https://xiaxiaoguang.github.io/images/avatar.png</logo>
     <icon>https://xiaxiaoguang.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 夏晓光(loveJY)的博客</rights>
+    <entry>
+        <title type="html"><![CDATA[P6187 [NOI Online Round1 提高组]最小环（民间数据）]]></title>
+        <id>https://xiaxiaoguang.github.io/post/p6187-noi-online-round1-ti-gao-zu-zui-xiao-huan-min-jian-shu-ju/</id>
+        <link href="https://xiaxiaoguang.github.io/post/p6187-noi-online-round1-ti-gao-zu-zui-xiao-huan-min-jian-shu-ju/">
+        </link>
+        <updated>2020-04-24T13:33:00.000Z</updated>
+        <content type="html"><![CDATA[<p>NOIonline提高T3</p>
+<p>这个真不毒瘤,其实60pts做法很容易想到,但是当时太菜了真不太会啊</p>
+<p>我们不考虑DP,直接贪心吧</p>
+<p>首先我们会发现一个规律,要想让这个答案最大,我们必须要让大的数旁边的数尽可能大</p>
+<p>然后我们去考虑构造这个东西,一个不难发现的东西是我们可以把这个大环变成几个小环,然后小环直接互不干扰</p>
+<p>也就是我们有gcd(n,k)个环...证明...考虑我们一个数,走回原来的位置是需要n/gcd(n,k)步的,所以我<br>
+们本质不同的环只有gcd(n.k)个</p>
+<p>记p=n/gcd(n,k)</p>
+<p>然后这个环问题我们可以这样安排:前1~p的我们可以放进第一个环,然后第p+1到2p放到第二个环里....</p>
+<p>这样不难发现我们构造出的答案是最大的</p>
+<p>因为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi><mo>&lt;</mo><mi>b</mi><mo>&lt;</mo><mi>c</mi><mo>&lt;</mo><mi>d</mi><mo separator="true">,</mo><mi>a</mi><mi>d</mi><mo>+</mo><mi>b</mi><mi>c</mi><mo>&lt;</mo><mi>a</mi><mi>b</mi><mo>+</mo><mi>c</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">a&lt;b&lt;c&lt;d,ad+bc&lt;ab+cd</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathdefault">a</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.73354em;vertical-align:-0.0391em;"></span><span class="mord mathdefault">b</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathdefault">c</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">d</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">a</span><span class="mord mathdefault">d</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.73354em;vertical-align:-0.0391em;"></span><span class="mord mathdefault">b</span><span class="mord mathdefault">c</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.77777em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">a</span><span class="mord mathdefault">b</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">c</span><span class="mord mathdefault">d</span></span></span></span></p>
+<p>如果您敏锐的发现答案只和p有关,那么我们就可以记忆化一下每个不同的p的答案,然后有些询问就可以直接查了</p>
+<p>具体构造过程有一点小边界问题:</p>
+<p>我们要这样构造:i+1,i+3,i+5,i+7,i+...,i+n-1,i+n,i+n-2,i+n-4......i+2,i</p>
+<p>所以对于任何一个pos,我们在不超过边界的情况下首先有pos*(pos-2)*(pos+2)</p>
+<p>其次在边界处我们有i,i+1和i+n,i+n-1的关系要处理</p>
+<p>复杂度O(nd(n)),d其实是log^2级别所以可行?</p>
+<p>code:</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+#define ll long long
+using namespace std;
+const int MAXN = 2e5 + 10;
+ll a[MAXN], f[MAXN];
+int n, m;
+int gcd(int a, int b) {
+	if(b == 0) return a;
+	return gcd(b, a % b);
+}
+
+namespace fastIO {
+#define BUF_SIZE (1&lt;&lt;19)
+	static char buf[BUF_SIZE], *p1 = buf + BUF_SIZE, *pend = buf + BUF_SIZE;
+	inline char nc() {
+		if(p1 == pend) {
+			p1 = buf;
+			pend = buf + fread(buf, 1, BUF_SIZE, stdin);
+		}
+		return *p1++;
+	}
+	inline int read() {
+		int x = 0;
+		char s = nc();
+		for(; !isdigit(s); s = nc());
+		for(; isdigit(s); s = nc())x = (x &lt;&lt; 1) + (x &lt;&lt; 3) + s - '0';
+		return x;
+	}
+}
+using namespace fastIO;
+
+int main() {
+	// freopen(&quot;test.in&quot;, &quot;r&quot;, stdin);
+	n = read();
+	m = read();
+	for(int i = 1; i &lt;= n; ++i)a[i] = read();
+	sort(a + 1, a + n + 1);
+	while(m--) {
+		ll ans = 0;
+		int k = read();
+		if(k == 0 || n == 1) {
+			for(int i = 1; i &lt;= n; ++i)ans += a[i] * a[i];
+			printf(&quot;%lld\n&quot;, ans);
+			continue;
+		}
+		int t = gcd(n, k), p = n / t;//有p个环
+		// puts(&quot;QWQ&quot;);
+		if(f[p]) {
+			printf(&quot;%lld\n&quot;, f[p]);
+			continue;
+		}
+		for(int i = 1; i &lt;= n; i += p) {
+			for(int j = 0; j &lt; p - 2; ++j) {
+				ans += a[i + j] * a[i + j + 2];//枚举每个乘积..
+			}
+			ans += (a[i] * a[i + 1] + a[i + p - 1] * a[i + p - 2]);//加上边界
+		}
+		printf(&quot;%lld\n&quot;, ans);
+		f[p] = ans;
+	}
+	return 0;
+}
+
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[P4770 [NOI2018]你的名字]]></title>
         <id>https://xiaxiaoguang.github.io/post/p4770-noi2018ni-de-ming-zi/</id>
@@ -1165,149 +1258,6 @@ int main() {
 </code></pre>
 <p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mi>r</mi><mi>z</mi><mi>h</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">Orzhq
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="mord mathdefault">h</span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span></span></span></span></span></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[P6381 『MdOI R2』Odyssey]]></title>
-        <id>https://xiaxiaoguang.github.io/post/p6381-mdoi-r2-odyssey/</id>
-        <link href="https://xiaxiaoguang.github.io/post/p6381-mdoi-r2-odyssey/">
-        </link>
-        <updated>2020-04-13T14:52:12.000Z</updated>
-        <content type="html"><![CDATA[<p>洛谷四月月赛Div1T1</p>
-<p>哇偶,看来我T1就不会做qwq</p>
-<p>然后一个30暴力就把自己带走了</p>
-<p>若正整数 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi></mrow><annotation encoding="application/x-tex">a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">a</span></span></span></span> 与 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>b</mi></mrow><annotation encoding="application/x-tex">b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">b</span></span></span></span> 满足：</p>
-<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi></mrow><annotation encoding="application/x-tex">a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">a</span></span></span></span> 与 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>b</mi></mrow><annotation encoding="application/x-tex">b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">b</span></span></span></span> 的积是一个正整数的 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span></span></span></span> 次方，即存在正整数 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi></mrow><annotation encoding="application/x-tex">c</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">c</span></span></span></span> 使得 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi><mi>b</mi><mo>=</mo><msup><mi>c</mi><mi>k</mi></msup></mrow><annotation encoding="application/x-tex">ab=c^k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">a</span><span class="mord mathdefault">b</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.849108em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault">c</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.849108em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span></span></span></span></span></span></span></span>。</p>
-<p>那么我们称 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>a</mi><mo separator="true">,</mo><mi>b</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">(a,b)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">a</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">b</span><span class="mclose">)</span></span></span></span> 为一组完美数对。</p>
-<p>有一个包含 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 个结点和 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">m</span></span></span></span> 条边的有向无环图，这张图中的每条边都有权值和长度两个属性。</p>
-<p>如果一条路径 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi></mrow><annotation encoding="application/x-tex">P</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span></span></span></span> 满足以下条件之一，则称其为一条完美路径：</p>
-<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi></mrow><annotation encoding="application/x-tex">P</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span></span></span></span> 中仅包含一条边。</p>
-<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi></mrow><annotation encoding="application/x-tex">P</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span></span></span></span> 从其起点开始依次为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>e</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>e</mi><mn>2</mn></msub><mo separator="true">,</mo><msub><mi>e</mi><mn>3</mn></msub><mo separator="true">,</mo><mo>…</mo><msub><mi>e</mi><mi>p</mi></msub></mrow><annotation encoding="application/x-tex">e_1, e_2, e_3, \ldots e_p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.716668em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault">e</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">e</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">e</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">e</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.15139200000000003em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>​ 这 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>p</mi><mtext> </mtext><mo>(</mo><mi>p</mi><mo>≥</mo><mn>2</mn><mo>)</mo><mi>p</mi></mrow><annotation encoding="application/x-tex">p\ (p\ge 2)p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">p</span><span class="mspace"> </span><span class="mopen">(</span><span class="mord mathdefault">p</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≥</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">2</span><span class="mclose">)</span><span class="mord mathdefault">p</span></span></span></span> 条边，对于任意的 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mo>≤</mo><mi>i</mi><mo>≤</mo><mi>p</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">1\leq i\leq p-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.78041em;vertical-align:-0.13597em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.79549em;vertical-align:-0.13597em;"></span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.7777700000000001em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">p</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>e</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">e_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">e</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 的权值和 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>e</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">e_{i+1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.638891em;vertical-align:-0.208331em;"></span><span class="mord"><span class="mord mathdefault">e</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.208331em;"><span></span></span></span></span></span></span></span></span></span>​ 的权值组成完美数对。</p>
-<p>你需要求出图中最长完美路径的长度，一条路径的长度定义为这条路径上所有边的长度之和。</p>
-<p>先不用说k=1或者n&lt;=10了</p>
-<p>k&lt;=2?</p>
-<p>我们发现有这样一个不难发现的规律,就是直接对于每个边的权值每个质因数因子%2,那么要求乘起来等于2?,然后你会发现如果要从一条边走向另一条边就一定这两条边权值相等</p>
-<p>所以我们枚举每个权值,然后拿权值等于我们枚举的边去跑拓扑排序就好了</p>
-<p>k&lt;=10?</p>
-<p>之前的结论其实还是有用的,进行之前那个取模之后,你会发现<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi><mo>+</mo><mi>b</mi><mo>=</mo><mo>=</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">a+b==k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">a</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">b</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span></span></span></span>,而且<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi><mo>&lt;</mo><mi>k</mi><mo separator="true">,</mo><mi>b</mi><mo>&lt;</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">a&lt;k,b&lt;k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathdefault">a</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">b</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span></span></span></span>,所以你会发现对于一个a只有一个唯一的b对吧</p>
-<p>那么我们就可以和之前一样枚举一个权值,然后拿所有权值等于a和b的边去跑一个0/1状态的拓扑排序,这个很简单,因为毕竟只有两个状态</p>
-<p>code:</p>
-<pre><code class="language-cpp">#include&lt;iostream&gt;
-#include&lt;cstdio&gt;
-#include&lt;cstring&gt;
-#include&lt;queue&gt;
-#include&lt;vector&gt;
-#include&lt;algorithm&gt;
-#define ll long long
-using namespace std;
-const int MAXN = 3e5 + 7;
-struct rec {
-	rec(int a = 0, int b = 0, int c = 0, int d = 0) {
-		x = a, y = b, w = c, l = d;
-	}
-	int x, y, w, l;
-};
-int n, m, k, ans, ccnt, x, y, w, l, cnt;
-int home[MAXN], to[MAXN], nxt[MAXN], in[MAXN];
-int r[MAXN], vis[MAXN], dp[MAXN][2], f[MAXN];
-queue&lt;int&gt; q;
-vector&lt;rec&gt; v[MAXN];
-
-bool cmp(rec a, rec b) {
-	return r[a.x] &lt; r[b.x];
-}
-
-void ct(int x, int y) {
-	ccnt++;
-	nxt[ccnt] = home[x];
-	home[x] = ccnt;
-	to[ccnt] = y;
-	in[y]++;
-}
-
-pair&lt;int, int&gt; proc (int a) {
-	ll res1 = 1, res2 = 1;
-	for(int i = 2; i * i &lt;= a; ++i) {
-		int tmp = 0;
-		while(a % i == 0) {
-			tmp++, a /= i;
-		}
-		if(tmp % k) {
-			for(int j = 1; j &lt;= tmp % k; ++j) {
-				res1 = (res1 * i);
-			}
-			for(int j = 1; j &lt;= k - tmp % k; ++j) {
-				res2 = (res2 * i &gt; 100000 ? 0 : res2 * i);
-			}
-		}
-	}
-	if(k != 1)res1 *= a;
-	for(int j = 2; j &lt;= k; ++j) {
-		res2 = (res2 * a &gt; 100000 ? 0 : res2 * a);
-	}
-	return make_pair((int)res1, (int)res2);
-}
-
-void topo() {
-	for(int i = 1; i &lt;= n; ++i) {
-		if(!in[i]) {
-			q.push(i);
-			r[i] = ++cnt;
-		}
-	}
-	while(!q.empty()) {
-		int u = q.front();
-		q.pop();
-		for(int i = home[u]; i; i = nxt[i]) {
-			if(--in[to[i]] == 0) {
-
-				q.push(to[i]);
-				r[to[i]] = ++cnt;
-			}
-		}
-	}
-	return;
-}
-
-
-int main() {
-	scanf(&quot;%d%d%d&quot;, &amp;n, &amp;m, &amp;k);
-	for(int i = 1; i &lt;= m; ++i) {
-		scanf(&quot;%d%d%d%d&quot;, &amp;x, &amp;y, &amp;w, &amp;l);
-		pair&lt;int, int&gt; tmp = proc(w);
-		if(tmp.second) {
-			v[min(tmp.first, tmp.second)].push_back(rec(x, y, tmp.first, l));
-			f[min(tmp.first, tmp.second)] = max(tmp.first, tmp.second);
-		} else {
-			ans = max(ans, l);
-		}
-		ct(x, y);
-	}
-	topo();
-	for(int i = 1; i &lt;= 100000; ++i) {
-		int len = v[i].size();
-		if(len == 0)continue;
-		sort(v[i].begin(), v[i].end(), cmp);
-		for(int j = 0; j &lt; len; ++j) {
-			if(vis[v[i][j].x] != i) {
-				dp[v[i][j].x][0] = dp[v[i][j].x][1] = 0, vis[v[i][j].x] = i;
-			}
-			if(vis[v[i][j].y] != i) {
-				dp[v[i][j].y][0] = dp[v[i][j].y][1] = 0, vis[v[i][j].y] = i;
-			}
-			if(v[i][j].w == i) {
-				dp[v[i][j].y][0] = max(dp[v[i][j].y][0], dp[v[i][j].x][1] + v[i][j].l);
-			}
-			if(v[i][j].w == f[i]) {
-				dp[v[i][j].y][1] = max(dp[v[i][j].y][1], dp[v[i][j].x][0] + v[i][j].l);
-			}
-			ans = max(ans, max(dp[v[i][j].y][0], dp[v[i][j].y][1]));
-		}
-	}
-	printf(&quot;%d\n&quot;, ans);
-	return 0;
-}
-</code></pre>
 ]]></content>
     </entry>
 </feed>
