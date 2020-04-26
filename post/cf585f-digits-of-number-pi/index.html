@@ -1,0 +1,348 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CF585F Digits of Number Pi | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1587944556637">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="CF585F Digits of Number Pi | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="IOI2020集训队作业
+其实一开始没把他当做集训队作业去做的,没想到清北的老师是集训队作业推送带师...
+封面图的小姐姐为什么有角...
+
+给定长度为 nnn 的数字串 sss 和长度为 ddd 的不含前导零的数字串 x,y(x≤y)x,..." />
+    <meta name="keywords" content="数位DP,AC自动机,集训队作业,动态规划" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1587944556637" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              CF585F Digits of Number Pi
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-04-27
+              </span>
+              <span>
+                7 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/xlGCUZEK6/" class="post-tag">
+                  # 数位DP
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/BaS68NENpD/" class="post-tag">
+                  # AC自动机
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/HzrxzC7K1/" class="post-tag">
+                  # 集训队作业
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/CJ-ugjBAY/" class="post-tag">
+                  # 动态规划
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/4pNOqgOvBLvj4yTC9qc55SmyPlOlG*Gcj8gpNYT6HDFGWh7CPVoIEIiQYSEQPCyWLT7USDMCeBwCXzdNQw1x*HHLLv4*oOtwWhDYejYKdJc!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>IOI2020集训队作业</p>
+<p>其实一开始没把他当做集训队作业去做的,没想到清北的老师是集训队作业推送带师...</p>
+<p><s>封面图的小姐姐为什么有角...</s></p>
+<ul>
+<li>给定长度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 的数字串 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi></mrow><annotation encoding="application/x-tex">s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">s</span></span></span></span> 和长度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi></mrow><annotation encoding="application/x-tex">d</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">d</span></span></span></span> 的不含前导零的数字串 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo>(</mo><mi>x</mi><mo>≤</mo><mi>y</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">x,y(x \le y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mclose">)</span></span></span></span>。</li>
+<li>求存在长度至少为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo fence="true">⌊</mo><mfrac><mi>d</mi><mn>2</mn></mfrac><mo fence="true">⌋</mo></mrow><annotation encoding="application/x-tex">\left\lfloor\frac{d}{2}\right\rfloor</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.2301179999999998em;vertical-align:-0.35001em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size1">⌊</span></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8801079999999999em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">d</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size1">⌋</span></span></span></span></span></span> 的子串是 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi></mrow><annotation encoding="application/x-tex">s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">s</span></span></span></span> 的子串的数字串 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi><mo>∈</mo><mo>[</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">t \in [x,y]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65418em;vertical-align:-0.0391em;"></span><span class="mord mathdefault">t</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathdefault">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mclose">]</span></span></span></span> 的数量。</li>
+<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>≤</mo><mn>1</mn><msup><mn>0</mn><mn>3</mn></msup></mrow><annotation encoding="application/x-tex">n \le 10^3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span></span></span></span>，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><mo>≤</mo><mn>50</mn></mrow><annotation encoding="application/x-tex">d \le 50</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83041em;vertical-align:-0.13597em;"></span><span class="mord mathdefault">d</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">5</span><span class="mord">0</span></span></span></span>，答案对 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><msup><mn>0</mn><mn>9</mn></msup><mo>+</mo><mn>7</mn></mrow><annotation encoding="application/x-tex">10^9+7</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">9</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">7</span></span></span></span> 取模。</li>
+</ul>
+<p>首先这个大小在[x,y]之间一定是一个数位DP啊...而且是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>d</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(d)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">d</span><span class="mclose">)</span></span></span></span>长度的数位DP</p>
+<p>其次我们还要求一定出现在s中?直接DP好像不太行,所以我们考虑转化为是s一个子串</p>
+<p>那么我们有一个显然的做法,把s中所有长度在<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo fence="true">⌊</mo><mfrac><mi>d</mi><mn>2</mn></mfrac><mo fence="true">⌋</mo></mrow><annotation encoding="application/x-tex">\left\lfloor\frac{d}{2}\right\rfloor</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.2301179999999998em;vertical-align:-0.35001em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size1">⌊</span></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8801079999999999em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">d</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size1">⌋</span></span></span></span></span></span> 到 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi></mrow><annotation encoding="application/x-tex">d</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">d</span></span></span></span>的所有串建一个AC自动机,然后要求就是能在自动机上匹配完成的一个串</p>
+<p>再仔细想一下我们只需要把长度为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo fence="true">⌊</mo><mfrac><mi>d</mi><mn>2</mn></mfrac><mo fence="true">⌋</mo></mrow><annotation encoding="application/x-tex">\left\lfloor\frac{d}{2}\right\rfloor</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.2301179999999998em;vertical-align:-0.35001em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size1">⌊</span></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8801079999999999em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">d</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size1">⌋</span></span></span></span></span></span>的子串提出来就好,因为如果匹配了的串长度大于<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo fence="true">⌊</mo><mfrac><mi>d</mi><mn>2</mn></mfrac><mo fence="true">⌋</mo></mrow><annotation encoding="application/x-tex">\left\lfloor\frac{d}{2}\right\rfloor</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.2301179999999998em;vertical-align:-0.35001em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size1">⌊</span></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8801079999999999em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">d</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size1">⌋</span></span></span></span></span></span>我们一定可以匹配一个<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo fence="true">⌊</mo><mfrac><mi>d</mi><mn>2</mn></mfrac><mo fence="true">⌋</mo></mrow><annotation encoding="application/x-tex">\left\lfloor\frac{d}{2}\right\rfloor</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.2301179999999998em;vertical-align:-0.35001em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size1">⌊</span></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8801079999999999em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">d</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size1">⌋</span></span></span></span></span></span>的串啊</p>
+<p>嗯...现在我们可以着手设计DP状态了</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>[</mo><mi>j</mi><mo>]</mo><mo>[</mo><mn>0</mn><mi mathvariant="normal">/</mi><mn>1</mn><mo>]</mo></mrow><annotation encoding="application/x-tex">f[i][j][0/1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord">0</span><span class="mord">/</span><span class="mord">1</span><span class="mclose">]</span></span></span></span>表示我现在dp到了i这个位置,匹配到了AC自动机上j号节点,有没有卡上上界</p>
+<p>转移时标准的枚举下一个字符是啥,设为c</p>
+<h3 id="case-1如果j有c这个儿子">case 1如果j有c这个儿子</h3>
+<p>那么j-&gt;ch[j][c],i到i+1,然后对于0/1这一维,如果之前为1而且c是上界,我们就转移到1,否则转移到0</p>
+<h3 id="case-2-如果j没有c这个儿子">case 2 如果j没有c这个儿子</h3>
+<p>这种情况其实比较难算,如果直接从j号点跳fail的话我们还需要知道现在有没有出现一个匹配完成的串,时间复杂度也可能不太对,所以我们考虑把这中情况提出来弄</p>
+<p>我们处理出一个叫做p[i][0/1]的数组,表示从长度为1~d-i+1的,有没有卡上上界的随便填的串总方案数</p>
+<p>然后你会发现如果AC自动机有个节点是ed的话我们就枚举一个长度然后把<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>[</mo><mi>e</mi><mi>d</mi><mo>]</mo><mo>[</mo><mn>0</mn><mo>]</mo><mo>∗</mo><mi>p</mi><mo>[</mo><mi>i</mi><mo>+</mo><mn>1</mn><mo>]</mo><mo>[</mo><mn>0</mn><mo>]</mo><mo>+</mo><mi>f</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>[</mo><mi>e</mi><mi>d</mi><mo>]</mo><mo>[</mo><mn>1</mn><mo>]</mo><mo>∗</mo><mi>p</mi><mo>[</mo><mi>i</mi><mo>+</mo><mn>1</mn><mo>]</mo><mo>[</mo><mn>1</mn><mo>]</mo></mrow><annotation encoding="application/x-tex">f[i][ed][0]*p[i+1][0]+f[i][ed][1]*p[i+1][1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault">e</span><span class="mord mathdefault">d</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord">0</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">p</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord">0</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault">e</span><span class="mord mathdefault">d</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord">1</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">p</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord">1</span><span class="mclose">]</span></span></span></span>计入答案</p>
+<p>拆开处理,在变化处统计,这也是对于某一维是0/1的一种很不错的处理方式啊qwq</p>
+<p>code:</p>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+#define ll long long
+using namespace std;
+const int P = 1e9 + 7;
+const int MAXN = 1e3 + 7, D = 53, K = 11;
+int n, d, trie[MAXN * D][K], ed[MAXN * D], fail[MAXN * D], T = 1;
+char s[MAXN], a[D], b[D];
+ll p[MAXN][2], f[D][MAXN * D][2];
+
+inline void build() {
+	int m = d / 2;
+	for(int i = 1; i + m - 1 &lt;= n; ++i) {
+		int p = 1;
+		for(int j = i, k = 1; k &lt;= m; ++j, ++k) {
+			int c = s[j] - '0';
+			if(!trie[p][c])trie[p][c] = ++T;
+			p = trie[p][c];
+		}
+		ed[p] = 1;
+	}
+	queue&lt;int&gt; q;
+	for(int i = 0; i &lt; 10; ++i) {
+		if(trie[1][i])fail[trie[1][i]] = 1, q.push(trie[1][i]);
+		else trie[1][i] = 1;
+	}
+	while(q.size()) {
+		int x = q.front();
+		q.pop();
+		for(int i = 0; i &lt; 10; ++i) {
+			if(trie[x][i])fail[trie[x][i]] = trie[fail[x]][i], q.push(trie[x][i]);//因为我们要跳到相同模板串的这个字符啊
+			else trie[x][i] = trie[fail[x]][i];
+			//AC自动机,广搜实现fail
+		}
+	}
+}
+
+inline ll calc(char *t) {
+	p[d + 1][0] = p[d + 1][1] = 1;
+	for(int i = d; i; i--) {
+		p[i][0] = p[i + 1][0] * 10 % P;
+		p[i][1] = ((t[i] - '0') * p[i + 1][0] % P + p[i + 1][1]) % P;
+        //p数组处理方法,真的是直接填啊qwq
+	}
+	ll ans = 0;
+	for(int i = 1; i &lt;= d; ++i) {
+		for(int j = 1; j &lt;= T; ++j) {
+			for(int k = 0; k &lt; 2; ++k) {
+				f[i][j][k] = 0;
+			}
+		}
+	}
+	f[0][1][1] = 1;
+	for(int i = 0; i &lt; d; ++i) {
+		for(int j = 1; j &lt;= T; ++j) {
+			if(!ed[j]) {
+				for(int k = 0; k &lt; 10; ++k) {
+					int o = trie[j][k];
+					(f[i + 1][o][0] = (f[i + 1][o][0] + f[i][j][0]) % P);
+					if(k &lt; t[i + 1] - '0')(f[i + 1][o][0] = (f[i + 1][o][0] + f[i][j][1]) % P);
+					if(k == t[i + 1] - '0')(f[i + 1][o][1] = (f[i + 1][o][1] + f[i][j][1]) % P);
+					// assert(f[i + 1][o][0] &gt;= 0);
+					// assert(f[i + 1][o][1] &gt;= 0);
+//知道为什么asssert了吗?因为最后一步我们+P)%P0pts了/ll
+				}
+			}
+		}
+	}
+	for(int i = 1; i &lt;= d; ++i) {
+		for(int j = 1; j &lt;= T; ++j) {
+			if(ed[j]) {
+				ans = (ans + (f[i][j][0] * p[i + 1][0] % P + f[i][j][1] * p[i + 1][1] % P) % P) % P;
+				// assert(ans &gt;= 0);
+			}
+		}
+	}
+	ans %= P;
+	return ans;
+}
+
+
+int main() {
+	cin &gt;&gt; s + 1;
+	cin &gt;&gt; a + 1;
+	cin &gt;&gt; b + 1;
+	n = strlen(s + 1);
+	d = strlen(a + 1);
+	build();
+	int k = d;
+	while(a[k] == '0')a[k--] = '9';
+	--a[k];
+	printf(&quot;%lld\n&quot;, ((calc(b) - calc(a)) % P + P) % P );
+	return 0;
+}
+</code></pre>
+<p>我就是那<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mi mathvariant="normal">/</mi><mn>45</mn></mrow><annotation encoding="application/x-tex">1/45</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord">/</span><span class="mord">4</span><span class="mord">5</span></span></span></span>qwq</p>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#case-1%E5%A6%82%E6%9E%9Cj%E6%9C%89c%E8%BF%99%E4%B8%AA%E5%84%BF%E5%AD%90">case 1如果j有c这个儿子</a></li>
+<li><a href="#case-2-%E5%A6%82%E6%9E%9Cj%E6%B2%A1%E6%9C%89c%E8%BF%99%E4%B8%AA%E5%84%BF%E5%AD%90">case 2 如果j没有c这个儿子</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/noi-online-2/">
+              <h3 class="post-title">
+                NOI Online #2
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
