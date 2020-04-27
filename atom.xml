@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://xiaxiaoguang.github.io</id>
     <title>夏晓光(loveJY)的博客</title>
-    <updated>2020-04-26T23:42:43.221Z</updated>
+    <updated>2020-04-27T13:34:27.708Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://xiaxiaoguang.github.io"/>
     <link rel="self" href="https://xiaxiaoguang.github.io/atom.xml"/>
@@ -10,6 +10,120 @@
     <logo>https://xiaxiaoguang.github.io/images/avatar.png</logo>
     <icon>https://xiaxiaoguang.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 夏晓光(loveJY)的博客</rights>
+    <entry>
+        <title type="html"><![CDATA[扫描线详解]]></title>
+        <id>https://xiaxiaoguang.github.io/post/sao-miao-xian-xiang-jie/</id>
+        <link href="https://xiaxiaoguang.github.io/post/sao-miao-xian-xiang-jie/">
+        </link>
+        <updated>2020-04-27T10:36:33.000Z</updated>
+        <content type="html"><![CDATA[<p>被迫营业</p>
+<p><s>按理说这个博客是不应该有算法专讲的?</s></p>
+<p>扫描线就是字面意思,一条从1到n扫过去,差分一切的线qwq</p>
+<figure data-type="image" tabindex="1"><img src="https://xiaxiaoguang.github.io/post-images/1587985991190.png" alt="" loading="lazy"></figure>
+<p>直接上例题</p>
+<p>矩阵并面积和</p>
+<p>线段树维护出现次数和当前出现长度</p>
+<p>然后把每条竖着的线段离线下来按照x坐标排序,对于同一矩阵,x小的为+,反之为-</p>
+<p>[模板]扫描线</p>
+<p>固定大小矩阵最大值</p>
+<p>把一个点的权值变成考虑右上角在哪个范围能够覆盖到这个点,从而得到一个右上角集合的矩形</p>
+<p>然后扫描线变成区间加,区间查询最大值</p>
+<p>窗口的星星</p>
+<p>NOI online T2</p>
+<p>扫描线变成考虑右端点在i的所有区间的贡献</p>
+<p>然后线段树维护后缀平方和+HH的项链</p>
+<p>七彩EI下的愿望花环</p>
+<figure data-type="image" tabindex="2"><img src="https://xiaxiaoguang.github.io/post-images/1587985327180.png" alt="" loading="lazy"></figure>
+<p>这个题我们假设增量是出现的颜色种类数<em>K,也就是说问你所有区间中权值和+种类数</em>K的最大区间的值是什么</p>
+<p>还是扫描线,线段树维护一下从i到r的区间和</p>
+<p>颜色种类还是HH的项链,用pre[a[i]]</p>
+<p>每次把1<sub>pre[a[i]]的加上a[i],把pre[i]+1</sub>i的加上a[i]+K</p>
+<p>答案就是每次的全局最大值</p>
+<p>区间mex</p>
+<p>考虑离线,然后权值线段树维护值为i的最后出现时间</p>
+<p>对于所有右端点在r的询问,二分一个最小的k,使得<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi><mi>a</mi><mi>l</mi><mo>[</mo><mi>k</mi><mo>]</mo><mo>&lt;</mo><mi>l</mi></mrow><annotation encoding="application/x-tex">val[k]&lt;l</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span></span></span></span></p>
+<p>k就是答案,在线可以可持久化线段树</p>
+<p>矩阵周长</p>
+<p>扫描线,矩阵周长可以拆成两部分,从上到下和从左到右扫描线分别扫一遍</p>
+<p>然后线段树维护这个位置出现次数以及出现了的长度,和直线矩阵并面积一样</p>
+<p>常数*2警告?</p>
+<p>Iron man</p>
+<figure data-type="image" tabindex="3"><img src="https://xiaxiaoguang.github.io/post-images/1587985926723.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="4"><img src="https://xiaxiaoguang.github.io/post-images/1587986049603.png" alt="" loading="lazy"></figure>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[P5539 【XR-3】Unknown Mother-Goose]]></title>
+        <id>https://xiaxiaoguang.github.io/post/p5539-xr-3-unknown-mother-goose/</id>
+        <link href="https://xiaxiaoguang.github.io/post/p5539-xr-3-unknown-mother-goose/">
+        </link>
+        <updated>2020-04-26T23:56:18.000Z</updated>
+        <content type="html"><![CDATA[<p>EI强力推荐神题</p>
+<p>小 X 得到了一个正整数 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 和一个正整数集合 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi></mrow><annotation encoding="application/x-tex">S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span></span></span></span>，他想知道有多少个正整数 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span> 满足以下所有条件：</p>
+<ul>
+<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>3</mn><mo>≤</mo><mi>x</mi><mo>≤</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">3 \le x \le n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.78041em;vertical-align:-0.13597em;"></span><span class="mord">3</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span></li>
+<li>存在 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi><mo>∈</mo><mi>S</mi><mo separator="true">,</mo><mi>x</mi><mo>≡</mo><mn>0</mn><mspace></mspace><mspace width="0.4444444444444444em"/><mo>(</mo><mrow><mi mathvariant="normal">m</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">d</mi></mrow><mspace width="0.3333333333333333em"/><mi>a</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">a \in S, x \equiv 0 \pmod a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathdefault">a</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≡</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span><span class="mspace allowbreak"></span><span class="mspace" style="margin-right:0.4444444444444444em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord"><span class="mord mathrm">m</span><span class="mord mathrm">o</span><span class="mord mathrm">d</span></span></span><span class="mspace" style="margin-right:0.3333333333333333em;"></span><span class="mord mathdefault">a</span><span class="mclose">)</span></span></span></span></li>
+<li>存在 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>b</mi><mo>∈</mo><mi>S</mi><mo separator="true">,</mo><mi>x</mi><mo>−</mo><mn>1</mn><mo>≡</mo><mn>0</mn><mspace></mspace><mspace width="0.4444444444444444em"/><mo>(</mo><mrow><mi mathvariant="normal">m</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">d</mi></mrow><mspace width="0.3333333333333333em"/><mi>b</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">b \in S,x-1 \equiv 0 \pmod b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.73354em;vertical-align:-0.0391em;"></span><span class="mord mathdefault">b</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≡</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span><span class="mspace allowbreak"></span><span class="mspace" style="margin-right:0.4444444444444444em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord"><span class="mord mathrm">m</span><span class="mord mathrm">o</span><span class="mord mathrm">d</span></span></span><span class="mspace" style="margin-right:0.3333333333333333em;"></span><span class="mord mathdefault">b</span><span class="mclose">)</span></span></span></span></li>
+<li>存在 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi><mo>∈</mo><mi>S</mi><mo separator="true">,</mo><mi>x</mi><mo>−</mo><mn>2</mn><mo>≡</mo><mn>0</mn><mspace></mspace><mspace width="0.4444444444444444em"/><mo>(</mo><mrow><mi mathvariant="normal">m</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">d</mi></mrow><mspace width="0.3333333333333333em"/><mi>c</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">c \in S,x-2 \equiv 0 \pmod c</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathdefault">c</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≡</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span><span class="mspace allowbreak"></span><span class="mspace" style="margin-right:0.4444444444444444em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord"><span class="mord mathrm">m</span><span class="mord mathrm">o</span><span class="mord mathrm">d</span></span></span><span class="mspace" style="margin-right:0.3333333333333333em;"></span><span class="mord mathdefault">c</span><span class="mclose">)</span></span></span></span></li>
+</ul>
+<p>请你帮小 X 求出来。</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>&lt;</mo><mo>=</mo><mn>1</mn><mi>e</mi><mn>9</mn><mo separator="true">,</mo><mi mathvariant="normal">∣</mi><mi>S</mi><mi mathvariant="normal">∣</mi><mo>&lt;</mo><mo>=</mo><mn>20</mn></mrow><annotation encoding="application/x-tex">n&lt;=1e9,|S|&lt;=20</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord mathdefault">e</span><span class="mord">9</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∣</span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord">∣</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord">0</span></span></span></span></p>
+<p>你发现我竟然贴出了数据范围,说明这个题一定不一般</p>
+<p>你想<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mi mathvariant="normal">∣</mi></msup><mi>S</mi><mi mathvariant="normal">∣</mi></mrow><annotation encoding="application/x-tex">2^|S|</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.138em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8879999999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">∣</span></span></span></span></span></span></span></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord">∣</span></span></span></span>?其实出题人挺坏的,如果他开到|S|=21你就不会这样想了?</p>
+<p>复杂度其实是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mi mathvariant="normal">∣</mi><mi>S</mi><mi mathvariant="normal">∣</mi><mi mathvariant="normal">/</mi><mi>ω</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n|S|/\omega)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mord">∣</span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord">∣</span><span class="mord">/</span><span class="mord mathdefault" style="margin-right:0.03588em;">ω</span><span class="mclose">)</span></span></span></span><s>啊,这罪恶的欧米伽</s></p>
+<p><s>古有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>n</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">n^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span>过十万,今有我<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mi>e</mi><mn>9</mn><mo>∗</mo><mn>20</mn></mrow><annotation encoding="application/x-tex">1e9*20</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord mathdefault">e</span><span class="mord">9</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord">0</span></span></span></span>随便跑</s></p>
+<p>bitset优化其实不简单,因为是基于cpu去优化的,所以理论上不行但实际上cpu使劲跑是可以的</p>
+<p>做法也很简单,开个1e9,然后考虑把每个S中的数的倍数设置为1,那么答案就是有多少个连续三个1</p>
+<p>统计答案怎么bitset?</p>
+<p>如果在同一个w内,直接bs&amp;bs&gt;&gt;1&amp;bs&gt;&gt;2</p>
+<p>如果跨过一个w,可以把<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>b</mi><msub><mi>s</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">bs_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord mathdefault">b</span><span class="mord"><span class="mord mathdefault">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>有两个<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>b</mi><msub><mi>s</mi><mrow><mi>i</mi><mo>−</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">bs_{i-1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.902771em;vertical-align:-0.208331em;"></span><span class="mord mathdefault">b</span><span class="mord"><span class="mord mathdefault">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.208331em;"><span></span></span></span></span></span></span></span></span></span>有1个算在<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>b</mi><msub><mi>s</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">bs_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord mathdefault">b</span><span class="mord"><span class="mord mathdefault">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>的第二个</p>
+<p>而<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>b</mi><msub><mi>s</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">bs_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord mathdefault">b</span><span class="mord"><span class="mord mathdefault">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>有一个的那种就记在<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>b</mi><msub><mi>s</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">bs_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord mathdefault">b</span><span class="mord"><span class="mord mathdefault">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>第一个位置</p>
+<p>具体我们需要手写bitset,然后看代码吧</p>
+<p>code:</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#define ull unsigned long long
+const int MAXN = 1e9 + 7;
+using namespace std;
+ull bs[(MAXN &gt;&gt; 6) + 10];//就硬开啊qwq
+ull tmp[65];
+int n, m, s, l, ans;
+
+inline int count(ull x) {
+	return __builtin_popcountll(x);
+}
+
+int main() {
+	scanf(&quot;%d%d&quot;, &amp;n, &amp;s);
+	m = (n &gt;&gt; 6) + 1;
+	while(s--) {
+		scanf(&quot;%d&quot;, &amp;l);
+		if(l &lt; 64) {
+			memset(tmp, 0, sizeof(tmp));
+			for(register int i = 0; i &lt; (l &lt;&lt; 6); i += l)tmp[i &gt;&gt; 6] |= 1ull &lt;&lt; (i &amp; 63);//这个可以考虑把这个数暴力倍增直到大小大于w
+			for(register int i = 0; i &lt;= m; i += l)
+				for(register int j = 0; j &lt; l; ++j)bs[i + j] |= tmp[j];//同时处理w大小的
+
+		} else {
+			for(register int i = 0; i &lt;= n; i += l) {
+				bs[i &gt;&gt; 6] |= 1ull &lt;&lt; (i &amp; 63);//这个可以直接加
+			}
+		}
+	}
+	--m;
+	if((n &amp; 63) != 63)bs[m] &amp;= (1ull &lt;&lt; (n + 1 - (m &lt;&lt; 6))) - 1;
+	bs[0] &amp;= -2ull;//超过边界的1搞掉
+	for(register int i = 0; i &lt;= m; ++i)ans += count(bs[i] &amp; (bs[i] &lt;&lt; 1) &amp; (bs[i] &lt;&lt; 2));//考虑一个w内连续的3这样一定计算一次
+	for(register int i = 1; i &lt;= m; ++i)ans += count(bs[i] &amp; (bs[i - 1] &gt;&gt; 62) &amp; ((bs[i - 1] &gt;&gt; 63) | (bs[i] &lt;&lt; 1)));//考虑跨过w的3连
+	printf(&quot;%d\n&quot;, ans);
+	return 0;
+}
+
+</code></pre>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>q</mi><mi>w</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">qwq</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span></span></span></span></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[CF585F Digits of Number Pi]]></title>
         <id>https://xiaxiaoguang.github.io/post/cf585f-digits-of-number-pi/</id>
@@ -912,265 +1026,6 @@ int main() {
 }
 </code></pre>
 <p>唉,学OI的热情下降?我博客图都很慢更新了</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[CF575I Robots protection]]></title>
-        <id>https://xiaxiaoguang.github.io/post/cf575i-robots-protection/</id>
-        <link href="https://xiaxiaoguang.github.io/post/cf575i-robots-protection/">
-        </link>
-        <updated>2020-04-18T14:33:34.000Z</updated>
-        <content type="html"><![CDATA[<p>IOI2020集训队作业</p>
-<p>一日不更博,一日不睡觉</p>
-<p><s>话说已经堕落到这种程度了吗</s></p>
-<ul>
-<li>你需要在平面直角坐标系上进行 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>q</mi></mrow><annotation encoding="application/x-tex">q</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span></span></span></span> 次操作。</li>
-<li>每次操作有两种，要么放置一个两条直角边平行于坐标轴的等腰直角三角形，要么查询某一个点被多少个三角形覆盖。</li>
-<li>每个等腰直角三角形可以用四个参数 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><mi>i</mi><mi>r</mi><mo separator="true">,</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo separator="true">,</mo><mi>l</mi><mi>e</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">dir,x,y,len</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span></span></span></span> 确定，其中 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><mi>i</mi><mi>r</mi><mo>∈</mo><mo>[</mo><mn>1</mn><mo separator="true">,</mo><mn>4</mn><mo>]</mo></mrow><annotation encoding="application/x-tex">dir \in [1,4]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.73354em;vertical-align:-0.0391em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">4</span><span class="mclose">]</span></span></span></span>表示三角形的方向，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">(x,y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mclose">)</span></span></span></span> 表示直角的顶点坐标，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi><mi>e</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">len</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span></span></span></span> 表示直角边的长度。</li>
-<li>保证所有点的坐标都是整数且 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>∈</mo><mo>[</mo><mn>1</mn><mo separator="true">,</mo><mi>n</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">\in [1,n]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">n</span><span class="mclose">]</span></span></span></span>。</li>
-<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>≤</mo><mn>5</mn><mo>×</mo><mn>1</mn><msup><mn>0</mn><mn>3</mn></msup></mrow><annotation encoding="application/x-tex">n \le 5 \times 10^3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">5</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span></span></span></span>,<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>q</mi><mo>≤</mo><mn>1</mn><msup><mn>0</mn><mn>5</mn></msup></mrow><annotation encoding="application/x-tex">q \le 10^5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8304100000000001em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">5</span></span></span></span></span></span></span></span></span></span></span></li>
-</ul>
-<p>看上去是做不了的,直接暴力有0分的好成绩,所以我们考虑翻题解</p>
-<p>又是二维树状数组/jk/jk/jk?</p>
-<p>然后这里你会发现我们要维护斜坐标系的一个标记加减,也就是说我们单纯的一个直角区域内的加减不满足了</p>
-<p>所以我们要用斜二测画法,满足y坐标变成原来的1/2</p>
-<p>这样我们能满足这样的角的标记</p>
-<figure data-type="image" tabindex="1"><img src="https://xiaxiaoguang.github.io/post-images/1587221573526.png" alt="" loading="lazy"></figure>
-<p>然后这样还是不太够,我们再把x变成原来的1/2,我们又可以满足</p>
-<figure data-type="image" tabindex="2"><img src="https://xiaxiaoguang.github.io/post-images/1587221652258.png" alt="" loading="lazy"></figure>
-<p>又因为显然等腰直角三角形满足的性质就只会设计这几个角啊</p>
-<p>然后我们有罪恶的下图,按照下图去打标记统计前缀和就好了</p>
-<figure data-type="image" tabindex="3"><img src="https://xiaxiaoguang.github.io/post-images/1587221850625.png" alt="" loading="lazy"></figure>
-<p>code:</p>
-<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
-#define lowbit(x) (x&amp;(-x))
-using namespace std;
-const int MAXN = 1e4 + 7, MAXM = 1e5 + 7;
-int n, m, op[MAXM], dir[MAXM], x[MAXM], y[MAXM], c[MAXM], ans[MAXM];
-int X, Y, bit[MAXN][MAXN], stx[MAXM], sty[MAXM], stz[MAXM], top;
-
-inline void add(int x, int y, int z) {
-	stx[++top] = x;
-	sty[top] = y;
-	stz[top] = z;
-	for(int i = x; i &lt;= X; i += lowbit(i)) {
-		for(int j = y; j &lt;= Y; j += lowbit(j)) {
-			bit[i][j] += z;
-		}
-	}
-}
-
-inline int ask(int x, int y) {
-	int z = 0;
-	for(int i = x; i; i -= lowbit(i)) {
-		for(int j = y; j; j -= lowbit(j)) {
-			z += bit[i][j];
-		}
-	}
-	return z;
-}
-
-inline void clear() {
-	while(top) {
-		add(stx[top], sty[top], -stz[top]);
-		top -= 2;
-	}
-}
-
-int main() {
-	scanf(&quot;%d%d&quot;, &amp;n, &amp;m);
-	for(int i = 1; i &lt;= m; ++i) {
-		scanf(&quot;%d&quot;, &amp;op[i]);
-		if(op[i] == 1)
-			scanf(&quot;%d%d%d%d&quot;, &amp;dir[i], &amp;x[i], &amp;y[i], &amp;c[i]);
-		else {
-			scanf(&quot;%d%d&quot;, &amp;x[i], &amp;y[i]);
-		}
-	}
-	
-	X = n;
-	Y = n;
-	for(int i = 1; i &lt;= m; ++i) {
-		if(op[i] == 1) {
-			if(dir[i] == 1)add(x[i], y[i], 1);
-			if(dir[i] == 2)add(x[i], y[i] + 1, -1);
-			if(dir[i] == 3)add(x[i] + 1, y[i], -1);
-			if(dir[i] == 4)add(x[i] + 1, y[i] + 1, 1);
-		} else {
-			ans[i] += ask(x[i], y[i]);
-		}
-	}
-	clear();
-
-	X = n + n;
-	Y = n;
-	for(int i = 1; i &lt;= m; ++i) {
-		if(op[i] == 1) {
-			if(dir[i] == 1)
-				add(x[i] + y[i] + c[i] + 1, y[i], -1);
-			if(dir[i] == 4)
-				add(x[i] + y[i] - c[i], y[i] + 1, -1);
-		} else {
-			ans[i] += ask(x[i] + y[i], y[i]);
-		}
-	}
-	clear();
-
-	X = n;
-	Y = n + n;
-	for(int i = 1; i &lt;= m; ++i) {
-		if(op[i] == 1) {
-			if(dir[i] == 1)
-				add(n - x[i] + 2, x[i] + y[i] + c[i] + 1, 1);
-			if(dir[i] == 4)
-				add(n - x[i] + 1, x[i] + y[i] - c[i], 1);
-		} else {
-			ans[i] += ask(n - x[i] + 1, x[i] + y[i]);
-		}
-	}
-	clear();
-
-	X = n + n;
-	Y = n;
-	for(int i = 1; i &lt;= m; ++i) {
-		if(op[i] == 1) {
-			if(dir[i] == 2)
-				add(n + x[i] - y[i] + c[i] + 2, y[i] + 1, 1);
-			if(dir[i] == 3)
-				add(n + x[i] - y[i] - c[i] + 1, y[i], 1);
-		} else {
-			ans[i] += ask(n + x[i] - y[i] + 1, y[i]);
-		}
-	}
-	clear();
-
-	X = n;
-	Y = n + n;
-	for(int i = 1; i &lt;= m; ++i) {
-		if(op[i] == 1) {
-			if(dir[i] == 2)
-				add(x[i], n - x[i] + y[i] - c[i] + 1, 1);
-			if(dir[i] == 3)
-				add(x[i] + 1, n - x[i] + y[i] + c[i] + 2, 1);
-		} else {
-			ans[i] += ask(x[i], n - x[i] + y[i] + 1);
-		}
-	}
-	clear();
-	for(int i = 1; i &lt;= m; ++i)
-		if(op[i] == 2)printf(&quot;%d\n&quot;, ans[i]);
-
-	return 0;
-}
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[CF576D Flights for Regular Customers]]></title>
-        <id>https://xiaxiaoguang.github.io/post/cf576d-flights-for-regular-customers/</id>
-        <link href="https://xiaxiaoguang.github.io/post/cf576d-flights-for-regular-customers/">
-        </link>
-        <updated>2020-04-17T12:29:51.000Z</updated>
-        <content type="html"><![CDATA[<p>IOI2020集训队作业</p>
-<p>小清新的一道题,因为不需要灵机一动</p>
-<p>所以<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mi>r</mi><mi>z</mi><mi>h</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">Orzhq</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="mord mathdefault">h</span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span></span></span></span></p>
-<p>题意翻译</p>
-<ul>
-<li>给定一张 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 个点 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">m</span></span></span></span> 条边的有向图。</li>
-<li>一开始你在 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 号节点，你要走到 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 号节点去。</li>
-<li>只有当你已经走过了至少 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>d</mi><mi mathvariant="normal">​</mi></msub><mi>i</mi></mrow><annotation encoding="application/x-tex">d_​i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">d</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:-0.15em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">​</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathdefault">i</span></span></span></span> 条边时，你才能走第 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span> 条边。</li>
-<li>问最少要走多少步，或判断无法到达。</li>
-<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo separator="true">,</mo><mi>m</mi><mo>≤</mo><mn>150</mn></mrow><annotation encoding="application/x-tex">n,m \le 150</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8304100000000001em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">n</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">5</span><span class="mord">0</span></span></span></span>，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>d</mi><mi>i</mi></msub><mo>≤</mo><mn>1</mn><msup><mn>0</mn><mn>9</mn></msup></mrow><annotation encoding="application/x-tex">d_i \le 10^9</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">d</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">9</span></span></span></span></span></span></span></span></span></span></span>。</li>
-</ul>
-<p>看完题我们一定会对n,m比较小感到诧异</p>
-<p>因为这样子至少走过<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>d</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">d_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">d</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>条边这个限制就会变得鸡肋,我们可以矩阵快速幂啊!</p>
-<p>那么做法也就呼之欲出了</p>
-<p>我们把原来的边按照<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>d</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">d_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">d</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>拍下序,然后从小到大处理</p>
-<p>然后考虑枚举每条边,然后把它加入原来的矩阵中,然后用快速幂让这个矩阵自己乘自己乘<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>d</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>d</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">d_{i+1}-d_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.902771em;vertical-align:-0.208331em;"></span><span class="mord"><span class="mord mathdefault">d</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.208331em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">d</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>次</p>
-<p>再依次这样做,可以判断能否到达</p>
-<p>如果要看最少走多少条边我们可以考虑如果两个相邻的<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>d</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">d_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">d</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>值小于n就暴力做一下,否则就先做n次看能不能到达,之后再快速幂做<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>d</mi><mi>i</mi></msub><mo>+</mo><mn>1</mn><mo>−</mo><msub><mi>d</mi><mi>i</mi></msub><mo>−</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">d_i+1-d_i-n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">d</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">d</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span>次,因为剩下的一定也不会使他们到达了</p>
-<p>发现每个点要么是0要么是1,就可以用bitset来写矩阵乘法,复杂度<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">/</mi><mi>ω</mi></mrow><annotation encoding="application/x-tex">/\omega</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">/</span><span class="mord mathdefault" style="margin-right:0.03588em;">ω</span></span></span></span>,否则过不去</p>
-<p>code:</p>
-<pre><code class="language-cpp">//From Dawn light
-#include&lt;cstdio&gt;
-#include&lt;cstring&gt;
-#include&lt;algorithm&gt;
-#include&lt;bitset&gt;
-using std::sort;
-using std::bitset;
-int n, m;
-bitset&lt;160&gt;a[160], b[160], T[160];
-struct rec {
-	int from, to, w;
-	bool operator&lt;(const rec &amp;x)const {
-		return w &lt; x.w;
-	}
-} edge[160];
-
-void times(bitset&lt;160&gt; *a, bitset&lt;160&gt; *b) {
-	bitset&lt;160&gt; res[160];
-	for(int i = 1; i &lt;= n; ++i) {
-		for(int j = 1; j &lt;= n; ++j) {
-			if(a[i][j])res[i] |= b[j];
-		}
-	}
-	for(int i = 1; i &lt;= n; ++i)a[i] = res[i];
-}
-
-inline void ksm(bitset&lt;160&gt; *a, int b) {
-	bitset&lt;160&gt; res[160];
-	for(int i = 1; i &lt;= n; ++i)res[i][i] = 1;
-	while(b) {
-		if(b &amp; 1)times(res, a);
-		times(a, a);
-		b &gt;&gt;= 1;
-	}
-	for(int i = 1; i &lt;= n; ++i)a[i] = res[i];
-}
-
-int main() {
-	scanf(&quot;%d%d&quot;, &amp;n, &amp;m);
-	for(int i = 1; i &lt;= m; ++i) {
-		scanf(&quot;%d%d%d&quot;, &amp;edge[i].from, &amp;edge[i].to, &amp;edge[i].w);
-	}
-	sort(edge + 1, edge + m + 1);
-	for(int i = 1; i &lt;= n; ++i) {
-		a[i][i] = 1;
-	}
-	int now = 0;
-	if(edge[1].w &gt; 0)return puts(&quot;Impossible&quot;), 0;
-
-	// puts(&quot;QWQ&quot;);
-	for(int i = 1; i &lt; m; ++i) {
-		T[edge[i].from][edge[i].to] = 1;
-		// printf(&quot;%d?\n&quot;, i);
-		if(edge[i].w == edge[i + 1].w)continue;
-		// printf(&quot;??&quot;);
-		for(int j = 1; j &lt;= n + 1 &amp;&amp; now &lt; edge[i + 1].w; ++j, ++now) {
-			// printf(&quot;%d &quot;, j);
-			times(a, T);
-			if(a[1][n] == 1)return printf(&quot;%d\n&quot;, now + 1), 0;
-		}
-		// puts(&quot;&quot;);
-		for(int j = 1; j &lt;= n; ++j) {
-			b[j] = T[j];
-		}
-		ksm(b, edge[i + 1].w - now);
-		times(a, b);
-		now = edge[i + 1].w;
-	}
-	// puts(&quot;QWQW&quot;);
-	T[edge[m].from][edge[m].to] = 1;
-	for(int j = 1; j &lt;= n + 1; ++j, now++) {
-		times(a, T);
-		if(a[1][n] == 1)return printf(&quot;%d\n&quot;, now + 1), 0;
-	}
-	return puts(&quot;Impossible&quot;), 0;
-}
-
-
-</code></pre>
-<p>是不是很模板啊</p>
 ]]></content>
     </entry>
 </feed>

@@ -1,0 +1,247 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>扫描线详解 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1587994450478">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="扫描线详解 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="被迫营业
+按理说这个博客是不应该有算法专讲的?
+扫描线就是字面意思,一条从1到n扫过去,差分一切的线qwq
+
+直接上例题
+矩阵并面积和
+线段树维护出现次数和当前出现长度
+然后把每条竖着的线段离线下来按照x坐标排序,对于同一矩阵,x小的为+,..." />
+    <meta name="keywords" content="扫描线,算法详解" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1587994450478" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              扫描线详解
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-04-27
+              </span>
+              <span>
+                2 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/MqPv-P4mK/" class="post-tag">
+                  # 扫描线
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/bwf94kGebK/" class="post-tag">
+                  # 算法详解
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/4pNOqgOvBLvj4yTC9qc55UBrCrZcBdUNQJxmy0.3pdtFF1kAe0lUM95NMt7FvjBnz.pnYZvnuakXR2yiOOf535Vt7L5Lfs7S4BuLiEe0hyI!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>被迫营业</p>
+<p><s>按理说这个博客是不应该有算法专讲的?</s></p>
+<p>扫描线就是字面意思,一条从1到n扫过去,差分一切的线qwq</p>
+<figure data-type="image" tabindex="1"><img src="https://xiaxiaoguang.github.io/post-images/1587985991190.png" alt="" loading="lazy"></figure>
+<p>直接上例题</p>
+<p>矩阵并面积和</p>
+<p>线段树维护出现次数和当前出现长度</p>
+<p>然后把每条竖着的线段离线下来按照x坐标排序,对于同一矩阵,x小的为+,反之为-</p>
+<p>[模板]扫描线</p>
+<p>固定大小矩阵最大值</p>
+<p>把一个点的权值变成考虑右上角在哪个范围能够覆盖到这个点,从而得到一个右上角集合的矩形</p>
+<p>然后扫描线变成区间加,区间查询最大值</p>
+<p>窗口的星星</p>
+<p>NOI online T2</p>
+<p>扫描线变成考虑右端点在i的所有区间的贡献</p>
+<p>然后线段树维护后缀平方和+HH的项链</p>
+<p>七彩EI下的愿望花环</p>
+<figure data-type="image" tabindex="2"><img src="https://xiaxiaoguang.github.io/post-images/1587985327180.png" alt="" loading="lazy"></figure>
+<p>这个题我们假设增量是出现的颜色种类数<em>K,也就是说问你所有区间中权值和+种类数</em>K的最大区间的值是什么</p>
+<p>还是扫描线,线段树维护一下从i到r的区间和</p>
+<p>颜色种类还是HH的项链,用pre[a[i]]</p>
+<p>每次把1<sub>pre[a[i]]的加上a[i],把pre[i]+1</sub>i的加上a[i]+K</p>
+<p>答案就是每次的全局最大值</p>
+<p>区间mex</p>
+<p>考虑离线,然后权值线段树维护值为i的最后出现时间</p>
+<p>对于所有右端点在r的询问,二分一个最小的k,使得<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi><mi>a</mi><mi>l</mi><mo>[</mo><mi>k</mi><mo>]</mo><mo>&lt;</mo><mi>l</mi></mrow><annotation encoding="application/x-tex">val[k]&lt;l</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span></span></span></span></p>
+<p>k就是答案,在线可以可持久化线段树</p>
+<p>矩阵周长</p>
+<p>扫描线,矩阵周长可以拆成两部分,从上到下和从左到右扫描线分别扫一遍</p>
+<p>然后线段树维护这个位置出现次数以及出现了的长度,和直线矩阵并面积一样</p>
+<p>常数*2警告?</p>
+<p>Iron man</p>
+<figure data-type="image" tabindex="3"><img src="https://xiaxiaoguang.github.io/post-images/1587985926723.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="4"><img src="https://xiaxiaoguang.github.io/post-images/1587986049603.png" alt="" loading="lazy"></figure>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/p5539-xr-3-unknown-mother-goose/">
+              <h3 class="post-title">
+                P5539 【XR-3】Unknown Mother-Goose
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
