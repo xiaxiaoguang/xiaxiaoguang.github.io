@@ -3,7 +3,7 @@
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>扫描线详解 | 夏晓光(loveJY)的博客</title>
-<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1588069290758">
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1588086272785">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
 <link rel="alternate" type="application/atom+xml" title="扫描线详解 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
@@ -28,7 +28,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://xiaxiaoguang.github.io">
-  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1588069290758" alt="">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1588086272785" alt="">
   </a>
   <h1 class="site-title">
     夏晓光(loveJY)的博客
@@ -132,7 +132,7 @@
 <p>这个题我们假设增量是出现的颜色种类数<em>K,也就是说问你所有区间中权值和+种类数</em>K的最大区间的值是什么</p>
 <p>还是扫描线,线段树维护一下从i到r的区间和</p>
 <p>颜色种类还是HH的项链,用pre[a[i]]</p>
-<p>每次把1<sub>pre[a[i]]的加上a[i],把pre[i]+1</sub>i的加上a[i]+K</p>
+<p>每次把<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mi mathvariant="normal">到</mi><mi>p</mi><mi>r</mi><mi>e</mi><mo>[</mo><mi>a</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>]</mo></mrow><annotation encoding="application/x-tex">1 到 pre[a[i]]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord cjk_fallback">到</span><span class="mord mathdefault">p</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">e</span><span class="mopen">[</span><span class="mord mathdefault">a</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span><span class="mclose">]</span></span></span></span>的加上a[i],把<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>p</mi><mi>r</mi><mi>e</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>+</mo><mn>1</mn><mtext> </mtext><mi>i</mi></mrow><annotation encoding="application/x-tex">pre[i]+1~i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">p</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">e</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord">1</span><span class="mspace nobreak"> </span><span class="mord mathdefault">i</span></span></span></span>的加上a[i]+K</p>
 <p>答案就是每次的全局最大值</p>
 <p>区间mex</p>
 <p>考虑离线,然后权值线段树维护值为i的最后出现时间</p>
