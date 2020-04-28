@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://xiaxiaoguang.github.io</id>
     <title>夏晓光(loveJY)的博客</title>
-    <updated>2020-04-27T13:34:27.708Z</updated>
+    <updated>2020-04-28T02:51:08.451Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://xiaxiaoguang.github.io"/>
     <link rel="self" href="https://xiaxiaoguang.github.io/atom.xml"/>
@@ -10,6 +10,130 @@
     <logo>https://xiaxiaoguang.github.io/images/avatar.png</logo>
     <icon>https://xiaxiaoguang.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 夏晓光(loveJY)的博客</rights>
+    <entry>
+        <title type="html"><![CDATA[P4769 [NOI2018]冒泡排序]]></title>
+        <id>https://xiaxiaoguang.github.io/post/p4769-noi2018mou-pao-pai-xu/</id>
+        <link href="https://xiaxiaoguang.github.io/post/p4769-noi2018mou-pao-pai-xu/">
+        </link>
+        <updated>2020-04-28T00:46:33.000Z</updated>
+        <content type="html"><![CDATA[<p>NOI2018D1T2</p>
+<p>.</p>
+<p>题目可以转化为：要求排列中不存在长度&gt;=3的下降子序列。</p>
+<p>因为如果出现的话，那么这个下降子序列中间的元素需要先与左边比它大的元素交换再与右边比它小的元素交换，需要折返一下，显然就不合法了。</p>
+<p>这又等价于可以将序列划分为2个上升子序列。</p>
+<p>这个怎么证明呢?好像显然啊....因为如果能分为三个那一定有&gt;=3的下降子序列</p>
+<p>然后假设前i个位置最大数是j,那么我们在后面放的时候,会发现大于j的数目是可以随便填的,而小于j的数只能从小到大挨个放,他们构成第二个上升子序列</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>[</mo><mi>j</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">f[i][j]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mclose">]</span></span></span></span>表示我们还剩下i个数没有填,后j个数值是大于当前最大值的&quot;非限制元素&quot;答案</p>
+<p>然后转移时枚举下一个位置填一个限制元素或某个非限制元素</p>
+<p>如果放限制元素,非限制的数量不变,否则假设放入第k个非限制元素,非限制元素的数量要减少k个,因为最大值发生了变化,能够填的非限制元素减少k个</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>[</mo><mi>j</mi><mo>]</mo><mo>=</mo><munderover><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mn>0</mn></mrow><mi>j</mi></munderover><mrow><mi>f</mi><mo>[</mo><mi>i</mi><mo>−</mo><mn>1</mn><mo>]</mo><mo>[</mo><mi>j</mi><mo>−</mo><mi>k</mi><mo>]</mo></mrow></mrow><annotation encoding="application/x-tex">f[i][j]=\sum_{k=0}^j{f[i-1][j-k]}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:3.16089em;vertical-align:-1.302113em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.8587770000000001em;"><span style="top:-1.8478869999999998em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span><span class="mrel mtight">=</span><span class="mord mtight">0</span></span></span></span><span style="top:-3.0500049999999996em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.347113em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.302113em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord">1</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mclose">]</span></span></span></span></span></span></p>
+<p>注意我们第二维是还有多少个非限制哦</p>
+<p>边界<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>[</mo><mn>0</mn><mo>]</mo><mo>[</mo><mn>0</mn><mo>]</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">f[0][0]=1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord">0</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord">0</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span></p>
+<p>这好像是前缀和?qwq</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>[</mo><mi>j</mi><mo>]</mo><mo>=</mo><mi>f</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>[</mo><mi>j</mi><mo>−</mo><mn>1</mn><mo>]</mo><mo>+</mo><mi>f</mi><mo>[</mo><mi>i</mi><mo>−</mo><mn>1</mn><mo>]</mo><mo>[</mo><mi>j</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">f[i][j]=f[i][j-1]+f[i-1][j]
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mclose">]</span></span></span></span></span></p>
+<p>另外如果打个表或者直接看会发现这个是卡特兰数qaq</p>
+<p>再考虑限制吧,假设当前做到第i位,给定的排列这一位是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>a</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">a_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>,后面有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>b</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">b_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">b</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>个数比他大,前面有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>c</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">c_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>比他小,然后现在非限制元素还有nw个</p>
+<p>所以如果填入数字<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>p</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">p_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>&gt;<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>a</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">a_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></p>
+<p>先把nw和<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>b</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">b_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">b</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>取个min,因为填完之后非限制元素小于等于<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>b</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">b_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">b</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>个</p>
+<p>如果此时nw为0了,后面只能按顺序填入了qaq,这个字典序是严格不大于给定排列的,可以退出了</p>
+<p>否则我们就要<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msubsup><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mn>0</mn></mrow><mrow><mi>n</mi><mi>w</mi><mo>−</mo><mn>1</mn></mrow></msubsup><mrow><mi>f</mi><mo>[</mo><mi>n</mi><mo>−</mo><mi>i</mi><mo>]</mo><mo>[</mo><mi>k</mi><mo>]</mo></mrow></mrow><annotation encoding="application/x-tex">\sum_{k=0}^{nw-1}{f[n-i][k]}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.253718em;vertical-align:-0.29971000000000003em;"></span><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.954008em;"><span style="top:-2.40029em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span><span class="mrel mtight">=</span><span class="mord mtight">0</span></span></span></span><span style="top:-3.2029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span><span class="mord mathdefault mtight" style="margin-right:0.02691em;">w</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.29971000000000003em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault">i</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mclose">]</span></span></span></span></span>这个就是前缀和为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>[</mo><mi>n</mi><mo>−</mo><mi>i</mi><mo>+</mo><mn>1</mn><mo>]</mo><mo>[</mo><mi>n</mi><mi>w</mi><mo>−</mo><mn>1</mn><mo>]</mo></mrow><annotation encoding="application/x-tex">f[n-i+1][nw-1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.74285em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span></p>
+<p>然后再考虑<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>p</mi><mi>i</mi></msub><mo>=</mo><msub><mi>a</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">p_i=a_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>是否合法呢?</p>
+<p>如果<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>b</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">b_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">b</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>更新了nw,说明<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>a</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">a_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>本身就非限制啊</p>
+<p>否则<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>a</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">a_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>一定要是当前最小的,相当于填入了一个限制元素,也是合法的</p>
+<p>否则就填入了一个不合法元素,一定会导致全局不合法,就不能</p>
+<p>code:</p>
+<pre><code class="language-cpp">#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int MAXN = 6e5 + 7;
+const int  P = 998244353;
+#define ll long long
+ll fac[MAXN &lt;&lt; 1], ifac[MAXN &lt;&lt; 1];
+int n, T, a[MAXN], mi[MAXN];
+
+inline ll C(int n, int m) {
+    return (m &gt;= 0) ? (fac[n] * ifac[m] % P * ifac[n - m] % P) : 0;
+}
+
+inline ll ksm(ll x, ll y) {
+    ll  ans = 1;
+    while(y) {
+        if(y &amp; 1)ans = ans * x % P;
+        x = x * x % P;
+        y &gt;&gt;= 1;
+    }
+    return ans;
+}
+
+inline ll S(ll n, ll m) {
+    if(m &gt; n)return 0;
+    return (C((n &lt;&lt; 1) - m, n - m) - C((n &lt;&lt; 1) - m, n - m - 1) + P ) % P;
+}
+
+struct Bit {
+    int tr[MAXN];
+#define lowbit(x) (x&amp;(-x))
+    inline void add(int x, int val) {
+        for(; x &lt;= n; x += lowbit(x))tr[x] += val;
+    }
+    inline int query(int x) {
+        ll ret = 0;
+        for(; x; x -= lowbit(x))ret += tr[x];
+        return ret;
+    }
+    inline void clear() {
+        for(int i = 1; i &lt;= n; ++i)tr[i] = 0;
+    }
+} tree;
+
+inline void solve() {
+    scanf(&quot;%d&quot;, &amp;n);
+    for(int i = 1; i &lt;= n; ++i)scanf(&quot;%d&quot;, &amp;a[i]);
+    for(int i = n; i &gt;= 1; --i)tree.add(a[i], 1);
+    mi[n] = a[n];
+    for(int i = n - 1; i &gt;= 1; --i)mi[i] = min(mi[i + 1], a[i]);
+    int mx = 0;
+    int cmx = 0;
+    ll ans = 0;
+    for(int i = 1; i &lt;= n; ++i) {
+        // printf(&quot;%d %d\n&quot;, mi[i], mx);
+        if(cmx &gt; mi[i])break;
+        ans = (ans + S(n - i + 1, tree.query(max(mx, a[i])) + 1)) % P;
+        if(a[i] &lt; mx)cmx = max(cmx, a[i]);
+        mx = max(mx, a[i]);
+        tree.add(a[i], -1);
+    }
+    printf(&quot;%lld\n&quot;, ans);
+}
+
+inline void init() {
+    fac[0] = 1;
+    int up = (MAXN &lt;&lt; 1) - 10;
+    for(int i = 1; i &lt;= up; ++i)fac[i] = fac[i - 1] * i % P;
+    ifac[up] = ksm(fac[up], P - 2);
+    for(int i = up - 1; i &gt;= 2; --i) {
+        ifac[i] = ifac[i + 1] * (i + 1) % P;
+    }
+    ifac[0] = ifac[1] = 1;
+    // printf(&quot;%d %d\n&quot;, ifac[2], ifac[3]);
+    // printf(&quot;%lld %lld %d\n&quot;, C(3, 2), C(5, 4), fac[5]*ifac[4] % P * ifac[1]);
+}
+
+int main() {
+    init();
+    scanf(&quot;%d&quot;, &amp;T);
+    for(int i = 1; i &lt;= T; ++i)solve(), tree.clear();
+    return 0;
+}
+
+</code></pre>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>q</mi><mi>w</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">qwq
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span></span></span></span></span></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[扫描线详解]]></title>
         <id>https://xiaxiaoguang.github.io/post/sao-miao-xian-xiang-jie/</id>
@@ -890,142 +1014,6 @@ int main() {
 </code></pre>
 <p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mi>r</mi><mi>z</mi><mi>h</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">Orzhq
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="mord mathdefault">h</span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span></span></span></span></span></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[P4262 [Code+#3]白金元首与莫斯科]]></title>
-        <id>https://xiaxiaoguang.github.io/post/p4262-code3bai-jin-yuan-shou-yu-mo-si-ke/</id>
-        <link href="https://xiaxiaoguang.github.io/post/p4262-code3bai-jin-yuan-shou-yu-mo-si-ke/">
-        </link>
-        <updated>2020-04-19T14:31:14.000Z</updated>
-        <content type="html"><![CDATA[<p>国家队队长李佳衡推荐插头DP练习题</p>
-<p>不用多说啥吧qwq ,元首<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi><mi>d</mi><mi>o</mi><mi>l</mi><mi>f</mi></mrow><annotation encoding="application/x-tex">Adolf</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">A</span><span class="mord mathdefault">d</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span></span></span></span>永在qwq</p>
-<ul>
-<li>1*2多米诺骨牌合法放置方案数,存在基础障碍位置</li>
-<li>你需要确定n*m每个位置额外成为障碍时的答案</li>
-</ul>
-<p>一看就很自闭,所以我们考虑枚举每个位置是否为障碍</p>
-<p>然后设计下状态,<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>[</mo><mi>j</mi><mo>]</mo><mo>[</mo><mi>S</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">f[i][j][S]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mclose">]</span></span></span></span>表示我目前在(i,j),长度为i+1的轮廓线插头状态</p>
-<ol>
-<li>如果这个线是横的,那么1是下插头,0为没有插头</li>
-<li>如果这个线是竖的,那么1是右插头,0是没</li>
-</ol>
-<p>eg:<img src="https://xiaxiaoguang.github.io/post-images/1587307200743.png" alt="" loading="lazy"></p>
-<p>然后考虑转移</p>
-<p>case1:这个格子是个障碍</p>
-<p>只有在都没有插头的时候才能转移</p>
-<p>case2:这个格子健全,但是同时有下和右插头</p>
-<p>命没了</p>
-<p>case3:只有右插头||只有下插头</p>
-<p>转移后竖线和这个横线都变成没插头状态</p>
-<p>case4:没插头</p>
-<p>如果右边不是障碍,那么可以右,同理可以放下</p>
-<p>当然,也可以空出这个格子qwq</p>
-<p>然后...好像没啥了啊</p>
-<p>等等,你发现他TLE了</p>
-<p>那么我们考虑优化枚举每个点的过程,我们从下到上和刚刚完全反着的做一遍,就可以通过上DP数组和下DP数组来拼出每个点做障碍的答案</p>
-<p>具体的,枚举到的点(i,j)只有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>[</mo><mi>j</mi><mo>]</mo><mo>[</mo><mi>S</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">f[i][j][S]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mclose">]</span></span></span></span>,<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>g</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>[</mo><mi>j</mi><mo>]</mo><mo>[</mo><mi>k</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">g[i][j][k]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mclose">]</span></span></span></span>的S和K都没有插头才能乘起来</p>
-<p>code:</p>
-<pre><code class="language-cpp">#include&lt;iostream&gt;
-#include&lt;cstdio&gt;
-#include&lt;cstring&gt;
-const int MAXN = 18;
-const int P = 1e9 + 7;
-using namespace std;
-int n, m, ma[20][20];
-int f[MAXN][MAXN][270000];
-int g[MAXN][MAXN][270000];
-int ans[20][20];
-
-void modify(int &amp;a, int b) {
-	a += b;
-	if(a &gt; P)a -= P;
-}
-
-int main() {
-	scanf(&quot;%d%d&quot;, &amp;n, &amp;m);
-	for(int i = 1; i &lt;= n; ++i) {
-		for(int j = 1; j &lt;= m; ++j) {
-			scanf(&quot;%d&quot;, &amp;ma[i][j]);
-			ma[i][j] ^= 1;
-            //强行^1
-		}
-	}
-	int max_state = (1 &lt;&lt; m + 1) - 1;
-	f[0][m][0] = 1;
-	for(int i = 1; i &lt;= n; ++i) {
-		for(int j = 0; j &lt;= max_state; ++j) {
-			modify(f[i][0][j &lt;&lt; 1], f[i - 1][m][j]);
-		}
-		for(int j = 1; j &lt;= m; ++j) {
-			for(int k = 0; k &lt;= max_state; ++k) {
-				int val = f[i][j - 1][k];
-				if(!val)continue;
-				int pl1 = (k &gt;&gt; j - 1) &amp; 1;
-				int pl2 = (k &gt;&gt; j) &amp; 1;
-				if(!ma[i][j]) {
-					if(!pl1 &amp;&amp; !pl2)modify(f[i][j][k], val);
-					//case 1,障碍
-				} else if(!pl1 &amp;&amp; !pl2) {
-					modify(f[i][j][k], val);
-					//case 4,不放
-					if(ma[i + 1][j])modify(f[i][j][k ^ (1 &lt;&lt; j - 1)], val);//放右插头
-					if(ma[i][j + 1])modify(f[i][j][k ^ (1 &lt;&lt; j)], val);
-                    //放下插头
-				} else if(!pl1 &amp;&amp; pl2) {
-					modify(f[i][j][k ^ (1 &lt;&lt; j)], val);
-                    //只能放个空了,这个是为了去掉
-				} else if(pl1 &amp;&amp; !pl2) {
-					modify(f[i][j][k ^ (1 &lt;&lt; j - 1)], val);
-				}
-
-			}
-		}
-	}
-	g[n + 1][1][0] = 1;
-	for(int i = n; i &gt; 0; --i) {//反着
-		for(int j = 0; j &lt;= max_state; ++j)modify(g[i][m + 1][j &gt;&gt; 1], g[i + 1][1][j]);
-		for(int j = m; j &gt; 0; --j) {//反着
-			for(int k = 0; k &lt;= max_state; ++k) {
-				int val = g[i][j + 1][k];
-                //从+1推
-				if(!val)continue;
-				int pl1 = (k &gt;&gt; j - 1) &amp; 1;
-				int pl2 = (k &gt;&gt; j) &amp; 1;
-				if(!ma[i][j]) {
-					if(!pl1 &amp;&amp; !pl2)modify(g[i][j][k], val);
-				} else if(!pl1 &amp;&amp; !pl2) {
-					modify(g[i][j][k], val);
-					if(ma[i - 1][j])modify(g[i][j][k ^ (1 &lt;&lt; j)], val);
-					if(ma[i][j - 1])modify(g[i][j][k ^ (1 &lt;&lt; j - 1)], val);
-				} else if(!pl1 &amp;&amp; pl2) {
-					modify(g[i][j][k ^ (1 &lt;&lt; j)], val);
-				} else if(pl1 &amp;&amp; !pl2)
-					modify(g[i][j][k ^ (1 &lt;&lt; j - 1)], val);
-			}
-		}
-	}
-	for(int i = 1; i &lt;= n; ++i) {
-		for(int j = 1; j &lt;= m; ++j) {
-			if(!ma[i][j])continue;
-			int now = max_state ^ (1 &lt;&lt; j - 1) ^ (1 &lt;&lt; j);
-			for(int k = now; k; k = (k - 1)&amp;now)//调用子集即可
-				modify(ans[i][j], 1ll * f[i][j - 1][k] * g[i][j + 1][k] % P);
-                //显然可以组合,当且仅当他们是一样的
-			modify(ans[i][j], 1ll * f[i][j - 1][0]*g[i][j + 1][0] % P);
-            //0也是好选择,减子集弄不到0
-		}
-	}
-	for(int i = 1; i &lt;= n; ++i) {
-		for(int j = 1; j &lt;= m; ++j) {
-			printf(&quot;%d &quot;, ans[i][j]);
-		}
-		puts(&quot;&quot;);
-	}
-	return 0;
-}
-</code></pre>
-<p>唉,学OI的热情下降?我博客图都很慢更新了</p>
 ]]></content>
     </entry>
 </feed>
