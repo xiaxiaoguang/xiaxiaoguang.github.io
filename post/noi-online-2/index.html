@@ -3,7 +3,7 @@
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>NOI Online #2 | 夏晓光(loveJY)的博客</title>
-<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1588042261121">
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1588063340780">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
 <link rel="alternate" type="application/atom+xml" title="NOI Online #2 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
@@ -31,7 +31,7 @@ T2 不defineintlonglong见祖宗
       <div class="main-content">
         <div class="site-header">
   <a href="https://xiaxiaoguang.github.io">
-  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1588042261121" alt="">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1588063340780" alt="">
   </a>
   <h1 class="site-title">
     夏晓光(loveJY)的博客
@@ -97,7 +97,7 @@ T2 不defineintlonglong见祖宗
                 2020-04-25
               </span>
               <span>
-                3 min read
+                10 min read
               </span>
               
                 <a href="https://xiaxiaoguang.github.io/tag/mVMqQDiCv/" class="post-tag">
@@ -169,7 +169,225 @@ T2 不defineintlonglong见祖宗
 <p>dp啊!</p>
 <p>dp[u][x]表示u的子树里选了x对子孙后代点对,然后你会发现我们转移就是一个背包卷一下</p>
 <p>...饿他好像就做完了?</p>
-<p>完结散花,代码等都写好了就发</p>
+<p>完结散花</p>
+<p>T1:</p>
+<p>code:</p>
+<pre><code class="language-cpp">#include&lt;cstring&gt;
+#include&lt;cstdio&gt;
+#include&lt;algorithm&gt;
+#define int long long
+using namespace std;
+int p1, p2, k;
+
+inline int gcd(int a, int b) {
+	return (b == 0) ? (a) : (gcd(b, a % b));
+}
+
+signed main() {
+	// freopen(&quot;color.in&quot;, &quot;r&quot;, stdin);
+	// freopen(&quot;color.out&quot;, &quot;w&quot;, stdout);
+	int T;
+	scanf(&quot;%lld&quot;, &amp;T);
+	while(T-- &gt; 0) {
+		scanf(&quot;%lld%lld%lld&quot;, &amp;p1, &amp;p2, &amp;k);
+		if(p1 &gt; p2)swap(p1, p2);
+		int st = gcd(p1, p2);
+		if(k == 1 &amp;&amp; p1 == p2) {
+			puts(&quot;No&quot;);
+			continue;
+		}
+		if ((k - 1)*p1 + st &lt; p2)puts(&quot;No&quot;);
+		else puts(&quot;Yes&quot;);
+	}
+	return 0;
+}
+</code></pre>
+<p>T2</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+#include&lt;vector&gt;
+using namespace std;
+#define int long long
+#define ll long long
+const int P = 1e9 + 7;
+const int MAXN = 5e6 + 7;
+vector&lt;int&gt; v;
+int pre[MAXN], a[MAXN], n;
+struct rec {
+	int sum;
+	ll ans, suf;
+	rec(): sum(0), ans(0) {};
+} tr[MAXN * 2];
+
+namespace seg {
+#define mid ((l+r)&gt;&gt;1)
+	int ls[MAXN], rs[MAXN], root, T;
+	inline rec pushup(rec ls, rec rs, int len) {
+		rec qwq;
+		// printf(&quot;%d %d %d %d  %d %d %d &quot;, ls.sum, rs.sum, ls.ans, rs.ans, ls.suf, rs.suf, len);
+		qwq.suf = ((rs.suf + 1ll * len * rs.sum % P) % P + ls.suf) % P;
+		qwq.ans = ((ls.ans + rs.sum * rs.sum * 1ll * len % P) % P + rs.ans) % P;
+		(qwq.ans += 2 * ls.suf % P * rs.sum % P) % P;
+		qwq.sum = ls.sum + rs.sum;
+		return qwq;
+	}
+	inline void modify(int &amp;k, int l, int r, int pos, int val) {
+		if(!k)k = ++T;
+		if(l == r) {
+			// printf(&quot;%d %d %d\n&quot;, l, r, pos);
+			tr[k].sum += val;
+			tr[k].suf = tr[k].sum;
+			tr[k].ans = tr[k].sum * tr[k].sum % P;
+			// printf(&quot;%d %d %d\n&quot;, tr[k].ans, tr[k].sum, tr[k].suf);
+
+			return ;
+		}
+		if(pos &lt;= mid)modify(ls[k], l, mid, pos, val);
+		else modify(rs[k], mid + 1, r, pos, val);
+		// printf(&quot;!@#%d %d\n&quot;, l, r);
+		tr[k] = pushup(tr[ls[k]], tr[rs[k]], mid + 1 - l);
+		// printf(&quot; !!%d %d\n&quot;, tr[k].ans, tr[k].sum);
+	}
+	inline rec query(int k, int l, int r, int L, int R) {
+		if(L &lt;= l &amp;&amp; r &lt;= R) {
+			return tr[k];
+		}
+		if(L &gt; mid)return query(rs[k], mid + 1, r, L, R);
+		if(R &lt;= mid)return query(ls[k], l, mid, L, R);
+		return pushup(query(ls[k], l, mid, L, R), query(rs[k], mid + 1, r, L, R), mid + 1 - l);
+	}
+#undef mid
+}
+
+inline int getid(int x) {
+	return lower_bound(v.begin(), v.end(), x) - v.begin() + 1;
+}
+
+inline void init() {
+	sort(v.begin(), v.end());
+	v.erase(unique(v.begin(), v.end()), v.end());
+	for(int i = 1; i &lt;= n; ++i) {
+		a[i] = getid(a[i]);
+		// printf(&quot;%d\n&quot;, a[i]);
+	}
+	return;
+}
+
+signed main() {
+	// freopen(&quot;sequence.in&quot;, &quot;r&quot;, stdin);
+	// freopen(&quot;sequence.out&quot;, &quot;w&quot;, stdout);
+
+	scanf(&quot;%lld&quot;, &amp;n);
+	for(int i = 1; i &lt;= n; ++i) {
+		scanf(&quot;%lld&quot;, &amp;a[i]);
+		v.push_back(a[i]);
+	}
+	init();
+	memset(pre, -1, sizeof(pre));
+
+	ll A = 0;
+	for(int i = 1; i &lt;= n; ++i) {
+		if(pre[a[i]] != -1)
+			seg::modify(seg::root, 1, n, pre[a[i]], -1);
+		seg::modify(seg::root, 1, n, i, 1);
+		pre[a[i]] = i;
+		rec tmp = seg::query(seg::root, 1, n, 1, i);
+		// printf(&quot;\n%d^ %d?\n&quot;, tmp.sum, tmp.ans);
+		A = (A + tmp.ans) % P;
+	}
+	printf(&quot;%lld\n&quot;, A);
+	return 0;
+}
+</code></pre>
+<p>T3</p>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+#define add(x,y) (ct(x,y),ct(y,x))
+using namespace std;
+#define int long long
+#define ll long long
+const int MAXN = 5050, P = 998244353;
+int n, m, siz[MAXN], siz1[MAXN], sz[MAXN], c[MAXN][MAXN], A[MAXN], B[MAXN];
+int dp[MAXN][MAXN], ccnt;
+int home[MAXN * 2], nxt[MAXN * 2], to[MAXN * 2];
+char s[MAXN];
+
+
+inline void ct(const int &amp;u, const int &amp;v) {
+	ccnt++;
+	nxt[ccnt] = home[u];
+	home[u] = ccnt;
+	to[ccnt] = v;
+}
+
+inline void dfs(int u, int F) {
+	dp[u][0] = 1;
+	sz[u] = 1;
+	for(int i = home[u]; i; i = nxt[i]) {
+		int v = to[i];
+		// printf(&quot;%d %d\n&quot;, u, v);
+		if(v == F)continue;
+		dfs(v, u);
+		vector&lt;int&gt; tmp(sz[u] + sz[v] + 1);
+		for(int i = 0; i &lt;= sz[u]; ++i) {
+			for(int j = 0; j &lt;= sz[v]; ++j) {
+				tmp[i + j] = (tmp[i + j] + 1ll * dp[u][i] * dp[v][j] % P) % P;
+			}
+		}
+		sz[u] += sz[v];
+		siz[u] += siz[v];
+		siz1[u] += siz1[v];
+		for(int i = 0; i &lt;= sz[u]; ++i)dp[u][i] = tmp[i];
+	}
+	// printf(&quot;%d %d %d %d\n&quot;, u, sz[u], siz[u], siz1[u]);
+	if(s[u] == '0') {
+		++siz[u];
+		for(int i = siz1[u] - 1; i &gt;= 0; --i) {
+			dp[u][i + 1] = (dp[u][i + 1] + dp[u][i] * 1ll * (siz1[u] - i) % P) % P;
+		}
+	} else {
+		++siz1[u];
+		for(int i = siz[u] - 1; i &gt;= 0; --i) {
+			dp[u][i + 1] = (dp[u][i + 1] + dp[u][i] * 1ll * (siz[u] - i) % P) % P;
+		}
+	}
+}
+
+inline void inv(int *A, int *B, int n) {
+	for(int i = 0; i &lt;= n; ++i) {
+		for(int d = i; d &lt;= n; ++d) {
+			if((d - i) &amp; 1)B[i] = (B[i] - c[d][i] * 1ll * A[d] % P + P) % P;
+			else B[i] = (B[i] + c[d][i] * A[d] % P) % P;
+		}
+	}
+}
+
+signed main() {
+	cin &gt;&gt; m;
+	cin &gt;&gt; (s + 1);
+	n = m / 2;
+	for(int i = 1; i &lt; m; ++i) {
+		int u, v;
+		cin &gt;&gt; u &gt;&gt; v;
+		add(u, v);
+	}
+	dfs(1, 0);
+	c[0][0] = 1;
+	vector&lt;int&gt; Pw(m + 1);
+	Pw[0] = 1;
+	for(int i = 1; i &lt;= m; ++i)Pw[i] = Pw[i - 1] * 1ll * i % P;
+	for(int i = 1; i &lt;= m; ++i) {
+		c[i][0] = c[i][i] = 1;
+		for(int j = 1; j &lt; i; ++j) {
+			c[i][j] = (c[i - 1][j] + c[i - 1][j - 1]) % P;
+		}
+	}
+	for(int i = 0; i &lt;= n; ++i)A[i] = 1ll * dp[1][i] * Pw[n - i] % P;// printf(&quot;%d??\n&quot;, A[i]);
+	inv(A, B, n);
+	for(int i = 0; i &lt;= n; ++i)printf(&quot;%d\n&quot;, B[i]);
+}
+</code></pre>
 
               </div>
               <div class="toc-container">
