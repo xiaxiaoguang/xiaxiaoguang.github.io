@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://xiaxiaoguang.github.io</id>
     <title>夏晓光(loveJY)的博客</title>
-    <updated>2020-04-30T23:36:33.442Z</updated>
+    <updated>2020-05-01T13:34:08.075Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://xiaxiaoguang.github.io"/>
     <link rel="self" href="https://xiaxiaoguang.github.io/atom.xml"/>
@@ -10,6 +10,43 @@
     <logo>https://xiaxiaoguang.github.io/images/avatar.png</logo>
     <icon>https://xiaxiaoguang.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 夏晓光(loveJY)的博客</rights>
+    <entry>
+        <title type="html"><![CDATA[CF518D Ilya and Escalator]]></title>
+        <id>https://xiaxiaoguang.github.io/post/cf518d-ilya-and-escalator/</id>
+        <link href="https://xiaxiaoguang.github.io/post/cf518d-ilya-and-escalator/">
+        </link>
+        <updated>2020-05-01T13:29:32.000Z</updated>
+        <content type="html"><![CDATA[<p>这个咋弄啊?qwq</p>
+<p>有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 个人排成一列,,, 每秒中队伍最前面的人<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>p</mi></mrow><annotation encoding="application/x-tex">p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">p</span></span></span></span> 的概率走上电梯( 一旦走上就不会下电梯), 或者有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mo>−</mo><mi>p</mi></mrow><annotation encoding="application/x-tex">1-p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">p</span></span></span></span> 的概率不动</p>
+<p>问你<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>T</mi></mrow><annotation encoding="application/x-tex">T</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span></span></span></span> 秒过后,,, 在电梯上的人的数量的期望...</p>
+<p>然后咋做呢?</p>
+<p>直接DP,记f[i][j]表示第i秒有j个人的期望</p>
+<p>转移直接转移就做完了</p>
+<p>然后code:</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+const int MAXN = 2e3 + 7;
+int n, m;
+double p;
+double dp[MAXN][MAXN];
+
+int main() {
+	scanf(&quot;%d&quot;, &amp;n);
+	scanf(&quot;%lf&quot;, &amp;p);
+	scanf(&quot;%d&quot;, &amp;m);
+	for(int i = 1; i &lt;= n; ++i) {
+		for(int j = 1; j &lt;= m; ++j) {
+			dp[i][j] = (1 - p) * dp[i][j - 1] + p * (dp[i - 1][j - 1] + 1);
+		}
+	}
+	printf(&quot;%lf\n&quot;, dp[n][m]);
+	return 0;
+}
+</code></pre>
+<p>你注定要毁灭这个你活了一辈子的世界,这是你一生的悲哀</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[P6185 [NOI Online #1 提高组]序列（民间数据）]]></title>
         <id>https://xiaxiaoguang.github.io/post/p6185-noi-online-1-ti-gao-zu-xu-lie-min-jian-shu-ju/</id>
@@ -1097,67 +1134,6 @@ int main() {
 			mac2.ins(T[i] - 'a', 0);
 		}
 		printf(&quot;%lld\n&quot;, mac2.calc(p));
-	}
-	return 0;
-}
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[P5074 Eat the Trees]]></title>
-        <id>https://xiaxiaoguang.github.io/post/p5074-eat-the-trees/</id>
-        <link href="https://xiaxiaoguang.github.io/post/p5074-eat-the-trees/">
-        </link>
-        <updated>2020-04-21T14:43:13.000Z</updated>
-        <content type="html"><![CDATA[<p>国家队队长李佳衡推荐插头DP练习题</p>
-<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mi>r</mi><mi>z</mi><mi>l</mi><mi>j</mi><mi>h</mi></mrow><annotation encoding="application/x-tex">Orzljh</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mord mathdefault">h</span></span></span></span></p>
-<p>不过这个题经过兔队之手真的好简单的样子啊</p>
-<p>直接设计状态f[S],S的0/1表示轮廓线上这一位有没有插头</p>
-<p>然后考虑继承前一个状态?直接右移1</p>
-<p>然后分类讨论吧</p>
-<p>考虑上面和左边的是0还是1</p>
-<p>case1: 11</p>
-<p>那么我们只能把他们在这个合成一个,不能向下右转移,00</p>
-<p>case2:10</p>
-<p>右边可以随便延伸或者停止,10,01,00</p>
-<p>case3:01</p>
-<p>好像和case2一样啊</p>
-<p>case3:00</p>
-<p>好像除了不铺线可以自由发挥啊,也就是说我们可以转移到10,01,11</p>
-<p>总结一下,如果为00那我们可以转移到他某位异或</p>
-<p>如果已获知为1可以转移到00和异或一样的</p>
-<p>11只能转移00</p>
-<p>code:</p>
-<pre><code class="language-cpp">#include&lt;iostream&gt;
-#include&lt;cstdio&gt;
-#include&lt;cstring&gt;
-#define ll long long
-int T, n, m, s, c[12][12];
-ll f[1 &lt;&lt; 13], g[1 &lt;&lt; 13];
-int main() {
-	for(scanf(&quot;%d&quot;, &amp;T); T--;) {
-		scanf(&quot;%d%d&quot;, &amp;n, &amp;m);
-		s = (1 &lt;&lt; m + 1);
-		for(int i = 0; i &lt; n; ++i) {
-			for(int j = 0; j &lt; m; ++j) {
-				scanf(&quot;%d&quot;, &amp;c[i][j]);
-			}
-		}
-		for(int i = 0; i &lt; s; ++i)g[i] = 0;
-		g[0] = 1;
-		for(int i = 0; i &lt; n; ++i) {
-			for(int j = 0; j &lt; m; ++j) {
-				for(int k = 0; k &lt; s; ++k)
-					f[k] = j ? g[k] : (k &amp; 1 ? 0 : g[k &gt;&gt; 1]);//滚动数组
-
-				if(!c[i][j])
-					for(int k = 0; k &lt; s; ++k)g[k] = k &gt;&gt; j &amp; 3 ? 0 : f[k];//不能铺线,最后一定由0,0转移来
-				else
-					for(int k = 0; k &lt; s; ++k)g[k] = f[k ^ 3 &lt;&lt; j] + ((k &gt;&gt; j &amp; 1) ^ (k &gt;&gt; j + 1 &amp; 1) ? f[k] : 0);//不一样可以再一个转移
-				//这个是直接做,考虑总结规律?
-			}
-		}
-		printf(&quot;%lld\n&quot;, g[0]);//有一个插头都不行
 	}
 	return 0;
 }

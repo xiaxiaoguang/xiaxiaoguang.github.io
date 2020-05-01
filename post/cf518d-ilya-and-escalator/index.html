@@ -2,23 +2,21 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>P5074 Eat the Trees | 夏晓光(loveJY)的博客</title>
+<title>CF518D Ilya and Escalator | 夏晓光(loveJY)的博客</title>
 <link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1588340009602">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="P5074 Eat the Trees | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="alternate" type="application/atom+xml" title="CF518D Ilya and Escalator | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 
 
-    <meta name="description" content="国家队队长李佳衡推荐插头DP练习题
-OrzljhOrzljhOrzljh
-不过这个题经过兔队之手真的好简单的样子啊
-直接设计状态f[S],S的0/1表示轮廓线上这一位有没有插头
-然后考虑继承前一个状态?直接右移1
-然后分类讨论吧
-考虑上面和..." />
-    <meta name="keywords" content="状态压缩,插头DP,动态规划" />
+    <meta name="description" content="这个咋弄啊?qwq
+有nnn 个人排成一列,,, 每秒中队伍最前面的人ppp 的概率走上电梯( 一旦走上就不会下电梯), 或者有1−p1-p1−p 的概率不动
+问你TTT 秒过后,,, 在电梯上的人的数量的期望...
+然后咋做呢?
+直接DP..." />
+    <meta name="keywords" content="培训题,概率,期望,动态规划" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
     <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
   </head>
@@ -86,22 +84,26 @@ OrzljhOrzljhOrzljh
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              P5074 Eat the Trees
+              CF518D Ilya and Escalator
             </h2>
             <div class="post-info">
               <span>
-                2020-04-21
+                2020-05-01
               </span>
               <span>
-                3 min read
+                2 min read
               </span>
               
-                <a href="https://xiaxiaoguang.github.io/tag/TN_5AiIbO/" class="post-tag">
-                  # 状态压缩
+                <a href="https://xiaxiaoguang.github.io/tag/GZNzWf9EG/" class="post-tag">
+                  # 培训题
                 </a>
               
-                <a href="https://xiaxiaoguang.github.io/tag/d-lHOvQnoE/" class="post-tag">
-                  # 插头DP
+                <a href="https://xiaxiaoguang.github.io/tag/tiQQY2AsE/" class="post-tag">
+                  # 概率
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/XzVbJ7xF8I/" class="post-tag">
+                  # 期望
                 </a>
               
                 <a href="https://xiaxiaoguang.github.io/tag/CJ-ugjBAY/" class="post-tag">
@@ -110,63 +112,39 @@ OrzljhOrzljhOrzljh
               
             </div>
             
-              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/4pNOqgOvBLvj4yTC9qc55Tt91MLwRjoegWM1*yAOOCOawnPXM.LOgsc82kDtFdTJUIpUTiZncwPLM2vcnnkcgaZoVmFdn7btI0INsIgJZus!/r" alt="">
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/4pNOqgOvBLvj4yTC9qc55eEV3t.SiVQxpkKbK2kav5J5yj2UTYWLDNCRIafOkgZ*dRbyoRbpnf*jjiDiDy5zCnCNMf*DeEFzhtxzvaFLF7M!/r" alt="">
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <p>国家队队长李佳衡推荐插头DP练习题</p>
-<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mi>r</mi><mi>z</mi><mi>l</mi><mi>j</mi><mi>h</mi></mrow><annotation encoding="application/x-tex">Orzljh</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mord mathdefault">h</span></span></span></span></p>
-<p>不过这个题经过兔队之手真的好简单的样子啊</p>
-<p>直接设计状态f[S],S的0/1表示轮廓线上这一位有没有插头</p>
-<p>然后考虑继承前一个状态?直接右移1</p>
-<p>然后分类讨论吧</p>
-<p>考虑上面和左边的是0还是1</p>
-<p>case1: 11</p>
-<p>那么我们只能把他们在这个合成一个,不能向下右转移,00</p>
-<p>case2:10</p>
-<p>右边可以随便延伸或者停止,10,01,00</p>
-<p>case3:01</p>
-<p>好像和case2一样啊</p>
-<p>case3:00</p>
-<p>好像除了不铺线可以自由发挥啊,也就是说我们可以转移到10,01,11</p>
-<p>总结一下,如果为00那我们可以转移到他某位异或</p>
-<p>如果已获知为1可以转移到00和异或一样的</p>
-<p>11只能转移00</p>
-<p>code:</p>
+                <p>这个咋弄啊?qwq</p>
+<p>有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 个人排成一列,,, 每秒中队伍最前面的人<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>p</mi></mrow><annotation encoding="application/x-tex">p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">p</span></span></span></span> 的概率走上电梯( 一旦走上就不会下电梯), 或者有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mo>−</mo><mi>p</mi></mrow><annotation encoding="application/x-tex">1-p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">p</span></span></span></span> 的概率不动</p>
+<p>问你<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>T</mi></mrow><annotation encoding="application/x-tex">T</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span></span></span></span> 秒过后,,, 在电梯上的人的数量的期望...</p>
+<p>然后咋做呢?</p>
+<p>直接DP,记f[i][j]表示第i秒有j个人的期望</p>
+<p>转移直接转移就做完了</p>
+<p>然后code:</p>
 <pre><code class="language-cpp">#include&lt;iostream&gt;
 #include&lt;cstdio&gt;
 #include&lt;cstring&gt;
-#define ll long long
-int T, n, m, s, c[12][12];
-ll f[1 &lt;&lt; 13], g[1 &lt;&lt; 13];
-int main() {
-	for(scanf(&quot;%d&quot;, &amp;T); T--;) {
-		scanf(&quot;%d%d&quot;, &amp;n, &amp;m);
-		s = (1 &lt;&lt; m + 1);
-		for(int i = 0; i &lt; n; ++i) {
-			for(int j = 0; j &lt; m; ++j) {
-				scanf(&quot;%d&quot;, &amp;c[i][j]);
-			}
-		}
-		for(int i = 0; i &lt; s; ++i)g[i] = 0;
-		g[0] = 1;
-		for(int i = 0; i &lt; n; ++i) {
-			for(int j = 0; j &lt; m; ++j) {
-				for(int k = 0; k &lt; s; ++k)
-					f[k] = j ? g[k] : (k &amp; 1 ? 0 : g[k &gt;&gt; 1]);//滚动数组
+const int MAXN = 2e3 + 7;
+int n, m;
+double p;
+double dp[MAXN][MAXN];
 
-				if(!c[i][j])
-					for(int k = 0; k &lt; s; ++k)g[k] = k &gt;&gt; j &amp; 3 ? 0 : f[k];//不能铺线,最后一定由0,0转移来
-				else
-					for(int k = 0; k &lt; s; ++k)g[k] = f[k ^ 3 &lt;&lt; j] + ((k &gt;&gt; j &amp; 1) ^ (k &gt;&gt; j + 1 &amp; 1) ? f[k] : 0);//不一样可以再一个转移
-				//这个是直接做,考虑总结规律?
-			}
+int main() {
+	scanf(&quot;%d&quot;, &amp;n);
+	scanf(&quot;%lf&quot;, &amp;p);
+	scanf(&quot;%d&quot;, &amp;m);
+	for(int i = 1; i &lt;= n; ++i) {
+		for(int j = 1; j &lt;= m; ++j) {
+			dp[i][j] = (1 - p) * dp[i][j - 1] + p * (dp[i - 1][j - 1] + 1);
 		}
-		printf(&quot;%lld\n&quot;, g[0]);//有一个插头都不行
 	}
+	printf(&quot;%lf\n&quot;, dp[n][m]);
 	return 0;
 }
 </code></pre>
+<p>你注定要毁灭这个你活了一辈子的世界,这是你一生的悲哀</p>
 
               </div>
               <div class="toc-container">
@@ -179,9 +157,9 @@ int main() {
         
           <div class="next-post">
             <div class="next">下一篇</div>
-            <a href="https://xiaxiaoguang.github.io/post/cf576e-painting-edges/">
+            <a href="https://xiaxiaoguang.github.io/post/p6185-noi-online-1-ti-gao-zu-xu-lie-min-jian-shu-ju/">
               <h3 class="post-title">
-                CF576E Painting Edges
+                P6185 [NOI Online #1 提高组]序列（民间数据）
               </h3>
             </a>
           </div>
