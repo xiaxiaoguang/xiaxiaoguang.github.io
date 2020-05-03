@@ -1,0 +1,489 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>多省省选联考全真模拟考试2 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1588517027386">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="多省省选联考全真模拟考试2 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="http://csp.ac/contest/10
+T1
+带插入可离线区间mex(亵渎)?
+首先可以离线把这个插入变成一个修改操作,然后变成带修区间mex
+这个可以整体二分,考虑一个询问怎么二分,因为如果1~mid的数都出现的话那么这个询问后..." />
+    <meta name="keywords" content="生成函数,时间分块,比赛题,整体二分,bitset" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1588517027386" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              多省省选联考全真模拟考试2
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-05-03
+              </span>
+              <span>
+                9 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/-ZuT67jZd/" class="post-tag">
+                  # 生成函数
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/RzFyLc9iRa/" class="post-tag">
+                  # 时间分块
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/A3FIICRYA/" class="post-tag">
+                  # 比赛题
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/DjesUT3xSE/" class="post-tag">
+                  # 整体二分
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/1o93BnutI/" class="post-tag">
+                  # bitset
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/4pNOqgOvBLvj4yTC9qc55ccMxuVddT4p3acuWvq5QILjaGWvimLFQzWxcGSkD39.Cy*3Ae7sCzlbexBSwkm7*IGPyRSjepYstoT.fLHTyE0!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>http://csp.ac/contest/10</p>
+<p>T1</p>
+<p>带插入可离线区间mex(亵渎)?</p>
+<p>首先可以离线把这个插入变成一个修改操作,然后变成带修区间mex</p>
+<p>这个可以整体二分,考虑一个询问怎么二分,因为如果1~mid的数都出现的话那么这个询问后面所有位置上的数的前驱一定在大于l的位置才能是保证这个查询的答案能在<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mn>1</mn><mtext> </mtext><mi>m</mi><mi>i</mi><mi>d</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">[1~mid]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">1</span><span class="mspace nobreak"> </span><span class="mord mathdefault">m</span><span class="mord mathdefault">i</span><span class="mord mathdefault">d</span><span class="mclose">]</span></span></span></span></p>
+<p>然后这个可以预处理一个pre数组,就是记录相同的值前一个位置在哪里</p>
+<p>然后这个查询就是r后面一直到n所有的在<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mn>1</mn><mtext> </mtext><mi>m</mi><mi>i</mi><mi>d</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">[1~mid]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">1</span><span class="mspace nobreak"> </span><span class="mord mathdefault">m</span><span class="mord mathdefault">i</span><span class="mord mathdefault">d</span><span class="mclose">]</span></span></span></span>位置上的值的pre都在l前面,相当于这个最小的pre要在l前面的则一定在前面</p>
+<p>你发现这个pre数组可以用线段树维护区间查询,同时用不同的set维护每个值的前驱后继</p>
+<p>最后把这个过程放到整体二分上qwq</p>
+<p>T2</p>
+<p>唯一切掉的题qaq</p>
+<p>这么搞?dag还要求能到所有的点?bitset压一下吧?但是就好像要MLE</p>
+<p>所以我们可以分个块啥的来浪费时间换空间?</p>
+<p>哎?我们这个一二操作好像不错,很适合时间分块啊</p>
+<p>但是时间分块怎么重构啊?不太能同时兼容这个min和重构啊</p>
+<p>所以稍微转化一下,变成最近的赋值到现在所有的min取min</p>
+<p>然后修改分块后询问分三种:(注意下文我们是从最后一个块到之前的块)</p>
+<ol>
+<li>如果出现时间小于修改块内右端点,就考虑他是不是在块内呢,然后如果在块内我们就意味着这是最后一个还可能对他造成影响的区间了,那么就可以把这部分的min算给他,之后把这个位置换到后面弃掉</li>
+</ol>
+<p>否则就是在块前面,我们还盘不到他,之后时间提前之后再盘他</p>
+<ol start="2">
+<li>否则如果他在之后而且他的查询有赋值操作</li>
+</ol>
+<p>那么我们就把当前赋值当做最后一次赋值来算,然后把min的贡献一并算一下,之后把这个操作放后面之后处理</p>
+<ol start="3">
+<li>否则就是一个随便去个min的操作然后跳到下个</li>
+</ol>
+<p>这样就做完啦!</p>
+<p>T3</p>
+<p>有点难搞</p>
+<p>好像是每个点上存一个生成函数,然后直接乘一个多项式或者除一个多项式qwq不太会啊qaq</p>
+<p>code(只有T2)<br>
+T2</p>
+<pre><code class="language-cpp">//废了
+#include&lt;bitset&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;iostream&gt;
+#include&lt;algorithm&gt;
+#define CT const int&amp;
+using std::bitset;
+using std::swap;
+using std::min;
+const int MAXN = 1e5 + 7;
+const int SIZ = 333;
+namespace fastIO {
+#define BUF_SIZE (1&lt;&lt;19)
+    static char buf[BUF_SIZE], *p1 = buf + BUF_SIZE, *pend = buf + BUF_SIZE;
+    inline char nc() {
+        if(p1 == pend) {
+            p1 = buf;
+            pend = buf + fread(buf, 1, BUF_SIZE, stdin);
+        }
+        return *p1++;
+    }
+    inline int read() {
+        int x = 0, f = 1;
+        char s = nc();
+        for(; !isdigit(s); s = nc())if(s == '-')f = -1;
+        for(; isdigit(s); s = nc())x = (x &lt;&lt; 1) + (x &lt;&lt; 3) + s - '0';
+        return x * f;
+    }
+}
+using namespace fastIO;
+
+int n, m, Q, ccnt;
+bitset&lt;SIZ&gt; bs[MAXN];//...
+int home[MAXN], nxt[MAXN * 3], to[MAXN * 3], minx[MAXN];
+int in[MAXN], top[MAXN], vis[MAXN], ans[MAXN];
+struct ask {
+    int opt, u, x, i;
+} qry[MAXN], mdf[MAXN];
+inline void ct(CT x, CT y) {
+    ccnt++;
+    nxt[ccnt] = home[x];
+    home[x] = ccnt;
+    to[ccnt] = y;
+    in[y]++;
+}
+
+inline void tpsort() {
+    static int que[MAXN];
+    int R = 0, tp = 0;
+    for(int i = 1; i &lt;= n; ++i) {
+        if(!in[i]) {
+            que[++R] = i;
+        }
+    }
+    while(R) {
+        int u = que[R];
+        top[++tp] = u;
+        --R;
+        for(int i = home[u], v; i; i = nxt[i]) {
+            v = to[i];
+            if(--in[v] == 0) {
+                que[++R] = v;
+            }
+        }
+    }
+    return ;
+}
+
+inline void init(int l, int r) {
+    for(int i = n; i; --i)bs[i].reset();//块内暴力处理连通性
+    for(int x = l; x &lt;= r; ++x)
+        bs[mdf[x].u][x - l] = 1;
+    for(int k = 1; k &lt;= n; ++k) {
+        int u = top[k];
+        for(int i = home[u]; i; i = nxt[i]) {
+            int v = to[i];
+            bs[v] |= bs[u];//这里应该手写bitset的
+        }
+    }
+    // for(int i = 1; i &lt;= n; ++i) {
+    //     printf(&quot;%d\n&quot;, top[i]);
+    //     for(int j = 0; j &lt;= r - l; ++j) {
+    //         if(bs[top[i]][j])printf(&quot;%d &quot;, j + l);
+    //     }
+    //     puts(&quot;qwq&quot;);
+    // }
+    return ;
+}
+
+inline void fuzhi(int l, int r) {
+    // printf(&quot;%d %d\n&quot;, l, r);
+    memset(vis, 0, sizeof(vis));
+    for(int i = l; i &lt;= r; ++i) {
+        if(mdf[i].opt == 1) {
+            vis[mdf[i].u] = 1;
+            // printf(&quot;%d?\n&quot;, mdf[i].u);
+        }
+    }
+    for(int k = 1; k &lt;= n; ++k) {
+        int u = top[k];
+        if(vis[u]) {
+            for(int i = home[u]; i; i = nxt[i]) {
+                int v = to[i];
+                vis[v] = 1;
+            }
+        }
+    }
+    // for(int i = 1; i &lt;= n; ++i)if(vis[i])printf(&quot;%dqwq &quot;, i);
+    //不能直接翻bitset!
+}
+
+inline void qumin(int l, int r) {
+    memset(minx, 0x3f3f3f3f, sizeof(minx));
+    for(int i = l; i &lt;= r; ++i) {
+        if(mdf[i].opt == 2)
+            minx[mdf[i].u] = min(minx[mdf[i].u], mdf[i].x);
+    }
+    for(int k = 1; k &lt;= n; ++k) {
+        int u = top[k];
+        for(int i = home[u]; i; i = nxt[i]) {
+            int v = to[i];
+            minx[v] = min(minx[v], minx[u]);
+        }
+    }
+    // for(int i = 1; i &lt;= n; ++i)printf(&quot;%d &quot;, minx[i]);
+    // puts(&quot;QWQ&quot;);
+}
+
+int ql, ml;
+inline void solve(int L, int R) {
+    init(L, R);
+    fuzhi(L, R);
+    qumin(L, R);
+    int id = ql;
+    for(; id &amp;&amp; qry[id - 1].i &gt; mdf[L].i; --id); //提取
+    // printf(&quot;%d\n&quot;, id);
+    while(id &lt; ql) {
+        // if(qry[id].i == 15)puts(&quot;QWQ&quot;);
+        if(qry[id].i &lt; mdf[R].i) {
+            // puts(&quot;!&quot;);
+            int tmp = R;
+
+            for(; mdf[tmp].i &gt; qry[id].i; --tmp);
+            //回
+            // printf(&quot;%d!!!\n&quot;, tmp);
+            for(; tmp &gt;= L; --tmp) {
+                if(bs[qry[id].u][tmp - L]) {
+                    ans[qry[id].i] = min(ans[qry[id].i], mdf[tmp].x);
+                    // if(qry[id].i == 15)printf(&quot;%d\n&quot;, ans[15]);
+                    //2
+                    if(mdf[tmp].opt == 1) {
+                        swap(qry[id], qry[--ql]);
+                        // printf(&quot;%d %d %d %d\n&quot;, id, ql, qry[id].i, qry[id].u);
+                        //重来
+                        break;
+                    }
+                }
+            }
+            // printf(&quot;%d %d\n&quot;, tmp, L);
+            id += tmp &lt; L;
+            // printf(&quot;%d %d\n&quot;, id, ql);
+        } else if(vis[qry[id].u]) {//已经有赋值
+            // puts(&quot;?&quot;);
+            int tmp = R;
+
+            for(; mdf[tmp].opt == 2 || !bs[qry[id].u][tmp - L]; --tmp)
+                if(mdf[tmp].opt == 2 &amp;&amp; bs[qry[id].u][tmp - L]) {
+                    ans[qry[id].i] = min(ans[qry[id].i], mdf[tmp].x);//取min
+                    // printf(&quot;%d^&quot;, ans[ qry[id].i]);
+                }
+            ans[qry[id].i] = min(ans[qry[id].i], mdf[tmp].x);
+
+            swap(qry[id], qry[--ql]);
+            // printf(&quot;%d %d %d %d\n&quot;, id, ql, qry[id].i, qry[id].u);
+
+        } else {
+            // puts(&quot;O&quot;);
+
+            ans[qry[id].i] = min(ans[qry[id].i], minx[qry[id].u]);
+            ++id;
+        }
+        // printf(&quot;%d %d\n&quot;, id, ql);
+
+    }
+    //艹,全是锅
+}
+
+int main() {
+    // freopen(&quot;test.in&quot;, &quot;r&quot;, stdin);
+    // freopen(&quot;T2.out&quot;, &quot;w&quot;, stdout);
+
+    n = read();
+    m = read();
+    Q = read();
+    memset(ans, 0x3f3f3f3f, sizeof(ans));
+    for(int i = 1, x, y; i &lt;= m; ++i) {
+        x = read();
+        y = read();
+        ct(x, y);
+    }
+    tpsort();
+    ql = 0, ml = 0;
+    for(int i = 1; i &lt;= Q; ++i) {
+        mdf[ml].opt = read();
+        if(mdf[ml].opt &lt;= 2) {//修改
+            mdf[ml].u = read();
+            mdf[ml].x = read();
+            mdf[ml++].i = i;
+        } else {
+            qry[ql].u = read();
+            qry[ql++].i = i;
+        }
+    }
+
+    ml--;
+    int L = ml - ml % SIZ, R = ml;
+    while(L &gt;= 0) {
+        solve(L, R);
+        R = L - 1;
+        L -= SIZ;
+    }
+    // printf(&quot;%d?\n&quot;, ql);
+    while(ql--)ans[qry[ql].i] = 0;
+    for(int i = 1; i &lt;= Q; ++i) {
+        // printf(&quot;%d %d?\n&quot;, i, ans[i]);
+        if(ans[i] &lt;= 1e9)
+            printf(&quot;%d\n&quot;, ans[i]);
+    }
+    return 0;
+}
+
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/duo-sheng-sheng-xuan-lian-kao-quan-zhen-mo-ni-kao-shi-3/">
+              <h3 class="post-title">
+                多省省选联考全真模拟考试3
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,556 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>多省省选联考全真模拟考试3 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1588517027386">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="多省省选联考全真模拟考试3 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="http://csp.ac/contest/11
+最重要的是对998244353取模
+加上这个取模就200了qwq
+T1
+所有区间第k大和
+考虑排序之后从小到大删除,然后对于一个数,他能当第k大当且仅当他在删完后的序列中有一个区间包括他同时..." />
+    <meta name="keywords" content="比赛题,线段树合并,AC自动机,矩阵乘法" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1588517027386" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              多省省选联考全真模拟考试3
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-05-03
+              </span>
+              <span>
+                11 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/A3FIICRYA/" class="post-tag">
+                  # 比赛题
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/i5COEV3Vw/" class="post-tag">
+                  # 线段树合并
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/BaS68NENpD/" class="post-tag">
+                  # AC自动机
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/_CKsGgMkB/" class="post-tag">
+                  # 矩阵乘法
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/4pNOqgOvBLvj4yTC9qc55b.kzhWcZ1nyB0I0v9kETHyqkCeeZjYykEb3yPVsFaK7Xt4uTsazE..MdNO*c6pFR8jW8gOUIEZdCCq9YjBcoNo!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>http://csp.ac/contest/11</p>
+<h1 id="最重要的是对998244353取模">最重要的是对998244353取模</h1>
+<p>加上这个取模就200了qwq</p>
+<p>T1</p>
+<p>所有区间第k大和</p>
+<p>考虑排序之后从小到大删除,然后对于一个数,他能当第k大当且仅当他在删完后的序列中有一个区间包括他同时也正好包括k个点</p>
+<p>然后这个过程可以用一个链表维护删除,暴力去维护包括k个点的区间</p>
+<p>注意当前删除序列和实际序列的差别,是计数标准</p>
+<p>复杂度是O(nk+nlogn)的,跑了最快</p>
+<p>T3</p>
+<p>51nod原题...带边权联通分量计数</p>
+<p>先考虑每个边的贡献,然后补集转换</p>
+<p>考虑对于一条边两边的子树,如果一个区间不包括这个边那么一定在某子树有编号连续的一段</p>
+<p>所以我们对于一条边,把一边的子树全部标记,就是这个样子的</p>
+<p>----<strong><strong>----</strong></strong>__-----</p>
+<p>每一段都用<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi><mi>e</mi><mi>n</mi><mo>∗</mo><mo>(</mo><mi>l</mi><mi>e</mi><mi>n</mi><mo>+</mo><mn>1</mn><mo>)</mo><mi mathvariant="normal">/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">len*(len+1)/2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mord">/</span><span class="mord">2</span></span></span></span>作为代价求个和就能做完了</p>
+<p>但是我们还需要知道怎么快速求这个和以及怎么知道子树标记</p>
+<p>裸的线段树合并啊qwq</p>
+<p>T2</p>
+<p>考场上就看了一眼的题,因为直接想到AC自动机+矩乘,不太可做qwq</p>
+<p>第一问建出AC自动机直接搜索就好了,和最短不公共子串一个样</p>
+<p>第二问...dp[i][j][S]表示我长度为i,然后走到自动机j号点,然后经过状态为S,并且没有经过那些爆炸点</p>
+<p>所以转移直接枚举下一个放什么就好了</p>
+<p>然后第一维要是想矩乘的话那不能有三维啊</p>
+<p>所以我们要容斥掉第三维qwq怎么容呢</p>
+<p>考虑强制硬点走过几个,比如走过一个,我们第二维就到那个点的终止点</p>
+<p>然后<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mo>∑</mo><mi>S</mi></msub><mi>g</mi><mo>(</mo><mi>S</mi><msup><mo>)</mo><mi mathvariant="normal">∣</mi></msup><mi>S</mi><mi mathvariant="normal">∣</mi></mrow><annotation encoding="application/x-tex">\sum_Sg(S)^|S|</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.18771em;vertical-align:-0.29971000000000003em;"></span><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.17862099999999992em;"><span style="top:-2.40029em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.05764em;">S</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.29971000000000003em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8879999999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">∣</span></span></span></span></span></span></span></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord">∣</span></span></span></span>其中g(S)表示S集合都强制走过一遍方案数</p>
+<p>而且我们转移矩阵是G[i][j]表示从i-&gt;j号点一步的方案数</p>
+<p>如果j是个坏点就设置为0即可</p>
+<p>复杂度只有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>T</mi><mn>3</mn></msup><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">T^3logn</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.008548em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">n</span></span></span></span>?</p>
+<p>完结散花!</p>
+<p>code</p>
+<p>T1:</p>
+<pre><code class="language-cpp">
+//好像有点难写?
+//From Dawn light
+#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using std::sort;
+#define ll long long
+const int P = 998244353;
+const int MAXN = 3e6 + 7;
+int n, k;
+ll ans;
+int nxt[MAXN], pre[MAXN];
+int a[MAXN];
+struct rec {
+	int a, pos;
+	bool operator&lt;(const rec &amp;x)const {
+		return a &lt; x.a;
+	}
+} b[MAXN];
+
+namespace fastIO {
+#define BUF_SIZE (1&lt;&lt;19)
+	static char buf[BUF_SIZE], *p1 = buf + BUF_SIZE, *pend = buf + BUF_SIZE;
+	inline char nc() {
+		if(p1 == pend) {
+			p1 = buf;
+			pend = buf + fread(buf, 1, BUF_SIZE, stdin);
+		}
+		return *p1++;
+	}
+	inline int read() {
+		int x = 0, f = 1;
+		char s = nc();
+		for(; !isdigit(s); s = nc())if(s == '-')f = -1;
+		for(; isdigit(s); s = nc())x = (x &lt;&lt; 1) + (x &lt;&lt; 3) + s - '0';
+		return x * f;
+	}
+}
+using namespace fastIO;
+inline void init() {
+	for(int i = 1; i &lt;= n; ++i) {
+		nxt[i] = i + 1;
+		pre[i] = i - 1;
+	}
+	sort(b + 1, b + n + 1);
+	//qwq
+}
+
+inline void del(int x) {
+	pre[nxt[x]] = pre[x];
+	nxt[pre[x]] = nxt[x];
+}
+
+inline void chuli(int u, int l, int r) {//尺取即可
+	for(; l != nxt[u]; l = nxt[l], r = nxt[r]) {
+		if(r == n + 1)break;
+		ans = (ans + 1ll * (nxt[r] - r) * (l - pre[l]) % P * a[u] % P) % P;
+	}
+	return ;
+}
+
+inline void solve() {
+	for(int i = 1; i &lt;= n; ++i) {
+		int u = b[i].pos;
+		int l = u, r = u;
+		int cnt = 0;
+		for(cnt = 2; cnt &lt;= k ; ++cnt) {
+			// printf(&quot;%d %d?\n&quot;, l, pre[l]);
+			if(pre[l] != 0)l = pre[l];
+			else break;
+		}
+		for(; cnt &lt;= k; ++cnt) {
+			if(nxt[r] != n + 1)r = nxt[r];
+			else break;
+		}
+		// printf(&quot;%d %d %d? &quot;, cnt, l, r);
+		if(cnt &gt; k)chuli(u, l, r);
+		// printf(&quot;%d! \n&quot;, ans);
+		del(u);
+	}
+	// printf(&quot;%lld\n&quot;, ans);
+	return;
+}
+
+inline void solve2() {
+	for(int i = n; i &gt;= 1; --i) {
+		int u = b[i].pos;
+		int l = u, r = u;
+		int cnt = 0;
+		for(cnt = 2; cnt &lt;= k ; ++cnt) {
+			// printf(&quot;%d %d?\n&quot;, l, pre[l]);
+			if(pre[l] != 0)l = pre[l];
+			else break;
+		}
+		for(; cnt &lt;= k; ++cnt) {
+			if(nxt[r] != n + 1)r = nxt[r];
+			else break;
+		}
+		// printf(&quot;%d %d %d? &quot;, cnt, l, r);
+		if(cnt &gt; k)chuli(u, l, r);
+		// printf(&quot;%d! \n&quot;, ans);
+		del(u);
+	}
+}
+
+int main() {
+	// freopen(&quot;test.in&quot;, &quot;r&quot;, stdin);
+	// freopen(&quot;T1.out&quot;, &quot;w&quot;, stdout);
+	n = read();
+	k = read();
+	for(int i = 1; i &lt;= n; ++i) {
+		// scanf(&quot;%d&quot;, &amp;a[i]);
+		a[i] = read();
+		b[i].a = a[i];
+		b[i].pos = i;
+	}
+	init();
+	solve();
+	init();
+	solve2();
+	// ans = ((ans % P + P) % P);
+	printf(&quot;%lld\n&quot;, ans);
+	return 0;
+}
+</code></pre>
+<p>T3</p>
+<pre><code class="language-cpp">#pragma GCC optimize(2)
+#pragma G++ optimize(2)
+
+#include&lt;iostream&gt;
+#include&lt;cstring&gt;
+#include&lt;cstdio&gt;
+#include&lt;algorithm&gt;
+#define ll long long
+#define CT const int&amp;
+const int MAXN = 2e5 + 7;
+const int P = 998244353;
+namespace fastIO {
+#define BUF_SIZE (1&lt;&lt;19)
+	static char buf[BUF_SIZE], *p1 = buf + BUF_SIZE, *pend = buf + BUF_SIZE;
+	inline char nc() {
+		if(p1 == pend) {
+			p1 = buf;
+			pend = buf + fread(buf, 1, BUF_SIZE, stdin);
+		}
+		return *p1++;
+	}
+	inline int read() {
+		int x = 0, f = 1;
+		char s = nc();
+		for(; !isdigit(s); s = nc())if(s == '-')f = -1;
+		for(; isdigit(s); s = nc())x = (x &lt;&lt; 1) + (x &lt;&lt; 3) + s - '0';
+		return x * f;
+	}
+}
+using namespace fastIO;
+int ccnt, n;
+int home[MAXN], nxt[MAXN], to[MAXN], len[MAXN], dis[MAXN];
+inline void ct(CT x, CT y, CT z) {
+	ccnt++;
+	nxt[ccnt] = home[x];
+	home[x] = ccnt;
+	to[ccnt] = y;
+	len[ccnt] = z;
+}
+ll SUM, ans;
+struct rec {
+	int l1, r1, l2, r2;
+	//记录0/1
+	ll s;
+	rec(): l1(0), r1(0), l2(0), r2(0), s(0) {}
+} tr[MAXN &lt;&lt; 4];
+namespace seg {
+#define mid ((x+y)&gt;&gt;1)
+	int ls[MAXN &lt;&lt; 4], rs[MAXN &lt;&lt; 4], root[MAXN &lt;&lt; 4], T;
+	inline ll getval(ll x) {
+		return x * (x + 1) / 2;//不会爆
+	}
+	inline rec pushup(rec x, rec y, int lenl, int lenr) { //恶心...
+		rec nw;
+		// printf(&quot;lson %d %d %d %d %d rson %d %d %d %d %d merge \n&quot;, x.s, x.l1, x.r1, x.l2, x.r2, y.s, y.l1, y.r1, y.l2, y.r2);
+		nw.s = x.s + y.s;
+		nw.l1 = x.l1;
+		nw.l2 = x.l2;
+		nw.r1 = y.r1;
+		nw.r2 = y.r2;
+		if(x.r1 &amp;&amp; y.l1) {
+			nw.s -= getval(y.l1) + getval(x.r1);
+			nw.s += getval(x.r1 + y.l1);
+		}
+		if(y.l2 &amp;&amp; x.r2) {
+			nw.s -= getval(y.l2) + getval(x.r2);
+			nw.s += getval(x.r2 + y.l2);
+		}
+		if(x.l1 == lenl) {
+			// puts(&quot;QWQ&quot;);
+			nw.l1 += y.l1;
+		}
+		if(x.l2 == lenl) {
+			nw.l2 += y.l2;
+		}
+		if(y.r1 == lenr) {
+			nw.r1 += x.r1;
+		}
+		if(y.r2 == lenr) {
+			nw.r2 += x.r2;
+		}
+		// printf(&quot;is %d %d %d %d %d\n&quot;, nw.s, nw.l1, nw.r1, nw.l2, nw.r2);
+		return nw;
+	}
+	inline void modify(int &amp;k, int x, int y, int pos) {
+		if(!k)k = ++T;
+		if(x == y) {
+			tr[k].l1 = tr[k].r1 = 1;
+			tr[k].r2 = tr[k].l2 = 0;
+			tr[k].s = 1;
+			return ;
+		}
+		if(pos &lt;= mid)modify(ls[k], x, mid, pos);
+		else modify(rs[k], mid + 1, y, pos);
+		//单独处理
+		if(!ls[k]) {
+			ls[k] = ++T;
+			tr[T].l2 = tr[T].r2 = mid - x + 1;
+			tr[T].s = getval(mid - x + 1);
+		}
+		if(!rs[k]) {
+			rs[k] = ++T;
+			tr[T].l2 = tr[T].r2 = y - mid;
+			tr[T].s = getval(y - mid);
+		}
+		// printf(&quot;%d %d %d %d :\n&quot;, k, x, y, pos);
+		tr[k] = pushup(tr[ls[k]], tr[rs[k]], mid - x + 1, y - mid);
+	}
+#undef mid
+#define mid ((l+r)&gt;&gt;1)
+	//...
+	inline int merge(int x, int y, int l, int r) {
+		if(!x || !y)return x + y;
+		if(tr[x].l2 == r - l + 1)return y;
+		if(tr[y].l2 == r - l + 1)return x;
+		// printf(&quot;%d %d %d %d %d\n&quot;, x, y, l, r, mid);
+
+		ls[x] = merge(ls[x], ls[y], l, mid);
+		rs[x] = merge(rs[x], rs[y], mid + 1, r);
+		if(!ls[x]) {
+			ls[x] = ++T;
+			tr[T].l2 = tr[T].r2 = mid - l + 1;
+			tr[T].s = getval(mid - l + 1);
+		}
+		if(!rs[x]) {
+			rs[x] = ++T;
+			tr[T].l2 = tr[T].r2 = r - mid;
+			tr[T].s = getval(r - mid);
+		}
+
+		tr[x] = pushup(tr[ls[x]], tr[rs[x]], mid - l + 1, r - mid);
+		return x;
+	}
+}
+
+
+inline void dfs(int u, int F) {
+	// printf(&quot;%d %d?\n&quot;,  u, F);
+	for(int i = home[u]; i; i = nxt[i]) {
+		int v = to[i];
+		if(v != F) {
+			dis[v] = len[i];//每个点考虑父亲的边
+			dfs(v, u);
+			// printf(&quot;?????%d %d? &quot;, u, v);
+			seg::root[u] = seg::merge(seg::root[u], seg::root[v], 1, n); //线段树合并
+			// printf(&quot;???%d\n&quot;, seg::root[u]);
+		}
+	}
+	seg::modify(seg::root[u], 1, n, u);
+	// printf(&quot;%d %d %lld!\n&quot;, u, seg::root[u], tr[seg::root[u]].s);
+	ans = (ans + (((SUM - tr[seg::root[u]].s) % P + P) % P) * dis[u] % P) % P;
+}
+
+int main() {
+	// freopen(&quot;test.in&quot;, &quot;r&quot;, stdin);
+	// freopen(&quot;T3.out&quot;, &quot;w&quot;, stdout);
+	n = read();
+	for(int i = 1, x, y, z; i &lt; n; ++i) {
+		x = read();
+		y = read();
+		z = read();
+		// printf(&quot;%d %d %d*\n&quot;, x, y, z);
+		ct(x, y, z);
+		ct(y, x, z);
+	}
+	SUM = 1ll * n * (n + 1) / 2;
+	dfs(1, 0);
+	printf(&quot;%lld\n&quot;, ans);
+	return 0;
+}
+
+
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#%E6%9C%80%E9%87%8D%E8%A6%81%E7%9A%84%E6%98%AF%E5%AF%B9998244353%E5%8F%96%E6%A8%A1">最重要的是对998244353取模</a></li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/duo-sheng-sheng-xuan-lian-kao-quan-zhen-mo-ni-kao-shi-1/">
+              <h3 class="post-title">
+                多省省选联考全真模拟考试1
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
