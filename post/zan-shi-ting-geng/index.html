@@ -2,21 +2,21 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>P3826 [NOI2017]蔬菜 | 夏晓光(loveJY)的博客</title>
+<title>暂时停更 | 夏晓光(loveJY)的博客</title>
 <link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1588773719015">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="P3826 [NOI2017]蔬菜 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="alternate" type="application/atom+xml" title="暂时停更 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 
 
-    <meta name="description" content="NOI2017D2T2
-说实话,D2T2就这种程度吗?甚至不能称为黑题吧233
-开题不难发现我们再每天要准确做出一个决策才行,要不然这个数据范围根本动态规划不了的
-按照某种规律直接决策不就是贪心吗?
-而且这个也很像之前做的CF集训队作业题那..." />
-    <meta name="keywords" content="贪心,NOI系列,并查集" />
+    <meta name="description" content="现在的停息,只不过是暴风雨来临前的平静
+期中考试就在眼前
+我想,作为一个真正的OIer,你既要有面对失败永不退缩的勇气,又要有能在关键时候亮剑的实力
+我们可以看番,可以打游戏,可以翻墙,但是认真起来的时候绝对不同于常人!
+..." />
+    <meta name="keywords" content="" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
     <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
   </head>
@@ -84,92 +84,24 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              P3826 [NOI2017]蔬菜
+              暂时停更
             </h2>
             <div class="post-info">
               <span>
-                2020-03-20
+                2020-05-06
               </span>
               <span>
-                3 min read
+                1 min read
               </span>
-              
-                <a href="https://xiaxiaoguang.github.io/tag/m-043j5Q1/" class="post-tag">
-                  # 贪心
-                </a>
-              
-                <a href="https://xiaxiaoguang.github.io/tag/B3bL-fv2n/" class="post-tag">
-                  # NOI系列
-                </a>
-              
-                <a href="https://xiaxiaoguang.github.io/tag/o6mxNma8_/" class="post-tag">
-                  # 并查集
-                </a>
               
             </div>
             
-              <img class="post-feature-image" src="https://s1.ax1x.com/2020/03/20/82wzP1.jpg" alt="">
-            
             <div class="post-content-wrapper">
               <div class="post-content">
-                <p>NOI2017D2T2</p>
-<p>说实话,D2T2就这种程度吗?甚至不能称为黑题吧233</p>
-<p>开题不难发现我们再每天要准确做出一个决策才行,要不然这个数据范围根本动态规划不了的</p>
-<p><code>按照某种规律直接决策</code>不就是贪心吗?</p>
-<p>而且这个也很像之前做的CF集训队作业题那个题就是每天竹子会上涨,可以通过时光倒流变成竹子要下跌,为题就完全变样子了</p>
-<p>所以这个题也可以用时光倒流的做法,变成倒着运菜进来,那么显然我们每次选择最优的就行了,难度在于模拟啊</p>
-<p>这里提供一种不一样的做法:我们把时光倒流的本质思考出来,单独分析每个菜</p>
-<ol>
-<li>每个菜都是在他<code>最贵的</code>时候被选择卖,也就是对应<code>每次选最优的</code></li>
-<li>每个菜都是在他<code>快要腐烂</code>的时候被卖,也就是对应<code>倒着运菜</code></li>
-</ol>
-<p>有了这两个性质,我们只需要得到一个卖菜序列,然后在卖菜序列上通过并查集操作就行了</p>
-<p>具体看code:</p>
-<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
-using namespace std;
-#define mkp(x,y) (make_pair(x,y))
-#define ll long long
-const int MAXN=1e6+7,mx=1e5+7;
-int n,m,k;
-int a[MAXN],s[MAXN],c[MAXN],x[MAXN];
-int fa[MAXN],num[MAXN];
-ll ans[MAXN];
-priority_queue&lt;pair&lt;int,int&gt; &gt; q;
-inline int getf(int x) {
-	return x==fa[x]?x:fa[x]=getf(fa[x]);
-}
-
-int main() {
-	scanf(&quot;%d%d%d&quot;,&amp;n,&amp;m,&amp;k);
-	for(int i=1; i&lt;=n; ++i) {
-		scanf(&quot;%d%d%d%d&quot;,&amp;a[i],&amp;s[i],&amp;c[i],&amp;x[i]);
-		q.push(mkp(a[i]+s[i],i));
-	}
-	for(int i=1; i&lt;=mx; ++i)fa[i]=i,num[i]=m;
-	int cnt=0,profit,t,day;
-	while(!q.empty()) {
-		profit= q.top().first,t=q.top().second;
-		q.pop();
-		if(!x[t])day=getf(mx);
-		else day=getf(min(mx,(c[t]-1)/x[t]+1));
-        //找到要T的时间
-		if(!day)continue;
-		c[t]--;
-		num[day]--;
-		cnt++;
-        //处理每天能卖的上限
-		if(!num[day])fa[day]=getf(day-1);
-		if(c[t])q.push(mkp(a[t],t));
-		ans[cnt]=ans[cnt-1]+profit;
-        //卖菜序列
-	}
-	int qaq;
-	while(k--)scanf(&quot;%d&quot;,&amp;qaq),printf(&quot;%lld\n&quot;,ans[min(cnt,m*qaq)]);
-	return 0;
-}
-
-
-</code></pre>
+                <p>现在的停息,只不过是暴风雨来临前的平静</p>
+<p>期中考试就在眼前</p>
+<p>我想,作为一个真正的OIer,你既要有面对失败永不退缩的勇气,又要有能在关键时候亮剑的实力</p>
+<p>我们可以看番,可以打游戏,可以翻墙,但是认真起来的时候绝对不同于常人!</p>
 
               </div>
               <div class="toc-container">
@@ -182,9 +114,9 @@ int main() {
         
           <div class="next-post">
             <div class="next">下一篇</div>
-            <a href="https://xiaxiaoguang.github.io/post/p3824-noi2017yong-chi/">
+            <a href="https://xiaxiaoguang.github.io/post/duo-sheng-sheng-xuan-lian-kao-quan-zhen-mo-ni-kao-shi-5/">
               <h3 class="post-title">
-                P3824 [NOI2017]泳池
+                多省省选联考全真模拟考试5
               </h3>
             </a>
           </div>
