@@ -1,0 +1,343 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CF600E Lomsat gelral | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1591282094078">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="CF600E Lomsat gelral | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="Dsu on tree 好题
+一棵树有n个结点，每个结点都是一种颜色，每个颜色有一个编号，求树中每个子树的最多的颜色编号的和。
+首先要读懂题,题目是指那个颜色的编号和!
+然后我们可以熟悉的使用dsu on tree + 线段树来做这个题qw..." />
+    <meta name="keywords" content="Dsu on tree,线段树" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1591282094078" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              CF600E Lomsat gelral
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-06-04
+              </span>
+              <span>
+                5 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/1Z8hyvkCq/" class="post-tag">
+                  # Dsu on tree
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/i0TglRCqu/" class="post-tag">
+                  # 线段树
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/4pNOqgOvBLvj4yTC9qc55ewno1LIgpTwuRiPPVn1KrbJ1zeScDcarNxFjWJVwDN2INE6W.xWR4q65DCqBLYVg4S.sclyQpTsaK.ZZ9QuItM!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>Dsu on tree 好题</p>
+<p>一棵树有n个结点，每个结点都是一种颜色，每个颜色有一个编号，求树中每个子树的最多的颜色编号的和。</p>
+<p>首先要读懂题,题目是指那个颜色的编号和!</p>
+<p>然后我们可以熟悉的使用dsu on tree + 线段树来做这个题qwq</p>
+<p>具体怎么用线段树维护?如果数量相等就求个和,否则我们就选择大的继承</p>
+<p>别的真没什么了</p>
+<p>dsu流程:首先dfs轻儿子</p>
+<p>其次加入重儿子的影响</p>
+<p>然后把这个点的轻儿子都加进去</p>
+<p>算这个点答案</p>
+<p>如果这个点是轻链上的就不用鸟,否则删除加进去的贡献</p>
+<p>code</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#define ll long long
+using std::max;
+const int MAXN=5e5+7;
+int n,ccnt;
+int a[MAXN],home[MAXN],nxt[MAXN],to[MAXN];
+
+#define ad2(x,y) (ct(x,y),ct(y,x))
+inline void ct(int x,int y) {
+	ccnt++;
+	nxt[ccnt]=home[x];
+	home[x]=ccnt;
+	to[ccnt]=y;
+}
+
+struct rec {
+	int Max;
+	ll sum;
+	bool operator&lt;(const rec &amp;x) const {
+		return Max&lt;x.Max;
+	}
+} tr[MAXN];
+int root;
+namespace seg {
+#define mid ((l+r)&gt;&gt;1)
+	static int T,ls[MAXN],rs[MAXN];
+	inline void modify(int &amp;k,int l,int r,int pos,int val) {
+		if(!k)k=++T;
+		if(l==r) {
+
+			tr[k].Max+=val;
+			tr[k].sum=l;
+
+			return ;
+		}
+
+		if(pos&lt;=mid)modify(ls[k],l,mid,pos,val);
+		else modify(rs[k],mid+1,r,pos,val);
+
+//		printf(&quot;%d %d %d %d %d %d\n&quot;,l,r,tr[ls[k]].Max,tr[ls[k]].sum,tr[rs[k]].Max,tr[rs[k]].sum);
+
+		if(tr[ls[k]].Max&lt;tr[rs[k]].Max) {
+			tr[k].Max=tr[rs[k]].Max;
+			tr[k].sum=tr[rs[k]].sum;
+		} else if(tr[ls[k]].Max==tr[rs[k]].Max) {
+			tr[k].Max=tr[ls[k]].Max;
+			tr[k].sum=tr[ls[k]].sum+tr[rs[k]].sum;
+		} else {
+			tr[k].Max=tr[ls[k]].Max;
+			tr[k].sum=tr[ls[k]].sum;
+		}
+//		printf(&quot;result:%d %d\n&quot;,tr[k].Max,tr[k].sum);
+	}
+}
+int S;
+int cnt[MAXN],son[MAXN],siz[MAXN];
+ll ans[MAXN];
+
+inline void dfs1(int u,int F) {
+	siz[u]=1;
+	int maxson=-1;
+	for(int i=home[u]; i; i=nxt[i]) {
+		int v=to[i];
+		if(v==F)continue;
+		dfs1(v,u);
+		siz[u]+=siz[v];
+		if(siz[v]&gt;maxson) {
+			maxson=siz[v];
+			son[u]=v;
+		}
+	}
+	return ;
+}
+
+inline void add(int u,int F,int t) {
+	seg::modify(root,1,n,a[u],t);
+	for(int i=home[u]; i; i=nxt[i]) {
+		int v=to[i];
+		if(v==F||v==S)continue;
+		add(v,u,t);
+	}
+}
+
+inline void dfs(int u,int F,int keep) {
+
+	for(int i=home[u]; i; i=nxt[i]) {
+		int v=to[i];
+		if(v==F||v==son[u])continue;
+		dfs(v,u,0);
+	}
+
+	if(son[u])dfs(son[u],u,1);
+	S=son[u];
+	add(u,F,1);
+//	printf(&quot;%d\n&quot;,tr[root].);
+//	puts(&quot;!!!!!&quot;);
+	seg::modify(root,1,n,1,0);
+	ans[u]=tr[root].sum;
+//	puts(&quot;QWQWQWQWQ&quot;);
+	S=0;
+	if(!keep)add(u,F,-1);
+	return;
+}
+
+int main() {
+//	freopen(&quot;test.in&quot;,&quot;r&quot;,stdin);
+	scanf(&quot;%d&quot;,&amp;n);
+	for(int i=1; i&lt;=n; ++i)scanf(&quot;%d&quot;,&amp;a[i]);
+	for(int i=1,x,y; i&lt;n; ++i) {
+		scanf(&quot;%d%d&quot;,&amp;x,&amp;y);
+		ad2(x,y);
+	}
+	dfs1(1,0);
+//	for(int i=1; i&lt;=n; ++i)printf(&quot;%dqwq\n&quot;,son[i]);
+	dfs(1,0,1);
+	for(int i=1; i&lt;=n; ++i)printf(&quot;%lld &quot;,ans[i]);
+	return 0;
+}
+
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/cf585e-present-for-vitalik-the-philatelist/">
+              <h3 class="post-title">
+                CF585E Present for Vitalik the Philatelist 
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
