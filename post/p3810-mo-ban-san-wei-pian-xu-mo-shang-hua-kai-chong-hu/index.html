@@ -1,0 +1,324 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>P3810 【模板】三维偏序（陌上花开）重糊 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1591370317500">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="P3810 【模板】三维偏序（陌上花开）重糊 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="重糊带师
+我们之前的做法是cdq套cdq,但是这个做法复杂度虽然正确常数爆炸爆炸qwq
+所以我们这里用树状数组写了一遍
+首先我们要保证用a第一维排序,然后b和c是第二第三关键字去排序
+然后cdq归并排序去保证b哪一位左边小于右边
+再用树状数..." />
+    <meta name="keywords" content="cdq分治,高维数点" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1591370317500" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              P3810 【模板】三维偏序（陌上花开）重糊
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-06-05
+              </span>
+              <span>
+                4 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/oKNoZ61LR/" class="post-tag">
+                  # cdq分治
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/SVFSyfvaQe/" class="post-tag">
+                  # 高维数点
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/4pNOqgOvBLvj4yTC9qc55Ws3mSWedg2zJi1BzAADsPcR*2c1xqIN8Lq9ArJebQMMekYB8jXfJ6lbQMXG0DP.iHaoEKk4qP1SYTIFRbb5vUg!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>重糊带师</p>
+<p>我们之前的做法是cdq套cdq,但是这个做法复杂度虽然正确常数爆炸爆炸qwq</p>
+<p>所以我们这里用树状数组写了一遍</p>
+<p>首先我们要保证用a第一维排序,然后b和c是第二第三关键字去排序</p>
+<p>然后cdq归并排序去保证b哪一位左边小于右边</p>
+<p>再用树状数组保证左边小于右边</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+#define mid ((l+r)&gt;&gt;1)
+using std::sort;
+const int MAXN=2e5+7;
+int n,qwq,tag[MAXN];
+struct NODE {
+	int a,b,c,ans,cnt;
+	bool operator&lt;(const NODE &amp;x)const {
+//		return a&lt;x.a;
+		if(a==x.a) {
+			if(b==x.b)return c&lt;x.c;
+			else return b&lt;x.b;
+		} else return a&lt;x.a;
+	}
+} node[MAXN],b[MAXN],que[MAXN],a[MAXN];
+
+namespace seg {
+#define lowbit(x) (x&amp;(-x))
+	int tr[MAXN];
+	inline void add(int x,int val) {
+		for(; x&lt;MAXN; x+=lowbit(x)) {
+			tr[x]+=val;
+		}
+	}
+	inline int qry(int x) {
+		int ret=0;
+		for(; x; x-=lowbit(x)) {
+			ret+=tr[x];
+		}
+		return ret;
+	}
+}
+using namespace seg;
+
+inline void solve(int l,int r) {
+	if(l==r)return ;
+	solve(l,mid);
+	solve(mid+1,r);
+//	sort(node+l,node+mid+1,cmp);
+//	sort(node+mid+1,node+r,cmp);
+//	printf(&quot;%d %d %d\n&quot;,l,mid,r);
+	int cnt=0;
+	for(int i=l,j=l,k=mid+1; i&lt;=r; ++i) {
+		if((k&gt;r||node[j].b&lt;=node[k].b)&amp;&amp;(j&lt;=mid)) {
+//			printf(&quot;?%d %d %d %d\n&quot;,node[j].id,node[j].a,node[j].b,node[j].c);
+			add(node[j].c,node[j].cnt);
+			que[++cnt]=node[j];
+			b[i]=node[j];
+			++j;
+
+		} else {
+//			printf(&quot;!%d %d %d %d-&gt;&quot;,node[k].id,node[k].a,node[k].b,node[k].c);
+			int tmp=qry(node[k].c);
+			node[k].ans+=tmp;
+//			printf(&quot;%d\n&quot;,tmp);
+			b[i]=node[k];
+			++k;
+		}
+	}
+//	puts(&quot;QWQ&quot;);
+	for(int i=1; i&lt;=cnt; ++i) {
+//		printf(&quot;%dQWQ %d &quot;,que[i].c,que[i].cnt);
+		add(que[i].c,-que[i].cnt);
+	}
+//	printf(&quot;\n\n&quot;);
+	for(int i=l; i&lt;=r; ++i) {
+//		if(i&lt;=tmp) {
+//		printf(&quot;)%d %d %d %d\n&quot;,node[i].id,node[i].a,node[i].b,node[i].c);
+//			add(node[i].c,-1);
+//		}
+		node[i]=b[i];
+	}
+	return ;
+}
+
+int main() {
+	scanf(&quot;%d%d&quot;,&amp;n,&amp;qwq);
+	for(int i=1; i&lt;=n; ++i) {
+		scanf(&quot;%d%d%d&quot;,&amp;a[i].a,&amp;a[i].b,&amp;a[i].c);
+//		a[i].id=i;
+	}
+	sort(a+1,a+n+1);
+	int top=0;
+	int rc=0;
+	for(int i=1; i&lt;=n; ++i) {
+		top++;
+		if(a[i+1].a!=a[i].a||a[i+1].b!=a[i].b||a[i+1].c!=a[i].c) {
+			node[++rc]=a[i];
+			node[rc].cnt=top;
+			top=0;
+		}
+	}
+	solve(1,rc);
+	for(int i=1; i&lt;=rc; ++i) {
+		tag[node[i].ans+node[i].cnt-1]+=node[i].cnt;
+//		printf(&quot;%d\n&quot;,ans[i]);
+	}
+	for(int i=0; i&lt;n; ++i) {
+		printf(&quot;%d\n&quot;,tag[i]);
+	}
+	return 0;
+}
+
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/p5495-dirichlet-qian-zhui-he/">
+              <h3 class="post-title">
+                P5495 Dirichlet 前缀和
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
