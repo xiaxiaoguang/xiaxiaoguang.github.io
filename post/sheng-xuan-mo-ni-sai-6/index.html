@@ -1,0 +1,362 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>省选模拟赛6 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1591445556595">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="省选模拟赛6 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="http://noi.ac/contest/341
+qaq作业好多
+qwq你p站也太强了吧绘画巅峰?
+
+T1
+每个点带代价的半径为K的园覆盖
+首先我们联想到消防局的设立那道题,然后就有了20分贪心qwq
+之后我们再去想优化这个贪心?不太行了..." />
+    <meta name="keywords" content="树套树,比赛题,动态规划" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1591445556595" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              省选模拟赛6
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-06-06
+              </span>
+              <span>
+                6 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/AA48SlKQI/" class="post-tag">
+                  # 树套树
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/A3FIICRYA/" class="post-tag">
+                  # 比赛题
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/CJ-ugjBAY/" class="post-tag">
+                  # 动态规划
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/4pNOqgOvBLvj4yTC9qc55e.gUPk6RM7QYJRMqeWES9*Lez1Ui5qrW4g16wN80.rrEC71ChqYWws4TzhTeH7p5ra5aRxsw1qv*qV9nnC6qKc!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>http://noi.ac/contest/341</p>
+<p>qaq作业好多</p>
+<p>qwq你p站也太强了吧绘画巅峰?</p>
+<figure data-type="image" tabindex="1"><img src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/4pNOqgOvBLvj4yTC9qc55QUCcGFV0.dI0fDlkezxF9FZOJ3ZW2v2AeDp1O9FaeGC0oGqhJoqwmoAYc5NjpkueE3p.IJt2Utw*7yUNqTm4F0!/r" alt="" loading="lazy"></figure>
+<p>T1</p>
+<p>每个点带代价的半径为K的园覆盖</p>
+<p>首先我们联想到消防局的设立那道题,然后就有了20分贪心qwq</p>
+<p>之后我们再去想优化这个贪心?不太行了,所以我们可以使用那道题另一个解法,动态规划</p>
+<p>状态是显然的dp[i][j]表示点i向下j层已经被覆盖了的最小代价,然后你会发现这样没法转移,所以还要改一下</p>
+<p>dp[i][j]表示点i向上j-K层已经被覆盖的最小代价,如果是负的就是向下</p>
+<p>然后转移可以分成三类qwq</p>
+<h2 id="case-0硬点">case 0:硬点</h2>
+<p>首先我们要保证一个基本事实,就是越优的越大,也就是说我向上能覆盖i就一定能向上覆盖i-1</p>
+<p>所以在最后我们要集体向他前一个取min</p>
+<p><s>这个状态的设计也是为了这个转移方便</s></p>
+<h2 id="case1-dpik1~2k">case1: dp[i][K+1~2K]</h2>
+<p>钦定第二维是x</p>
+<p>你会发现这样我们一定是在儿子的地方能覆盖到向下x-1的,这样我才能覆盖x</p>
+<p>所以<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><mi>p</mi><mo>[</mo><mi>u</mi><mo>]</mo><mo>[</mo><mi>x</mi><mo>]</mo><mo>=</mo><msub><mo>∑</mo><mrow><mi>v</mi><mo>∈</mo><mi>s</mi><mi>o</mi><mi>n</mi><mo>[</mo><mi>u</mi><mo>]</mo></mrow></msub><mi>d</mi><mi>p</mi><mo>[</mo><mi>v</mi><mo>]</mo><mo>[</mo><mi>x</mi><mo>−</mo><mn>1</mn><mo>]</mo></mrow><annotation encoding="application/x-tex">dp[u][x]=\sum_{v \in son[u]}dp[v][x-1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">p</span><span class="mopen">[</span><span class="mord mathdefault">u</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault">x</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.22471em;vertical-align:-0.47471em;"></span><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.22528999999999993em;"><span style="top:-2.40029em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">v</span><span class="mrel mtight">∈</span><span class="mord mathdefault mtight">s</span><span class="mord mathdefault mtight">o</span><span class="mord mathdefault mtight">n</span><span class="mopen mtight">[</span><span class="mord mathdefault mtight">u</span><span class="mclose mtight">]</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.47471em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">p</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span></p>
+<h2 id="case2dpi0">case2:dp[i][0]</h2>
+<p>憨憨皮,这不是在点i放一个吗</p>
+<p>那他的转移不就是下面点的dp[v][2K]之和吗</p>
+<h2 id="case3dpi1~k">case3:dp[i][1~K]</h2>
+<p>烦死了,这个最麻烦....</p>
+<p>首先你要认识到我们是在儿子处放上了某个东东然后那个儿子手伸的老长把我上面的位置也覆盖了</p>
+<p>所以至少要加上某个儿子的dp[v][x-1]</p>
+<p>你以为这就完了?你其他子树弃疗了?</p>
+<p>所以我们考虑子树v是被硬点伸手的那个,那么他向上伸手长度是x-1,把向上伸改成向旁边伸,这样他只能伸出x-2</p>
+<p>那么其他儿子的要求就是向下x-2层</p>
+<p>相当于其他儿子的dp[p][K+x-2]求个和</p>
+<p>当然,你需要有个基础认知就是x=K-x所以是dp[p][K+K-x-2]求个和</p>
+<p>这个题就做完了qwq</p>
+<p>T2</p>
+<p>20pts:我们考虑线性均摊,就是可以做到查询O(n)插入O(1)的那种,这样插入1e7个也随便跑</p>
+<p>70pts:树套树,线段树套平衡树,菜鸡题目没有区间第k大所以直接用set就好,而且手写您也过不了更多</p>
+<p>T3</p>
+<p>40pts:您开开心心的设计出dp[i]表示前i张牌都打出去的最优收益,然后转移的区间众数可以预处理,然后O(n^2)的dp,并且看了一眼1.5次方使用了pow,然后您T了,连羽毛都腐烂在土地里面</p>
+<p>52pts:预处理1.5次方</p>
+<p>再往上?问zhq,orzhq</p>
+<p><s>难看的</s>code:</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using std::min;
+#define ll long long
+const int MAXN=5e5+7;
+const int INF=1e9+7;
+int ccnt,K,n;
+int home[MAXN],nxt[MAXN],to[MAXN],fa[MAXN];
+#define ad2(x,y) (ct(x,y),ct(y,x))
+inline void ct(int x,int y) {
+	ccnt++;
+	nxt[ccnt]=home[x];
+	home[x]=ccnt;
+	to[ccnt]=y;
+}
+
+ll dp[MAXN][207],c[MAXN],siz[MAXN];
+//从K+1到K+K是向下覆盖
+//从K-1到0是向上覆盖
+//K是刚好覆盖
+inline void dfs(int u,int F) {
+	dp[u][0]=c[u];//向上k层
+	siz[u]=1;
+	for(int i=K+1; i&lt;=K+K; ++i)dp[u][i]=0;
+
+	for(int i=home[u]; i; i=nxt[i]) {
+		int v=to[i];
+		if(v==F)continue;
+		dfs(v,u);
+
+		siz[u]+=siz[v];
+		dp[u][0]+=dp[v][K+K];
+
+		for(int j=K+1; j&lt;=K+K; ++j) {
+			dp[u][j]+=dp[v][j-1];
+		}
+	}
+	if(siz[u]==1) { //叶子结点
+		for(int i=1; i&lt;=K; ++i) {
+			dp[u][i]=c[u];//如果要想向上只能自己
+		}
+	} else {
+		for(int i=1; i&lt;=K; ++i) {
+			dp[u][i]=INF;
+		}
+		ll rc[107];
+		for(int i=home[u]; i; i=nxt[i]) {
+			int v=to[i];
+			if(v==F)continue;
+			for(int i=0; i&lt;K; ++i)rc[i]=dp[v][i];
+			for(int j=home[u]; j; j=nxt[j]) {
+				if(i==j)continue;
+				int p=to[j];
+				if(p==F)continue;
+//				printf(&quot;!%d\n&quot;,p);
+				for(int i=0; i&lt;K; ++i)rc[i]+=dp[p][K+K-i-1];
+			}
+			for(int j=1; j&lt;=K; ++j) {
+				dp[u][j]=min(rc[j-1],dp[u][j]);
+			}
+		}
+	}
+	for(int i=1; i&lt;=K+K; ++i) {
+		dp[u][i]=min(dp[u][i],dp[u][i-1]);
+	}
+	return ;
+}
+
+int main() {
+//	freopen(&quot;test.in&quot;,&quot;r&quot;,stdin);
+//	freopen(&quot;T1_2.out&quot;,&quot;w&quot;,stdout);
+	scanf(&quot;%d%d&quot;,&amp;n,&amp;K);
+
+	for(int i=1; i&lt;=n; ++i)scanf(&quot;%lld&quot;,&amp;c[i]);
+
+	for(int i=1,x,y; i&lt;n; ++i) {
+		scanf(&quot;%d%d&quot;,&amp;x,&amp;y);
+		ad2(x,y);
+	}
+	dfs(1,0);
+//	for(int i=1; i&lt;=n; ++i) {
+//		printf(&quot;%d &quot;,i);
+//		for(int k=0; k&lt;=K+K; ++k) {
+//			printf(&quot;%d &quot;,dp[i][k]);
+//		}
+//		puts(&quot;qwq&quot;);
+//	}
+	printf(&quot;%lld\n&quot;,dp[1][K]);
+	return 0;
+}
+
+
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#case-0%E7%A1%AC%E7%82%B9">case 0:硬点</a></li>
+<li><a href="#case1-dpik1~2k">case1: dp[i][K+1~2K]</a></li>
+<li><a href="#case2dpi0">case2:dp[i][0]</a></li>
+<li><a href="#case3dpi1~k">case3:dp[i][1~K]</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/p3810-mo-ban-san-wei-pian-xu-mo-shang-hua-kai-chong-hu/">
+              <h3 class="post-title">
+                P3810 【模板】三维偏序（陌上花开）重糊
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
