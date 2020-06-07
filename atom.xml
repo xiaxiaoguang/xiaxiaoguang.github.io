@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://xiaxiaoguang.github.io</id>
     <title>夏晓光(loveJY)的博客</title>
-    <updated>2020-06-06T14:09:49.187Z</updated>
+    <updated>2020-06-07T15:12:15.020Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://xiaxiaoguang.github.io"/>
     <link rel="self" href="https://xiaxiaoguang.github.io/atom.xml"/>
@@ -10,6 +10,104 @@
     <logo>https://xiaxiaoguang.github.io/images/avatar.png</logo>
     <icon>https://xiaxiaoguang.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 夏晓光(loveJY)的博客</rights>
+    <entry>
+        <title type="html"><![CDATA[P6592 [YsOI2020]幼儿园]]></title>
+        <id>https://xiaxiaoguang.github.io/post/p6592-ysoi2020you-er-yuan/</id>
+        <link href="https://xiaxiaoguang.github.io/post/p6592-ysoi2020you-er-yuan/">
+        </link>
+        <updated>2020-06-07T15:00:00.000Z</updated>
+        <content type="html"><![CDATA[<p>佳衡&amp;华清推荐</p>
+<p>orzhq</p>
+<p>首先拿到题看到强制在线有点虚...</p>
+<p>不过仔细读题发现可以<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>m</mi><mi>q</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(mq)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">m</span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span><span class="mclose">)</span></span></span></span>,30pts好成绩</p>
+<p>然后就是怎么离线....不太会啊</p>
+<p>直接想正解...(ljh教育)</p>
+<p>首先反向边,问题变成从1到每个点的<strong>单调递增</strong></p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>[</mo><mi>j</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">f[i][j]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mclose">]</span></span></span></span>表示点i只走大于j的边走到i的最小最大边权是什么</p>
+<p>然后求这个数组...我们盲猜有大部分值是相同的,所以可以用某些鬼畜手段使他不是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mi>n</mi><mn>2</mn></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>的</p>
+<p>然后你敏锐的发现,对于任何一条边,如果我们是从小到大去插入的,那么我们插入边i一定只会影响v</p>
+<p>因为首先我们更新了v的答案,也就是f[v],而我们从v出走又要走比i更大的,所以一定不会再更新下去</p>
+<p>那么我们就可以用一个动态开点线段树来搞这个东西,在左端点权值处记下右端点权值,然后相当于查询l,m中最小值是否小于r</p>
+<p>code:</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+using std::min;
+using std::max;
+const int MAXN = 3e5 + 7;
+
+int f[MAXN];
+
+namespace seg {
+#define mid ((l+r)&gt;&gt;1)
+	int root[MAXN], T, ls[MAXN * 30], rs[MAXN * 30], tr[MAXN * 30];
+	inline void modify(int &amp;k, int l, int r, int pos, int vl) {
+		if(!k) {
+			k = ++T;
+			tr[k] = MAXN;
+		}
+
+		if(l == r) {
+			tr[k] = min(tr[k], vl);
+			return ;
+		}
+
+		if(pos &lt;= mid)modify(ls[k], l, mid, pos, vl);
+		else modify(rs[k], mid + 1, r, pos, vl);
+
+		tr[k] = min(tr[ls[k]], tr[rs[k]]);
+	}
+	inline int query(int k, int l, int r, int L, int R) {
+		if(!k)return MAXN;
+		if(L &lt;= l &amp;&amp; R &gt;= r)return tr[k];
+
+		if(L &gt; mid)return query(rs[k], mid + 1, r, L, R);
+		else if(R &lt;= mid)return query(ls[k], l, mid, L, R);
+		else return min(query(ls[k], l, mid, L, R), query(rs[k], mid + 1, r, L, R));
+
+	}
+}
+int n, m, k, w;
+int main() {
+	scanf(&quot;%d%d%d%d&quot;, &amp;n, &amp;m, &amp;k, &amp;w);
+	memset(f, -1, sizeof(f));
+	f[1] = 0;
+	seg::tr[0] = MAXN;
+	for(int i = 1, u, v; i &lt;= m; ++i) {
+		scanf(&quot;%d%d&quot;, &amp;v, &amp;u);
+		if(~f[u]) {//这个u可别离线啊
+			// printf(&quot;%d %d %d %d %d\n&quot;, u, v, f[u], f[v], i);
+			f[v] = max(f[v], u == 1 ? i : f[u]);
+			//二者值最大
+			seg::modify(seg::root[v], 1, m, f[v], i);
+			//最大的r
+		}
+	}
+	int pre = 0;
+	for(int qwq = 1, x, l, r; qwq &lt;= k; ++qwq) {
+		scanf(&quot;%d%d%d&quot;, &amp;x, &amp;l, &amp;r);
+		if(w)x ^= pre, l ^= pre, r ^= pre;
+		if(x == 1) {
+			puts(&quot;1&quot;);
+			++pre;
+			continue;
+		}
+		int ans = seg::query(seg::root[x], 1, m, l, m);
+		// printf(&quot;%d!\n&quot;, ans);
+		if(ans &lt;= r) {
+			puts(&quot;1&quot;);
+			++pre;
+			continue;
+		} else {
+			puts(&quot;0&quot;);
+		}
+	}
+	return 0;
+}
+
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[省选模拟赛6]]></title>
         <id>https://xiaxiaoguang.github.io/post/sheng-xuan-mo-ni-sai-6/</id>
@@ -841,18 +939,6 @@ c-1 5-5 9-11 9h-2L532 67 19 159h-2c-5 0-9-4-11-9l-5-22c-1-6 2-12 8-13z'/></svg><
 <p>子树内的信息可以直接区间加法啊,然后答案要相应变化一下</p>
 <p>当然我们还可以动态维护树的直径,然后答案另一端点一定是树直径了qwq,树的直径和深度都可以用线段树维护</p>
 <p>完结散花!</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[暂时停更]]></title>
-        <id>https://xiaxiaoguang.github.io/post/zan-shi-ting-geng/</id>
-        <link href="https://xiaxiaoguang.github.io/post/zan-shi-ting-geng/">
-        </link>
-        <updated>2020-05-06T13:59:09.000Z</updated>
-        <content type="html"><![CDATA[<p>现在的停息,只不过是暴风雨来临前的平静</p>
-<p>期中考试就在眼前</p>
-<p>我想,作为一个真正的OIer,你既要有面对失败永不退缩的勇气,又要有能在关键时候亮剑的实力</p>
-<p>我们可以看番,可以打游戏,可以翻墙,但是认真起来的时候绝对不同于常人!</p>
 ]]></content>
     </entry>
 </feed>
