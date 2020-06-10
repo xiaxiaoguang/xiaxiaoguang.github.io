@@ -1,0 +1,365 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>P5666 树的重心 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1591799619759">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="P5666 树的重心 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="简要题意：
+删去每个边之后树分裂成两个小树，然后对两棵树所有重心的编号求和，n&lt;=1e5n&lt;=1e5n&lt;=1e5
+首先我们考虑怎么快速求出某颗树的重心，可以调整法，就是沿着重儿子跳，保持满足sum−siz[u]&lt;=n..." />
+    <meta name="keywords" content="树的重心,倍增,换根法,动态规划" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1591799619759" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              P5666 树的重心
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-06-10
+              </span>
+              <span>
+                5 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/i9sEbhDad/" class="post-tag">
+                  # 树的重心
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/lzY108Fv7/" class="post-tag">
+                  # 倍增
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/s9T9lWG3aG/" class="post-tag">
+                  # 换根法
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/CJ-ugjBAY/" class="post-tag">
+                  # 动态规划
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/4pNOqgOvBLvj4yTC9qc55UJUQlXur*G6Dlk9nAC8yGl2StmOHkzlgj7T5qjtj*2OyAB5XGl4swcAn1SIxTJCcars9aNYRa8yyXuZuDrGH5g!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>简要题意：</p>
+<p>删去每个边之后树分裂成两个小树，然后对两棵树所有重心的编号求和，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>&lt;</mo><mo>=</mo><mn>1</mn><mi>e</mi><mn>5</mn></mrow><annotation encoding="application/x-tex">n&lt;=1e5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord mathdefault">e</span><span class="mord">5</span></span></span></span></p>
+<p>首先我们考虑怎么快速求出某颗树的重心，可以调整法，就是沿着重儿子跳，保持满足<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mi>u</mi><mi>m</mi><mo>−</mo><mi>s</mi><mi>i</mi><mi>z</mi><mo>[</mo><mi>u</mi><mo>]</mo><mo>&lt;</mo><mo>=</mo><mi>n</mi><mi mathvariant="normal">/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">sum-siz[u]&lt;=n/2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">u</span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="mopen">[</span><span class="mord mathdefault">u</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">n</span><span class="mord">/</span><span class="mord">2</span></span></span></span>，而且u的重儿子大小小于<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mi mathvariant="normal">/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">n/2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">n</span><span class="mord">/</span><span class="mord">2</span></span></span></span></p>
+<p>那么我们发现这个东西可以倍增跳啊，如果此时除去重儿子子树其他点加起来数太小了，那么可以向重儿子跳，只要满足这个条件我们那就倍增向下跳，最后一定能落在重心上！</p>
+<p>注意这个是因为我们断开了一条边，所以我们还要观察断开后siz和son的变化。。。</p>
+<h3 id="case1-处于断开边的下方">case1 处于断开边的下方</h3>
+<p>siz，son都不变，sum变了</p>
+<h3 id="case2-处于被断开边的上方">case2 处于被断开边的上方</h3>
+<p>我们发现除了被断开边的上面那个点所在的重链要改改外其他的好像不太变？</p>
+<p>而那个重链我们可以在换根的时候一并都改了，因为我们不存在一条过原来根到另个子树的重链</p>
+<p>别的没什么了，就是注意处理倍增</p>
+<p>code:</p>
+<pre><code class="language-cpp">
+#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#define ll long long
+using namespace std;
+const int MAXN=1e6+7;
+namespace fastIO {
+#define BUF_SIZE (1&lt;&lt;19)
+	static char buf[BUF_SIZE],*p1=buf,*pend=buf;
+	inline char nc() {
+		if(p1==pend) {
+			p1=buf;
+			pend=buf+fread(buf,1,BUF_SIZE,stdin);
+		}
+		return *p1++;
+	}
+	inline int read() {
+		int x=0;
+		char s=nc();
+		for(; !isdigit(s); s=nc());
+		for(; isdigit(s); s=nc())x=(x&lt;&lt;1)+(x&lt;&lt;3)+s-'0';
+		return x;
+	}
+}
+using namespace fastIO;
+int n;
+int ccnt,home[MAXN],nxt[MAXN],to[MAXN];
+#define ad2(x,y) (ct(x,y),ct(y,x))
+inline void ct(int x,int y) {
+	ccnt++;
+	nxt[ccnt]=home[x];
+	home[x]=ccnt;
+	to[ccnt]=y;
+}
+int siz[MAXN],son[MAXN],p[MAXN][20],fa[MAXN],siz2[MAXN],son2[MAXN],son3[MAXN],pr[MAXN];
+inline void dfs(int u,int F) {
+	siz[u]=1;
+	fa[u]=F;
+	pr[u]=F;
+	for(int i=home[u]; i; i=nxt[i]) {
+		int v=to[i];
+		if(v==F)continue;
+		dfs(v,u);
+		siz[u]+=siz[v];
+		if(siz[v]&gt;siz[son[u]])son2[u]=son[u],son[u]=v;
+		else if(siz[v]&gt;siz[son2[u]])son2[u]=v;
+		//son是最大子，son2是次大子
+	}
+
+	p[u][0]=son[u];
+	for(int i=1; i&lt;=17; ++i)p[u][i]=p[p[u][i-1]][i-1];//跳重儿子的倍增
+}
+
+ll ans;
+inline int pd(int x,int sum) {
+	return x*(max(siz2[son3[x]],sum-siz2[x])&lt;=sum/2);
+}
+
+inline void dfs2(int u,int F) {
+	for(int i=home[u]; i; i=nxt[i]) {
+		int v=to[i];
+		if(v==F)continue;
+
+		siz2[u]=siz[1]-siz[v];//断开这条边并且u是根
+		fa[v]=0;
+		fa[u]=0;
+		//两个都是根啊
+		if(son[u]==v)son3[u]=son2[u];//如果是重儿子我们选择次儿子
+		else son3[u]=son[u]; //如果是不重儿子，那么这个点重儿子就可以继承
+		if(siz2[F]&gt;siz2[son3[u]])son3[u]=F;//换成另一个方向
+
+		p[u][0]=son3[u];
+		for(int j=1; j&lt;=17; ++j)
+			p[u][j]=p[p[u][j-1]][j-1];
+		//向上跳
+		int b=u;
+		for(int j=17; j&gt;=0; --j)
+			if(siz2[u]-siz2[p[b][j]]&lt;=siz2[u]/2)b=p[b][j];
+		ans+=pd(son3[b],siz2[u])+pd(b,siz2[u])+pd(fa[b],siz2[u]);
+		//siz2[u]是最大,而且可能他或他的重儿子或者他的父亲都能做成重心
+		//向下跳qwq
+		b=v;
+		for(int j=17; j&gt;=0; --j)
+			if(siz2[v]-siz2[p[b][j]]&lt;=siz2[v]/2)b=p[b][j];
+		ans+=pd(son3[b],siz2[v])+pd(b,siz2[v])+pd(fa[b],siz2[v]);
+
+		fa[u]=v;
+		dfs2(v,u);
+	}
+	son3[u]=p[u][0]=son[u];
+	fa[u]=pr[u];
+	for(int j=1; j&lt;=17; ++j)
+		p[u][j]=p[p[u][j-1]][j-1];
+	siz2[u]=siz[u];
+}
+
+int main() {
+//	freopen(&quot;test.in&quot;,&quot;r&quot;,stdin);
+	int T;
+	T=read();
+	while(T--) {
+		memset(home,0,sizeof(home));
+		memset(son,0,sizeof(son));
+		memset(fa,0,sizeof(fa));
+		memset(pr,0,sizeof(pr));
+		ccnt=0;
+		ans=0;
+		n=read();
+		for(int i=1,x,y; i&lt;n; ++i) {
+			x=read();
+			y=read();
+			ad2(x,y);
+//			ad2(y,x);
+		}
+		dfs(1,0);
+		memcpy(siz2,siz,sizeof(siz2));
+		memcpy(son3,son,sizeof(son3));
+		memcpy(fa,pr,sizeof(fa));
+		dfs2(1,0);
+		printf(&quot;%lld\n&quot;,ans);
+	}
+}
+
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#case1-%E5%A4%84%E4%BA%8E%E6%96%AD%E5%BC%80%E8%BE%B9%E7%9A%84%E4%B8%8B%E6%96%B9">case1 处于断开边的下方</a></li>
+<li><a href="#case2-%E5%A4%84%E4%BA%8E%E8%A2%AB%E6%96%AD%E5%BC%80%E8%BE%B9%E7%9A%84%E4%B8%8A%E6%96%B9">case2 处于被断开边的上方</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/p6602-ezec-2-shu-zhou/">
+              <h3 class="post-title">
+                P6602 「EZEC-2」数轴
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

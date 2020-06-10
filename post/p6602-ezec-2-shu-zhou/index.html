@@ -1,0 +1,404 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>P6602 「EZEC-2」数轴 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1591799619759">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="P6602 「EZEC-2」数轴 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="扶苏大神推荐
+简要题意
+给定一个长度为 mmm 的序列，有 nnn 次操作，对序列单点加 aaa 。每次操作后都要求出序列中最长的区间，满足区间和不大于 kkk
+From 一扶苏一 /se/se/se
+需要注意的是，n&lt;=1e6,m&..." />
+    <meta name="keywords" content="双指针" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1591799619759" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              P6602 「EZEC-2」数轴
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-06-10
+              </span>
+              <span>
+                7 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/BJr2HAfsR/" class="post-tag">
+                  # 双指针
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/4pNOqgOvBLvj4yTC9qc55a894HvIfUHfyT3HugBL7XSbbkBP9jFmohA5SsWyL8OTOsR5*1SViS0xeKk3NBcCMURQbyCMRvRKBEKGrUp0qYI!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>扶苏大神推荐</p>
+<p>简要题意</p>
+<p>给定一个长度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">m</span></span></span></span> 的序列，有 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 次操作，对序列单点加 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi></mrow><annotation encoding="application/x-tex">a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">a</span></span></span></span> 。每次操作后都要求出序列中最长的区间，满足区间和不大于 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span></span></span></span></p>
+<p>From 一扶苏一 <s>/se/se/se</s></p>
+<p>需要注意的是，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>&lt;</mo><mo>=</mo><mn>1</mn><mi>e</mi><mn>6</mn><mo separator="true">,</mo><mi>m</mi><mo>&lt;</mo><mo>=</mo><mn>1</mn><mi>e</mi><mn>9</mn></mrow><annotation encoding="application/x-tex">n&lt;=1e6,m&lt;=1e9</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord">1</span><span class="mord mathdefault">e</span><span class="mord">6</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord mathdefault">e</span><span class="mord">9</span></span></span></span>但是<strong>k&lt;=100</strong></p>
+<p>首先，我们会发现在直接数轴上DP是不行的，因为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi><mo>&lt;</mo><mo>=</mo><mn>1</mn><mi>e</mi><mn>9</mn></mrow><annotation encoding="application/x-tex">m&lt;=1e9</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord mathdefault">e</span><span class="mord">9</span></span></span></span>，直接去考虑是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>m</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">m^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span>的？</p>
+<p>而数轴上坐标点如此离散的情况下，我们如果想要直接知道一个点之前那个点是什么,可以使用<strong>离散化或者链表</strong>的方法</p>
+<p>而离散化显得很不能扩展，因为只是变成了差不多<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mi>n</mi><mn>2</mn></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>的做法</p>
+<p>而链表可以再有动态变化的情况下维护</p>
+<p>所以我们只需要去考虑删除一个数之后用<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi><mi>w</mi><mi>o</mi><mi>p</mi><mi>o</mi><mi>i</mi><mi>n</mi><mi>t</mi><mi>e</mi><mi>r</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">twopointers</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">t</span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mord mathdefault">o</span><span class="mord mathdefault">p</span><span class="mord mathdefault">o</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mord mathdefault">t</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">s</span></span></span></span>O(k)维护新答案</p>
+<p>但是要把整个过程反过来，这样答案单调上升，ans可以直接取max</p>
+<p>写的时候注意我们答案是要pre和nxt之间找的,而且设置的头尾还不能减去.....毒毒毒</p>
+<p>code:</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+#include&lt;cassert&gt;
+using std::lower_bound;
+using std::max;
+using std::sort;
+const int MAXN = 1e6 + 7;
+const int inf = 1e9 + 7;
+int n, m, k, tot, ans = -1;
+int x[MAXN], a[MAXN], A[MAXN];
+struct rec {
+	int x, a;
+	bool operator&lt;(const rec &amp;l)const {
+		return x &lt; l.x;
+	}
+	bool operator&lt;(const int &amp;l)const {
+		return x &lt; l;
+	}
+} pt[MAXN], rt[MAXN];
+int pre[MAXN], nxt[MAXN];
+
+inline void solve(int x) {
+//	printf(&quot;%d %d\n&quot;,x,nxt[x]);
+	int nw = x;
+	int y = nw;
+	int S = rt[x].a;
+	if(S &gt; k) {
+		if(pre[x] != 0)
+			ans = max(rt[x].x - rt[pre[x]].x - 2, ans);
+		else ans = max(ans, rt[x].x - 1);
+		if(nxt[x] != tot + 1)
+			ans = max(rt[nxt[x]].x - rt[x].x - 2, ans);
+		else ans = max(ans, m - rt[x].x - 1);
+//		printf(&quot;%d %d\n&quot;,x,nxt[x]);
+//		if(x==0 &amp;&amp; nxt[x]==tot+1) ans=max(ans,m);
+
+		return ;
+	}
+	while(S &lt;= k) {
+		x = pre[x];
+		if(S + rt[x].a &gt; k) {
+//			printf(&quot;%d %d %d %d %d %d %d\n&quot;, nw, x, nxt[nw], tot, rt[nxt[nw]].x, rt[nw].x, rt[x].x);
+			if(nxt[nw] != tot + 1)
+				ans = max(rt[nxt[nw]].x - rt[x].x - 2, ans);
+			else ans = max(rt[nxt[nw]].x - rt[x].x - 1, ans);
+//			printf(&quot;%d\n&quot;, ans);
+			x = nxt[x];
+			break;
+		}
+		S += rt[x].a;
+	}
+
+	while(S  &lt;= k) {
+		y = nxt[y];
+		if(S + rt[y].a &gt; k ) {
+			if(pre[x] != 0)
+				ans = max(rt[y].x - 2 - rt[pre[x]].x, ans);
+			else ans = max(rt[y].x - 1 - rt[pre[x]].x, ans);
+			y = pre[y];
+			break;
+		}
+		S += rt[y].a;
+	}
+//	printf(&quot;%d %d %d\n&quot;, nw, x, y);
+	if(nxt[y]==tot+1 &amp;&amp; pre[x]==0)
+		ans=max(rt[nxt[y]].x-rt[pre[x]].x,ans);
+	else if(nxt[y]==tot+1||pre[x]==0)
+		ans=max(rt[nxt[y]].x-rt[pre[x]].x-1,ans);
+	else {
+		ans=max(ans,rt[nxt[y]].x-rt[pre[x]].x-2);
+	}
+//	puts(&quot;qwq&quot;);
+//	assert(x&lt;=nw);
+	while(x != nw) {
+//		printf(&quot;%d %d!!\n&quot;,x,nw);
+		S -= rt[x].a;
+		x = nxt[x];
+		while(S &lt;= k) {
+			y = nxt[y];
+			if(S + rt[y].a &gt; k) {
+				if(y==tot+1 &amp;&amp; pre[x]==0)
+					ans=max(rt[y].x-rt[pre[x]].x,ans);
+				else if(y==tot+1||pre[x]==0)
+					ans=max(rt[y].x-rt[pre[x]].x-1,ans);
+				else {
+					ans=max(ans,rt[y].x-rt[pre[x]].x-2);
+				}
+				y = pre[y];
+				break;
+			}
+			S += rt[y].a;
+		}
+		if(nxt[y]==tot+1 &amp;&amp; pre[x]==0)
+			ans=max(rt[nxt[y]].x-rt[pre[x]].x,ans);
+		else if(nxt[y]==tot+1||pre[x]==0)
+			ans=max(rt[nxt[y]].x-rt[pre[x]].x-1,ans);
+		else {
+			ans=max(ans,rt[nxt[y]].x-rt[pre[x]].x-2);
+		}
+	}
+
+	return ;
+}
+
+inline void init() {
+	rt[0].a = inf;
+	rt[0].x = 0;
+	nxt[0] = 1;
+	pre[0]=0;
+	rt[tot + 1].a = inf;
+	rt[tot + 1].x = m;
+	pre[tot + 1] = tot;
+	nxt[tot + 1]=tot + 1;
+//	printf(&quot;!!%d\n&quot;,tot);
+	for(int i = 1; i &lt;= tot; ++i) {
+		pre[i] = i - 1;
+		nxt[i] = i + 1;
+	}
+	for(int i = 1; i &lt;= tot; ++i) {
+		solve(i);
+	}
+	return;
+}
+
+inline void del(int x) {
+	nxt[pre[x]] = nxt[x];
+	pre[nxt[x]] = pre[x];
+}
+
+int main() {
+//	freopen(&quot;test.in&quot;,&quot;r&quot;,stdin);
+//	freopen(&quot;test1.out&quot;,&quot;w&quot;,stdout);
+
+	scanf(&quot;%d%d%d&quot;, &amp;n, &amp;m, &amp;k);
+	for(int i = 1; i &lt;= n; ++i) {
+		scanf(&quot;%d%d&quot;, &amp;pt[i].x, &amp;pt[i].a);
+		x[i] = pt[i].x;
+		a[i] = pt[i].a;
+	}
+//	puts(&quot;qwq&quot;);
+	sort(pt + 1, pt + n + 1);
+	for(int i = 1; i &lt;= n; ++i) {
+//		printf(&quot;%d %d\n&quot;,pt[i].x,pt[i-1].x);
+		if(pt[i].x == pt[i + 1].x &amp;&amp; i != n + 1) {
+			pt[i + 1].a += pt[i].a;
+		} else {
+//			printf(&quot;%d %d\n&quot;,pt[i].x,pt[i].)
+			rt[++tot] = pt[i];
+		}
+	}
+//	puts(&quot;!!!&quot;);
+	init();
+//	puts(&quot;QWQ&quot;);
+//	for(int i = 1; i &lt;= tot; ++i) {
+//		printf(&quot;%d %d\n&quot;, rt[i].x, rt[i].a);
+//	}
+	// printf(&quot;%d %d\n&quot;, lower_bound(rt + 1, rt + tot + 1, 1) - rt, lower_bound(rt + 1, rt + tot + 1, 0) - rt);
+	for(int i = n; i &gt;= 1; --i) {
+		A[i] = ans;
+		int id = lower_bound(rt + 1, rt + tot + 1, x[i]) - rt;
+//		printf(&quot;%d %d %d??\n&quot;, i, id, ans);
+//		for(int i=0; i!=tot+1; i=nxt[i]) {
+//			printf(&quot;%d! &quot;,i);
+//		}
+//		puts(&quot;&quot;);
+		rt[id].a -= a[i];
+//		printf(&quot;%d\n&quot;,id);
+		if(rt[id].a == 0) {
+			del(id);
+//			printf(&quot;%d %dqwq\n&quot;,pre[id],nxt[id]);
+			solve(pre[id]);
+			solve(nxt[id]);
+		} else {
+			solve(id);
+		}
+	}
+	for(int i = 1; i &lt;= n; ++i)
+		printf(&quot;%d\n&quot;, A[i]);
+	return 0;
+}
+
+
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/p6592-ysoi2020you-er-yuan/">
+              <h3 class="post-title">
+                P6592 [YsOI2020]幼儿园
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
