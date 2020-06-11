@@ -2,19 +2,19 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>郑重声明 | 夏晓光(loveJY)的博客</title>
+<title>Kruskal重构树复习 | 夏晓光(loveJY)的博客</title>
 <link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1591888506969">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="郑重声明 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="alternate" type="application/atom+xml" title="Kruskal重构树复习 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 
 
-    <meta name="description" content="每篇博客的封面图应该统一!!!!
-那么我们就用P站/天堂两个网站做封面图了!!!
-直到有新的神仙网站改变我的想法
-" />
+    <meta name="description" content="From 2020省选前复习
+首先这个算法的核心是kruskal算法,就是在其上加入了一些新元素使之更优秀了
+我们还是边权排序去做最小生成树,但是这次我们在连树边的时候,先建立一个新点
+新点的权值是边权值,然后新点成为原来的边的起点终点的父..." />
     <meta name="keywords" content="" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
     <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
@@ -83,23 +83,160 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              郑重声明
+              Kruskal重构树复习
             </h2>
             <div class="post-info">
               <span>
-                2020-03-21
+                2020-06-11
               </span>
               <span>
-                1 min read
+                4 min read
               </span>
               
             </div>
             
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/4pNOqgOvBLvj4yTC9qc55QUCcGFV0.dI0fDlkezxF9FZOJ3ZW2v2AeDp1O9FaeGCpcV4IffM82LZANwQNrj3l2LwKZYkKhN*fdUNNvKXJUg!/r" alt="">
+            
             <div class="post-content-wrapper">
               <div class="post-content">
-                <p>每篇博客的封面图应该统一!!!!</p>
-<p>那么我们就用P站/天堂两个网站做封面图了!!!</p>
-<p><s>直到有新的神仙网站改变我的想法</s></p>
+                <p>From 2020省选前复习</p>
+<p>首先这个算法的核心是kruskal算法,就是在其上加入了一些新元素使之更优秀了</p>
+<p>我们还是边权排序去做最小生成树,但是这次我们在连树边的时候,先建立一个新点</p>
+<p>新点的权值是边权值,然后新点成为原来的边的起点终点的父亲,一直做下去就好了qwq</p>
+<p>这个树有什么性质呢?</p>
+<ol>
+<li>二叉树</li>
+<li>x,y的LCA代表的点权一定是他们路径上的极值</li>
+<li>如果</li>
+</ol>
+<p>然后上例题</p>
+<p>T1货车运输</p>
+<p>两点间路径最大的最小值</p>
+<p>直接重构树,然后是从大到小排序即可</p>
+<p>code:</p>
+<pre><code class="language-cpp">
+#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using std::swap;
+using std::sort;
+const int MAXN = 2e5 + 7;
+int n, m;
+struct rec {
+	int x, y, w;
+	bool operator&lt;(const rec &amp;x)const {
+		return w &gt; x.w;
+	}
+} e[MAXN];
+int f[MAXN], a[MAXN], fa[MAXN];
+int ccnt;
+int home[MAXN], nxt[MAXN], to[MAXN];
+inline void ct(int x, int y) {
+	ccnt++;
+	nxt[ccnt] = home[x];
+	home[x] = ccnt;
+	to[ccnt] = y;
+}
+
+inline int getf(int x) {
+	return f[x] == x ? x : f[x] = getf(f[x]);
+}
+
+inline void builtT() {
+	sort(e + 1, e + m + 1);
+	for(int i = 1; i &lt;= m; ++i) {
+		int u = e[i].x;
+		int v = e[i].y;
+		if(getf(u) == getf(v))continue;
+		u = getf(u);
+		v = getf(v);
+		++n;
+		f[n] = n;
+		ct(n, u);
+		ct(n, v);
+		a[n] = e[i].w;
+		f[u] = n;
+		f[v] = n;
+	}
+	return;
+}
+
+int siz[MAXN], dep[MAXN], son[MAXN];
+inline void dfs1(int u, int F) {
+	fa[u] = F;
+	siz[u] = 1;
+	int maxson = -1;
+	for(int i = home[u]; i; i = nxt[i]) {
+		int v = to[i];
+		if(v == F)continue;
+		dep[v] = dep[u] + 1;
+		dfs1(v, u);
+		siz[u] += siz[v];
+		if(siz[v] &gt; maxson) {
+			maxson = siz[v];
+			son[u] = v;
+		}
+	}
+	return ;
+}
+
+int top[MAXN];
+inline void dfs2(int u, int topf) {
+	top[u] = topf;
+	if(!son[u])return;
+	dfs2(son[u], topf);
+	for(int i = home[u]; i; i = nxt[i]) {
+		int v = to[i];
+		if(v == son[u] || v == fa[u])continue;
+		dfs2(v, v);
+	}
+	return ;
+}
+
+inline int LCA(int x, int y) {
+	while(top[x] != top[y]) {
+		if(dep[top[x]] &lt; dep[top[y]])swap(x, y);
+		x = fa[top[x]];
+	}
+	if(dep[x] &gt; dep[y])swap(x, y);
+	return x;
+}
+
+inline void init() {
+	dfs1(n, 0);
+	dfs2(n, n); //n is root
+}
+
+int main() {
+	scanf(&quot;%d%d&quot;, &amp;n, &amp;m);
+	for(int i = 1; i &lt;= m; ++i) {
+		scanf(&quot;%d%d%d&quot;, &amp;e[i].x, &amp;e[i].y, &amp;e[i].w);
+	}
+	for(int i = 1; i &lt;= n; ++i)f[i] = i;
+	builtT();
+	init();
+	int q;
+	scanf(&quot;%d&quot;, &amp;q);
+	for(int i = 1, x, y; i &lt;= q; ++i) {
+		scanf(&quot;%d%d&quot;, &amp;x, &amp;y);
+		if(getf(x) != getf(y)) {
+			puts(&quot;-1&quot;);
+			continue;
+		}
+		int anc = LCA(x, y);
+		printf(&quot;%d\n&quot;, a[anc]);
+	}
+	return 0;
+}
+
+</code></pre>
+<p>T2NOI2018归程</p>
+<p>考虑从点1跑一个最短路,得到每个点到n的最短路信息</p>
+<p>问题变成只走海拔大于x的边能走到的点中到1的最短路最小是什么</p>
+<p>考虑按照海拔重构树,然后海拔是从大到小排序的,那么对于一个点,他一定有某个祖先的父亲是权值小于等于x的,倍增找到这个满足的点</p>
+<p>然后这个点的子树中最短路最小的就是答案qwq</p>
+<p>code?</p>
 
               </div>
               <div class="toc-container">
@@ -109,6 +246,15 @@
           </article>
         </div>
 
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/sheng-xuan-qian-fu-xi-zhuan-lan/">
+              <h3 class="post-title">
+                省选前复习专栏
+              </h3>
+            </a>
+          </div>
         
 
         
