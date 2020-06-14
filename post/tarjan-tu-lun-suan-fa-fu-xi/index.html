@@ -2,21 +2,28 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>P3826 [NOI2017]蔬菜 | 夏晓光(loveJY)的博客</title>
+<title>tarjan图论算法复习 | 夏晓光(loveJY)的博客</title>
 <link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1592146557488">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="P3826 [NOI2017]蔬菜 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="alternate" type="application/atom+xml" title="tarjan图论算法复习 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 
 
-    <meta name="description" content="NOI2017D2T2
-说实话,D2T2就这种程度吗?甚至不能称为黑题吧233
-开题不难发现我们再每天要准确做出一个决策才行,要不然这个数据范围根本动态规划不了的
-按照某种规律直接决策不就是贪心吗?
-而且这个也很像之前做的CF集训队作业题那..." />
-    <meta name="keywords" content="贪心,NOI系列,并查集" />
+    <meta name="description" content="From 2020省选复习
+首先我们小手一挥分出类
+
+强联通分量
+割点
+割边
+点双连通分量
+边双连通分量
+
+目前完成了123,如果考45我也大概率不会....
+算法一
+我们用low数组表示最多经过一条返祖边到达的最小编号是什么,dfn表示这..." />
+    <meta name="keywords" content="" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
     <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
   </head>
@@ -84,91 +91,95 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              P3826 [NOI2017]蔬菜
+              tarjan图论算法复习
             </h2>
             <div class="post-info">
               <span>
-                2020-03-20
+                2020-06-14
               </span>
               <span>
                 3 min read
               </span>
               
-                <a href="https://xiaxiaoguang.github.io/tag/m-043j5Q1/" class="post-tag">
-                  # 贪心
-                </a>
-              
-                <a href="https://xiaxiaoguang.github.io/tag/B3bL-fv2n/" class="post-tag">
-                  # NOI系列
-                </a>
-              
-                <a href="https://xiaxiaoguang.github.io/tag/o6mxNma8_/" class="post-tag">
-                  # 并查集
-                </a>
-              
             </div>
             
-              <img class="post-feature-image" src="https://s1.ax1x.com/2020/03/20/82wzP1.jpg" alt="">
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/4pNOqgOvBLvj4yTC9qc55ZbhcIiu4Lo4JeTSe6umqkL6EE3ZRFbaVgJKmiS.k*mhdMm8wnAdcErQQm6tXCUtsBqG8nbI2BwyGNYqO7KPHeY!/r" alt="">
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <p>NOI2017D2T2</p>
-<p>说实话,D2T2就这种程度吗?甚至不能称为黑题吧233</p>
-<p>开题不难发现我们再每天要准确做出一个决策才行,要不然这个数据范围根本动态规划不了的</p>
-<p><code>按照某种规律直接决策</code>不就是贪心吗?</p>
-<p>而且这个也很像之前做的CF集训队作业题那个题就是每天竹子会上涨,可以通过时光倒流变成竹子要下跌,为题就完全变样子了</p>
-<p>所以这个题也可以用时光倒流的做法,变成倒着运菜进来,那么显然我们每次选择最优的就行了,难度在于模拟啊</p>
-<p>这里提供一种不一样的做法:我们把时光倒流的本质思考出来,单独分析每个菜</p>
+                <p>From 2020省选复习</p>
+<p>首先我们小手一挥分出类</p>
 <ol>
-<li>每个菜都是在他<code>最贵的</code>时候被选择卖,也就是对应<code>每次选最优的</code></li>
-<li>每个菜都是在他<code>快要腐烂</code>的时候被卖,也就是对应<code>倒着运菜</code></li>
+<li>强联通分量</li>
+<li>割点</li>
+<li>割边</li>
+<li>点双连通分量</li>
+<li>边双连通分量</li>
 </ol>
-<p>有了这两个性质,我们只需要得到一个卖菜序列,然后在卖菜序列上通过并查集操作就行了</p>
-<p>具体看code:</p>
-<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
-using namespace std;
-#define mkp(x,y) (make_pair(x,y))
-#define ll long long
-const int MAXN=1e6+7,mx=1e5+7;
-int n,m,k;
-int a[MAXN],s[MAXN],c[MAXN],x[MAXN];
-int fa[MAXN],num[MAXN];
-ll ans[MAXN];
-priority_queue&lt;pair&lt;int,int&gt; &gt; q;
-inline int getf(int x) {
-	return x==fa[x]?x:fa[x]=getf(fa[x]);
+<p>目前完成了123,如果考45我也大概率不会....</p>
+<p>算法一</p>
+<p>我们用low数组表示最多经过一条返祖边到达的最小编号是什么,dfn表示这个点的编号是什么</p>
+<p>然后dfs经过的入栈,当low==dfn的时候,说明一些点能构成一个强联通分量了,因为我们已经不能再回去了</p>
+<p>否则就还可以再缩扩大连通块大小</p>
+<p>算法二</p>
+<p>首先我们要知道的是我们访问的点能作为割点,说明存在一个儿子,low值大于等于这个点dfn值</p>
+<p>但是这个东西在根的时候是伪的,因为根的值一定是最小的....所以根要单独看,是当存在多于一个儿子时就是割点啦</p>
+<p>算法三</p>
+<p>把算法二的low&gt;=dfn改改,改为low&gt;dfn</p>
+<p>相当于去掉这个边,子树就再不能走回u了</p>
+<p>code1:</p>
+<pre><code class="language-cpp">int dfn[MAXN],low[MAXN],fl[MAXN],st[MAXN],tp,bel[MAXN],T,dep;
+inline void tarjan(int u) {
+	low[u]=dfn[u]=++dep;
+	fl[u]=1;
+	st[++tp]=u;
+	for(int i=home[u]; i; i=nxt[i]) {
+		int v=to[i];
+		if(!dfn[v]) {
+			tarjan(v);
+			low[u]=std::min(low[u],low[v]);
+		} else if(!fl[v])continue;
+		low[u]=std::min(low[u],dfn[v]);
+	}
+	if(dfn[u]==low[u]) {
+		++T;
+		while(1) {
+			int v=st[tp];
+			bel[v]=T;
+            fl[v]=0;
+			tp--;
+			if(v==u)break;
+		}
+
+	}
+	return ;
 }
 
-int main() {
-	scanf(&quot;%d%d%d&quot;,&amp;n,&amp;m,&amp;k);
-	for(int i=1; i&lt;=n; ++i) {
-		scanf(&quot;%d%d%d%d&quot;,&amp;a[i],&amp;s[i],&amp;c[i],&amp;x[i]);
-		q.push(mkp(a[i]+s[i],i));
+</code></pre>
+<p>至于fl去掉横跨边有没有用....不知道</p>
+<p>code2:</p>
+<pre><code class="language-cpp">inline void tarjan(int u)
+{
+	dfn[u]=low[u]=++dep;
+	int tmp=0;
+	for(int i=home[u]; i ; i=nxt[i]) {
+		int v=to[i];
+		if(!dfn[v]) {
+			tarjan(v);
+			low[u]=min(low[v],low[u]);
+			if(u==rt) {
+				++tmp;
+			}
+			if(low[v]&gt;=dfn[u] &amp;&amp; u!=rt) {
+				ap[++tot]=u;
+			}
+		}
+		low[u]=min(low[u],dfn[v]);
 	}
-	for(int i=1; i&lt;=mx; ++i)fa[i]=i,num[i]=m;
-	int cnt=0,profit,t,day;
-	while(!q.empty()) {
-		profit= q.top().first,t=q.top().second;
-		q.pop();
-		if(!x[t])day=getf(mx);
-		else day=getf(min(mx,(c[t]-1)/x[t]+1));
-        //找到要T的时间
-		if(!day)continue;
-		c[t]--;
-		num[day]--;
-		cnt++;
-        //处理每天能卖的上限
-		if(!num[day])fa[day]=getf(day-1);
-		if(c[t])q.push(mkp(a[t],t));
-		ans[cnt]=ans[cnt-1]+profit;
-        //卖菜序列
+	if(u==rt&amp;&amp;tmp&gt;1) {
+		ap[++tot]=u;
 	}
-	int qaq;
-	while(k--)scanf(&quot;%d&quot;,&amp;qaq),printf(&quot;%lld\n&quot;,ans[min(cnt,m*qaq)]);
-	return 0;
 }
-
-
 </code></pre>
 
               </div>
@@ -182,9 +193,9 @@ int main() {
         
           <div class="next-post">
             <div class="next">下一篇</div>
-            <a href="https://xiaxiaoguang.github.io/post/p3824-noi2017yong-chi/">
+            <a href="https://xiaxiaoguang.github.io/post/kruskal-chong-gou-shu-fu-xi/">
               <h3 class="post-title">
-                P3824 [NOI2017]泳池
+                Kruskal重构树复习
               </h3>
             </a>
           </div>
