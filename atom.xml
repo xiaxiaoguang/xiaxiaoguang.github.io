@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://xiaxiaoguang.github.io</id>
     <title>夏晓光(loveJY)的博客</title>
-    <updated>2020-07-08T06:59:49.391Z</updated>
+    <updated>2020-07-08T15:11:51.864Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://xiaxiaoguang.github.io"/>
     <link rel="self" href="https://xiaxiaoguang.github.io/atom.xml"/>
@@ -10,6 +10,190 @@
     <logo>https://xiaxiaoguang.github.io/images/avatar.png</logo>
     <icon>https://xiaxiaoguang.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 夏晓光(loveJY)的博客</rights>
+    <entry>
+        <title type="html"><![CDATA[P4246 [SHOI2008]堵塞的交通]]></title>
+        <id>https://xiaxiaoguang.github.io/post/p4246-shoi2008du-sai-de-jiao-tong/</id>
+        <link href="https://xiaxiaoguang.github.io/post/p4246-shoi2008du-sai-de-jiao-tong/">
+        </link>
+        <updated>2020-07-08T14:54:44.000Z</updated>
+        <content type="html"><![CDATA[<p>LCT练习题</p>
+<p>不妨当做**[模板]动态图连通性(离线可过)**</p>
+<p>线段树?那是什么神仙的东西?这种转移还能维护的???</p>
+<p>所以考虑LCT</p>
+<p>离线可过的想法还是很简单的,每条边在时间轴上都有一个存在时间,然后我们可以考虑线段树分治,然后并查集按秩合并可撤销之类的搞一搞</p>
+<p>当然不可能,直接维护删除时间的最大生成树,然后你发现一个询问是否可行是一个树上查询最小值....</p>
+<p>如果最小值大于当前询问就不行</p>
+<p>调试已删除</p>
+<p>code</p>
+<pre><code class="language-cpp">#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+#include&lt;iostream&gt;
+#include&lt;map&gt;
+#define mkp(x,y) (make_pair(x,y))
+using namespace std;
+const int MAXN = 3e5 + 7;
+const int inf = 1e9 + 7;
+int n, m, tmp, T, Q;
+map&lt;pair&lt;int, int&gt;, int&gt; mp;
+int qwq[3][MAXN];
+char s[20];
+namespace LCT {
+#define L ch[x][0]
+#define R ch[x][1]
+	static int ch[MAXN][2], f[MAXN], val[MAXN], minid[MAXN], st[MAXN];
+	bool r[MAXN];
+	inline bool nroot(int x) {
+		return ch[f[x]][0] == x || ch[f[x]][1] == x;
+	}
+	inline void pushR(int x) {
+		L ^= R ^= L ^= R;
+		r[x] ^= 1;
+	}
+	inline void pushdown(int x) {
+		if(r[x]) {
+			if(L)pushR(L);
+			if(R)pushR(R);
+			r[x] = 0;
+		}
+	}
+	inline void pushup(int x) {
+		minid[x] = val[minid[L]] &lt; val[minid[R]] ? minid[L] : minid[R];
+		if(val[x] &lt; val[minid[x]])minid[x] = x;
+	}
+	inline void rotate(int x) {
+		int y = f[x], z = f[y], k = ch[y][1] == x, w = ch[x][!k];
+		if(nroot(y))ch[z][ch[z][1] == y] = x;
+		ch[x][!k] = y;
+		ch[y][k] = w;
+		if(w)f[w] = y;
+		f[y] = x;
+		f[x] = z;
+		pushup(y);
+	}
+	inline void splay(int x) {
+		int y = x, z = 0;
+		st[++z] = y;
+		while(nroot(y))st[++z] = y = f[y];
+		while(z)pushdown(st[z--]);
+		while(nroot(x)) {
+			y = f[x];
+			z = f[y];
+			if(nroot(y))rotate((ch[y][0] == x) ^ (ch[z][0] == y) ? x : y);
+			rotate(x);
+		}
+		pushup(x);
+	}
+	inline void access(int x) {
+		for(int y = 0; x; x = f[y = x]) {
+			splay(x);
+			R = y;
+			pushup(x);
+		}
+	}
+	inline void makeroot(int x) {
+		access(x);
+		splay(x);
+		pushR(x);
+	}
+	inline void split(int x, int y) {
+		makeroot(x);
+		access(y);
+		splay(y);
+	}
+	inline int findroot(int x) {
+		access(x);
+		splay(x);
+		while(L)pushdown(x), x = L;
+		splay(x);
+		return x;
+	}
+	inline void link(int x, int y) {
+		split(x, y);
+		f[x] = y;
+	}
+	inline void cut(int x, int y) {
+		split(x, y);
+		ch[y][0] = f[x] = 0;
+		pushup(y);
+	}
+} using namespace LCT;
+
+
+struct rec {
+	int u, v, ed;
+	bool operator&lt;(const rec &amp;x) {
+		return ed &gt; x.ed;
+	}
+} e[MAXN];
+
+struct qry {
+	int x, y, u, v, k;
+} q[MAXN];
+
+inline int nde(int x, int y) {
+	if(!qwq[x][y])qwq[x][y] = ++T;
+	return qwq[x][y];
+}
+
+int main() {
+	scanf(&quot;%d&quot;, &amp;n);
+	while(1) {
+		scanf(&quot;%s&quot;, s);
+		if(s[0] == 'E')break;
+		++Q;
+		scanf(&quot;%d%d%d%d&quot;, &amp;q[Q].x, &amp;q[Q].y, &amp;q[Q].u, &amp;q[Q].v);
+		int a = nde(q[Q].x, q[Q].y);
+		int b = nde(q[Q].u, q[Q].v);
+		if(a &gt; b)a ^= b ^= a ^= b;
+		if(s[0] == 'O') {
+			++m;
+			mp[mkp(a, b)] = m;
+			e[m].u = a;
+			e[m].v = b;
+			q[Q].x = m;
+			q[Q].k = 1;
+		} else if(s[0] == 'C') {
+			q[Q].x = mp[mkp(a, b)];
+			e[q[Q].x].ed = Q;
+			q[Q].k = 2;
+		} else if(s[0] == 'A') {
+			q[Q].x = a;
+			q[Q].y = b;
+		}
+	}
+	for(int i = 0; i &lt;= T; ++i)val[i] = inf;
+	for(int i = 1; i &lt;= m; ++i) {
+		if(!e[i].ed)val[i + T] = Q + 1, e[i].ed = Q + 1; //删除?不存在的
+		else val[i + T] = e[i].ed;
+	}
+	for(int i = 1; i &lt;= Q; ++i) {
+		if(q[i].k == 0) {
+			split(q[i].x, q[i].y);
+			if(val[minid[q[i].y]] &gt; i &amp;&amp; findroot(q[i].x) == findroot(q[i].y))puts(&quot;Y&quot;);
+			else puts(&quot;N&quot;);
+		} else if(q[i].k == 1) {
+			int I = q[i].x;
+			split(e[I].u, e[I].v);
+			if(findroot(e[I].u) != findroot(e[I].v)) {
+				link(e[I].u, I + T);
+				link(e[I].v, I + T);
+			} else if(val[minid[e[I].v]] &lt; e[I].ed) {
+				int p = minid[e[I].v];
+				cut(p, e[p - T].u);
+				cut(p, e[p - T].v);
+				val[p] = inf;
+				link(e[I].u, I + T);
+				link(e[I].v, I + T);
+			}
+		}
+	}
+	return 0;
+}
+
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[[转载]CF809E Surprise me!]]></title>
         <id>https://xiaxiaoguang.github.io/post/zhuan-zai-cf809e-surprise-me/</id>
@@ -446,7 +630,7 @@ s-65,47,-65,47z M834 80H400000v40H845z'/></svg></span></span></span><span class=
 <p>&quot;或许对于毁灭而言,这是最好的结局呢...&quot;</p>
 <p>&quot;可他还是....&quot;</p>
 <p>&quot;不要说了&quot;,&quot;订婚人&quot;粉嫩白皙的脸庞上还仿佛有着晶莹的丝丝泪痕,但是面色却一点也不苍白,美丽的大眼睛里闪烁出坚毅如星的光芒,&quot;他不会开心的.&quot;</p>
-<p>就算众人不能释然与这一切,可焕然一新的生活就如擀面杖一般把他们推向前进的道路上</p>
+<p>就算众人不能释然与这一切,可焕然一新的生活就如擀面杖一般把他们碾向生存的道路上</p>
 <p>&quot;结束,往往是下一个开始的征兆哦...就算这和我的宗旨不太相符?&quot;</p>
 ]]></content>
     </entry>
@@ -1130,212 +1314,6 @@ int main() {
 		printf(&quot;%lld\n&quot;,ans);
 	}
 }
-
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[P6602 「EZEC-2」数轴]]></title>
-        <id>https://xiaxiaoguang.github.io/post/p6602-ezec-2-shu-zhou/</id>
-        <link href="https://xiaxiaoguang.github.io/post/p6602-ezec-2-shu-zhou/">
-        </link>
-        <updated>2020-06-10T14:28:23.000Z</updated>
-        <content type="html"><![CDATA[<p>扶苏大神推荐</p>
-<p>简要题意</p>
-<p>给定一个长度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">m</span></span></span></span> 的序列，有 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 次操作，对序列单点加 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi></mrow><annotation encoding="application/x-tex">a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">a</span></span></span></span> 。每次操作后都要求出序列中最长的区间，满足区间和不大于 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span></span></span></span></p>
-<p>From 一扶苏一 <s>/se/se/se</s></p>
-<p>需要注意的是，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>&lt;</mo><mo>=</mo><mn>1</mn><mi>e</mi><mn>6</mn><mo separator="true">,</mo><mi>m</mi><mo>&lt;</mo><mo>=</mo><mn>1</mn><mi>e</mi><mn>9</mn></mrow><annotation encoding="application/x-tex">n&lt;=1e6,m&lt;=1e9</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord">1</span><span class="mord mathdefault">e</span><span class="mord">6</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord mathdefault">e</span><span class="mord">9</span></span></span></span>但是<strong>k&lt;=100</strong></p>
-<p>首先，我们会发现在直接数轴上DP是不行的，因为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi><mo>&lt;</mo><mo>=</mo><mn>1</mn><mi>e</mi><mn>9</mn></mrow><annotation encoding="application/x-tex">m&lt;=1e9</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord mathdefault">e</span><span class="mord">9</span></span></span></span>，直接去考虑是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>m</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">m^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span>的？</p>
-<p>而数轴上坐标点如此离散的情况下，我们如果想要直接知道一个点之前那个点是什么,可以使用<strong>离散化或者链表</strong>的方法</p>
-<p>而离散化显得很不能扩展，因为只是变成了差不多<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mi>n</mi><mn>2</mn></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>的做法</p>
-<p>而链表可以再有动态变化的情况下维护</p>
-<p>所以我们只需要去考虑删除一个数之后用<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi><mi>w</mi><mi>o</mi><mi>p</mi><mi>o</mi><mi>i</mi><mi>n</mi><mi>t</mi><mi>e</mi><mi>r</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">twopointers</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">t</span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mord mathdefault">o</span><span class="mord mathdefault">p</span><span class="mord mathdefault">o</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mord mathdefault">t</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">s</span></span></span></span>O(k)维护新答案</p>
-<p>但是要把整个过程反过来，这样答案单调上升，ans可以直接取max</p>
-<p>写的时候注意我们答案是要pre和nxt之间找的,而且设置的头尾还不能减去.....毒毒毒</p>
-<p>code:</p>
-<pre><code class="language-cpp">#include&lt;iostream&gt;
-#include&lt;cstdio&gt;
-#include&lt;cstring&gt;
-#include&lt;algorithm&gt;
-#include&lt;cassert&gt;
-using std::lower_bound;
-using std::max;
-using std::sort;
-const int MAXN = 1e6 + 7;
-const int inf = 1e9 + 7;
-int n, m, k, tot, ans = -1;
-int x[MAXN], a[MAXN], A[MAXN];
-struct rec {
-	int x, a;
-	bool operator&lt;(const rec &amp;l)const {
-		return x &lt; l.x;
-	}
-	bool operator&lt;(const int &amp;l)const {
-		return x &lt; l;
-	}
-} pt[MAXN], rt[MAXN];
-int pre[MAXN], nxt[MAXN];
-
-inline void solve(int x) {
-//	printf(&quot;%d %d\n&quot;,x,nxt[x]);
-	int nw = x;
-	int y = nw;
-	int S = rt[x].a;
-	if(S &gt; k) {
-		if(pre[x] != 0)
-			ans = max(rt[x].x - rt[pre[x]].x - 2, ans);
-		else ans = max(ans, rt[x].x - 1);
-		if(nxt[x] != tot + 1)
-			ans = max(rt[nxt[x]].x - rt[x].x - 2, ans);
-		else ans = max(ans, m - rt[x].x - 1);
-//		printf(&quot;%d %d\n&quot;,x,nxt[x]);
-//		if(x==0 &amp;&amp; nxt[x]==tot+1) ans=max(ans,m);
-
-		return ;
-	}
-	while(S &lt;= k) {
-		x = pre[x];
-		if(S + rt[x].a &gt; k) {
-//			printf(&quot;%d %d %d %d %d %d %d\n&quot;, nw, x, nxt[nw], tot, rt[nxt[nw]].x, rt[nw].x, rt[x].x);
-			if(nxt[nw] != tot + 1)
-				ans = max(rt[nxt[nw]].x - rt[x].x - 2, ans);
-			else ans = max(rt[nxt[nw]].x - rt[x].x - 1, ans);
-//			printf(&quot;%d\n&quot;, ans);
-			x = nxt[x];
-			break;
-		}
-		S += rt[x].a;
-	}
-
-	while(S  &lt;= k) {
-		y = nxt[y];
-		if(S + rt[y].a &gt; k ) {
-			if(pre[x] != 0)
-				ans = max(rt[y].x - 2 - rt[pre[x]].x, ans);
-			else ans = max(rt[y].x - 1 - rt[pre[x]].x, ans);
-			y = pre[y];
-			break;
-		}
-		S += rt[y].a;
-	}
-//	printf(&quot;%d %d %d\n&quot;, nw, x, y);
-	if(nxt[y]==tot+1 &amp;&amp; pre[x]==0)
-		ans=max(rt[nxt[y]].x-rt[pre[x]].x,ans);
-	else if(nxt[y]==tot+1||pre[x]==0)
-		ans=max(rt[nxt[y]].x-rt[pre[x]].x-1,ans);
-	else {
-		ans=max(ans,rt[nxt[y]].x-rt[pre[x]].x-2);
-	}
-//	puts(&quot;qwq&quot;);
-//	assert(x&lt;=nw);
-	while(x != nw) {
-//		printf(&quot;%d %d!!\n&quot;,x,nw);
-		S -= rt[x].a;
-		x = nxt[x];
-		while(S &lt;= k) {
-			y = nxt[y];
-			if(S + rt[y].a &gt; k) {
-				if(y==tot+1 &amp;&amp; pre[x]==0)
-					ans=max(rt[y].x-rt[pre[x]].x,ans);
-				else if(y==tot+1||pre[x]==0)
-					ans=max(rt[y].x-rt[pre[x]].x-1,ans);
-				else {
-					ans=max(ans,rt[y].x-rt[pre[x]].x-2);
-				}
-				y = pre[y];
-				break;
-			}
-			S += rt[y].a;
-		}
-		if(nxt[y]==tot+1 &amp;&amp; pre[x]==0)
-			ans=max(rt[nxt[y]].x-rt[pre[x]].x,ans);
-		else if(nxt[y]==tot+1||pre[x]==0)
-			ans=max(rt[nxt[y]].x-rt[pre[x]].x-1,ans);
-		else {
-			ans=max(ans,rt[nxt[y]].x-rt[pre[x]].x-2);
-		}
-	}
-
-	return ;
-}
-
-inline void init() {
-	rt[0].a = inf;
-	rt[0].x = 0;
-	nxt[0] = 1;
-	pre[0]=0;
-	rt[tot + 1].a = inf;
-	rt[tot + 1].x = m;
-	pre[tot + 1] = tot;
-	nxt[tot + 1]=tot + 1;
-//	printf(&quot;!!%d\n&quot;,tot);
-	for(int i = 1; i &lt;= tot; ++i) {
-		pre[i] = i - 1;
-		nxt[i] = i + 1;
-	}
-	for(int i = 1; i &lt;= tot; ++i) {
-		solve(i);
-	}
-	return;
-}
-
-inline void del(int x) {
-	nxt[pre[x]] = nxt[x];
-	pre[nxt[x]] = pre[x];
-}
-
-int main() {
-//	freopen(&quot;test.in&quot;,&quot;r&quot;,stdin);
-//	freopen(&quot;test1.out&quot;,&quot;w&quot;,stdout);
-
-	scanf(&quot;%d%d%d&quot;, &amp;n, &amp;m, &amp;k);
-	for(int i = 1; i &lt;= n; ++i) {
-		scanf(&quot;%d%d&quot;, &amp;pt[i].x, &amp;pt[i].a);
-		x[i] = pt[i].x;
-		a[i] = pt[i].a;
-	}
-//	puts(&quot;qwq&quot;);
-	sort(pt + 1, pt + n + 1);
-	for(int i = 1; i &lt;= n; ++i) {
-//		printf(&quot;%d %d\n&quot;,pt[i].x,pt[i-1].x);
-		if(pt[i].x == pt[i + 1].x &amp;&amp; i != n + 1) {
-			pt[i + 1].a += pt[i].a;
-		} else {
-//			printf(&quot;%d %d\n&quot;,pt[i].x,pt[i].)
-			rt[++tot] = pt[i];
-		}
-	}
-//	puts(&quot;!!!&quot;);
-	init();
-//	puts(&quot;QWQ&quot;);
-//	for(int i = 1; i &lt;= tot; ++i) {
-//		printf(&quot;%d %d\n&quot;, rt[i].x, rt[i].a);
-//	}
-	// printf(&quot;%d %d\n&quot;, lower_bound(rt + 1, rt + tot + 1, 1) - rt, lower_bound(rt + 1, rt + tot + 1, 0) - rt);
-	for(int i = n; i &gt;= 1; --i) {
-		A[i] = ans;
-		int id = lower_bound(rt + 1, rt + tot + 1, x[i]) - rt;
-//		printf(&quot;%d %d %d??\n&quot;, i, id, ans);
-//		for(int i=0; i!=tot+1; i=nxt[i]) {
-//			printf(&quot;%d! &quot;,i);
-//		}
-//		puts(&quot;&quot;);
-		rt[id].a -= a[i];
-//		printf(&quot;%d\n&quot;,id);
-		if(rt[id].a == 0) {
-			del(id);
-//			printf(&quot;%d %dqwq\n&quot;,pre[id],nxt[id]);
-			solve(pre[id]);
-			solve(nxt[id]);
-		} else {
-			solve(id);
-		}
-	}
-	for(int i = 1; i &lt;= n; ++i)
-		printf(&quot;%d\n&quot;, A[i]);
-	return 0;
-}
-
 
 </code></pre>
 ]]></content>
