@@ -1,0 +1,307 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>P5767 [NOI1997]最优乘车 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1594479797888">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="P5767 [NOI1997]最优乘车 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="地狱把妹王太好看啦!orz散人!
+其实不应该有这破题的
+首先我们考虑这个题是不是很像臻大佬之前出的某个题啊
+然后我们可以考虑建图然后跑最短路
+怎么建?考虑不管哪个路线,把某个点下一步能走到的所有点都连个边
+然后dp[i][j]dp[i][j..." />
+    <meta name="keywords" content="Floyd,建图,最短路" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1594479797888" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              P5767 [NOI1997]最优乘车
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-07-11
+              </span>
+              <span>
+                3 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/OvreQmgBU/" class="post-tag">
+                  # Floyd
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/xAnkr98Aw/" class="post-tag">
+                  # 建图
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/NuUHh0u_3/" class="post-tag">
+                  # 最短路
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/4pNOqgOvBLvj4yTC9qc55QTTltT4inxTcmevwYE5K1tWPpqiQZhsTyQnWX*B2WrUcOrKl1cH7dXAtsGq29Za3Zx2VMTIKzYlcg5V4XqqSwg!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>地狱把妹王太好看啦!orz散人!</p>
+<p>其实不应该有这破题的</p>
+<p>首先我们考虑这个题是不是很像臻大佬之前出的某个题啊</p>
+<p>然后我们可以考虑建图然后跑最短路</p>
+<p>怎么建?考虑不管哪个路线,把某个点下一步能走到的所有点都连个边</p>
+<p>然后<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><mi>p</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>[</mo><mi>j</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">dp[i][j]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">p</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mclose">]</span></span></span></span>表示走到i号点,处于路线j的最小换乘次数,然后转移时如果下一条边不是j中的就相应的换一下</p>
+<p>这里提供一种更优美的做法</p>
+<p>显然同一路线上,前面的点能到达所有后面的点,那么我们可以把这n^2点对连有向边,边权为1</p>
+<p>然后d[i][i]=0,其他初始化为inf,跑一遍Floyd</p>
+<p>这样你会发现答案就是从1~n的最短路-1</p>
+<p>正确性显然吧</p>
+<h1 id="本题最大的坑点在于狗屎般的输入你需要特判回车而最后一行没有回车">本题最大的坑点在于狗屎般的输入,你需要特判回车,而最后一行没有回车!!!</h1>
+<h2 id="而且回车是r">而且回车是/r</h2>
+<pre><code class="language-cpp">
+#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;vector&gt;
+using namespace std;
+const int MAXN = 600;
+int n, m, flg;
+int d[MAXN][MAXN];
+vector&lt;int&gt; a[MAXN];
+
+namespace fastIO {
+#define BUF_SIZE (1&lt;&lt;19)
+	static char buf[BUF_SIZE], *p1 = buf + BUF_SIZE, *pend = buf + BUF_SIZE;
+	bool IOerror = 0;
+	inline char nc() {
+		if(IOerror)return '\r';
+		if(p1 == pend) {
+			p1 = buf;
+			pend = buf + fread(buf, 1, BUF_SIZE, stdin);
+			if(p1 == pend) {
+				IOerror = -1;
+				return '\r';
+			}
+		}
+		return *p1++;
+	}
+	inline int read() {
+		char s = nc();
+		int x = 0;
+		for(; !isdigit(s); s = nc());
+		for(; isdigit(s); s = nc())x = (x &lt;&lt; 1) + (x &lt;&lt; 3) + s - '0';
+		if(s == '\r')flg = 0;
+		return x;
+	}
+}
+using namespace fastIO;
+
+int main() {
+	m = read();
+	n = read();
+	for(int i = 1, qwq; i &lt;= m; ++i) {
+		flg = 1;
+		while(qwq = read()) {
+			a[i].push_back(qwq);
+			if(!flg)break;
+		}
+	}
+	memset(d, 0x3f3f3f3f, sizeof(d));
+	for(int i = 1; i &lt;= m; ++i) {
+		for(int j = 0; j &lt; a[i].size(); ++j) {
+			for(int k = j + 1; k &lt; a[i].size(); ++k) {
+				d[a[i][j]][a[i][k]] =  1;
+			}
+		}
+	}
+	for(int i = 1; i &lt;= n; ++i) {
+		d[i][i] = 0;
+	}
+	for(int k = 1; k &lt;= n; ++k) {
+		for(int i = 1; i &lt;= n; ++i) {
+			for(int j = 1; j &lt;= n; ++j) {
+				d[i][j] = min(d[i][j], d[i][k] + d[k][j]);
+			}
+		}
+	}
+	if(d[1][n] &gt; 10000)puts(&quot;NO&quot;);
+	else printf(&quot;%d\n&quot;, d[1][n] - 1);
+	return 0;
+}
+
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#%E6%9C%AC%E9%A2%98%E6%9C%80%E5%A4%A7%E7%9A%84%E5%9D%91%E7%82%B9%E5%9C%A8%E4%BA%8E%E7%8B%97%E5%B1%8E%E8%88%AC%E7%9A%84%E8%BE%93%E5%85%A5%E4%BD%A0%E9%9C%80%E8%A6%81%E7%89%B9%E5%88%A4%E5%9B%9E%E8%BD%A6%E8%80%8C%E6%9C%80%E5%90%8E%E4%B8%80%E8%A1%8C%E6%B2%A1%E6%9C%89%E5%9B%9E%E8%BD%A6">本题最大的坑点在于狗屎般的输入,你需要特判回车,而最后一行没有回车!!!</a>
+<ul>
+<li><a href="#%E8%80%8C%E4%B8%94%E5%9B%9E%E8%BD%A6%E6%98%AFr">而且回车是/r</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/ya-li-ji-xun-mo-ni-sai/">
+              <h3 class="post-title">
+                雅里集训模拟赛
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

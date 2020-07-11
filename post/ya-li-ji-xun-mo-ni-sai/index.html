@@ -1,0 +1,633 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>雅里集训模拟赛 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1594479797888">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="雅里集训模拟赛 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="最大
+最长
+最深
+T1
+考虑二分答案,矩阵变成0/1矩阵,之后变成一个是否存在子矩阵的可行性判断
+考虑UOJ群中极其巧妙的把每一行所有一的对数都压起来,然后枚举下一行也压起来,直到出现重复的就GG
+这个题就做完了
+T2
+考虑hash,首先你..." />
+    <meta name="keywords" content="比赛题,点分治,枚举,字符串hash" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1594479797888" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              雅里集训模拟赛
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-07-10
+              </span>
+              <span>
+                12 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/A3FIICRYA/" class="post-tag">
+                  # 比赛题
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/C6OfrSnce/" class="post-tag">
+                  # 点分治
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/m9bDuVPLs0/" class="post-tag">
+                  # 枚举
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/pvSHTbX74u/" class="post-tag">
+                  # 字符串hash
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/4pNOqgOvBLvj4yTC9qc55RN8oPwdCZSJ.BK6JdvLmbThh39mnIl8sI7NU*ce5BruTiSLVHZqwBTaI72VLG3kTSERtGJoh5k*GHAcrDjMcl4!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p><a href="http://yt2soj.top/show_problem/25">最大</a></p>
+<p><a href="http://yt2soj.top/show_problem/26">最长</a></p>
+<p><a href="http://yt2soj.top/show_problem/27">最深</a></p>
+<p>T1</p>
+<p>考虑二分答案,矩阵变成0/1矩阵,之后变成一个是否存在子矩阵的可行性判断</p>
+<p>考虑UOJ群中极其巧妙的把每一行所有一的对数都压起来,然后枚举下一行也压起来,直到出现重复的就GG</p>
+<p>这个题就做完了</p>
+<p>T2</p>
+<p>考虑hash,首先你会发现k,b都很小,所以可以搜索出我们钦定那些b是要用于满足k的,而如果出现了搜索到的之外的就一定弃掉不要了,因为每个区间包含的信息是一定的所以这样一定不会算漏掉qwq</p>
+<p>那么判断前后相等的区间就相当于前后区间做个前缀和后每个类型的元素的大小差值关系是一样的,这个显然可以预处理然后差分,就能hash起来了!</p>
+<p>然后你会TLE,此时可以把搜索改为枚举子集</p>
+<p>然后你会WA,你就需要双模hash</p>
+<p>然后我只有90</p>
+<p>T3</p>
+<p>匹配深度最大不是长度最长...</p>
+<p>考虑把从每个点到根的处理出来,从根到每个点的括号序列处理出来,然后做一个查询hash表类似的就能完成括号匹配</p>
+<p>然后你需要计算最大匹配深度...</p>
+<p>这个其实很简单,如果是up,我们钦定他放在左边,也就是要保证其栈顶一定为'(',然后考虑'('入栈过程</p>
+<p>如果'('入栈后发现栈顶有')'二者就弹出,然后匹配深度不变</p>
+<p>否则的话直接入栈,')'直接入栈</p>
+<p>最后如果这个点可以算答案就一定栈顶不能为')'</p>
+<p>其次我们考虑down,从根到每个点....就不需要我重复了吧?</p>
+<p>然后如果我们放入'('就dep+1,如果放入')'就dep-1,对于up的最大深度就是已经匹配出的最大深度和当前dep取max,对于down就是已经匹配出的最大深度和当前-dep取max</p>
+<p>主要是可能出现((((((()))))这样子的序列,导致过根处不是最大深度qwq</p>
+<p>然后注意我们匹配的时候要做两遍,从前到后和从后到前,因为我们单方向匹配啊</p>
+<p>code:</p>
+<p><s>T1不够长就不放了</s></p>
+<p>T2</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+#define ll long long
+#define fi first
+#define se second
+#define pir pair&lt;ll,ll&gt;
+const int MAXN = 2e5 + 7;
+const int MAXP = 2e7 + 7;
+const ll P = 1e9 + 9;
+const ll P2 = 1e9 + 7;
+struct rec {
+	ll x, y;
+	bool operator&lt;(const rec &amp;y)const {
+		return x &lt; y.x;
+	}
+} e[MAXN];
+
+int n, k, Kd, ans;
+int vis[MAXN], ncnt[MAXN];
+// ll base[MAXN];
+const int base1 = 19260817;
+const int base2 = 20040623;
+inline pir gethash() {
+	ll ret1 = 0, ret2 = 0;
+	for(int i = 1; i &lt;= 8; ++i) {
+		// printf(&quot;%lld %lld?\n&quot;, i, ncnt[i] % P);
+		ret1 = (ret1 * base1 % P + ncnt[i] % P) % P;
+		// printf(&quot;%lld??\n&quot;, ret1);
+		ret2 = (ret2 * base2 % P2 + ncnt[i] % P2) % P2;
+	}
+	// printf(&quot;%lld %lld\n&quot;, ret1, ret2);
+	return make_pair(ret1, ret2);
+}
+int nxt[MAXN], home[MAXP], vl[MAXN], que[MAXN];
+pir to[MAXN];
+ll ccnt, T;
+const int P1 = 19260817;
+inline void ct(int x, pir z, int w) {
+	ccnt++;
+	nxt[ccnt] = home[x];
+	home[x] = ccnt;
+	to[ccnt] = z;
+	vl[ccnt] = w;
+}
+
+inline void ins(pir x, int w, int O) {
+	int qwq = x.fi % P1;
+	que[++T] = qwq;
+	for(int i = home[qwq]; i; i = nxt[i]) {
+		// ll qaq = to[i].fi, QAQ = to[i].se;
+		if(to[i].fi == x.fi &amp;&amp; to[i].se == x.se) {
+			// puts(&quot;QAQ&quot;);
+			// printf(&quot;%lld?\n&quot;, to[i]);
+			ans = max(ans, O - vl[i]);
+			// to2[i] = min(to2[i], w);
+			return ;
+		}
+	}
+	ct(qwq, x, w);
+}
+
+
+int bitCount(int i) {
+	int count = 0;
+	while(i != 0) {
+		count++;
+		i = (i - 1)&amp;i;
+	}
+	return count;
+}
+
+// ll a[MAXN], hve[MAXN];
+inline void solve() {
+	// puts(&quot;&quot;);
+	// for(int i = 1; i &lt;= 8; ++i)if(vis[i])printf(&quot;%lld &quot;, i);
+	// puts(&quot;&quot;);
+	for(int i = 1; i &lt;= n; ++i) {
+		if(vis[e[i].y]) {
+			ncnt[e[i].y]++;
+			int minx = 1e9;
+			for(int j = 1; j &lt;= 8; ++j) {
+				if(vis[j])
+					minx = min(ncnt[j], minx);
+			}
+			if(minx &gt; 0 &amp;&amp; minx != 1e9)
+				for(int j = 1; j &lt;= 8; ++j)
+					if(vis[j]) {
+						ncnt[j] -= minx;
+					}
+			// a[i] = gethash(i);
+			// printf(&quot;%lld %lld %lld\n&quot;, i, e[i].x, e[i].y);
+			// O = e[i].x;
+			ins(gethash(), e[i + 1].x, e[i].x);
+			// puts(&quot;&quot;);
+		} else {
+			for(int i = 1; i &lt;= 8; ++i)ncnt[i] = 0;
+			for(int i = 1; i &lt;= T; ++i) {
+				home[que[i]] = 0;
+			}
+			ccnt = T = 0;
+		}
+	}
+	for(int i = 1; i &lt;= T; ++i)home[que[i]] = 0;
+	for(int i = 1; i &lt;= 8; ++i)ncnt[i] = 0;
+	ccnt = T = 0;
+	return ;
+}
+
+signed main() {
+	scanf(&quot;%d%d&quot;, &amp;n, &amp;k);
+	for(int i = 1; i &lt;= n; ++i) {
+		scanf(&quot;%lld%lld&quot;, &amp;e[i].x, &amp;e[i].y);
+		// if(!vis[e[i].y])++Kd;
+		// vis[e[i].y] = 1;
+	}
+	// base[1] = 19602817;
+	// base[2] = 17254079;
+	// base[3] = 19835728;
+	// base[4] = 12594667;
+	// base[5] = 19048659;
+	// base[6] = 12352678;
+	// base[7] = 45678401;
+	// base[8] = 12376456;
+	sort(e + 1, e + n + 1);
+	// vis[1] = 1;
+	// vis[2] = 1;
+	// vis[3] = 1;
+	// for(int i = 1; i &lt;= n; ++i)if(vis[e[i].y])printf(&quot;%lld %lld??\n&quot;, i, e[i].x);
+	// solve();
+	// printf(&quot;%lld\n&quot;, ans);
+
+	// return 0;
+
+	// for(int i = 1; i &lt;= 8; ++i)vis[i] = 0;
+	int S = (1 &lt;&lt; 8) - 1;
+	for(int T = 0; T &lt;= S; ++T) {
+		if(bitCount(T) &lt; k) {
+			continue;
+		}
+		for(int k = 0; k &lt; 8; ++k) {
+			if(T &amp; (1 &lt;&lt; k)) {
+				vis[k + 1] = 1;
+			} else vis[k + 1] = 0;
+		}
+		solve();
+	}
+	printf(&quot;%lld\n&quot;, ans);
+
+	return 0;
+}
+
+</code></pre>
+<p>T3</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using std::max;
+using std::min;
+using namespace std;
+const int MAXN = 2e5 + 7;
+const int inf = 1e9 + 7;
+int n, sum, a[MAXN];
+int ccnt, home[MAXN], nxt[MAXN], to[MAXN];
+inline void cuntu(int x, int y) {
+	ccnt++;
+	nxt[ccnt] = home[x];
+	home[x] = ccnt;
+	to[ccnt] = y;
+}
+inline void ct(int x, int y) {
+	cuntu(x, y);
+	cuntu(y, x);
+}
+
+int root;
+int siz[MAXN], dp[MAXN], vis[MAXN], dwn[MAXN], up[MAXN], dep[MAXN], maxdep[MAXN];
+int mp[MAXN], dep1[MAXN], maxdep1[MAXN];
+inline void getroot(int u, int F) {
+	siz[u] = 1;
+	dp[u] = 0;
+	for(int i = home[u]; i; i = nxt[i]) {
+		int v = to[i];
+		if(v == F || vis[v])continue;
+		getroot(v, u);
+		siz[u] += siz[v];
+		dp[u] = max(dp[u], siz[v]);
+	}
+	dp[u] = max(dp[u], sum - siz[u]);
+	if(dp[u] &lt; dp[root])root = u;
+	return ;
+}
+int ans;
+
+int rev[MAXN], tot;
+// int que[MAXN], head, tail;
+// int st[MAXN], tp;
+// inline void getdis(int u, int F) {
+// 	int tmp1 = tp, tmp2 = head, rc1 = st[tp], rc2 = que[head]; //back?
+// 	if(a[u] == ')') {
+// 		if(tp &gt; 0 &amp;&amp; st[tp] == '(') {
+// 			tp--;
+// 			rc1 = st[tp + 1];
+// 		} else {
+// 			st[++tp] = ')';
+// 		}
+// 		pre[u] = 0;//不行
+// 		que[++head] = ')';//压入
+// 		if(st[tp] != '(') {
+// 			suf[u] = tp;//不行?c
+// 		}
+// 	} else {
+// 		if(head &gt; 0 &amp;&amp; que[head] == ')') {
+// 			head--;
+// 			rc2 = que[head + 1];
+// 		} else {
+// 			que[++head] = '(';
+// 		}
+// 		suf[u] = 0;
+// 		st[++tp] = '(';//不行的
+// 		if(que[head] != ')')pre[u] = tp;
+// 	}
+// 	rev[++tot] = u;
+// 	for(int i = home[u]; i; i = nxt[i]) {
+// 		int v = to[i];
+// 		if(v == F || vis[v])continue;
+// 		dep[v] = dep[u] + 1;
+// 		getdis(v, u);
+// 	}
+// 	tp = tmp1;
+// 	head = tmp2;
+// 	st[tp] = rc1;
+// 	que[head] = rc2;//back
+// }
+int st[MAXN], tp;
+
+inline void getdown(int u, int F) {
+	bool flg = 0;
+	if(a[u] == 0) {//a[u]==0是右括号
+		if(tp &amp;&amp; st[tp] == 1) {
+			--tp;
+		}//有左括号
+		else {
+			st[++tp] = 0;
+			flg = 1;
+		}
+		dep[u] = dep[F] - 1;
+	} else {
+		flg = 1;
+		st[++tp] = 1;
+		dep[u] = dep[F] + 1;
+	}
+	maxdep[u] = max(maxdep[F], dep[u]);
+	// printf(&quot;%d %d\n&quot;, u, maxdep[u]);
+	if((st[tp] != 1 || !tp) &amp;&amp; mp[tp] &gt;= 0) {
+		ans = max(ans, max(maxdep[u] + tp, mp[tp]));
+		//qwq?
+		//tp表示向上的右括号个数
+	}
+
+	// rev[++tot] = u;
+	for(int i = home[u]; i; i = nxt[i]) {
+		int v = to[i];
+		if(v == F || vis[v])continue;
+		getdown(v, u);
+	}
+	if(flg)tp--;
+	else st[++tp] = 1;
+	return ;
+}
+
+inline void getup(int u, int F) {
+	bool flg = 0;
+	if(a[u] == 1) {//左
+		if(tp &amp;&amp; st[tp] == 0)--tp;
+		else {
+			st[++tp] = 1;
+			flg = 1;
+		}
+		dep1[u] = dep1[F] + 1;
+	} else {
+		flg = 1;
+		st[++tp] = 0;
+		dep1[u] = dep1[F] - 1;
+	}
+	maxdep1[u] = max(maxdep1[F], -dep1[u]);
+	//这里注意用符号,左括号代表正
+	//右括号代表负
+	// printf(&quot;%d %d\n&quot;, u, maxdep[u]);
+
+	if(st[tp] != 0 || !tp) {
+		// printf(&quot;&quot;)
+		mp[tp] = max(mp[tp], maxdep1[u] + tp);
+		//qwq?
+	}
+	for(int i = home[u]; i; i = nxt[i]) {
+		int v = to[i];
+		if(v == F || vis[v])continue;
+		getup(v, u);
+	}
+	if(flg)tp--;
+	else st[++tp] = 0;
+	return ;
+}
+
+
+inline void doit(int u) {
+	tot = 0;
+	// printf(&quot;nroot is -&gt;%d\n&quot;, u);
+	for(int i = 1; i &lt;= sum; ++i)mp[i] = -inf;
+	mp[0] = 0;
+
+	for(int i = home[u]; i; i = nxt[i]) {
+		int v = to[i];
+		if(vis[v])continue;
+		rev[++tot] = v;
+		// int tmp = tot + 1;
+		tp = 1;
+		st[tp] = a[u];
+		if(a[u])maxdep[u] = dep[u] = 1;
+		else maxdep[u] = dep[u] = -1;
+		getdown(v, u);
+		tp = maxdep1[u] = dep1[u] = 0;
+		getup(v, u);
+	}
+	for(int i = 1; i &lt;= sum; ++i)mp[i] = -inf;
+	mp[0] = 0;
+
+	for(int j = tot; j &gt;= 1; --j) {
+		int v = rev[j];
+		tp = 1;
+		st[tp] = a[u];
+		if(a[u])maxdep[u] = dep[u] = 1;
+		else maxdep[u] = dep[u] = -1;
+		getdown(v, u);
+		tp = maxdep1[u] = dep1[u] = 0;
+		getup(v, u);
+	}
+}
+
+inline void solve(int u) {
+	vis[u] = 1;
+	// printf(&quot;%d\n&quot;, u);
+	doit(u);
+	for(int i = home[u]; i; i = nxt[i]) {
+		int v = to[i];
+		if(vis[v])continue;
+		root = 0;
+		dp[0] = n;
+		sum = siz[v];
+		getroot(v, 0);
+		solve(root);
+	}
+	return ;
+}
+
+char s[MAXN];
+int main() {
+	// freopen(&quot;test.in&quot;, &quot;r&quot;, stdin);
+	scanf(&quot;%d&quot;, &amp;n);
+	for(int i = 2, x; i &lt;= n; ++i) {
+		scanf(&quot;%d&quot;, &amp;x);
+		ct(x, i);
+	}
+	for(int i = 1; i &lt;= n; ++i) {
+		scanf(&quot;%s&quot;, s);
+		a[i] = s[0] == '(';
+		// printf(&quot;%d %c\n&quot;, i, s[0]);
+	}
+	root = 0;
+	dp[root] = n;
+	sum = n;
+	getroot(1, 0);
+	// printf(&quot;%d\n&quot;, root);
+	solve(root);
+	printf(&quot;%d\n&quot;, ans);
+	return 0;
+}
+
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/p4246-shoi2008du-sai-de-jiao-tong/">
+              <h3 class="post-title">
+                P4246 [SHOI2008]堵塞的交通
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

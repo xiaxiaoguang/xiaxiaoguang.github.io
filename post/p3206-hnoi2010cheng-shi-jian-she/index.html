@@ -1,0 +1,407 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>P3206 [HNOI2010]城市建设 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1594479797888">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="P3206 [HNOI2010]城市建设 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="神仙题
+动态带修最小生成树...
+做法一
+如果我们修改后的代价一定变劣,那么可以倒着做,你会发现如果我们把最小生成树上的边变优了就不会变,如果把其他边变优了就LCT维护一下
+然后不能AC,有40QAQAQAQ
+做法二
+考虑线段树分治...
+..." />
+    <meta name="keywords" content="最小生成树,cdq分治,构造" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1594479797888" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              P3206 [HNOI2010]城市建设
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-07-11
+              </span>
+              <span>
+                7 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/JfN4bDd29/" class="post-tag">
+                  # 最小生成树
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/oKNoZ61LR/" class="post-tag">
+                  # cdq分治
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/nuL1JOWcod/" class="post-tag">
+                  # 构造
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://photogz.photo.store.qq.com/psc?/V13b3duC210Fox/4pNOqgOvBLvj4yTC9qc55QPqSHueFSWGDGOrRo2mTuGpxg4OPq.dPbkSepUjlZAozFxDfwpnHtz.nIzbgf*cvGBd8U649PRWOxoXypFswUA!/b" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>神仙题</p>
+<p>动态带修最小生成树...</p>
+<p>做法一</p>
+<p>如果我们修改后的代价一定变劣,那么可以倒着做,你会发现如果我们把最小生成树上的边变优了就不会变,如果把其他边变优了就LCT维护一下</p>
+<p>然后不能AC,有40QAQAQAQ</p>
+<p>做法二</p>
+<p>考虑线段树分治...</p>
+<p>之前我们的线段树分治只用了个并查集,显得愚蠢,这里我们可以用LCT了.....</p>
+<p>考虑回溯,我们只需要把这个线段树点带来的新边删掉,然后把由于这个点引入新边而删掉的边再搞回去,当然我们还是要Kruscal重构树啦</p>
+<p>然后?回溯能解决那么线段树分治就做完了...复杂度是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>m</mi><mi>l</mi><mi>o</mi><msup><mi>g</mi><mn>2</mn></msup><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(mlog^2n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">m</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>的,会T</p>
+<p>做法三</p>
+<p>CDQ老大爷终于出来了</p>
+<p>对时间分治,然而分治的核心在于减小问题规模,咋减小啊?</p>
+<p>引入新概念,必选边和无用边</p>
+<p>必选边是我们已知到这个时间点,无论再向下搜到哪个时间这些边都一定要加入的</p>
+<p>也就是说,我们这些点是<strong>维护连通性</strong>而存在的...</p>
+<p>所以我们除开分治区间内其他边全都标成负无穷,再做最小生成树,那么还有分治区间内的边就是必选边啦</p>
+<p>那么显然我们就可以把必选边所连接的点缩点</p>
+<blockquote>
+<p><strong>必选边可以用来减少点数</strong></p>
+</blockquote>
+<p>而无用边就是在这个时间点里也都用不上了,今后一定也用不上的边</p>
+<p>举个经典例子:重边(或自环),<s>当然没有这么简单...</s></p>
+<p>那么无用边就是把分治区间内边标为负无穷之后再最小生成树也没有选上的边</p>
+<blockquote>
+<p><strong>无用边可以用来减少边数</strong></p>
+</blockquote>
+<p>满足了这两个做最小生成树的时间瓶颈的缩小,CDQ分治的正确性也就成立啦</p>
+<p>时间复杂度是优美的<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>m</mi><mi>l</mi><mi>o</mi><mi>g</mi><mi>m</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(mlogm)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">m</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">m</span><span class="mclose">)</span></span></span></span></p>
+<p>code:</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+#define ll long long
+const int MAXN = 1e5 + 7;
+
+namespace fastIO {
+#define BUF_SIZE (1&lt;&lt;19)
+	static char buf[BUF_SIZE], *p1 = buf + BUF_SIZE, *pend = BUF_SIZE + buf;
+	inline char nc() {
+		if(p1 == pend) {
+			p1 = buf;
+			pend = buf + fread(buf, 1, BUF_SIZE, stdin);
+		}
+		return *p1++;
+	}
+	inline int read() {
+		char s = nc();
+		int x = 0, f = 1;
+		for(; !isdigit(s); s = nc())if(s == '-')f = -1;
+		for(; isdigit(s); s = nc())x = (x &lt;&lt; 1) + (x &lt;&lt; 3) + s - '0';
+		return x * f;
+	}
+}
+using namespace fastIO;
+int n, m, q, f[MAXN];
+inline int getf(int x) {
+	return f[x] == x ? x : getf(f[x]);
+}
+int siz[MAXN], *sz0;
+
+struct rec {
+	int u, v, w;
+	inline int merge() {
+		int fx = getf(u), fy = getf(v);
+		if(fx == fy)return 0;
+		if(sz0[fx] &lt; sz0[fy]) {
+			f[fx] = fy;
+			sz0[fy] += sz0[fx];
+		} else {
+			f[fy] = fx;
+			sz0[fx] += sz0[fy];
+		}
+		return 1;
+	}
+} e[MAXN &lt;&lt; 1];
+
+struct qry {
+	int id, w;
+} l[MAXN];
+
+
+inline void bck(int x) {
+	sz0[x] = siz[x];
+	f[x] = x;
+}
+int in[MAXN], sz[MAXN], SIZ[20][MAXN], Q[20][MAXN], A[20][MAXN &lt;&lt; 1], *a, *p;
+
+inline int cmp(int x, int y) {
+	return e[x].w &lt; e[y].w;
+}
+
+inline void solve(int dep, int L, int R, int n, int m, int *a, int *p, ll ans) {
+	register int i = 0;
+	sz0 = SIZ[dep];
+	for(i = 1; i &lt;= n; ++i) {
+		siz[p[i]] = sz0[p[i]];
+	}
+	//定这些边一定先选上
+	for(i = L; i &lt;= R; ++i) {
+		e[l[i].id].merge();
+	}
+	for(i = 1; i &lt;= m; ++i) {
+		if(e[a[i]].merge()) {
+			ans += e[a[i]].w;
+			a[i] = -a[i];
+			//必须选边
+		}
+	}
+	for(i = 1; i &lt;= n; ++i)bck(p[i]);
+	int tp = 0;
+	for(i = 1; i &lt;= m; ++i) {
+		if(a[i] &lt; 0)e[-a[i]].merge();
+		else a[++tp] = a[i];
+	}
+	m = tp;
+	tp = 0;
+	for(i = 1; i &lt;= n; ++i)
+		if(f[p[i]] == p[i]) {
+			p[++tp] = p[i];
+			siz[p[i]] = sz0[p[i]];
+			//必留点
+		}
+	n = tp;
+	tp = 0;
+	//钦定这些边一定不选
+	for( i = L; i &lt;= R; ++i) {
+		in[l[i].id] = 1;
+	}
+	for(i = 1; i &lt;= m; ++i) {
+		if(!in[a[i]] &amp;&amp; !e[a[i]].merge())continue;
+		a[++tp] = a[i];
+	}
+	m = tp;
+	for(i = L; i &lt;= R; ++i)in[l[i].id] = 0;
+	for(i = 1; i &lt;= n; ++i)bck(p[i]);
+	if(n == 1) {
+		for(i = L; i &lt;= R; ++i) {
+			e[l[i].id].w = l[i].w;
+			printf(&quot;%lld\n&quot;, ans);
+		}
+        //只剩下一个点啦,改掉之后就计算答案吧
+		return ;
+	}
+	if(L == R) {
+		int w = e[l[L].id].w = l[L].w;
+		for(i = 1; i &lt;= m; ++i)w = min(e[a[i]].w, w);
+        //显然这条边还可以康康能不能优化ans
+		printf(&quot;%lld\n&quot;, ans + w);
+		return ;
+	}
+	int mid = (L + R) &gt;&gt; 1;
+	++dep;
+	for( i = 1; i &lt;= n; ++i)SIZ[dep][Q[dep][i] = p[i]] = sz0[p[i]];
+	for( i = 1; i &lt;= m; ++i)A[dep][i] = a[i];
+	solve(dep, L, mid, n, m, A[dep], Q[dep], ans);
+	--dep;
+	for( i = 1; i &lt;= n; ++i)
+		f[p[i]] = p[i];
+	sort(a + 1, a + m + 1, cmp);
+	solve(dep, mid + 1, R, n, m, a, p, ans);
+    //dep用的少
+	return ;
+}
+
+int main() {
+	n = read();
+	m = read();
+	q = read();
+	for(int i = 1; i &lt;= m; ++i) {
+		e[i].u = read();
+		e[i].v = read();
+		e[i].w = read();
+	}
+	for(int i = 1; i &lt;= q; ++i) {
+		l[i].id = read();
+		l[i].w = read();
+	}
+	for(int i = 1; i &lt;= n; ++i)SIZ[1][i] = 1, Q[1][i] = f[i] = i;
+	for(int i = 1; i &lt;= m; ++i)A[1][i] = i;
+    //栈,因为比较复杂需要回溯
+	sort(A[1] + 1, A[1] + m + 1, cmp);
+	solve(1, 1, q, n, m, A[1], Q[1], 0);
+	return 0;
+}
+
+</code></pre>
+<p>最后不得不说,这个真的妙啊...</p>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/p5767-noi1997zui-you-cheng-che/">
+              <h3 class="post-title">
+                P5767 [NOI1997]最优乘车
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

@@ -3,7 +3,7 @@
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>计数题代码及细节 | 夏晓光(loveJY)的博客</title>
-<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1594221101327">
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1594479797888">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
 <link rel="alternate" type="application/atom+xml" title="计数题代码及细节 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
@@ -18,7 +18,7 @@
 FWT的值域和长度搞混,FWT数组开小了
 没开longlong,在循环里int的局部变量
 ans最后没有+P)..." />
-    <meta name="keywords" content="计数题" />
+    <meta name="keywords" content="分块,快速沃尔什变换,计数题,莫比乌斯反演" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
     <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
   </head>
@@ -27,7 +27,7 @@ ans最后没有+P)..." />
       <div class="main-content">
         <div class="site-header">
   <a href="https://xiaxiaoguang.github.io">
-  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1594221101327" alt="">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1594479797888" alt="">
   </a>
   <h1 class="site-title">
     夏晓光(loveJY)的博客
@@ -93,11 +93,23 @@ ans最后没有+P)..." />
                 2020-07-06
               </span>
               <span>
-                6 min read
+                12 min read
               </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/2ioLAuAHI/" class="post-tag">
+                  # 分块
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/D4ie4KTcnE/" class="post-tag">
+                  # 快速沃尔什变换
+                </a>
               
                 <a href="https://xiaxiaoguang.github.io/tag/JP89ddpfS/" class="post-tag">
                   # 计数题
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/oLff7nRbY/" class="post-tag">
+                  # 莫比乌斯反演
                 </a>
               
             </div>
@@ -115,6 +127,7 @@ ans最后没有+P)..." />
 <li>ans最后没有+P)%P,尤其是容斥QAQ</li>
 <li>忘记取模,不是少取模,是求某些数组答案时自然而然的忘记,千万不要犯</li>
 <li>inv1,inv0没赋初值</li>
+<li>bitset自己有锅,赋值的时候可能不会全赋值,就是tmp=a&amp;b可能不太对</li>
 </ol>
 <p>代码已经删除调试信息</p>
 <p>CF451E Devu and Flowers</p>
@@ -319,6 +332,240 @@ int main() {
 }
 
 </code></pre>
+<p>CF839D Winter is here</p>
+<pre><code class="language-cpp">
+#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+#define ll long long
+using namespace std;
+const int P = 1e9 + 7;
+const int MAXN = 2e6 + 7;
+int n, N;
+int isp[MAXN], pri[MAXN], mu[MAXN], cnt[MAXN], a[MAXN], tot, f[MAXN], g[MAXN];
+
+inline ll ksm(ll x, ll y) {
+	ll ans = 1;
+	if(y &lt; 0)return 0;
+	while(y) {
+		if(y &amp; 1)ans = ans * x % P;
+		x = x * x % P;
+		y &gt;&gt;= 1;
+	}
+	return ans;
+}
+
+inline void init() {
+	mu[1] = 1;
+	for(int i = 2; i &lt;= N; ++i) {
+		if(!isp[i]) {
+			pri[++tot] = i;
+			mu[i] = -1;
+		}
+		for(int j = 1; j &lt;= tot &amp;&amp; i * pri[j] &lt;= N; ++j) {
+			isp[pri[j]*i] = 1;
+			if(i % pri[j] == 0) {
+				mu[i * pri[j]] = 0;
+				break;
+			} else {
+				mu[i * pri[j]] = -mu[i];
+			}
+		}
+	}
+	for(int i = 1; i &lt;= N; ++i) {
+		for(int j = i; j &lt;= N; j += i) {
+			cnt[i] += a[j];
+		}
+		f[i] = 1ll * cnt[i] * ksm(2, cnt[i] - 1) % P;
+	}
+	return;
+}
+
+inline void solve() {
+	ll ans = 0;
+	for(int i = N; i &gt; 1; --i) {
+		if(f[i] == 0)continue;
+		g[i] = f[i];
+		for(int j = i + i; j &lt;= N; j += i) {
+			g[i] = (g[i] - g[j]) % P;
+		}
+		ans = (ans + 1ll * g[i] * i % P) % P;
+	}
+	ans = (ans + P) % P;
+	printf(&quot;%lld\n&quot;, ans);
+}
+
+int main() {
+	scanf(&quot;%d&quot;, &amp;n);
+	for(int i = 1, x; i &lt;= n; ++i) {
+		scanf(&quot;%d&quot;, &amp;x);
+		if(N &lt; x)N = x;
+		a[x]++;
+	}
+	init();
+	solve();
+	return 0;
+}
+
+</code></pre>
+<p>CF1097F Alex and a TV Show</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;bitset&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int MAXN = 2e5 + 7;
+const int N = 7000;
+int n, m;
+int pri[MAXN], isp[MAXN], tot, miu[MAXN];
+bitset&lt;7005&gt; a[MAXN], Val[7002], mu[7002], tmp;
+
+inline void init() {
+	isp[1] = 1;
+	miu[1] = 1;
+	for(int i = 2; i &lt;= N; ++i) {
+		if(!isp[i]) {
+			miu[i] = -1;
+			pri[++tot] = i;
+		}
+		for(int j = 1; j &lt;= tot &amp;&amp; i * pri[j] &lt;= N; ++j) {
+			isp[i * pri[j]] = 1;
+			if(i % pri[j] == 0) {
+				miu[i * pri[j]] = 0;
+				continue;
+			} else {
+				miu[i * pri[j]] = -miu[i];
+			}
+		}
+	}
+	for(int i = 1; i &lt;= N; ++i) {
+		for(int j = i; j &lt;= N; j += i) {
+			Val[j][i] = 1;
+			mu[i][j] = miu[j / i] != 0;
+		}
+	}
+	return ;
+}
+int P = 0, ans[MAXN];
+int main() {
+	scanf(&quot;%d%d&quot;, &amp;n, &amp;m);
+	init();
+	for(int i = 1, typ, x, y, z; i &lt;= m; ++i) {
+		scanf(&quot;%d&quot;, &amp;typ);
+		if(typ == 1) {
+			scanf(&quot;%d%d&quot;, &amp;x, &amp;y);
+			a[x] = Val[y];
+		} else if(typ == 2) {
+			scanf(&quot;%d%d%d&quot;, &amp;x, &amp;y, &amp;z);
+			a[x] = a[z] ^ a[y];
+		} else if(typ == 3) {
+			scanf(&quot;%d%d%d&quot;, &amp;x, &amp;y, &amp;z);
+			a[x] = a[z] &amp; a[y];
+		} else if(typ == 4) {
+			scanf(&quot;%d%d&quot;, &amp;x, &amp;y);
+			printf(&quot;%d&quot;, (a[x] &amp; mu[y]).count() &amp; 1);//this!
+		}
+	}
+	return 0;
+}
+</code></pre>
+<p>CF840E In a Trap</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+const int B = 255;
+using std::max;
+const int MAXN = 2e5 + 7;
+int n, m;
+int a[MAXN];
+int home[MAXN], nxt[MAXN], to[MAXN], ccnt;
+inline void ct(int x, int y) {
+	ccnt++;
+	nxt[ccnt] = home[x];
+	to[ccnt] = y;
+	home[x] = ccnt;
+}
+int dep[MAXN], fa[MAXN];
+inline void dfs(int u, int F) {
+	fa[u] = F;
+	for(int i = home[u]; i; i = nxt[i]) {
+		int v = to[i];
+		if(v == F)continue;
+		dep[v] = dep[u] + 1;
+		dfs(v, u);
+	}
+	return ;
+}
+
+int ch[MAXN][2], T, f[MAXN][B + 10], gp[MAXN];
+int main() {
+	// freopen(&quot;test.in&quot;, &quot;r&quot;, stdin);
+	// freopen(&quot;test1.out&quot;, &quot;w&quot;, stdout);
+	scanf(&quot;%d%d&quot;, &amp;n, &amp;m);
+	for(int i = 1; i &lt;= n; ++i)scanf(&quot;%d&quot;, &amp;a[i]);
+	for(int i = 1, x, y; i &lt; n; ++i) {
+		scanf(&quot;%d%d&quot;, &amp;x, &amp;y);
+		ct(x, y);
+		ct(y, x);
+	}
+	dfs(1, 0);
+	for(int i = 1, x; i &lt;= n; ++i) {
+		if(dep[i] &gt;= B) {
+			x = i;
+			ch[0][0] = 0;
+			ch[0][1] = 0;
+			T = 0;
+			for(int j = 0; j &lt;= B; ++j, x = fa[x]) {
+				int t = a[x] ^ j;
+				int nw = 0;
+				for(int k = 16; k &gt;= 0; --k) {
+					int c = (t &gt;&gt; k) &amp; 1;
+					if(!ch[nw][c]) {
+						ch[nw][c] = ++T;
+						ch[T][0] = ch[T][1] = 0;
+					}
+					nw = ch[nw][c];
+				}
+			}
+			for(int j = 0; j &lt;= B; ++j) {
+				int t = j &lt;&lt; 8;
+				int nw = 0, S = 0;
+				for(int k = 16; k &gt;= 0; --k) {
+					int c = (t &gt;&gt; k) &amp; 1;
+					if(ch[nw][c ^ 1]) {
+						nw = ch[nw][c ^ 1];
+						S += (1 &lt;&lt; k);
+					} else nw = ch[nw][c];
+				}
+				f[i][j] = S;
+			}
+			gp[i] = x;
+		}
+	}
+	for(int i = 1, x, y; i &lt;= m; ++i) {
+		scanf(&quot;%d%d&quot;, &amp;x, &amp;y);
+		int ans = 0;
+		int qwq = 0;
+		int st = dep[y];
+		while(dep[y] - dep[x] &gt;= B) {
+			ans = max(f[y][qwq], ans);
+			++qwq;
+			y = gp[y];
+		}
+		while(y != fa[x]) {
+			ans = max(ans, a[y] ^ (st - dep[y]));
+			y = fa[y];
+		}
+		printf(&quot;%d\n&quot;, ans);
+	}
+	return 0;
+}
+
+</code></pre>
+<p>再这样高浓度压缩好像博客数就少于zhq了</p>
+<p>以后不了</p>
 
               </div>
               <div class="toc-container">

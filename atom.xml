@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://xiaxiaoguang.github.io</id>
     <title>夏晓光(loveJY)的博客</title>
-    <updated>2020-07-08T15:11:51.864Z</updated>
+    <updated>2020-07-11T15:03:30.586Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://xiaxiaoguang.github.io"/>
     <link rel="self" href="https://xiaxiaoguang.github.io/atom.xml"/>
@@ -10,6 +10,716 @@
     <logo>https://xiaxiaoguang.github.io/images/avatar.png</logo>
     <icon>https://xiaxiaoguang.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 夏晓光(loveJY)的博客</rights>
+    <entry>
+        <title type="html"><![CDATA[P3206 [HNOI2010]城市建设]]></title>
+        <id>https://xiaxiaoguang.github.io/post/p3206-hnoi2010cheng-shi-jian-she/</id>
+        <link href="https://xiaxiaoguang.github.io/post/p3206-hnoi2010cheng-shi-jian-she/">
+        </link>
+        <updated>2020-07-11T14:47:19.000Z</updated>
+        <content type="html"><![CDATA[<p>神仙题</p>
+<p>动态带修最小生成树...</p>
+<p>做法一</p>
+<p>如果我们修改后的代价一定变劣,那么可以倒着做,你会发现如果我们把最小生成树上的边变优了就不会变,如果把其他边变优了就LCT维护一下</p>
+<p>然后不能AC,有40QAQAQAQ</p>
+<p>做法二</p>
+<p>考虑线段树分治...</p>
+<p>之前我们的线段树分治只用了个并查集,显得愚蠢,这里我们可以用LCT了.....</p>
+<p>考虑回溯,我们只需要把这个线段树点带来的新边删掉,然后把由于这个点引入新边而删掉的边再搞回去,当然我们还是要Kruscal重构树啦</p>
+<p>然后?回溯能解决那么线段树分治就做完了...复杂度是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>m</mi><mi>l</mi><mi>o</mi><msup><mi>g</mi><mn>2</mn></msup><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(mlog^2n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">m</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>的,会T</p>
+<p>做法三</p>
+<p>CDQ老大爷终于出来了</p>
+<p>对时间分治,然而分治的核心在于减小问题规模,咋减小啊?</p>
+<p>引入新概念,必选边和无用边</p>
+<p>必选边是我们已知到这个时间点,无论再向下搜到哪个时间这些边都一定要加入的</p>
+<p>也就是说,我们这些点是<strong>维护连通性</strong>而存在的...</p>
+<p>所以我们除开分治区间内其他边全都标成负无穷,再做最小生成树,那么还有分治区间内的边就是必选边啦</p>
+<p>那么显然我们就可以把必选边所连接的点缩点</p>
+<blockquote>
+<p><strong>必选边可以用来减少点数</strong></p>
+</blockquote>
+<p>而无用边就是在这个时间点里也都用不上了,今后一定也用不上的边</p>
+<p>举个经典例子:重边(或自环),<s>当然没有这么简单...</s></p>
+<p>那么无用边就是把分治区间内边标为负无穷之后再最小生成树也没有选上的边</p>
+<blockquote>
+<p><strong>无用边可以用来减少边数</strong></p>
+</blockquote>
+<p>满足了这两个做最小生成树的时间瓶颈的缩小,CDQ分治的正确性也就成立啦</p>
+<p>时间复杂度是优美的<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>m</mi><mi>l</mi><mi>o</mi><mi>g</mi><mi>m</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(mlogm)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">m</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">m</span><span class="mclose">)</span></span></span></span></p>
+<p>code:</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+#define ll long long
+const int MAXN = 1e5 + 7;
+
+namespace fastIO {
+#define BUF_SIZE (1&lt;&lt;19)
+	static char buf[BUF_SIZE], *p1 = buf + BUF_SIZE, *pend = BUF_SIZE + buf;
+	inline char nc() {
+		if(p1 == pend) {
+			p1 = buf;
+			pend = buf + fread(buf, 1, BUF_SIZE, stdin);
+		}
+		return *p1++;
+	}
+	inline int read() {
+		char s = nc();
+		int x = 0, f = 1;
+		for(; !isdigit(s); s = nc())if(s == '-')f = -1;
+		for(; isdigit(s); s = nc())x = (x &lt;&lt; 1) + (x &lt;&lt; 3) + s - '0';
+		return x * f;
+	}
+}
+using namespace fastIO;
+int n, m, q, f[MAXN];
+inline int getf(int x) {
+	return f[x] == x ? x : getf(f[x]);
+}
+int siz[MAXN], *sz0;
+
+struct rec {
+	int u, v, w;
+	inline int merge() {
+		int fx = getf(u), fy = getf(v);
+		if(fx == fy)return 0;
+		if(sz0[fx] &lt; sz0[fy]) {
+			f[fx] = fy;
+			sz0[fy] += sz0[fx];
+		} else {
+			f[fy] = fx;
+			sz0[fx] += sz0[fy];
+		}
+		return 1;
+	}
+} e[MAXN &lt;&lt; 1];
+
+struct qry {
+	int id, w;
+} l[MAXN];
+
+
+inline void bck(int x) {
+	sz0[x] = siz[x];
+	f[x] = x;
+}
+int in[MAXN], sz[MAXN], SIZ[20][MAXN], Q[20][MAXN], A[20][MAXN &lt;&lt; 1], *a, *p;
+
+inline int cmp(int x, int y) {
+	return e[x].w &lt; e[y].w;
+}
+
+inline void solve(int dep, int L, int R, int n, int m, int *a, int *p, ll ans) {
+	register int i = 0;
+	sz0 = SIZ[dep];
+	for(i = 1; i &lt;= n; ++i) {
+		siz[p[i]] = sz0[p[i]];
+	}
+	//定这些边一定先选上
+	for(i = L; i &lt;= R; ++i) {
+		e[l[i].id].merge();
+	}
+	for(i = 1; i &lt;= m; ++i) {
+		if(e[a[i]].merge()) {
+			ans += e[a[i]].w;
+			a[i] = -a[i];
+			//必须选边
+		}
+	}
+	for(i = 1; i &lt;= n; ++i)bck(p[i]);
+	int tp = 0;
+	for(i = 1; i &lt;= m; ++i) {
+		if(a[i] &lt; 0)e[-a[i]].merge();
+		else a[++tp] = a[i];
+	}
+	m = tp;
+	tp = 0;
+	for(i = 1; i &lt;= n; ++i)
+		if(f[p[i]] == p[i]) {
+			p[++tp] = p[i];
+			siz[p[i]] = sz0[p[i]];
+			//必留点
+		}
+	n = tp;
+	tp = 0;
+	//钦定这些边一定不选
+	for( i = L; i &lt;= R; ++i) {
+		in[l[i].id] = 1;
+	}
+	for(i = 1; i &lt;= m; ++i) {
+		if(!in[a[i]] &amp;&amp; !e[a[i]].merge())continue;
+		a[++tp] = a[i];
+	}
+	m = tp;
+	for(i = L; i &lt;= R; ++i)in[l[i].id] = 0;
+	for(i = 1; i &lt;= n; ++i)bck(p[i]);
+	if(n == 1) {
+		for(i = L; i &lt;= R; ++i) {
+			e[l[i].id].w = l[i].w;
+			printf(&quot;%lld\n&quot;, ans);
+		}
+        //只剩下一个点啦,改掉之后就计算答案吧
+		return ;
+	}
+	if(L == R) {
+		int w = e[l[L].id].w = l[L].w;
+		for(i = 1; i &lt;= m; ++i)w = min(e[a[i]].w, w);
+        //显然这条边还可以康康能不能优化ans
+		printf(&quot;%lld\n&quot;, ans + w);
+		return ;
+	}
+	int mid = (L + R) &gt;&gt; 1;
+	++dep;
+	for( i = 1; i &lt;= n; ++i)SIZ[dep][Q[dep][i] = p[i]] = sz0[p[i]];
+	for( i = 1; i &lt;= m; ++i)A[dep][i] = a[i];
+	solve(dep, L, mid, n, m, A[dep], Q[dep], ans);
+	--dep;
+	for( i = 1; i &lt;= n; ++i)
+		f[p[i]] = p[i];
+	sort(a + 1, a + m + 1, cmp);
+	solve(dep, mid + 1, R, n, m, a, p, ans);
+    //dep用的少
+	return ;
+}
+
+int main() {
+	n = read();
+	m = read();
+	q = read();
+	for(int i = 1; i &lt;= m; ++i) {
+		e[i].u = read();
+		e[i].v = read();
+		e[i].w = read();
+	}
+	for(int i = 1; i &lt;= q; ++i) {
+		l[i].id = read();
+		l[i].w = read();
+	}
+	for(int i = 1; i &lt;= n; ++i)SIZ[1][i] = 1, Q[1][i] = f[i] = i;
+	for(int i = 1; i &lt;= m; ++i)A[1][i] = i;
+    //栈,因为比较复杂需要回溯
+	sort(A[1] + 1, A[1] + m + 1, cmp);
+	solve(1, 1, q, n, m, A[1], Q[1], 0);
+	return 0;
+}
+
+</code></pre>
+<p>最后不得不说,这个真的妙啊...</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[P5767 [NOI1997]最优乘车]]></title>
+        <id>https://xiaxiaoguang.github.io/post/p5767-noi1997zui-you-cheng-che/</id>
+        <link href="https://xiaxiaoguang.github.io/post/p5767-noi1997zui-you-cheng-che/">
+        </link>
+        <updated>2020-07-11T14:38:14.000Z</updated>
+        <content type="html"><![CDATA[<p>地狱把妹王太好看啦!orz散人!</p>
+<p>其实不应该有这破题的</p>
+<p>首先我们考虑这个题是不是很像臻大佬之前出的某个题啊</p>
+<p>然后我们可以考虑建图然后跑最短路</p>
+<p>怎么建?考虑不管哪个路线,把某个点下一步能走到的所有点都连个边</p>
+<p>然后<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><mi>p</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>[</mo><mi>j</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">dp[i][j]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">p</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mclose">]</span></span></span></span>表示走到i号点,处于路线j的最小换乘次数,然后转移时如果下一条边不是j中的就相应的换一下</p>
+<p>这里提供一种更优美的做法</p>
+<p>显然同一路线上,前面的点能到达所有后面的点,那么我们可以把这n^2点对连有向边,边权为1</p>
+<p>然后d[i][i]=0,其他初始化为inf,跑一遍Floyd</p>
+<p>这样你会发现答案就是从1~n的最短路-1</p>
+<p>正确性显然吧</p>
+<h1 id="本题最大的坑点在于狗屎般的输入你需要特判回车而最后一行没有回车">本题最大的坑点在于狗屎般的输入,你需要特判回车,而最后一行没有回车!!!</h1>
+<h2 id="而且回车是r">而且回车是/r</h2>
+<pre><code class="language-cpp">
+#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;vector&gt;
+using namespace std;
+const int MAXN = 600;
+int n, m, flg;
+int d[MAXN][MAXN];
+vector&lt;int&gt; a[MAXN];
+
+namespace fastIO {
+#define BUF_SIZE (1&lt;&lt;19)
+	static char buf[BUF_SIZE], *p1 = buf + BUF_SIZE, *pend = buf + BUF_SIZE;
+	bool IOerror = 0;
+	inline char nc() {
+		if(IOerror)return '\r';
+		if(p1 == pend) {
+			p1 = buf;
+			pend = buf + fread(buf, 1, BUF_SIZE, stdin);
+			if(p1 == pend) {
+				IOerror = -1;
+				return '\r';
+			}
+		}
+		return *p1++;
+	}
+	inline int read() {
+		char s = nc();
+		int x = 0;
+		for(; !isdigit(s); s = nc());
+		for(; isdigit(s); s = nc())x = (x &lt;&lt; 1) + (x &lt;&lt; 3) + s - '0';
+		if(s == '\r')flg = 0;
+		return x;
+	}
+}
+using namespace fastIO;
+
+int main() {
+	m = read();
+	n = read();
+	for(int i = 1, qwq; i &lt;= m; ++i) {
+		flg = 1;
+		while(qwq = read()) {
+			a[i].push_back(qwq);
+			if(!flg)break;
+		}
+	}
+	memset(d, 0x3f3f3f3f, sizeof(d));
+	for(int i = 1; i &lt;= m; ++i) {
+		for(int j = 0; j &lt; a[i].size(); ++j) {
+			for(int k = j + 1; k &lt; a[i].size(); ++k) {
+				d[a[i][j]][a[i][k]] =  1;
+			}
+		}
+	}
+	for(int i = 1; i &lt;= n; ++i) {
+		d[i][i] = 0;
+	}
+	for(int k = 1; k &lt;= n; ++k) {
+		for(int i = 1; i &lt;= n; ++i) {
+			for(int j = 1; j &lt;= n; ++j) {
+				d[i][j] = min(d[i][j], d[i][k] + d[k][j]);
+			}
+		}
+	}
+	if(d[1][n] &gt; 10000)puts(&quot;NO&quot;);
+	else printf(&quot;%d\n&quot;, d[1][n] - 1);
+	return 0;
+}
+
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[雅里集训模拟赛]]></title>
+        <id>https://xiaxiaoguang.github.io/post/ya-li-ji-xun-mo-ni-sai/</id>
+        <link href="https://xiaxiaoguang.github.io/post/ya-li-ji-xun-mo-ni-sai/">
+        </link>
+        <updated>2020-07-10T14:51:08.000Z</updated>
+        <content type="html"><![CDATA[<p><a href="http://yt2soj.top/show_problem/25">最大</a></p>
+<p><a href="http://yt2soj.top/show_problem/26">最长</a></p>
+<p><a href="http://yt2soj.top/show_problem/27">最深</a></p>
+<p>T1</p>
+<p>考虑二分答案,矩阵变成0/1矩阵,之后变成一个是否存在子矩阵的可行性判断</p>
+<p>考虑UOJ群中极其巧妙的把每一行所有一的对数都压起来,然后枚举下一行也压起来,直到出现重复的就GG</p>
+<p>这个题就做完了</p>
+<p>T2</p>
+<p>考虑hash,首先你会发现k,b都很小,所以可以搜索出我们钦定那些b是要用于满足k的,而如果出现了搜索到的之外的就一定弃掉不要了,因为每个区间包含的信息是一定的所以这样一定不会算漏掉qwq</p>
+<p>那么判断前后相等的区间就相当于前后区间做个前缀和后每个类型的元素的大小差值关系是一样的,这个显然可以预处理然后差分,就能hash起来了!</p>
+<p>然后你会TLE,此时可以把搜索改为枚举子集</p>
+<p>然后你会WA,你就需要双模hash</p>
+<p>然后我只有90</p>
+<p>T3</p>
+<p>匹配深度最大不是长度最长...</p>
+<p>考虑把从每个点到根的处理出来,从根到每个点的括号序列处理出来,然后做一个查询hash表类似的就能完成括号匹配</p>
+<p>然后你需要计算最大匹配深度...</p>
+<p>这个其实很简单,如果是up,我们钦定他放在左边,也就是要保证其栈顶一定为'(',然后考虑'('入栈过程</p>
+<p>如果'('入栈后发现栈顶有')'二者就弹出,然后匹配深度不变</p>
+<p>否则的话直接入栈,')'直接入栈</p>
+<p>最后如果这个点可以算答案就一定栈顶不能为')'</p>
+<p>其次我们考虑down,从根到每个点....就不需要我重复了吧?</p>
+<p>然后如果我们放入'('就dep+1,如果放入')'就dep-1,对于up的最大深度就是已经匹配出的最大深度和当前dep取max,对于down就是已经匹配出的最大深度和当前-dep取max</p>
+<p>主要是可能出现((((((()))))这样子的序列,导致过根处不是最大深度qwq</p>
+<p>然后注意我们匹配的时候要做两遍,从前到后和从后到前,因为我们单方向匹配啊</p>
+<p>code:</p>
+<p><s>T1不够长就不放了</s></p>
+<p>T2</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+#define ll long long
+#define fi first
+#define se second
+#define pir pair&lt;ll,ll&gt;
+const int MAXN = 2e5 + 7;
+const int MAXP = 2e7 + 7;
+const ll P = 1e9 + 9;
+const ll P2 = 1e9 + 7;
+struct rec {
+	ll x, y;
+	bool operator&lt;(const rec &amp;y)const {
+		return x &lt; y.x;
+	}
+} e[MAXN];
+
+int n, k, Kd, ans;
+int vis[MAXN], ncnt[MAXN];
+// ll base[MAXN];
+const int base1 = 19260817;
+const int base2 = 20040623;
+inline pir gethash() {
+	ll ret1 = 0, ret2 = 0;
+	for(int i = 1; i &lt;= 8; ++i) {
+		// printf(&quot;%lld %lld?\n&quot;, i, ncnt[i] % P);
+		ret1 = (ret1 * base1 % P + ncnt[i] % P) % P;
+		// printf(&quot;%lld??\n&quot;, ret1);
+		ret2 = (ret2 * base2 % P2 + ncnt[i] % P2) % P2;
+	}
+	// printf(&quot;%lld %lld\n&quot;, ret1, ret2);
+	return make_pair(ret1, ret2);
+}
+int nxt[MAXN], home[MAXP], vl[MAXN], que[MAXN];
+pir to[MAXN];
+ll ccnt, T;
+const int P1 = 19260817;
+inline void ct(int x, pir z, int w) {
+	ccnt++;
+	nxt[ccnt] = home[x];
+	home[x] = ccnt;
+	to[ccnt] = z;
+	vl[ccnt] = w;
+}
+
+inline void ins(pir x, int w, int O) {
+	int qwq = x.fi % P1;
+	que[++T] = qwq;
+	for(int i = home[qwq]; i; i = nxt[i]) {
+		// ll qaq = to[i].fi, QAQ = to[i].se;
+		if(to[i].fi == x.fi &amp;&amp; to[i].se == x.se) {
+			// puts(&quot;QAQ&quot;);
+			// printf(&quot;%lld?\n&quot;, to[i]);
+			ans = max(ans, O - vl[i]);
+			// to2[i] = min(to2[i], w);
+			return ;
+		}
+	}
+	ct(qwq, x, w);
+}
+
+
+int bitCount(int i) {
+	int count = 0;
+	while(i != 0) {
+		count++;
+		i = (i - 1)&amp;i;
+	}
+	return count;
+}
+
+// ll a[MAXN], hve[MAXN];
+inline void solve() {
+	// puts(&quot;&quot;);
+	// for(int i = 1; i &lt;= 8; ++i)if(vis[i])printf(&quot;%lld &quot;, i);
+	// puts(&quot;&quot;);
+	for(int i = 1; i &lt;= n; ++i) {
+		if(vis[e[i].y]) {
+			ncnt[e[i].y]++;
+			int minx = 1e9;
+			for(int j = 1; j &lt;= 8; ++j) {
+				if(vis[j])
+					minx = min(ncnt[j], minx);
+			}
+			if(minx &gt; 0 &amp;&amp; minx != 1e9)
+				for(int j = 1; j &lt;= 8; ++j)
+					if(vis[j]) {
+						ncnt[j] -= minx;
+					}
+			// a[i] = gethash(i);
+			// printf(&quot;%lld %lld %lld\n&quot;, i, e[i].x, e[i].y);
+			// O = e[i].x;
+			ins(gethash(), e[i + 1].x, e[i].x);
+			// puts(&quot;&quot;);
+		} else {
+			for(int i = 1; i &lt;= 8; ++i)ncnt[i] = 0;
+			for(int i = 1; i &lt;= T; ++i) {
+				home[que[i]] = 0;
+			}
+			ccnt = T = 0;
+		}
+	}
+	for(int i = 1; i &lt;= T; ++i)home[que[i]] = 0;
+	for(int i = 1; i &lt;= 8; ++i)ncnt[i] = 0;
+	ccnt = T = 0;
+	return ;
+}
+
+signed main() {
+	scanf(&quot;%d%d&quot;, &amp;n, &amp;k);
+	for(int i = 1; i &lt;= n; ++i) {
+		scanf(&quot;%lld%lld&quot;, &amp;e[i].x, &amp;e[i].y);
+		// if(!vis[e[i].y])++Kd;
+		// vis[e[i].y] = 1;
+	}
+	// base[1] = 19602817;
+	// base[2] = 17254079;
+	// base[3] = 19835728;
+	// base[4] = 12594667;
+	// base[5] = 19048659;
+	// base[6] = 12352678;
+	// base[7] = 45678401;
+	// base[8] = 12376456;
+	sort(e + 1, e + n + 1);
+	// vis[1] = 1;
+	// vis[2] = 1;
+	// vis[3] = 1;
+	// for(int i = 1; i &lt;= n; ++i)if(vis[e[i].y])printf(&quot;%lld %lld??\n&quot;, i, e[i].x);
+	// solve();
+	// printf(&quot;%lld\n&quot;, ans);
+
+	// return 0;
+
+	// for(int i = 1; i &lt;= 8; ++i)vis[i] = 0;
+	int S = (1 &lt;&lt; 8) - 1;
+	for(int T = 0; T &lt;= S; ++T) {
+		if(bitCount(T) &lt; k) {
+			continue;
+		}
+		for(int k = 0; k &lt; 8; ++k) {
+			if(T &amp; (1 &lt;&lt; k)) {
+				vis[k + 1] = 1;
+			} else vis[k + 1] = 0;
+		}
+		solve();
+	}
+	printf(&quot;%lld\n&quot;, ans);
+
+	return 0;
+}
+
+</code></pre>
+<p>T3</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using std::max;
+using std::min;
+using namespace std;
+const int MAXN = 2e5 + 7;
+const int inf = 1e9 + 7;
+int n, sum, a[MAXN];
+int ccnt, home[MAXN], nxt[MAXN], to[MAXN];
+inline void cuntu(int x, int y) {
+	ccnt++;
+	nxt[ccnt] = home[x];
+	home[x] = ccnt;
+	to[ccnt] = y;
+}
+inline void ct(int x, int y) {
+	cuntu(x, y);
+	cuntu(y, x);
+}
+
+int root;
+int siz[MAXN], dp[MAXN], vis[MAXN], dwn[MAXN], up[MAXN], dep[MAXN], maxdep[MAXN];
+int mp[MAXN], dep1[MAXN], maxdep1[MAXN];
+inline void getroot(int u, int F) {
+	siz[u] = 1;
+	dp[u] = 0;
+	for(int i = home[u]; i; i = nxt[i]) {
+		int v = to[i];
+		if(v == F || vis[v])continue;
+		getroot(v, u);
+		siz[u] += siz[v];
+		dp[u] = max(dp[u], siz[v]);
+	}
+	dp[u] = max(dp[u], sum - siz[u]);
+	if(dp[u] &lt; dp[root])root = u;
+	return ;
+}
+int ans;
+
+int rev[MAXN], tot;
+// int que[MAXN], head, tail;
+// int st[MAXN], tp;
+// inline void getdis(int u, int F) {
+// 	int tmp1 = tp, tmp2 = head, rc1 = st[tp], rc2 = que[head]; //back?
+// 	if(a[u] == ')') {
+// 		if(tp &gt; 0 &amp;&amp; st[tp] == '(') {
+// 			tp--;
+// 			rc1 = st[tp + 1];
+// 		} else {
+// 			st[++tp] = ')';
+// 		}
+// 		pre[u] = 0;//不行
+// 		que[++head] = ')';//压入
+// 		if(st[tp] != '(') {
+// 			suf[u] = tp;//不行?c
+// 		}
+// 	} else {
+// 		if(head &gt; 0 &amp;&amp; que[head] == ')') {
+// 			head--;
+// 			rc2 = que[head + 1];
+// 		} else {
+// 			que[++head] = '(';
+// 		}
+// 		suf[u] = 0;
+// 		st[++tp] = '(';//不行的
+// 		if(que[head] != ')')pre[u] = tp;
+// 	}
+// 	rev[++tot] = u;
+// 	for(int i = home[u]; i; i = nxt[i]) {
+// 		int v = to[i];
+// 		if(v == F || vis[v])continue;
+// 		dep[v] = dep[u] + 1;
+// 		getdis(v, u);
+// 	}
+// 	tp = tmp1;
+// 	head = tmp2;
+// 	st[tp] = rc1;
+// 	que[head] = rc2;//back
+// }
+int st[MAXN], tp;
+
+inline void getdown(int u, int F) {
+	bool flg = 0;
+	if(a[u] == 0) {//a[u]==0是右括号
+		if(tp &amp;&amp; st[tp] == 1) {
+			--tp;
+		}//有左括号
+		else {
+			st[++tp] = 0;
+			flg = 1;
+		}
+		dep[u] = dep[F] - 1;
+	} else {
+		flg = 1;
+		st[++tp] = 1;
+		dep[u] = dep[F] + 1;
+	}
+	maxdep[u] = max(maxdep[F], dep[u]);
+	// printf(&quot;%d %d\n&quot;, u, maxdep[u]);
+	if((st[tp] != 1 || !tp) &amp;&amp; mp[tp] &gt;= 0) {
+		ans = max(ans, max(maxdep[u] + tp, mp[tp]));
+		//qwq?
+		//tp表示向上的右括号个数
+	}
+
+	// rev[++tot] = u;
+	for(int i = home[u]; i; i = nxt[i]) {
+		int v = to[i];
+		if(v == F || vis[v])continue;
+		getdown(v, u);
+	}
+	if(flg)tp--;
+	else st[++tp] = 1;
+	return ;
+}
+
+inline void getup(int u, int F) {
+	bool flg = 0;
+	if(a[u] == 1) {//左
+		if(tp &amp;&amp; st[tp] == 0)--tp;
+		else {
+			st[++tp] = 1;
+			flg = 1;
+		}
+		dep1[u] = dep1[F] + 1;
+	} else {
+		flg = 1;
+		st[++tp] = 0;
+		dep1[u] = dep1[F] - 1;
+	}
+	maxdep1[u] = max(maxdep1[F], -dep1[u]);
+	//这里注意用符号,左括号代表正
+	//右括号代表负
+	// printf(&quot;%d %d\n&quot;, u, maxdep[u]);
+
+	if(st[tp] != 0 || !tp) {
+		// printf(&quot;&quot;)
+		mp[tp] = max(mp[tp], maxdep1[u] + tp);
+		//qwq?
+	}
+	for(int i = home[u]; i; i = nxt[i]) {
+		int v = to[i];
+		if(v == F || vis[v])continue;
+		getup(v, u);
+	}
+	if(flg)tp--;
+	else st[++tp] = 0;
+	return ;
+}
+
+
+inline void doit(int u) {
+	tot = 0;
+	// printf(&quot;nroot is -&gt;%d\n&quot;, u);
+	for(int i = 1; i &lt;= sum; ++i)mp[i] = -inf;
+	mp[0] = 0;
+
+	for(int i = home[u]; i; i = nxt[i]) {
+		int v = to[i];
+		if(vis[v])continue;
+		rev[++tot] = v;
+		// int tmp = tot + 1;
+		tp = 1;
+		st[tp] = a[u];
+		if(a[u])maxdep[u] = dep[u] = 1;
+		else maxdep[u] = dep[u] = -1;
+		getdown(v, u);
+		tp = maxdep1[u] = dep1[u] = 0;
+		getup(v, u);
+	}
+	for(int i = 1; i &lt;= sum; ++i)mp[i] = -inf;
+	mp[0] = 0;
+
+	for(int j = tot; j &gt;= 1; --j) {
+		int v = rev[j];
+		tp = 1;
+		st[tp] = a[u];
+		if(a[u])maxdep[u] = dep[u] = 1;
+		else maxdep[u] = dep[u] = -1;
+		getdown(v, u);
+		tp = maxdep1[u] = dep1[u] = 0;
+		getup(v, u);
+	}
+}
+
+inline void solve(int u) {
+	vis[u] = 1;
+	// printf(&quot;%d\n&quot;, u);
+	doit(u);
+	for(int i = home[u]; i; i = nxt[i]) {
+		int v = to[i];
+		if(vis[v])continue;
+		root = 0;
+		dp[0] = n;
+		sum = siz[v];
+		getroot(v, 0);
+		solve(root);
+	}
+	return ;
+}
+
+char s[MAXN];
+int main() {
+	// freopen(&quot;test.in&quot;, &quot;r&quot;, stdin);
+	scanf(&quot;%d&quot;, &amp;n);
+	for(int i = 2, x; i &lt;= n; ++i) {
+		scanf(&quot;%d&quot;, &amp;x);
+		ct(x, i);
+	}
+	for(int i = 1; i &lt;= n; ++i) {
+		scanf(&quot;%s&quot;, s);
+		a[i] = s[0] == '(';
+		// printf(&quot;%d %c\n&quot;, i, s[0]);
+	}
+	root = 0;
+	dp[root] = n;
+	sum = n;
+	getroot(1, 0);
+	// printf(&quot;%d\n&quot;, root);
+	solve(root);
+	printf(&quot;%d\n&quot;, ans);
+	return 0;
+}
+
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[P4246 [SHOI2008]堵塞的交通]]></title>
         <id>https://xiaxiaoguang.github.io/post/p4246-shoi2008du-sai-de-jiao-tong/</id>
@@ -246,6 +956,7 @@ int main() {
 <li>ans最后没有+P)%P,尤其是容斥QAQ</li>
 <li>忘记取模,不是少取模,是求某些数组答案时自然而然的忘记,千万不要犯</li>
 <li>inv1,inv0没赋初值</li>
+<li>bitset自己有锅,赋值的时候可能不会全赋值,就是tmp=a&amp;b可能不太对</li>
 </ol>
 <p>代码已经删除调试信息</p>
 <p>CF451E Devu and Flowers</p>
@@ -450,6 +1161,240 @@ int main() {
 }
 
 </code></pre>
+<p>CF839D Winter is here</p>
+<pre><code class="language-cpp">
+#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+#define ll long long
+using namespace std;
+const int P = 1e9 + 7;
+const int MAXN = 2e6 + 7;
+int n, N;
+int isp[MAXN], pri[MAXN], mu[MAXN], cnt[MAXN], a[MAXN], tot, f[MAXN], g[MAXN];
+
+inline ll ksm(ll x, ll y) {
+	ll ans = 1;
+	if(y &lt; 0)return 0;
+	while(y) {
+		if(y &amp; 1)ans = ans * x % P;
+		x = x * x % P;
+		y &gt;&gt;= 1;
+	}
+	return ans;
+}
+
+inline void init() {
+	mu[1] = 1;
+	for(int i = 2; i &lt;= N; ++i) {
+		if(!isp[i]) {
+			pri[++tot] = i;
+			mu[i] = -1;
+		}
+		for(int j = 1; j &lt;= tot &amp;&amp; i * pri[j] &lt;= N; ++j) {
+			isp[pri[j]*i] = 1;
+			if(i % pri[j] == 0) {
+				mu[i * pri[j]] = 0;
+				break;
+			} else {
+				mu[i * pri[j]] = -mu[i];
+			}
+		}
+	}
+	for(int i = 1; i &lt;= N; ++i) {
+		for(int j = i; j &lt;= N; j += i) {
+			cnt[i] += a[j];
+		}
+		f[i] = 1ll * cnt[i] * ksm(2, cnt[i] - 1) % P;
+	}
+	return;
+}
+
+inline void solve() {
+	ll ans = 0;
+	for(int i = N; i &gt; 1; --i) {
+		if(f[i] == 0)continue;
+		g[i] = f[i];
+		for(int j = i + i; j &lt;= N; j += i) {
+			g[i] = (g[i] - g[j]) % P;
+		}
+		ans = (ans + 1ll * g[i] * i % P) % P;
+	}
+	ans = (ans + P) % P;
+	printf(&quot;%lld\n&quot;, ans);
+}
+
+int main() {
+	scanf(&quot;%d&quot;, &amp;n);
+	for(int i = 1, x; i &lt;= n; ++i) {
+		scanf(&quot;%d&quot;, &amp;x);
+		if(N &lt; x)N = x;
+		a[x]++;
+	}
+	init();
+	solve();
+	return 0;
+}
+
+</code></pre>
+<p>CF1097F Alex and a TV Show</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;bitset&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int MAXN = 2e5 + 7;
+const int N = 7000;
+int n, m;
+int pri[MAXN], isp[MAXN], tot, miu[MAXN];
+bitset&lt;7005&gt; a[MAXN], Val[7002], mu[7002], tmp;
+
+inline void init() {
+	isp[1] = 1;
+	miu[1] = 1;
+	for(int i = 2; i &lt;= N; ++i) {
+		if(!isp[i]) {
+			miu[i] = -1;
+			pri[++tot] = i;
+		}
+		for(int j = 1; j &lt;= tot &amp;&amp; i * pri[j] &lt;= N; ++j) {
+			isp[i * pri[j]] = 1;
+			if(i % pri[j] == 0) {
+				miu[i * pri[j]] = 0;
+				continue;
+			} else {
+				miu[i * pri[j]] = -miu[i];
+			}
+		}
+	}
+	for(int i = 1; i &lt;= N; ++i) {
+		for(int j = i; j &lt;= N; j += i) {
+			Val[j][i] = 1;
+			mu[i][j] = miu[j / i] != 0;
+		}
+	}
+	return ;
+}
+int P = 0, ans[MAXN];
+int main() {
+	scanf(&quot;%d%d&quot;, &amp;n, &amp;m);
+	init();
+	for(int i = 1, typ, x, y, z; i &lt;= m; ++i) {
+		scanf(&quot;%d&quot;, &amp;typ);
+		if(typ == 1) {
+			scanf(&quot;%d%d&quot;, &amp;x, &amp;y);
+			a[x] = Val[y];
+		} else if(typ == 2) {
+			scanf(&quot;%d%d%d&quot;, &amp;x, &amp;y, &amp;z);
+			a[x] = a[z] ^ a[y];
+		} else if(typ == 3) {
+			scanf(&quot;%d%d%d&quot;, &amp;x, &amp;y, &amp;z);
+			a[x] = a[z] &amp; a[y];
+		} else if(typ == 4) {
+			scanf(&quot;%d%d&quot;, &amp;x, &amp;y);
+			printf(&quot;%d&quot;, (a[x] &amp; mu[y]).count() &amp; 1);//this!
+		}
+	}
+	return 0;
+}
+</code></pre>
+<p>CF840E In a Trap</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+const int B = 255;
+using std::max;
+const int MAXN = 2e5 + 7;
+int n, m;
+int a[MAXN];
+int home[MAXN], nxt[MAXN], to[MAXN], ccnt;
+inline void ct(int x, int y) {
+	ccnt++;
+	nxt[ccnt] = home[x];
+	to[ccnt] = y;
+	home[x] = ccnt;
+}
+int dep[MAXN], fa[MAXN];
+inline void dfs(int u, int F) {
+	fa[u] = F;
+	for(int i = home[u]; i; i = nxt[i]) {
+		int v = to[i];
+		if(v == F)continue;
+		dep[v] = dep[u] + 1;
+		dfs(v, u);
+	}
+	return ;
+}
+
+int ch[MAXN][2], T, f[MAXN][B + 10], gp[MAXN];
+int main() {
+	// freopen(&quot;test.in&quot;, &quot;r&quot;, stdin);
+	// freopen(&quot;test1.out&quot;, &quot;w&quot;, stdout);
+	scanf(&quot;%d%d&quot;, &amp;n, &amp;m);
+	for(int i = 1; i &lt;= n; ++i)scanf(&quot;%d&quot;, &amp;a[i]);
+	for(int i = 1, x, y; i &lt; n; ++i) {
+		scanf(&quot;%d%d&quot;, &amp;x, &amp;y);
+		ct(x, y);
+		ct(y, x);
+	}
+	dfs(1, 0);
+	for(int i = 1, x; i &lt;= n; ++i) {
+		if(dep[i] &gt;= B) {
+			x = i;
+			ch[0][0] = 0;
+			ch[0][1] = 0;
+			T = 0;
+			for(int j = 0; j &lt;= B; ++j, x = fa[x]) {
+				int t = a[x] ^ j;
+				int nw = 0;
+				for(int k = 16; k &gt;= 0; --k) {
+					int c = (t &gt;&gt; k) &amp; 1;
+					if(!ch[nw][c]) {
+						ch[nw][c] = ++T;
+						ch[T][0] = ch[T][1] = 0;
+					}
+					nw = ch[nw][c];
+				}
+			}
+			for(int j = 0; j &lt;= B; ++j) {
+				int t = j &lt;&lt; 8;
+				int nw = 0, S = 0;
+				for(int k = 16; k &gt;= 0; --k) {
+					int c = (t &gt;&gt; k) &amp; 1;
+					if(ch[nw][c ^ 1]) {
+						nw = ch[nw][c ^ 1];
+						S += (1 &lt;&lt; k);
+					} else nw = ch[nw][c];
+				}
+				f[i][j] = S;
+			}
+			gp[i] = x;
+		}
+	}
+	for(int i = 1, x, y; i &lt;= m; ++i) {
+		scanf(&quot;%d%d&quot;, &amp;x, &amp;y);
+		int ans = 0;
+		int qwq = 0;
+		int st = dep[y];
+		while(dep[y] - dep[x] &gt;= B) {
+			ans = max(f[y][qwq], ans);
+			++qwq;
+			y = gp[y];
+		}
+		while(y != fa[x]) {
+			ans = max(ans, a[y] ^ (st - dep[y]));
+			y = fa[y];
+		}
+		printf(&quot;%d\n&quot;, ans);
+	}
+	return 0;
+}
+
+</code></pre>
+<p>再这样高浓度压缩好像博客数就少于zhq了</p>
+<p>以后不了</p>
 ]]></content>
     </entry>
     <entry>
@@ -838,483 +1783,6 @@ inline void tarjan(int u) {
 		ap[++tot]=u;
 	}
 }
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Kruskal重构树复习]]></title>
-        <id>https://xiaxiaoguang.github.io/post/kruskal-chong-gou-shu-fu-xi/</id>
-        <link href="https://xiaxiaoguang.github.io/post/kruskal-chong-gou-shu-fu-xi/">
-        </link>
-        <updated>2020-06-11T15:02:22.000Z</updated>
-        <content type="html"><![CDATA[<p>From 2020省选前复习</p>
-<p>首先这个算法的核心是kruskal算法,就是在其上加入了一些新元素使之更优秀了</p>
-<p>我们还是边权排序去做最小生成树,但是这次我们在连树边的时候,先建立一个新点</p>
-<p>新点的权值是边权值,然后新点成为原来的边的起点终点的父亲,一直做下去就好了qwq</p>
-<p>这个树有什么性质呢?</p>
-<ol>
-<li>二叉树</li>
-<li>x,y的LCA代表的点权一定是他们路径上的极值</li>
-<li>如果</li>
-</ol>
-<p>然后上例题</p>
-<p>T1货车运输</p>
-<p>两点间路径最大的最小值</p>
-<p>直接重构树,然后是从大到小排序即可</p>
-<p>code:</p>
-<pre><code class="language-cpp">
-#include&lt;iostream&gt;
-#include&lt;cstdio&gt;
-#include&lt;cstring&gt;
-#include&lt;algorithm&gt;
-using std::swap;
-using std::sort;
-const int MAXN = 2e5 + 7;
-int n, m;
-struct rec {
-	int x, y, w;
-	bool operator&lt;(const rec &amp;x)const {
-		return w &gt; x.w;
-	}
-} e[MAXN];
-int f[MAXN], a[MAXN], fa[MAXN];
-int ccnt;
-int home[MAXN], nxt[MAXN], to[MAXN];
-inline void ct(int x, int y) {
-	ccnt++;
-	nxt[ccnt] = home[x];
-	home[x] = ccnt;
-	to[ccnt] = y;
-}
-
-inline int getf(int x) {
-	return f[x] == x ? x : f[x] = getf(f[x]);
-}
-
-inline void builtT() {
-	sort(e + 1, e + m + 1);
-	for(int i = 1; i &lt;= m; ++i) {
-		int u = e[i].x;
-		int v = e[i].y;
-		if(getf(u) == getf(v))continue;
-		u = getf(u);
-		v = getf(v);
-		++n;
-		f[n] = n;
-		ct(n, u);
-		ct(n, v);
-		a[n] = e[i].w;
-		f[u] = n;
-		f[v] = n;
-	}
-	return;
-}
-
-int siz[MAXN], dep[MAXN], son[MAXN];
-inline void dfs1(int u, int F) {
-	fa[u] = F;
-	siz[u] = 1;
-	int maxson = -1;
-	for(int i = home[u]; i; i = nxt[i]) {
-		int v = to[i];
-		if(v == F)continue;
-		dep[v] = dep[u] + 1;
-		dfs1(v, u);
-		siz[u] += siz[v];
-		if(siz[v] &gt; maxson) {
-			maxson = siz[v];
-			son[u] = v;
-		}
-	}
-	return ;
-}
-
-int top[MAXN];
-inline void dfs2(int u, int topf) {
-	top[u] = topf;
-	if(!son[u])return;
-	dfs2(son[u], topf);
-	for(int i = home[u]; i; i = nxt[i]) {
-		int v = to[i];
-		if(v == son[u] || v == fa[u])continue;
-		dfs2(v, v);
-	}
-	return ;
-}
-
-inline int LCA(int x, int y) {
-	while(top[x] != top[y]) {
-		if(dep[top[x]] &lt; dep[top[y]])swap(x, y);
-		x = fa[top[x]];
-	}
-	if(dep[x] &gt; dep[y])swap(x, y);
-	return x;
-}
-
-inline void init() {
-	dfs1(n, 0);
-	dfs2(n, n); //n is root
-}
-
-int main() {
-	scanf(&quot;%d%d&quot;, &amp;n, &amp;m);
-	for(int i = 1; i &lt;= m; ++i) {
-		scanf(&quot;%d%d%d&quot;, &amp;e[i].x, &amp;e[i].y, &amp;e[i].w);
-	}
-	for(int i = 1; i &lt;= n; ++i)f[i] = i;
-	builtT();
-	init();
-	int q;
-	scanf(&quot;%d&quot;, &amp;q);
-	for(int i = 1, x, y; i &lt;= q; ++i) {
-		scanf(&quot;%d%d&quot;, &amp;x, &amp;y);
-		if(getf(x) != getf(y)) {
-			puts(&quot;-1&quot;);
-			continue;
-		}
-		int anc = LCA(x, y);
-		printf(&quot;%d\n&quot;, a[anc]);
-	}
-	return 0;
-}
-
-</code></pre>
-<p>T2NOI2018归程</p>
-<p>考虑从点1跑一个最短路,得到每个点到n的最短路信息</p>
-<p>问题变成只走海拔大于x的边能走到的点中到1的最短路最小是什么</p>
-<p>考虑按照海拔重构树,然后海拔是从大到小排序的,那么对于一个点,他一定有某个祖先的父亲是权值小于等于x的,倍增找到这个满足的点</p>
-<p>然后这个点的子树中最短路最小的就是答案qwq</p>
-<p>code:</p>
-<pre><code class="language-cpp">#include&lt;cstdio&gt;
-#include&lt;cstring&gt;
-#include&lt;iostream&gt;
-#include&lt;algorithm&gt;
-#include&lt;queue&gt;
-#define mkp(x,y) (make_pair(x,y))
-#define se second
-const int MAXN=1e6+7;
-const int inf=2e9+7;
-using namespace std;
-int n,m,q,k,s;
-struct rec {
-	int u,v,l,h;
-	bool operator&lt;(const rec &amp;x)const {
-		return h&gt;x.h;
-	}
-} e[MAXN];
-struct edge {
-	int to,nxt,h;
-} E[MAXN];
-
-int f[MAXN];
-inline int getf(int u) {
-	return f[u]==u?u:f[u]=getf(f[u]);
-}
-
-int home[MAXN],nxt[MAXN],to[MAXN],ccnt,len[MAXN],first[MAXN],cnt;
-inline void ct(int x,int y,int w) {
-	ccnt++;
-	nxt[ccnt]=home[x];
-	home[x]=ccnt;
-	to[ccnt]=y;
-	len[ccnt]=w;
-}
-inline void ct2(int x,int y) {
-	cnt++;
-	E[cnt].nxt=first[x];
-	first[x]=cnt;
-	E[cnt].to=y;
-}
-
-priority_queue&lt;pair&lt;int,int&gt;,vector&lt;pair&lt;int,int&gt; &gt;, greater&lt;pair&lt;int,int&gt; &gt; &gt; que;
-int dis[MAXN],vis[MAXN];
-
-inline void dijkstra() {
-	int s=1;
-	while(!que.empty())que.pop();
-	memset(dis,0x3f3f3f3f,sizeof(dis));
-	memset(vis,0,sizeof(vis));
-	dis[s]=0;
-	que.push(mkp(0,s));
-	while(!que.empty()) {
-		int u=que.top().se;
-		que.pop();
-		if(vis[u])continue;
-		vis[u]=1;
-		for(int i=home[u]; i; i=nxt[i]) {
-			int v=to[i];
-			if(dis[u]+len[i]&lt;dis[v]) {
-				dis[v]=dis[u]+len[i];
-				que.push(mkp(dis[v],v));
-			}
-		}
-	}
-	return ;
-}
-
-int fa[MAXN][20];
-int ans[MAXN],a[MAXN];
-inline void dfs(int u,int F) {
-	ans[u]=dis[u];
-//	a[u]=h;
-	fa[u][0]=F;
-	for(int i=first[u]; i; i=E[i].nxt) {
-		int v=E[i].to;
-		if(v==F)continue;
-		dfs(v,u);//qwq
-		ans[u]=min(ans[u],ans[v]);
-	}
-//	printf(&quot;%d %d %d\n&quot;,u,ans[u],a[u]);
-
-	return ;
-}
-
-inline void solve() {
-	dijkstra();
-//	for(int i=1; i&lt;=n; ++i)printf(&quot;%d &quot;,dis[i]);
-//	puts(&quot;&quot;);
-	sort(e+1,e+m+1);
-	for(int i=1; i&lt;=n; ++i)f[i]=i,a[i]=inf;
-	for(int i=1; i&lt;=m; ++i) {
-		int u=e[i].u;
-		int v=e[i].v;
-		int h=e[i].h;
-		int l=e[i].l;//qwq
-//		printf(&quot;%d %d\n&quot;,u,v);
-
-		if(getf(u)==getf(v))continue;
-
-		u=getf(u);
-		v=getf(v);
-		++n;
-		a[n]=h;
-		f[n]=n;
-		f[u]=n;
-		f[v]=n;
-		ct2(n,u);
-		ct2(n,v);
-	}
-	dfs(n,0);//init 子树最大值,以及倍增
-	for(int i=1; i&lt;=18; ++i) {
-		for(int j=1; j&lt;=n; ++j) {
-			fa[j][i]=fa[fa[j][i-1]][i-1];//qwq
-		}
-	}
-	return ;
-}
-
-inline void init() {
-	memset(home,0,sizeof(home));
-	ccnt=0;
-	cnt=0;
-	memset(first,0,sizeof(first));
-	memset(a,0,sizeof(a));
-	a[0]=inf;
-}
-
-int main() {
-	int T;
-	scanf(&quot;%d&quot;,&amp;T);
-	while(T--&gt;0) {
-		init();
-		scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
-		int tmp=n;
-		for(int i=1; i&lt;=m; ++i) {
-			scanf(&quot;%d%d%d%d&quot;,&amp;e[i].u,&amp;e[i].v,&amp;e[i].l,&amp;e[i].h);
-			ct(e[i].u,e[i].v,e[i].l);
-			ct(e[i].v,e[i].u,e[i].l);
-		}
-		solve();//build Tree and dijkstra
-		scanf(&quot;%d%d%d&quot;,&amp;q,&amp;k,&amp;s);
-		int lst=0;
-		for(int i=1,u,p; i&lt;=q; ++i) {
-			scanf(&quot;%d%d&quot;,&amp;u,&amp;p);
-			u=(u+k*lst-1)%tmp+1;
-			p=(p+k*lst)%(s+1);
-//			printf(&quot;%d %d??\n&quot;,u,p);
-			for(int i=17; i&gt;=0; --i) {
-				if(fa[u][i]==0)continue;
-				if(a[fa[u][i]]&gt;p) {
-					u=fa[u][i];
-				}
-			}
-//			printf(&quot;%d\n&quot;,u);
-			lst=ans[u];
-			printf(&quot;%d\n&quot;,lst);
-		}
-	}
-	return 0;
-}
-
-
-</code></pre>
-<p>完结撒花</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[省选前复习专栏]]></title>
-        <id>https://xiaxiaoguang.github.io/post/sheng-xuan-qian-fu-xi-zhuan-lan/</id>
-        <link href="https://xiaxiaoguang.github.io/post/sheng-xuan-qian-fu-xi-zhuan-lan/">
-        </link>
-        <updated>2020-06-11T14:55:00.000Z</updated>
-        <content type="html"><![CDATA[<pre><code>“或许用尽全力就是为了证明自己真的不行”---Elegia  
-</code></pre>
-<p>鄙人复习路径:</p>
-<p>1.图论<br>
-2.动态规划<br>
-3.字符串<br>
-4.数据结构<br>
-5.数论<br>
-6.待添加</p>
-<p>目前进行章节</p>
-<p>强连通,缩点 √<br>
-树上差分 √<br>
-最小生成树 √<br>
-Kruscal重构树 x</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[P5666 树的重心]]></title>
-        <id>https://xiaxiaoguang.github.io/post/p5666-shu-de-chong-xin/</id>
-        <link href="https://xiaxiaoguang.github.io/post/p5666-shu-de-chong-xin/">
-        </link>
-        <updated>2020-06-10T14:32:02.000Z</updated>
-        <content type="html"><![CDATA[<p>简要题意：</p>
-<p>删去每个边之后树分裂成两个小树，然后对两棵树所有重心的编号求和，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>&lt;</mo><mo>=</mo><mn>1</mn><mi>e</mi><mn>5</mn></mrow><annotation encoding="application/x-tex">n&lt;=1e5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord mathdefault">e</span><span class="mord">5</span></span></span></span></p>
-<p>首先我们考虑怎么快速求出某颗树的重心，可以调整法，就是沿着重儿子跳，保持满足<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mi>u</mi><mi>m</mi><mo>−</mo><mi>s</mi><mi>i</mi><mi>z</mi><mo>[</mo><mi>u</mi><mo>]</mo><mo>&lt;</mo><mo>=</mo><mi>n</mi><mi mathvariant="normal">/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">sum-siz[u]&lt;=n/2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">u</span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="mopen">[</span><span class="mord mathdefault">u</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">n</span><span class="mord">/</span><span class="mord">2</span></span></span></span>，而且u的重儿子大小小于<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mi mathvariant="normal">/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">n/2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">n</span><span class="mord">/</span><span class="mord">2</span></span></span></span></p>
-<p>那么我们发现这个东西可以倍增跳啊，如果此时除去重儿子子树其他点加起来数太小了，那么可以向重儿子跳，只要满足这个条件我们那就倍增向下跳，最后一定能落在重心上！</p>
-<p>注意这个是因为我们断开了一条边，所以我们还要观察断开后siz和son的变化。。。</p>
-<h3 id="case1-处于断开边的下方">case1 处于断开边的下方</h3>
-<p>siz，son都不变，sum变了</p>
-<h3 id="case2-处于被断开边的上方">case2 处于被断开边的上方</h3>
-<p>我们发现除了被断开边的上面那个点所在的重链要改改外其他的好像不太变？</p>
-<p>而那个重链我们可以在换根的时候一并都改了，因为我们不存在一条过原来根到另个子树的重链</p>
-<p>别的没什么了，就是注意处理倍增</p>
-<p>code:</p>
-<pre><code class="language-cpp">
-#include&lt;iostream&gt;
-#include&lt;cstdio&gt;
-#include&lt;cstring&gt;
-#define ll long long
-using namespace std;
-const int MAXN=1e6+7;
-namespace fastIO {
-#define BUF_SIZE (1&lt;&lt;19)
-	static char buf[BUF_SIZE],*p1=buf,*pend=buf;
-	inline char nc() {
-		if(p1==pend) {
-			p1=buf;
-			pend=buf+fread(buf,1,BUF_SIZE,stdin);
-		}
-		return *p1++;
-	}
-	inline int read() {
-		int x=0;
-		char s=nc();
-		for(; !isdigit(s); s=nc());
-		for(; isdigit(s); s=nc())x=(x&lt;&lt;1)+(x&lt;&lt;3)+s-'0';
-		return x;
-	}
-}
-using namespace fastIO;
-int n;
-int ccnt,home[MAXN],nxt[MAXN],to[MAXN];
-#define ad2(x,y) (ct(x,y),ct(y,x))
-inline void ct(int x,int y) {
-	ccnt++;
-	nxt[ccnt]=home[x];
-	home[x]=ccnt;
-	to[ccnt]=y;
-}
-int siz[MAXN],son[MAXN],p[MAXN][20],fa[MAXN],siz2[MAXN],son2[MAXN],son3[MAXN],pr[MAXN];
-inline void dfs(int u,int F) {
-	siz[u]=1;
-	fa[u]=F;
-	pr[u]=F;
-	for(int i=home[u]; i; i=nxt[i]) {
-		int v=to[i];
-		if(v==F)continue;
-		dfs(v,u);
-		siz[u]+=siz[v];
-		if(siz[v]&gt;siz[son[u]])son2[u]=son[u],son[u]=v;
-		else if(siz[v]&gt;siz[son2[u]])son2[u]=v;
-		//son是最大子，son2是次大子
-	}
-
-	p[u][0]=son[u];
-	for(int i=1; i&lt;=17; ++i)p[u][i]=p[p[u][i-1]][i-1];//跳重儿子的倍增
-}
-
-ll ans;
-inline int pd(int x,int sum) {
-	return x*(max(siz2[son3[x]],sum-siz2[x])&lt;=sum/2);
-}
-
-inline void dfs2(int u,int F) {
-	for(int i=home[u]; i; i=nxt[i]) {
-		int v=to[i];
-		if(v==F)continue;
-
-		siz2[u]=siz[1]-siz[v];//断开这条边并且u是根
-		fa[v]=0;
-		fa[u]=0;
-		//两个都是根啊
-		if(son[u]==v)son3[u]=son2[u];//如果是重儿子我们选择次儿子
-		else son3[u]=son[u]; //如果是不重儿子，那么这个点重儿子就可以继承
-		if(siz2[F]&gt;siz2[son3[u]])son3[u]=F;//换成另一个方向
-
-		p[u][0]=son3[u];
-		for(int j=1; j&lt;=17; ++j)
-			p[u][j]=p[p[u][j-1]][j-1];
-		//向上跳
-		int b=u;
-		for(int j=17; j&gt;=0; --j)
-			if(siz2[u]-siz2[p[b][j]]&lt;=siz2[u]/2)b=p[b][j];
-		ans+=pd(son3[b],siz2[u])+pd(b,siz2[u])+pd(fa[b],siz2[u]);
-		//siz2[u]是最大,而且可能他或他的重儿子或者他的父亲都能做成重心
-		//向下跳qwq
-		b=v;
-		for(int j=17; j&gt;=0; --j)
-			if(siz2[v]-siz2[p[b][j]]&lt;=siz2[v]/2)b=p[b][j];
-		ans+=pd(son3[b],siz2[v])+pd(b,siz2[v])+pd(fa[b],siz2[v]);
-
-		fa[u]=v;
-		dfs2(v,u);
-	}
-	son3[u]=p[u][0]=son[u];
-	fa[u]=pr[u];
-	for(int j=1; j&lt;=17; ++j)
-		p[u][j]=p[p[u][j-1]][j-1];
-	siz2[u]=siz[u];
-}
-
-int main() {
-//	freopen(&quot;test.in&quot;,&quot;r&quot;,stdin);
-	int T;
-	T=read();
-	while(T--) {
-		memset(home,0,sizeof(home));
-		memset(son,0,sizeof(son));
-		memset(fa,0,sizeof(fa));
-		memset(pr,0,sizeof(pr));
-		ccnt=0;
-		ans=0;
-		n=read();
-		for(int i=1,x,y; i&lt;n; ++i) {
-			x=read();
-			y=read();
-			ad2(x,y);
-//			ad2(y,x);
-		}
-		dfs(1,0);
-		memcpy(siz2,siz,sizeof(siz2));
-		memcpy(son3,son,sizeof(son3));
-		memcpy(fa,pr,sizeof(fa));
-		dfs2(1,0);
-		printf(&quot;%lld\n&quot;,ans);
-	}
-}
-
 </code></pre>
 ]]></content>
     </entry>
