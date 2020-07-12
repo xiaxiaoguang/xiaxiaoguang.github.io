@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://xiaxiaoguang.github.io</id>
     <title>夏晓光(loveJY)的博客</title>
-    <updated>2020-07-11T15:03:30.586Z</updated>
+    <updated>2020-07-12T15:05:21.619Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://xiaxiaoguang.github.io"/>
     <link rel="self" href="https://xiaxiaoguang.github.io/atom.xml"/>
@@ -10,6 +10,85 @@
     <logo>https://xiaxiaoguang.github.io/images/avatar.png</logo>
     <icon>https://xiaxiaoguang.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 夏晓光(loveJY)的博客</rights>
+    <entry>
+        <title type="html"><![CDATA[P5665 划分]]></title>
+        <id>https://xiaxiaoguang.github.io/post/p5665-hua-fen/</id>
+        <link href="https://xiaxiaoguang.github.io/post/p5665-hua-fen/">
+        </link>
+        <updated>2020-07-12T14:46:14.000Z</updated>
+        <content type="html"><![CDATA[<p><code>&quot;念念不忘,必有回响&quot;</code></p>
+<p>CSP原题...</p>
+<p>拿到题就很决策单调性优化?</p>
+<p>首先我们有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><mi>p</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>[</mo><mi>j</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">dp[i][j]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">p</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mclose">]</span></span></span></span>表示的是这一段为i上一段为j的最小代价是什么</p>
+<p>转移时枚举之前的某个点,然后再枚举之前那个点上一段,再判断合不合法即可</p>
+<p>你会发现这个东西是有决策单调性的,也就是说我们能多分就多分一定更优</p>
+<p>所以我们可以考虑用一个一维...dp[i]表示考虑了前i个数的最优代价</p>
+<p>那么显然我们可以记录某个状态的转移点啊,<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>p</mi><mi>r</mi><msub><mi>e</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">pre_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">p</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord"><span class="mord mathdefault">e</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>表示点i是从哪个状态转移而来的</p>
+<p>然后如果<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mi>u</mi><mi>m</mi><mo>[</mo><mi>j</mi><mo>]</mo><mo>−</mo><mi>s</mi><mi>u</mi><mi>m</mi><mo>[</mo><mi>p</mi><mi>r</mi><mi>e</mi><mo>[</mo><mi>j</mi><mo>]</mo><mo>]</mo></mrow><annotation encoding="application/x-tex">sum[j]-sum[pre[j]]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">u</span><span class="mord mathdefault">m</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">u</span><span class="mord mathdefault">m</span><span class="mopen">[</span><span class="mord mathdefault">p</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">e</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mclose">]</span><span class="mclose">]</span></span></span></span>&lt;<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mi>u</mi><mi>m</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>−</mo><mi>s</mi><mi>u</mi><mi>m</mi><mo>[</mo><mi>j</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">sum[i]-sum[j]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">u</span><span class="mord mathdefault">m</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">u</span><span class="mord mathdefault">m</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mclose">]</span></span></span></span>就可以,然后找到最大的j就是i的转移点...</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mi>u</mi><msub><mi>m</mi><mi>j</mi></msub><mo>−</mo><mi>s</mi><mi>u</mi><msub><mi>m</mi><mrow><mi>p</mi><mi>r</mi><mi>e</mi><mo>[</mo><mi>j</mi><mo>]</mo></mrow></msub></mrow><annotation encoding="application/x-tex">sum_j-sum_{pre[j]}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8694379999999999em;vertical-align:-0.286108em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">u</span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.7857599999999999em;vertical-align:-0.3551999999999999em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">u</span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.34480000000000005em;"><span style="top:-2.5198em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">p</span><span class="mord mathdefault mtight" style="margin-right:0.02778em;">r</span><span class="mord mathdefault mtight">e</span><span class="mopen mtight">[</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span><span class="mclose mtight">]</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3551999999999999em;"><span></span></span></span></span></span></span></span></span></span>表示单调队列值,我们就可以用单调队列来维护下,队头可以用这个判断</p>
+<p>但是我们队尾怎么搞呢?单调队列的性质就是值小而且时间靠后就是更优的</p>
+<p>那么<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mi>u</mi><msub><mi>m</mi><mi>j</mi></msub><mo>−</mo><mi>s</mi><mi>u</mi><msub><mi>m</mi><mrow><mi>p</mi><mi>r</mi><mi>e</mi><mo>[</mo><mi>j</mi><mo>]</mo></mrow></msub></mrow><annotation encoding="application/x-tex">sum_j-sum_{pre[j]}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8694379999999999em;vertical-align:-0.286108em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">u</span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.7857599999999999em;vertical-align:-0.3551999999999999em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">u</span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.34480000000000005em;"><span style="top:-2.5198em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">p</span><span class="mord mathdefault mtight" style="margin-right:0.02778em;">r</span><span class="mord mathdefault mtight">e</span><span class="mopen mtight">[</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span><span class="mclose mtight">]</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3551999999999999em;"><span></span></span></span></span></span></span></span></span></span>就可以用单调队列来判断这个来删掉队尾QWQ</p>
+<p>这样我们用这个就可以直接解决转移点了</p>
+<p>之后就可以用__int128卡常了</p>
+<p>code:</p>
+<pre><code class="language-cpp">
+#include&lt;bits/stdc++.h&gt;
+#define ll long long
+using namespace std;
+const int MAXN=4e7+7;
+const int MAXM=1e5+7;
+const int P=(1&lt;&lt;30);
+int n,typ,x,y,z,m;
+int a[MAXN],b[MAXN],p[MAXM],l[MAXM],r[MAXM],q[MAXN],pre[MAXN];
+ll sum[MAXN];
+inline ll d(int x) {
+	return sum[x]-sum[pre[x]];
+}
+
+int main() {
+	scanf(&quot;%d%d&quot;,&amp;n,&amp;typ);
+	register int i,j;
+	if(typ) {
+		scanf(&quot;%d%d%d%d%d%d&quot;,&amp;x,&amp;y,&amp;z,&amp;b[1],&amp;b[2],&amp;m);
+		for(i=1; i&lt;=m; ++i)scanf(&quot;%d%d%d&quot;,&amp;p[i],&amp;l[i],&amp;r[i]);
+		for(i=3; i&lt;=n; ++i)b[i]=(0ll+1ll*b[i-1]*x+1ll*b[i-2]*y+z)%P;
+		for(i=1; i&lt;=m; ++i) {
+			for(j=p[i-1]+1; j&lt;=p[i]; ++j) {
+				a[j]=(b[j]%(r[i]-l[i]+1))+l[i];
+				sum[j]=sum[j-1]+a[j];
+			}
+		}
+	} else {
+		for(i=1; i&lt;=n; ++i)scanf(&quot;%d&quot;,&amp;a[i]),sum[i]=sum[i-1]+a[i];
+	}
+	int h,t;
+	q[h=t=0]=0;
+	for(i=1; i&lt;=n; ++i) {
+		while(h&lt;t&amp;&amp;d(q[h+1])+sum[q[h+1]]&lt;=sum[i])++h;
+		pre[i]=q[h];
+		while(h&lt;t&amp;&amp;d(q[t])+sum[q[t]]&gt;=d(i)+sum[i])--t;
+		q[++t]=i;
+	}
+	int nw=n;
+	__int128 ans=0,tmp=1;
+	while(nw) {
+		tmp=d(nw);
+		tmp*=d(nw);
+		ans+=tmp;
+		nw=pre[nw];
+	}
+	int st[50],tp=0;
+	while(ans) {
+		st[++tp]=ans%10;
+		ans/=10;
+	}
+	while(tp)printf(&quot;%d&quot;,st[tp--]);
+	return 0;
+}
+
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[P3206 [HNOI2010]城市建设]]></title>
         <id>https://xiaxiaoguang.github.io/post/p3206-hnoi2010cheng-shi-jian-she/</id>
@@ -1702,88 +1781,6 @@ inline void zkwcost() {
 </code></pre>
 <p>最后一定要注意建边不能宏定义!!!!!!</p>
 <p>一定要写两个函数.....TAT</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[tarjan图论算法复习]]></title>
-        <id>https://xiaxiaoguang.github.io/post/tarjan-tu-lun-suan-fa-fu-xi/</id>
-        <link href="https://xiaxiaoguang.github.io/post/tarjan-tu-lun-suan-fa-fu-xi/">
-        </link>
-        <updated>2020-06-14T14:38:48.000Z</updated>
-        <content type="html"><![CDATA[<p>From 2020省选复习</p>
-<p>首先我们小手一挥分出类</p>
-<ol>
-<li>强联通分量</li>
-<li>割点</li>
-<li>割边</li>
-<li>点双连通分量</li>
-<li>边双连通分量</li>
-</ol>
-<p>目前完成了123,如果考45我也大概率不会....</p>
-<p>算法一</p>
-<p>我们用low数组表示最多经过一条返祖边到达的最小编号是什么,dfn表示这个点的编号是什么</p>
-<p>然后dfs经过的入栈,当low==dfn的时候,说明一些点能构成一个强联通分量了,因为我们已经不能再回去了</p>
-<p>否则就还可以再缩扩大连通块大小</p>
-<p>算法二</p>
-<p>首先我们要知道的是我们访问的点能作为割点,说明存在一个儿子,low值大于等于这个点dfn值</p>
-<p>但是这个东西在根的时候是伪的,因为根的值一定是最小的....所以根要单独看,是当存在多于一个儿子时就是割点啦</p>
-<p>算法三</p>
-<p>把算法二的low&gt;=dfn改改,改为low&gt;dfn</p>
-<p>相当于去掉这个边,子树就再不能走回u了</p>
-<p>code1:</p>
-<pre><code class="language-cpp">int dfn[MAXN],low[MAXN],fl[MAXN],st[MAXN],tp,bel[MAXN],T,dep;
-inline void tarjan(int u) {
-	low[u]=dfn[u]=++dep;
-	fl[u]=1;
-	st[++tp]=u;
-	for(int i=home[u]; i; i=nxt[i]) {
-		int v=to[i];
-		if(!dfn[v]) {
-			tarjan(v);
-			low[u]=std::min(low[u],low[v]);
-		} else if(!fl[v])continue;
-		low[u]=std::min(low[u],dfn[v]);
-	}
-	if(dfn[u]==low[u]) {
-		++T;
-		while(1) {
-			int v=st[tp];
-			bel[v]=T;
-            fl[v]=0;
-			tp--;
-			if(v==u)break;
-		}
-
-	}
-	return ;
-}
-
-</code></pre>
-<p>至于fl去掉横跨边有没有用....不知道</p>
-<p>code2:</p>
-<pre><code class="language-cpp">inline void tarjan(int u)
-{
-	dfn[u]=low[u]=++dep;
-	int tmp=0;
-	for(int i=home[u]; i ; i=nxt[i]) {
-		int v=to[i];
-		if(!dfn[v]) {
-			tarjan(v);
-			low[u]=min(low[v],low[u]);
-			if(u==rt) {
-				++tmp;
-			}
-			if(low[v]&gt;=dfn[u] &amp;&amp; u!=rt) {
-				ap[++tot]=u;
-			}
-		}
-		low[u]=min(low[u],dfn[v]);
-	}
-	if(u==rt&amp;&amp;tmp&gt;1) {
-		ap[++tot]=u;
-	}
-}
-</code></pre>
 ]]></content>
     </entry>
 </feed>
