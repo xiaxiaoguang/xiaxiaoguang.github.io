@@ -1,0 +1,315 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>P3631 [APIO2011]方格染色 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1594909826527">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="P3631 [APIO2011]方格染色 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="写这题解就离谱...
+看上去就好神仙啊,考虑dp怎么解决?不太行,因为只有20pts
+于是我们考虑找找规律,能发现相当于四个点如果为红色就是1,为蓝色就是0,那么异或起来值为1
+然后这个结论由于异或显然有拓展性
+XZU
+YWI
+X^Y^Z^..." />
+    <meta name="keywords" content="计数题,构造" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1594909826527" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              P3631 [APIO2011]方格染色
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-07-15
+              </span>
+              <span>
+                4 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/JP89ddpfS/" class="post-tag">
+                  # 计数题
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/nuL1JOWcod/" class="post-tag">
+                  # 构造
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/4pNOqgOvBLvj4yTC9qc55TljJa1QWjlGxhM0mviYrgeLs4o0LumbjiUnSuWHWAejmskM3xSApBcj.N.*SRPzh41R11On702wbK7Rc7Mb9X4!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>写这题解就离谱...</p>
+<p>看上去就好神仙啊,考虑dp怎么解决?不太行,因为只有20pts</p>
+<p>于是我们考虑找找规律,能发现相当于四个点如果为红色就是1,为蓝色就是0,那么异或起来值为1</p>
+<p>然后这个结论由于异或显然有拓展性</p>
+<p>XZU<br>
+YWI</p>
+<p class='katex-block katex-error' title='ParseError: KaTeX parse error: Double superscript at position 4: X^Y^̲Z^W=Z^W^U^I=1
+'>X^Y^Z^W=Z^W^U^I=1
+</p>
+<p class='katex-block katex-error' title='ParseError: KaTeX parse error: Double superscript at position 4: X^Y^̲U^I=0!
+'>X^Y^U^I=0!
+</p>
+<p>那么好像我们可以通过类似于平移一块2*2地毯的形式去不断的得到新的这样的关系</p>
+<p>然后又找到了新结论:确定第一行第一列就确定了整个矩阵</p>
+<p>证明显然吧,自己推一推?</p>
+<p>然后相当于我们要计算第一行第一列的填色方案,于是考虑用这个东西找到规律</p>
+<blockquote>
+<p>如果对于矩阵1,1-&gt;x,y,x,y中有一个为偶数那么异或值为0,否则为1</p>
+</blockquote>
+<p>这个可以考虑这个矩阵中有多少个2*2得知</p>
+<p>然后有了这个结论我们就可以考虑通过枚举1,1的取值来缩点得到几个连通块进而计算出答案</p>
+<p>同一连通块的值确地一个就确定了整块,所以就为2^连通块数是答案</p>
+<p>然后注意这样我们的给出的(x,y)是用于缩连通块的,而且他的取值决定了这一切是否合法</p>
+<p>是否合法的部分可以用带权并查集去解决</p>
+<p>你又会发现我们可以通过增加一行0来解决枚举1,1取值,不过没什么必要,只是更好写</p>
+<p>而且我们之前结论还要变一下...</p>
+<p>有一个坑点是模数是1e9不是质数...</p>
+<p>code</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int P = 1e9;
+const long long inv2 = (P) / 2;
+const int MAXN = 1e6 + 7;
+int f[MAXN], op[MAXN], val[MAXN];
+inline int getf(int x) {
+	return f[x] == x ? x : f[x] = getf(f[x]);
+}
+inline int merge(int x, int y, int z) {
+	int f1 = getf(x);
+	int f2 = getf(y);
+	if(z) {
+		if(f1 == f2)return 0;
+		if(f1 == op[f2])return 1;
+		f[f1] = op[f2];
+		f[op[f1]] = f2;
+	} else {
+		if(f1 == op[f2])return 0;
+		if(f1 == f2)return 1;
+
+		f[f1] = f2;
+		f[op[f1]] = op[f2];
+	}
+	return 1;
+}
+long long ksm(long long x, long long y) {
+	long long ans = 1;
+	while(y) {
+		if(y &amp; 1)ans = ans * x % P;
+		x = x * x % P;
+		y &gt;&gt;= 1;
+	}
+	return ans;
+}
+int n, m, k;
+int main() {
+	scanf(&quot;%d%d%d&quot;, &amp;n, &amp;m, &amp;k);
+	int qwq = n + m;
+	for(int i = 1; i &lt;= qwq; ++i) {
+		f[i] = op[i + qwq] = i;
+		f[i + qwq] = op[i] = i + qwq;
+		//扩展域并查集
+	}
+	for(int i = 1, x, y, z; i &lt;= k; ++i) {
+		scanf(&quot;%d%d%d&quot;, &amp;x, &amp;y, &amp;z);
+		if(((x + 1 &amp; 1) == 0) &amp;&amp; (y + 1 &amp; 1) == 0)z ^= 1;
+		y += n;
+		if(!merge(x, y, z)) {
+			puts(&quot;0&quot;);
+			return 0;
+		}
+	}
+	// puts(&quot;qwq&quot;);
+	long long ans = 0;
+	int st = getf(1);
+	val[op[st]] = 1;
+	val[st] = 1;
+	for(int i = 2; i &lt;= qwq; ++i) {
+		int p = getf(i);
+		if(!val[p]) {
+			++ans;
+			// printf(&quot;%d?\n&quot;, p);
+		}
+		val[p] = val[op[p]] = 1;
+	}
+	printf(&quot;%lld\n&quot;, ksm(2, ans));
+	return 0;
+}
+
+
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/p3119-usaco15jangrass-cownoisseur-g/">
+              <h3 class="post-title">
+                P3119 [USACO15JAN]Grass Cownoisseur G
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
