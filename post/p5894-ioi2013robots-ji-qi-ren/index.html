@@ -1,0 +1,308 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>P5894 [IOI2013]robots 机器人 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1595343644731">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="P5894 [IOI2013]robots 机器人 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="&quot;当苦夏簌簌扑着扇，听过最后一声蝉&quot;
+蛮不错的贪心,不过灰题真的香
+首先为啥具有二分性呢?因为如果我们k秒可以完成那么k+1秒也一定可以完成
+然后我们就可以考虑二分一个ans,然后题目中的限制可以建图跑网络流,然后一看数..." />
+    <meta name="keywords" content="二分答案,贪心" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1595343644731" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              P5894 [IOI2013]robots 机器人
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-07-20
+              </span>
+              <span>
+                4 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/f5n-zt3hU/" class="post-tag">
+                  # 二分答案
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/m-043j5Q1/" class="post-tag">
+                  # 贪心
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/4pNOqgOvBLvj4yTC9qc55YtWm*0ZBOQHdd6SHk47oXUHkY*D*KWclJQfberOxc.Pi*J*0NO03Ts44vKuAsc8SJ*oFwc.l7lceLDrpEpQQOY!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p><code>&quot;当苦夏簌簌扑着扇，听过最后一声蝉&quot;</code></p>
+<p>蛮不错的贪心,<s>不过灰题真的香</s></p>
+<p>首先为啥具有二分性呢?因为如果我们k秒可以完成那么k+1秒也一定可以完成</p>
+<p>然后我们就可以考虑二分一个ans,然后题目中的限制可以建图跑网络流,然后一看数据范围直接放弃</p>
+<p>所以<s>网络流不过就是贪心</s>,因为只有两维我们能很简单的贪一下qwq</p>
+<p>对于弱机器人,我们把玩具按照重量排序,然后每个机器人尽可能拿能拿的体积大的,并且机器人从小到大去选择,可以拿堆维护</p>
+<p>剩下的玩具如果有小机器人拿不了的就完蛋</p>
+<p>看上去很简单,但是要小心我们堆里存的东西一定是当前可以拿的...</p>
+<p>吐槽一下神翻译小机器人和弱机器人让我笑好久</p>
+<p>以及特判一些情况/xyx</p>
+<p>code</p>
+<pre><code class="language-cpp">
+#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+#include&lt;queue&gt;
+const int MAXN = 1e6 + 7;
+using namespace std;
+int n, A, B, ans = -1;
+int a[MAXN], b[MAXN];
+struct rec {
+	int w, s;
+	bool operator&lt;(const rec &amp;x) {
+		if(w == x.w)return s &lt; x.s;
+		return w &lt; x.w;
+	}
+} t[MAXN];
+
+priority_queue&lt;int&gt; heap;
+inline int chk(int x) {
+	int l = 1, j = 1;
+	while(!heap.empty())heap.pop();
+	for(int i = 1; i &lt;= n; ++i) {
+		if(l &gt; A) {
+			heap.push(t[i].s);
+			continue;
+		}
+		if(a[l] &gt; t[i].w) {
+			heap.push(t[i].s);
+		} else {
+			while(a[l] &lt;= t[i].w &amp;&amp; l &lt;= A) {
+				j = 1;
+				while(j &lt;= x &amp;&amp; !heap.empty()) {
+					++j;
+					heap.pop();
+				}
+				++l;
+			}
+			heap.push(t[i].s);
+		}
+	}
+	for(int i = l; i &lt;= A; ++i) {
+		j = 1;
+		while(j &lt;= x &amp;&amp; !heap.empty()) {
+			++j;
+			heap.pop();
+		}
+	}
+    //特判有的强机器人能拿光所有的
+	for(int i = B; i &gt;= 1; --i) {
+		j = 1;
+		while(j &lt;= x &amp;&amp; !heap.empty()) {
+			++j;
+			l = heap.top();
+			if(l &gt;= b[i])return 0;
+			heap.pop();
+		}
+		if(heap.empty())break;
+	}
+	if(!heap.empty())return 0;
+	//还有没空的
+	return 1;
+}
+
+int main() {
+	scanf(&quot;%d%d%d&quot;, &amp;A, &amp;B, &amp;n);
+	for(int i = 1; i &lt;= A; ++i)scanf(&quot;%d&quot;, &amp;a[i]);
+	sort(a + 1, a + A + 1);
+	for(int i = 1; i &lt;= B; ++i)scanf(&quot;%d&quot;, &amp;b[i]);
+	sort(b + 1, b + B + 1);
+	for(int i = 1; i &lt;= n; ++i)scanf(&quot;%d%d&quot;, &amp;t[i].w, &amp;t[i].s);
+	sort(t + 1, t + n + 1);
+	int L = 1, R = n, mid;
+	while(L &lt;= R) {
+		mid = (L + R) &gt;&gt; 1;
+		if(chk(mid)) {
+			ans = mid;
+			R = mid - 1;
+		} else {
+			L = mid + 1;
+		}
+	}
+	printf(&quot;%d\n&quot;, ans);
+	return 0;
+}
+
+
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/p3177-haoi2015shu-shang-ran-se/">
+              <h3 class="post-title">
+                P3177 [HAOI2015]树上染色
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

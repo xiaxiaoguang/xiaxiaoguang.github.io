@@ -1,0 +1,284 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>P3177 [HAOI2015]树上染色 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1595343644731">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="P3177 [HAOI2015]树上染色 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="“将我大汉军旗插遍大漠草原！”
+封面图小姐姐好色气啊
+及树上DP的一些总结qwq
+首先说说这个题,dp[i][j]表示点i的子树里选了j个黑点目前得到的最大贡献是什么
+贡献是指i子树里所有边的贡献,转移时考虑i到v这条边的贡献,两侧共有多少..." />
+    <meta name="keywords" content="树形DP,动态规划" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1595343644731" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              P3177 [HAOI2015]树上染色
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-07-20
+              </span>
+              <span>
+                3 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/r1FUlfsPn/" class="post-tag">
+                  # 树形DP
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/CJ-ugjBAY/" class="post-tag">
+                  # 动态规划
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/4pNOqgOvBLvj4yTC9qc55SkmNrtO6aRSW.Ri5fEw*ldtet5eemnesWouFSiOaL26THNRTQa9J8BY8jSNzL1S.uBzDjgJI0aSVqqYgY25Cog!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p><code>“将我大汉军旗插遍大漠草原！”</code></p>
+<p><s>封面图小姐姐好色气啊</s></p>
+<p>及树上DP的一些总结qwq</p>
+<p>首先说说这个题,dp[i][j]表示点i的子树里选了j个黑点目前得到的最大贡献是什么</p>
+<p>贡献是指i子树里所有边的贡献,转移时考虑i到v这条边的贡献,两侧共有多少个黑白点乘一下就好啦</p>
+<p>然后这样子好像再套个树形背包就解决了!</p>
+<p>下面说下树形DP的坑点</p>
+<ol>
+<li>
+<p>转移时,我们枚举要从大到小枚举,第一重循环不这样做会导致完全背包,第二重循环不这样做如果循环内有0(比如这题0个黑点情况)就会导致先更新后又更新</p>
+</li>
+<li>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mi>i</mi><mi>z</mi><mo>[</mo><mi>u</mi><mo>]</mo><mo>+</mo><mo>=</mo><mi>s</mi><mi>i</mi><mi>z</mi><mo>[</mo><mi>v</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">siz[u]+=siz[v]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="mopen">[</span><span class="mord mathdefault">u</span><span class="mclose">]</span><span class="mord">+</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mclose">]</span></span></span></span>要之后加,否则一条链就卡掉了</p>
+</li>
+</ol>
+<p>别的好像没啥了</p>
+<p>再说下树的直径?</p>
+<p>dp[u]表示点u最长链</p>
+<p>当发现dp[v]+1&gt;dp[u]时,我们先把这两条链拼起来更新答案再update u</p>
+<p>别的没了qwq<s>可能还有什么树上容斥?没做啊</s></p>
+<p>code:</p>
+<pre><code class="language-cpp">
+#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;algorithm&gt;
+#include&lt;cstring&gt;
+using namespace std;
+#define int long long
+const int MAXN = 3500;
+
+int n, M, ccnt, N;
+int dp[MAXN][MAXN], siz[MAXN];
+int home[MAXN * 2], nxt[MAXN * 2], to[MAXN * 2], len[MAXN * 2];
+
+inline void ct(int x, int y, int z) {
+	ccnt++;
+	nxt[ccnt] = home[x];
+	to[ccnt] = y;
+	home[x] = ccnt;
+	len[ccnt] = z;
+}
+
+inline void dfs(int u, int F) {
+	siz[u] = 1;
+	for(int i = home[u], val; i; i = nxt[i]) {
+		int v = to[i];
+		if(v == F)continue;
+		dfs(v, u);
+		for(int j = min(M, siz[u]); j &gt;= 0; --j) {
+			for(int k = min(M, siz[v]); k &gt;= 0; --k) {
+				val = len[i] * k * (M - k) + len[i] * (siz[v] - k) * (N - siz[v] + k);
+				dp[u][j + k] = max(dp[u][j + k], dp[u][j] + dp[v][k] + val);
+			}
+		}
+		siz[u] += siz[v];
+	}
+	return ;
+}
+
+
+signed main() {
+	scanf(&quot;%lld%lld&quot;, &amp;n, &amp;M);
+	N = n - M;
+	for(int i = 2, x, y, z; i &lt;= n; ++i) {
+		scanf(&quot;%lld%lld%lld&quot;, &amp;x, &amp;y, &amp;z);
+		ct(x, y, z);
+		ct(y, x, z);
+	}
+	dfs(1, 0);
+	printf(&quot;%lld\n&quot;, dp[1][M]);
+	return 0;
+}
+
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/p3523-poi2011dyn-dynamite/">
+              <h3 class="post-title">
+                P3523 [POI2011]DYN-Dynamite
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
