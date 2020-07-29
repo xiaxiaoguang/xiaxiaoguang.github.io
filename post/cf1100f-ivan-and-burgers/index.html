@@ -3,7 +3,7 @@
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>CF1100F Ivan and Burgers | 夏晓光(loveJY)的博客</title>
-<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1595603013873">
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1596033392497">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
 <link rel="alternate" type="application/atom+xml" title="CF1100F Ivan and Burgers | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
@@ -22,7 +22,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://xiaxiaoguang.github.io">
-  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1595603013873" alt="">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1596033392497" alt="">
   </a>
   <h1 class="site-title">
     夏晓光(loveJY)的博客
@@ -88,7 +88,7 @@
                 2020-07-23
               </span>
               <span>
-                2 min read
+                3 min read
               </span>
               
                 <a href="https://xiaxiaoguang.github.io/tag/6qijMlhS4z/" class="post-tag">
@@ -113,7 +113,53 @@
 <p>然后您发现有点细节,就是pos的更新,想想就好了,我们其实是在<strong>多个线性基上横跳的</strong>过程</p>
 <p>所以一次可能会更新多个pos?不过没关系,因为我们但凡要更新新的值就一定要^上之前某个基,那么我们之后的就相当于只能更新之前某个基之后的某个基了!</p>
 <p>其实看看代码就好</p>
-<p>未完待续</p>
+<p>code</p>
+<pre><code class="language-cpp">
+#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+using namespace std;
+const int MAXN = 5e5 + 7;
+int n, Q;
+int a[MAXN];
+int bsc[MAXN][22], lst[MAXN][22];
+
+int main() {
+	scanf(&quot;%d&quot;, &amp;n);
+	for(int i = 1, t, npos; i &lt;= n; ++i) {
+		scanf(&quot;%d&quot;, &amp;a[i]);
+		for(int k = 0; k &lt;= 21; ++k)bsc[i][k] = bsc[i - 1][k], lst[i][k] = lst[i - 1][k];
+		t = a[i];
+		npos = i;
+		for(int k = 21; k &gt;= 0; --k) {
+			if(!(t &gt;&gt; k) &amp; 1)continue;
+			if(!bsc[i][k]) {
+				bsc[i][k] = t;
+				lst[i][k] = npos;
+				break;
+			}
+			if(lst[i][k] &lt; npos) {
+				swap(t, bsc[i][k]);
+				swap(lst[i][k], npos);
+			}
+			t ^= bsc[i][k];
+		}
+	}
+	scanf(&quot;%d&quot;, &amp;Q);
+	for(int i = 1, x, y; i &lt;= Q; ++i) {
+		scanf(&quot;%d%d&quot;, &amp;x, &amp;y);
+		int ans = 0;
+		for(int k = 21; k &gt;= 0; --k) {
+			// printf(&quot;%d %d %d %d\n&quot;, bsc[y][k], lst[y][k], ans ^ bsc[y][k], ans);
+			if(lst[y][k] &gt;= x &amp;&amp; (ans ^ bsc[y][k]) &gt; ans)
+				ans ^= bsc[y][k];
+		}
+		printf(&quot;%d\n&quot;, ans);
+	}
+	return 0;
+}
+
+</code></pre>
 
               </div>
               <div class="toc-container">
