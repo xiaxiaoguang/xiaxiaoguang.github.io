@@ -1,0 +1,564 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>20zr暑期AB班十连测day8 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1596632420800">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="20zr暑期AB班十连测day8 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="A
+传统的博弈论,k-nim模型,对于k-nim模型他的SG值显然还是石子个数
+而是否决胜是对于每一个二进制位求和能不能被k+1整除
+然后就是统计有多少种方案使他们最后是0
+这样我们就可以DP啦QwQ
+三进制xor就是每一位加起来%3
+那么..." />
+    <meta name="keywords" content="主席树,二进制,动态规划" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1596632420800" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              20zr暑期AB班十连测day8
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-08-04
+              </span>
+              <span>
+                14 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/1bf8dxnXM/" class="post-tag">
+                  # 主席树
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/DcuPkTvjds/" class="post-tag">
+                  # 二进制
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/CJ-ugjBAY/" class="post-tag">
+                  # 动态规划
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/4pNOqgOvBLvj4yTC9qc55XrJ1QV1OwdfspmvZ2Mj2prpKBb3WBXbhvQZJ6PBpZi2ASG1DHRHGXiQlJht12iBYSu65Lig46YxcKzS6EkuJBg!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>A</p>
+<p>传统的博弈论,k-nim模型,对于k-nim模型他的SG值显然还是石子个数</p>
+<p>而是否决胜是对于每一个二进制位求和能不能被k+1整除</p>
+<p>然后就是统计有多少种方案使他们最后是0</p>
+<p>这样我们就可以DP啦QwQ</p>
+<p>三进制xor就是每一位加起来%3</p>
+<p>那么我们是数位DP,从高向低去确定每一位,所以我们要记下是否卡到上/下界</p>
+<p>然后这是三种状态,压一压就是3^n种状态,一共有log位,每一位记为w</p>
+<p>每次转移时可以枚举a1~n第w位值是什么</p>
+<p>就可以做到O(6^nlog)</p>
+<p>显然可以优化转移变为一个个枚举</p>
+<p>那么我们就再记两维表示我们已经转移了前i个数的他们的w一位的和</p>
+<p>f[S][w][i][sum]表示所有a的w上面的位,<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>a</mi><mrow><mn>1...</mn><mi>i</mi></mrow></msub></mrow><annotation encoding="application/x-tex">a_{1...i}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">.</span><span class="mord mtight">.</span><span class="mord mtight">.</span><span class="mord mathdefault mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>的第w已经定好了</p>
+<p>sum表示<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>a</mi><mrow><mn>1...</mn><mi>w</mi></mrow></msub></mrow><annotation encoding="application/x-tex">a_{1...w}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">.</span><span class="mord mtight">.</span><span class="mord mtight">.</span><span class="mord mathdefault mtight" style="margin-right:0.02691em;">w</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>在第w为的值</p>
+<p>然后这样子就能做到像插头dp一样转移</p>
+<p>三进制处理?</p>
+<p>预处理每个3的i次是什么,然后(x/3^i)%3就是某个数x三进制下第i位是几</p>
+<p>然后code:</p>
+<pre><code class="language-cpp">
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;iostream&gt;
+#define pii pair&lt;int,int&gt;
+#define fi first
+#define se second
+#define mkp(x,y) (make_pair(x,y))
+using namespace std;
+const int P = 998244353;
+const int MAXN = 14;
+const int MAXM = 6e5 + 7;
+int n, l[MAXN], r[MAXN];
+int f[2][MAXM][3];
+int p3[MAXN];
+#define BIT(x,i) ((x)/p3[(i)]%3)//qwq
+
+int trans(int w, int L, int R, int o, int e) {
+	//w就是那一位
+	//L是我们这个数的下界
+	//R是上界
+	//O是S的第i-1位
+	//e是当前的我们想要加上的数
+	int tmp = (L / (1 &lt;&lt; (w + 1))) == (R / (1 &lt;&lt; (w + 1)));
+	//L是否在这一位是等于R的
+	int eqL = (o == 0);
+	//如果为0表示我们卡下界
+	int eqR = (o == 1) | (o == 0 &amp;&amp; tmp);
+	//为1我们卡上界
+	//或者卡下界,下界==上界
+	int wL = (L &gt;&gt; w) &amp; 1;
+	//wL是表示L第w是否为1
+	int wR = (R &gt;&gt; w) &amp; 1;
+	//...
+	if(eqL &amp;&amp; e &lt; wL)return -1;
+	//eqL表示卡了下界,我们没法凑出
+	if(eqR &amp;&amp; e &gt; wR)return -1;
+	//这个是卡了上界
+	eqL &amp;= (e == wL);
+	eqR &amp;= (e == wR);
+	//如果我们完全卡下界就没了
+	//只能返回0
+	if(eqL)return 0;
+	//否则我们返回3^下的那个,相当于异或成功了
+	return 2 - eqR;
+}
+
+int main() {
+	scanf(&quot;%d&quot;, &amp;n);
+	p3[0] = 1;
+	for(int i = 1; i &lt;= n; ++i)
+		p3[i] = p3[i - 1] * 3;
+	for(int i = 1; i &lt;= n; ++i)
+		scanf(&quot;%d%d&quot;, &amp;l[i], &amp;r[i]);
+	memset(f, 0, sizeof(f));
+	int nw = 0;
+	f[nw][0][0] = 1;
+	for(int bit = 29; bit &gt;= 0; --bit) {
+		//枚举每个数位
+		//显然这货被我们滚掉了
+		//因为他只是可行性判断的一部分
+		for(int i = 1; i &lt;= n; ++i) {
+			//枚举我们去确定的前i位
+			memset(f[nw ^ 1], 0, sizeof(f[nw ^ 1]));
+			for(int S = 0; S &lt;= p3[n] - 1; ++S) {
+				//枚举所有已经定好的w上面的位
+				for(int v3 = 0; v3 &lt;= 2; ++v3) {
+					//枚举所有可能的w和
+					if(f[nw][S][v3]) {
+						int w = f[nw][S][v3];
+						for(int v = 0; v &lt;= 1; ++v) {
+							//枚举我这位是0还是1
+							if(i == n &amp;&amp; ((v3 + v) % 3 != 0))continue;
+							int nv = trans(bit, l[i], r[i], BIT(S, i - 1), v);
+							//trans出新nv
+							if(nv == -1)continue;
+							int nS = S - p3[i - 1] * BIT(S, i - 1) + p3[i - 1] * nv;
+							//计算S的变化
+							//就是减去原来的i-1位然后加上新的i-1位
+							//是三进制下的
+							f[nw ^ 1][nS][(v3 + v) % 3] = (f[nw ^ 1][nS][(v3 + v) % 3] + w) % P;
+						}
+					}
+				}
+			}
+			nw ^= 1;
+		}
+	}
+	long long ans = 0;
+	for(int i = 0; i &lt; p3[n]; ++i)
+		ans = (ans + f[nw][i][0]) % P;
+	//当最后为0时,也是一切尘埃落定之时
+	printf(&quot;%lld\n&quot;, ans);
+	return 0;
+}
+
+
+</code></pre>
+<p>B</p>
+<p>首先我们发现去重是个有毒的东西,所以我们可以考虑转为数组下标的数组</p>
+<p>然后钦定对于一个b,对应其字典序最小的S这样就不会算重</p>
+<p>然后怎么算Si+1是字典序最小的那个呢?</p>
+<p>首先对于s_i+1要满足x<sub>y中没有y,y</sub>z中没有z.....</p>
+<p>然后如果没有任何一个存在的情况就是字典序最小的qwq</p>
+<p>h_i是最大的D,满足i \in S_D</p>
+<p>求几个合法的h就是求几个合法的树状图...</p>
+<p>显然我们对于i&lt;j,a_i==a_j,弱h_j&gt;h_i,则就由于被挡住而存在k在i,j之间h_k&gt;h_i</p>
+<p>不然考虑S_k+1可以把j替换为i</p>
+<p>然后考虑这个限制,g[L][R][K]表示对于L~R所有i,若a_i=a_R+1</p>
+<p>那么L~R一定有一个比h_i大的</p>
+<p>首先我们可以枚举有哪些h_i=k</p>
+<p>首先不能等于a_R+1否则我们会发生平移操作</p>
+<p>枚举完之后又会分成若干个子区间啦</p>
+<p>第一个转移时被保护的</p>
+<p>f是没有R+1的限制下的方案数</p>
+<p>R+1的限制就是对于一个a_i=a_R+1,中间一定要有一个h_i帮他挡着</p>
+<p>因为我们区间是在一点点定值下去的...</p>
+<p>如果随便定会使得不满足i~R+1的限制,所以只能在某个地方才能定值</p>
+<p>我们定值的过程相当于定K的位置,就是说从大到小去定每个h的值</p>
+<p>然后我们g有限制的就要转移时不能给a_i=a_r+1先定值</p>
+<p>而f则可以通过g数组在我们定好值的位置上加上限制来转移</p>
+<figure data-type="image" tabindex="1"><img src="https://xiaxiaoguang.github.io/post-images/1596530560212.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://xiaxiaoguang.github.io/post-images/1596530578596.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="3"><img src="https://xiaxiaoguang.github.io/post-images/1596530572566.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="4"><img src="https://xiaxiaoguang.github.io/post-images/1596530584634.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="5"><img src="https://xiaxiaoguang.github.io/post-images/1596530589866.png" alt="" loading="lazy"></figure>
+<p>K=3</p>
+<p>枚举i=1~n,记一下S2和S3上一步是什么....</p>
+<p>最后说实话讲的有点乱</p>
+<p>其实就是a_i==a_j,<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi><mo>&lt;</mo><mi>j</mi></mrow><annotation encoding="application/x-tex">i&lt;j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69862em;vertical-align:-0.0391em;"></span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span></span></span></span>,那么i一定出现在j前面的S里,也就是说只有两个都选上时的序列才行</p>
+<p>然后这个是限制,求一下本质不同的h序列个数</p>
+<p>code:</p>
+<pre><code class="language-cpp">
+//From Ultimate Destroy
+#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+using namespace std;
+const int MAXN = 111;
+const int P = 998244353;
+
+int n, a[MAXN], K, g[MAXN][MAXN][MAXN], f[MAXN][MAXN][MAXN];
+//妈的讲的和实际上是反的
+inline void init() {
+	int flg = 0;
+	//初始化部分
+	for(int i = 1; i &lt;= n; ++i) {
+		for(int j = i; j &lt;= n; ++j) {
+			f[1][i][j] = 1;
+			//这显然只有一种方案
+			if(j &lt; n) {
+				//对于小于n的情况
+				//如果定他大于n会与这个dp状态不太符合
+				flg = 0;
+				for(int k = i; k &lt;= j; ++k) {
+					//枚举
+					if(a[k] == a[j + 1])flg = 1;
+					//如果满足这两个相等,那么就是说这之前的才行!
+					//也就是这个区间会被卡r+1啊
+				}
+				if(!flg)g[1][i][j] = 1;
+			}
+		}
+	}
+}
+
+inline void dp() {
+
+	for(int k = 2; k &lt;= K; ++k) {
+		for(int L = 1; L &lt;= n; ++L) {
+			for(int l = 1; l &lt;= n - L + 1; ++l) {
+				int r = l + L - 1;
+				int w = f[k - 1][l][r] * (L != n);
+				//如果L是n长度就太长了
+				//显然就成了个初始态
+				for(int p = l; p &lt;= r; ++p) {
+					int t = 1;
+					//枚举转折点
+					if(p &lt; r)t = t * 1ll * f[k][p + 1][r] % P;
+					//如果不是右端点,我们可以乘上之后那段区间随意的方案数
+					if(p &gt; l)t = t * 1ll * g[k - 1][l][p - 1] % P;
+					//但是前面那段区间是受到限制的
+					//不能放k-1
+					w = (w + t) % P;
+				}
+				f[k][l][r] = w;
+
+				if(r &lt; n) {
+					//r+1&lt;=n
+					w = g[k - 1][l][r] * (L != n);
+					for(int p = l; p &lt;= r; ++p)
+						if(a[p] != a[r + 1]) {
+							//我彪掉了...
+							//这个a_p显然只能先定值k啊!!!
+							int t = 1;
+							if(p &lt; r)t = t * 1ll * g[k][p + 1][r] % P;
+							//显然由于本身我们更新的缘故,这个东西就要受到限制
+							if(p &gt; l)t = t * 1ll * g[k - 1][l][p - 1] % P;
+							//然后又要受到新限制啦qwq
+							w = (w + t) % P;
+							//这是那个西格玛
+						}
+					g[k][l][r] = w;
+				}
+			}
+		}
+	}
+}
+
+
+int main() {
+	scanf(&quot;%d%d&quot;, &amp;n, &amp;K);
+	for(int i = 1; i &lt;= n; ++i) {
+		scanf(&quot;%d&quot;, &amp;a[i]);
+	}
+	init();
+	dp();
+	printf(&quot;%d\n&quot;, f[K][1][n]);//QAQ
+	return 0;
+}
+
+</code></pre>
+<p>C</p>
+<p>Q=1的暴力</p>
+<p>首先二分答案S</p>
+<p>统计一下最多选多少个数</p>
+<p>首先小于S/2一定被选</p>
+<p>而&gt;S/2的两个区间内肯定只能选一个数,所以可以枚举每个区间看最小值能不能选,能选答案+1</p>
+<p>多次询问就用个数据结构维护一下,对于小于S/2的个数可以主席树</p>
+<p>但是第二个统计有点毒啊...</p>
+<p>于是我们思考有多少个三元组(x,y,z)满足<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>L</mi><mo>&lt;</mo><mi>x</mi><mo>&lt;</mo><mi>z</mi><mo>&lt;</mo><mi>y</mi><mo>&lt;</mo><mi>R</mi></mrow><annotation encoding="application/x-tex">L&lt;x&lt;z&lt;y&lt;R</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72243em;vertical-align:-0.0391em;"></span><span class="mord mathdefault">L</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.7335400000000001em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span></span></span></span></p>
+<p>然后<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi><mo>[</mo><mi>x</mi><mo>]</mo><mo separator="true">,</mo><mi>a</mi><mo>[</mo><mi>y</mi><mo>]</mo><mo>&lt;</mo><mi>S</mi><mi mathvariant="normal">/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">a[x],a[y]&lt;S/2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">a</span><span class="mopen">[</span><span class="mord mathdefault">x</span><span class="mclose">]</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">a</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord">/</span><span class="mord">2</span></span></span></span></p>
+<p>然后<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi><mo>[</mo><mi>k</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">a[k]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">a</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mclose">]</span></span></span></span>是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mi>x</mi><mo>+</mo><mn>1</mn><mo separator="true">,</mo><mi>y</mi><mo>−</mo><mn>1</mn><mo>]</mo></mrow><annotation encoding="application/x-tex">[x+1,y-1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span>最小值</p>
+<p>而且<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi><mo>[</mo><mi>k</mi><mo>]</mo><mo>&gt;</mo><mi>S</mi><mi mathvariant="normal">/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">a[k]&gt;S/2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">a</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord">/</span><span class="mord">2</span></span></span></span>否则会跨两个区间</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi><mo>[</mo><mi>k</mi><mo>]</mo><mo>+</mo><mi>m</mi><mi>a</mi><mi>x</mi><mo>(</mo><mi>a</mi><mo>[</mo><mi>x</mi><mo>]</mo><mo separator="true">,</mo><mi>a</mi><mo>[</mo><mi>y</mi><mo>]</mo><mo>)</mo><mo>&lt;</mo><mo>=</mo><mi>S</mi></mrow><annotation encoding="application/x-tex">a[k]+max(a[x],a[y])&lt;=S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">a</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault">x</span><span class="mopen">(</span><span class="mord mathdefault">a</span><span class="mopen">[</span><span class="mord mathdefault">x</span><span class="mclose">]</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">a</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mclose">]</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span></span></span></span></p>
+<p>观察第2,3,4,三个条件我们可以发现对于一个k有唯一的一组x,y能与之对应</p>
+<p>那么对于一个三元组k,有两个限制,值域限制和位置限制</p>
+<p>首先我们可以算出s的范围</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi><mo>∈</mo><mo>[</mo><mi>a</mi><mo>[</mo><mi>k</mi><mo>]</mo><mo>+</mo><mi>m</mi><mi>a</mi><mi>x</mi><mo>(</mo><mi>a</mi><mo>[</mo><mi>x</mi><mo>]</mo><mo separator="true">,</mo><mi>a</mi><mo>[</mo><mi>y</mi><mo>]</mo><mo>)</mo><mo separator="true">,</mo><mn>2</mn><mi>a</mi><mo>[</mo><mi>k</mi><mo>]</mo><mo>)</mo></mrow><annotation encoding="application/x-tex">S \in  [a[k]+max(a[x],a[y]),2a[k])
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72243em;vertical-align:-0.0391em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathdefault">a</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault">x</span><span class="mopen">(</span><span class="mord mathdefault">a</span><span class="mopen">[</span><span class="mord mathdefault">x</span><span class="mclose">]</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">a</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mclose">]</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mord mathdefault">a</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mclose">]</span><span class="mclose">)</span></span></span></span></span></p>
+<p>那么显然我们一个k就是一个区间加,然后S是单点查</p>
+<p>当然也可以k单点加(差分)S区间查,可主席树</p>
+<p>然后这是三维数点</p>
+<p>显然我们可以找到对于L,R中左边第一个dL,右边第一个dR满足小于等于S/2的</p>
+<p>那么满足条件的三元组都在这个区间里面而且也一定都在这个区间里面</p>
+<p>所以就变成了k在dL,dR之间,就变成了了二维数点</p>
+<p>实际上我们要找小于的,否则可能会因为相等的值而找重复了,实测这也是对的</p>
+<p>这样就可以二分+树状数组两个log解决了</p>
+<p>minmax卷积 : a_i+j=min(max(b_i,c_j))</p>
+<p>首先我们考场上有一个类似笛卡尔树的堆的做法</p>
+<p>就是考虑一开始都选上,然后我们删去相邻最大和的,就一直删下去知道满足了</p>
+<p>code:</p>
+<pre><code class="language-cpp">
+#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;set&gt;
+#define se second
+#define fi first
+#define mkp(x,y) (make_pair(x,y))
+#define ins insert
+using namespace std;
+const int MAXN = 1e5 + 7;
+multiset&lt;pair&lt;int, pair&lt;int, int&gt; &gt; &gt; st;
+int nxt[MAXN], pre[MAXN], a[MAXN], n, Q, vis[MAXN];
+
+inline void del(int x) {
+	nxt[pre[x]] = nxt[x];
+	pre[nxt[x]] = pre[x];
+}
+
+inline void solve(int l, int r, int z) {
+	for(int i = l; i &lt; r; ++i) {
+		st.ins(mkp(a[i] + a[i + 1], mkp(i, i + 1)));
+		// printf(&quot;%d\n&quot;, a[i] + a[i + 1]);
+		// printf(&quot;%d?\n&quot;, st.size());
+		nxt[i] = i + 1;
+		pre[i] = i - 1;
+	}
+	pre[l] = r;
+	st.ins(mkp(a[r] + a[l], mkp(r, l)));
+	nxt[r] = l;
+	pre[r] = r - 1;
+	int k1, k2;
+	// printf(&quot;%d?\n&quot;, st.size());
+	while(st.size() &gt; z) {
+		auto it = st.end();
+		--it;
+		int u = (*it).se.fi;
+		int v = (*it).se.se;
+		// printf(&quot;%d?%d %d\n&quot;, u, v, (*it).fi);
+		if(vis[u] &amp;&amp; vis[v]) {
+			st.erase(it);
+			continue;
+		}
+		if(vis[u] || (a[u] &lt; a[v] &amp;&amp; !vis[v]))u = v;
+		// printf(&quot;%d?\n&quot;, u);
+		//我们只删除u
+		k1 = a[u] + a[nxt[u]];
+		k2 = a[u] + a[pre[u]];
+		vis[u] = 1;
+		st.erase(it);
+		if(u != v)st.erase(st.find(mkp(k2, mkp(pre[u], u))));
+		else st.erase(st.find(mkp(k1, mkp(u, nxt[u]))));
+		del(u);
+		st.ins(mkp(a[pre[u]] + a[nxt[u]], mkp(pre[u], nxt[u])));
+	}
+	auto it = st.end();
+	--it;
+	printf(&quot;%d\n&quot;, (*it).fi);
+	st.clear();
+	return;
+}
+
+int main() {
+	// freopen(&quot;test.in&quot;, &quot;r&quot;, stdin);
+	// freopen(&quot;test.out&quot;, &quot;w&quot;, stdout);
+	scanf(&quot;%d%d&quot;, &amp;n, &amp;Q);
+	for(int i = 1; i &lt;= n; ++i)scanf(&quot;%d&quot;, &amp;a[i]);
+	if(n &lt;= 10000 || Q &lt;= 10000) {
+		for(int i = 1, x, y, z; i &lt;= Q; ++i) {
+			scanf(&quot;%d%d%d&quot;, &amp;x, &amp;y, &amp;z);
+			for(int i = x; i &lt;= y; ++i)vis[i] = 0;
+			solve(x, y, z);
+		}
+	}
+	return 0;
+}
+
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/20zr-shu-qi-ab-ban-shi-lian-ce-day7/">
+              <h3 class="post-title">
+                20zr暑期AB班十连测day7
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
