@@ -2,11 +2,11 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>SDCADay1 | 夏晓光(loveJY)的博客</title>
-<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1596893331526">
+<title>SDSCDay1 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1597151636522">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="SDCADay1 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="alternate" type="application/atom+xml" title="SDSCDay1 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 
@@ -26,7 +26,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://xiaxiaoguang.github.io">
-  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1596893331526" alt="">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1597151636522" alt="">
   </a>
   <h1 class="site-title">
     夏晓光(loveJY)的博客
@@ -85,7 +85,7 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              SDCADay1
+              SDSCDay1
             </h2>
             <div class="post-info">
               <span>
@@ -164,10 +164,11 @@
 <p>然后全局所有的f值(还有一个区间的限制)可以维护一个总的下标的单调值就行了</p>
 <p>T20</p>
 <figure data-type="image" tabindex="4"><img src="https://xiaxiaoguang.github.io/post-images/1596893133649.png" alt="" loading="lazy"></figure>
-<p>首先对于每个k可以做到O(nlogn)</p>
+<p>首先对于每个k可以做到O(nlogn)就是都放进去然后拿深度最大的没被标记的点再,把k级祖先拿出来标记,重复这个过程</p>
 <p>而对于k比较大可能删的比较快...</p>
-<p>所以只需要删最近的叶子就好了...剩下的就是一个调和级数了....</p>
-<p>...未完待续</p>
+<p>然后就发现答案差不多为$ O(x+(n-x)/k) $然后这个东西主要在于x,其他的部分是调和级数</p>
+<p>所以只需要把他叶子距离为k的点初始化进堆做那个贪心就好了...剩下的就是一个调和级数了....</p>
+<p>复杂度可能是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mi>l</mi><mi>g</mi><mi>n</mi><mi>ln</mi><mo>⁡</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(nlgn\ln n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop">ln</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></p>
 <p>T15</p>
 <p>两个人,一开始有x,y颗石子,对着拿,每轮拿a_i个,不足全拿,带修a_i,x,y问每次n轮之后最后第一个人手上剩余多少石子.....</p>
 <p>维护一个折线图,和x+y取min,和0取max</p>
@@ -176,7 +177,7 @@
 <p>那么就可以统计一个区间的前缀和,对于初始在哪里计算个答案....</p>
 <p>在一个范围内我们会碰上边界,初始值无关,我们只需要算区间中某个值的答案即可</p>
 <p>那么只有一个小区间我们是需要维护的,所以就可以考虑线段树和分治...维护维护修改和查询</p>
-<p>T13</p>
+<p>T13*</p>
 <p>结论1,次数不重要</p>
 <p>结论2,二分答案</p>
 <p>结论3,这个有博弈论结论.如果有一张二分图g,一开始在S集合中,每个人可以移动一步不能动就输</p>
@@ -191,7 +192,7 @@
 <p>所以可以发现白点一定是在某个分界点左上角...黑点在右下角</p>
 <p>然后就可以考虑二分一个增量,对于增量从上到下从左到右</p>
 <p>是单调变化的,所以可求出那个最优划分点.......</p>
-<p>T11</p>
+<p>T11*</p>
 <p>多项式可以发现我们在不知道R的时候能算出一个东西</p>
 <p>所以就可以先和C点乘一下,再和R做点乘</p>
 <p>考虑分治,显然C有用长度小于等于区间长度</p>
@@ -214,7 +215,7 @@
 <p>T5</p>
 <p>dp_{i,j}表示我走到i,然后目前收益为j的最小代价</p>
 <p>那么这个剩余可以的代价要小于等于m/j...就调和级数了</p>
-<p>T1</p>
+<p>T1错题</p>
 <p>m&lt;=n+300</p>
 <p>最多300个环</p>
 <p>度数之和=2m,那么也就是说$ \sum_{d-2}=2(m-n)$</p>

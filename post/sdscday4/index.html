@@ -1,0 +1,355 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SDSCDay4 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1597151636522">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="SDSCDay4 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="A
+沙比提
+B
+我们设最大值位置为x,然后建新点y1y2,然后优化建边就好了
+对于更大的数据,可以线段树优化建图
+然后两个15%的提示需要不同的建图方式
+最大值可以用笛卡尔树去建图
+两边要去中间最小值?这个直接建两排后缀优化的
+-&gt;-..." />
+    <meta name="keywords" content="网络流,题目集合,比赛题" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1597151636522" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              SDSCDay4
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-08-11
+              </span>
+              <span>
+                8 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/MASIXoy8U/" class="post-tag">
+                  # 网络流
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/ptq-n3C75J/" class="post-tag">
+                  # 题目集合
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/A3FIICRYA/" class="post-tag">
+                  # 比赛题
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/45NBuzDIW489QBoVep5mcWgl6acD9A5en3zNyBMisFUti35NEzvNhSsbxlfySvubkO7oXU0PodhE5xa4j8FqH9MYyLqk*TilZXjue4*kVXE!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>A</p>
+<p>沙比提</p>
+<p>B</p>
+<p>我们设最大值位置为x,然后建新点y1y2,然后优化建边就好了</p>
+<p>对于更大的数据,可以线段树优化建图</p>
+<p>然后两个15%的提示需要不同的建图方式</p>
+<p>最大值可以用笛卡尔树去建图</p>
+<p>两边要去中间最小值?这个直接建两排后缀优化的</p>
+<p>-&gt;-&gt;-&gt;-&gt;<br>
+<code></code> <code></code> <code></code> <code></code></p>
+<blockquote>
+<p>-&gt;-&gt;-&gt;-</p>
+</blockquote>
+<p>然后会发现最短路径一定会先找中间一个然后再到后面</p>
+<p>所以就做完了...</p>
+<p>C</p>
+<p>对于一个三角形,两侧的图要么是一棵树,要么是两个树,两个情况分别设状态</p>
+<p>所以我们要处理[l,r]这条边两侧的点,所以就会发现我们可以按照极角排序然后对于一个三角形就能很快找到了</p>
+<p>合法状态数和边数等价所以直接DP即可</p>
+<p>网络流</p>
+<p>T1</p>
+<figure data-type="image" tabindex="1"><img src="https://xiaxiaoguang.github.io/post-images/1597143209777.png" alt="" loading="lazy"></figure>
+<p>发现答案是合法的就是存在可行循环流</p>
+<p>循环流的充要条件是入度等于出度</p>
+<p>所以考虑我们手动模拟一下我们走这个的过程,前c次走这个可以节省花费</p>
+<p>对于一个初始数字为C的边考虑连(C,-1),(inf,1),后面那个代表我们可以修大这个数</p>
+<p>从1到n  求个最小费用流即可</p>
+<p>T2</p>
+<figure data-type="image" tabindex="2"><img src="https://xiaxiaoguang.github.io/post-images/1597143870679.png" alt="" loading="lazy"></figure>
+<p>发现白色格子可以二染色不妨设为红蓝</p>
+<p>所以每个瓷砖一定会包括红黑蓝三颜色</p>
+<p>然后我们就可以建立三排点的图(三列点,然后不同列的点之间有边)跑最大流</p>
+<p>其中红色的连黑色的,黑色的连蓝色的</p>
+<p>然后黑色的拆下点保证只用一次</p>
+<p>然后红连S,蓝连T即可</p>
+<p>T3</p>
+<figure data-type="image" tabindex="3"><img src="https://xiaxiaoguang.github.io/post-images/1597143892255.png" alt="" loading="lazy"></figure>
+<p>问题等价于每次选一组不相交线段,选k次问最大收益</p>
+<p>所以可以考虑从左到右连边,然后容量为inf然后S到最左端点容量为k</p>
+<p>每个线段左端点到右端点连容量为1,费用为价值的边求最大费用最大流</p>
+<p>T4</p>
+<figure data-type="image" tabindex="4"><img src="https://xiaxiaoguang.github.io/post-images/1597144164592.png" alt="" loading="lazy"></figure>
+<p>发现一个能量源中决定了所有不合法的就是围绕能量源相邻和相对的两个水晶</p>
+<p>然后对于能量源周围的六方格黑白染色,会发现一个能量源使得黑白不能同时出现,所以就可以最小割了</p>
+<p>用流量代替权值</p>
+<p>S-&gt;(权值)-&gt;黑-&gt;(inf)-&gt;能量入点-&gt;(权值)-&gt;能量出点-&gt;(inf)-&gt;白-&gt;(权值)-&gt;T</p>
+<p>也就是说我们选择割掉那个都可以</p>
+<p>T5</p>
+<figure data-type="image" tabindex="5"><img src="https://xiaxiaoguang.github.io/post-images/1597144358901.png" alt="" loading="lazy"></figure>
+<p>方法一是直接最小割,就是白点向周围灰点连边这样</p>
+<p>令白格权值为1,灰格权值为-1,那么选白格就必须选周围灰格,问题就变成了最大权闭合子图,其+一开始灰格数即答案</p>
+<p>T6</p>
+<figure data-type="image" tabindex="6"><img src="https://xiaxiaoguang.github.io/post-images/1597144475051.png" alt="" loading="lazy"></figure>
+<p>棋盘黑白染色,对于黑点连S,白点连T</p>
+<p>然后非关键点向S/T连容量为2的边,相邻点连容量为1的边,费用为0</p>
+<p>而关键点,连容量为2的边,拆成两个点,分辨连横连边和竖连边,然后对每个拆出的点连两个边,一个费用为0一个费用为1</p>
+<p>表示如果我们流一个方向两次就要花钱</p>
+<p>拆出的点按照自己的方向向上下/左右连边</p>
+<p>T7</p>
+<figure data-type="image" tabindex="7"><img src="https://xiaxiaoguang.github.io/post-images/1597144653207.png" alt="" loading="lazy"></figure>
+<p>要想把参与人数搞成第一关键字就可以对于每个人,先用一个1,-inf的边,让权值强行拉大,这样每个人都能流上流量</p>
+<p>剩下的连个(k-1,0)</p>
+<p>对应的向喜欢的组别连边</p>
+<p>然后我们最小费用流一定会流经它</p>
+<p>而我们学习小组可以通过拆边形成a^2向T连边,就是考虑与上次的差值...</p>
+<p>T8</p>
+<figure data-type="image" tabindex="8"><img src="https://xiaxiaoguang.github.io/post-images/1597145737155.png" alt="" loading="lazy"></figure>
+<p>考虑可以用大权值控制第一关键字</p>
+<p>也就是说减肥药的价值为减肥量+inf,而药材的价值为-inf,选一个减肥药必须选对应药材,求最大权闭合子图</p>
+<p>然后会发现药材数量一定不会超过减肥药数量就卡上上界了</p>
+<p>T9</p>
+<figure data-type="image" tabindex="9"><img src="https://xiaxiaoguang.github.io/post-images/1597145828002.png" alt="" loading="lazy"></figure>
+<p>黑白染色,然后让左边和右边的对接起来,</p>
+<p>然后有一个费用啊,接不同的费用不同</p>
+<p>首先只有一个接头时就只考虑0,1,2,1</p>
+<p>连原先为0,</p>
+<p>两个接口,则我们会发现横纵只能连一个,我们可以分叉表示每个方向</p>
+<p>我们可以用一个五边形来拆点,就是</p>
+<figure data-type="image" tabindex="10"><img src="https://xiaxiaoguang.github.io/post-images/1597146013923.png" alt="" loading="lazy"></figure>
+<p>然后会发现我们有T型水管,比较复杂,直接拆为4边然后列方程</p>
+<p>a+b+c=0</p>
+<p>b+c+d=1</p>
+<p>c+d+a=2</p>
+<p>d+a+b=1</p>
+<p>然后我们能解出a,b,c,d,然后这个费用是浮点数*3即可避免误差</p>
+<p>T10</p>
+<figure data-type="image" tabindex="11"><img src="https://xiaxiaoguang.github.io/post-images/1597146063104.png" alt="" loading="lazy"></figure>
+<p>枚举一个必须要包含的点作为树根</p>
+<p>然后若选择了一个点,那么他到树根所有点都必须选,</p>
+<p>最大权闭合子图</p>
+<p>T11</p>
+<figure data-type="image" tabindex="12"><img src="https://xiaxiaoguang.github.io/post-images/1597146128038.png" alt="" loading="lazy"></figure>
+<p>我们先枚举一个边断掉</p>
+<p>然后设dp状态f[i][j]表示点i的子树和j子树匹配的最大连通答案</p>
+<p>然后就可以用网络流来儿子做到最优匹配转移</p>
+<p>但这样会T,问题在于同一个可能的状态算了多次</p>
+<p>然后考虑树形dp,dp_{i,j,k,l}表示i的父亲是j,k的父亲是l的时候子树的最大匹配程度是多少</p>
+<p>然后转移的时候我们可以考虑网络流,最大权的去匹配儿子</p>
+<p>这样我们的复杂度是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mi>n</mi><mn>6</mn></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n^6)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">6</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></p>
+<p>T12</p>
+<figure data-type="image" tabindex="13"><img src="https://xiaxiaoguang.github.io/post-images/1597146264047.png" alt="" loading="lazy"></figure>
+<p>一个棋子要么被占领要么四周的都被占领</p>
+<p>那么这个就很像直线了</p>
+<p>S-&gt;(代价)-&gt;A1-&gt;(收益)-&gt;A2</p>
+<figure data-type="image" tabindex="14"><img src="https://xiaxiaoguang.github.io/post-images/1597146339479.png" alt="" loading="lazy"></figure>
+<p>A2是四个点</p>
+<p>然后就一条线,要保证收益要么全部割掉右边的四个</p>
+<p>要么割掉自己的</p>
+<p>T13</p>
+<figure data-type="image" tabindex="15"><img src="https://xiaxiaoguang.github.io/post-images/1597146768714.png" alt="" loading="lazy"></figure>
+<p>Ans=需要涂色的格子数-连续涂格子的次数</p>
+<p>首先可以发现一个格子要么是横着要么是竖着涂的</p>
+<p>然后相邻两个格子是横着还是竖着涂得选择了其中一种方式那么公共格子的另一种方式就不能选</p>
+<p>从中选择最多连续染色方式?最小割</p>
+<p>S-(1)-横-(inf)-纵-(1)-T</p>
+<p>....</p>
+<p>T14</p>
+<figure data-type="image" tabindex="16"><img src="https://xiaxiaoguang.github.io/post-images/1597146816836.png" alt="" loading="lazy"></figure>
+<p>如果在原图中两点之间有一条无向边，那么这两点到1的距离之差不大于1。<br>
+这个命题的正确性是显然的，我们考虑它的逆命题：<br>
+给定每个点到1的距离（不大于n），并给定一些已有的边，满足已有的边的两端到1的距离之差不大于1，那么一定存在一种方案满足该种情况。</p>
+<p>那么就做完了,问题变为我们去钦定这个a,然后知道一个a能算出的b,然后已有连边的限制差为1,可以直接做</p>
+<p>T15</p>
+<figure data-type="image" tabindex="17"><img src="https://xiaxiaoguang.github.io/post-images/1597146900961.png" alt="" loading="lazy"></figure>
+<p>首先发现横竖会冲突,然后列越长会限制横越短</p>
+<p>另一个激光不能超过交点位置</p>
+<p>二分图的切糕,我们可以把其中一条链给颠倒过来</p>
+<p>然后就会...标准切糕模型</p>
+<p>T16</p>
+<figure data-type="image" tabindex="18"><img src="https://xiaxiaoguang.github.io/post-images/1597147228075.png" alt="" loading="lazy"></figure>
+<p>合法的有</p>
+<p>所有有三个的</p>
+<p>以及一侧有两个的</p>
+<p>然后您会发现满足任意2*2子矩阵有且仅有两对颜色不同必然对应一组合法解</p>
+<p>然后问题转化之后考虑网络流,那么所有2*2子矩阵建成一个点,相邻点对相等情况可以看成一条边</p>
+<p>因为同一个2*2的方阵中,如果我有两个不同的,就是类似于一个水管插头连接</p>
+<p>就相当于铁轨铺设问题了,保证有闭合回路</p>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/sdscd1/">
+              <h3 class="post-title">
+                SDSCDay2
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
