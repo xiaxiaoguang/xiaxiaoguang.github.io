@@ -3,7 +3,7 @@
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>SDSCDay5 | 夏晓光(loveJY)的博客</title>
-<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1597236669525">
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1597237406111">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
 <link rel="alternate" type="application/atom+xml" title="SDSCDay5 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
@@ -29,7 +29,7 @@ Dilworth定理可知..." />
       <div class="main-content">
         <div class="site-header">
   <a href="https://xiaxiaoguang.github.io">
-  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1597236669525" alt="">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1597237406111" alt="">
   </a>
   <h1 class="site-title">
     夏晓光(loveJY)的博客
@@ -147,13 +147,15 @@ Dilworth定理可知..." />
 <p>我们之前的放缩是深度严格小于两颗子树的点数乘积</p>
 <p>放弃这个放缩,利用上子树深度性质</p>
 <p>我们会发现d_1,d_2是深度的乘积,然后如果利用长链剖分短链的均摊性可以做到<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mi>n</mi><mn>2</mn></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></p>
+<p><s>其实就是直接背包</s></p>
 <p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>&lt;</mo><mo>=</mo><mn>2</mn><mi>e</mi><mn>5</mn></mrow><annotation encoding="application/x-tex">n&lt;=2e5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord mathdefault">e</span><span class="mord">5</span></span></span></span>长链剖分</p>
 <p>先dfs深度最大的儿子</p>
 <p>dp过程可以直接线段树</p>
+<p>如果我们能直接继承重儿子,那么轻儿子就可以直接做是复杂度合法的</p>
 <p>问题是怎么在重链的地方做成线性的,发现只有一个+1</p>
 <p>方法一是平移数组下标</p>
 <p>方法二而我们可以把第二维记一个k级儿子是谁,然后其实就会</p>
-<p>其他的复杂度是短链长度和,可以给长链标号,这样一条长链就是一段连续区间</p>
+<p>其他的复杂度是短链长度和,可以给长链标号,这样一条长链就是一段连续区间,就能很好了</p>
 <p>C</p>
 <p>显然可以发现我们能算贡献,然后这个贡献好像之和</p>
 <p>会发现我们可以把他转成系数*2^次数的形式</p>
