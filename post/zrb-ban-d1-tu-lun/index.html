@@ -1,0 +1,319 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ZRB班D1图论 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1597637611535">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="ZRB班D1图论 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="By 陈孙立
+说是简单题....啊这...
+图论一般是树,仙人掌,DAG,有向图,无向图,网格图这样子的....
+下面一般1e5级别
+
+充要条件是小于号关系不成环
+所以我们把图建出来然后缩点,考虑拓扑排序一下,能等于就等于这样子
+
+会发现有..." />
+    <meta name="keywords" content="网络流,培训题,建图,图论" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1597637611535" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              ZRB班D1图论
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-08-16
+              </span>
+              <span>
+                7 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/MASIXoy8U/" class="post-tag">
+                  # 网络流
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/GZNzWf9EG/" class="post-tag">
+                  # 培训题
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/xAnkr98Aw/" class="post-tag">
+                  # 建图
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/vkAXDJ4vz/" class="post-tag">
+                  # 图论
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://photogz.photo.store.qq.com/psc?/V13b3duC210Fox/45NBuzDIW489QBoVep5mcQFJ*8UFdwU*HHVqlFWogGA8rbuj9ZuPJ0r8c5QYpMpLorjXUarYT8N7bRQkx9NDza2ZBE2jWofCwJCsGYVjUAs!/b" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>By 陈孙立</p>
+<p>说是简单题....啊这...</p>
+<p>图论一般是树,仙人掌,DAG,有向图,无向图,网格图这样子的....</p>
+<p>下面一般1e5级别</p>
+<figure data-type="image" tabindex="1"><img src="https://xiaxiaoguang.github.io/post-images/1597581465667.png" alt="" loading="lazy"></figure>
+<p>充要条件是小于号关系不成环</p>
+<p>所以我们把图建出来然后缩点,考虑拓扑排序一下,能等于就等于这样子</p>
+<figure data-type="image" tabindex="2"><img src="https://xiaxiaoguang.github.io/post-images/1597581580618.png" alt="" loading="lazy"></figure>
+<p>会发现有点眼熟?之前好像我们也有一个限制某个点度数的题,但那道题要求最小生成树</p>
+<p>所以我们只需要考虑跑出一个普通的生成树,然后如果s的度数太大了就暴力调整,就是说把一条横跨边换成树边....</p>
+<p>这样我们好像也能对于t做一遍,当且仅当我们不用S的横跨边</p>
+<p>这样不太对????</p>
+<p>考虑s,t的边都不用,然后其他边构成一些连通块,他们可能与S有边,可能与t右边,可能与二者都有边</p>
+<p>然后我们把<strong>只与</strong>s,t连边的连通块直接连边</p>
+<p>剩下与s,t都有变的,如果超过原度数就无解,否则我们随便划分一下就做完了</p>
+<p>如果这个带权了呢?</p>
+<p>拟阵交..../jk</p>
+<figure data-type="image" tabindex="3"><img src="https://xiaxiaoguang.github.io/post-images/1597582091328.png" alt="" loading="lazy"></figure>
+<p>会发现我们贪心不一定是可以的....因为两个十进制数比较,<strong>位数</strong>长短是第一位的QAQ</p>
+<p>所以我们可以考虑最短路,但是虽然位数长短是第一位的,我们高位还是要尽可能的低才行</p>
+<p>所以我们可以优先走最小的那条边去更新,然后其他的还是dij,其实本质上我们是一个分层图....,然后一层一层的update</p>
+<p>最后跑个回溯法输出路径即可</p>
+<p>注意我们有0这种神仙边,会有前导0</p>
+<p>从s开始只走权值为0的边能到那些点,然后merge这些点,再去做dij</p>
+<p><s>就是长度和更新顺序两个排个序</s></p>
+<figure data-type="image" tabindex="4"><img src="https://xiaxiaoguang.github.io/post-images/1597582648831.png" alt="" loading="lazy"></figure>
+<p>我 抄 我 自 己</p>
+<p>先搞一颗最小生成树</p>
+<p>如果我们有解,能缩就缩,难道不行吗?</p>
+<p>首先结论:<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>∑</mo><mi>a</mi><mo>−</mo><mo>∑</mo><mi>b</mi><mo>&gt;</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\sum{a}-\sum{b}&gt;=0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.00001em;vertical-align:-0.25001em;"></span><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">a</span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.00001em;vertical-align:-0.25001em;"></span><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">b</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>,点权和大于等于边权和</p>
+<p>充分性?因为一开始都是非负</p>
+<p>考虑一棵树,如果有一个边能被缩就缩起来,而且一定存在一条边能被缩起来....</p>
+<p>假设所有边都缩不了了....<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>a</mi><mi>u</mi></msub><mo>+</mo><msub><mi>a</mi><mi>v</mi></msub><mo>&lt;</mo><mi>l</mi><mi>e</mi><mi>n</mi><mo>(</mo><mi>u</mi><mo separator="true">,</mo><mi>v</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">a_u+a_v&lt;len(u,v)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.73333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">u</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.6891em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">v</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span><span class="mopen">(</span><span class="mord mathdefault">u</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mclose">)</span></span></span></span></p>
+<p>那么<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>∑</mo><mrow><msub><mi>a</mi><mi>u</mi></msub><mo>∗</mo><msub><mi>d</mi><mi>u</mi></msub></mrow><mo>&lt;</mo><mo>∑</mo><mrow><mi>l</mi><mi>e</mi><mi>n</mi></mrow></mrow><annotation encoding="application/x-tex">\sum{a_u*d_u}&lt;\sum{len}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.00001em;vertical-align:-0.25001em;"></span><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">u</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord"><span class="mord mathdefault">d</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">u</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.00001em;vertical-align:-0.25001em;"></span><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span></span></span></span></span></p>
+<p>显然左边那个大于<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>∑</mo><mi>a</mi></mrow><annotation encoding="application/x-tex">\sum{a}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.00001em;vertical-align:-0.25001em;"></span><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">a</span></span></span></span></span></p>
+<p>所以一定可以缩一下qwq</p>
+<p>怎么维护啊QAQ</p>
+<p>考虑DFS,然后对于点A,考虑<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi><mo>+</mo><msub><mi>b</mi><mi>i</mi></msub><mo>+</mo><msub><mi>c</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">A+b_i+c_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">A</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">b</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>&gt;=0,那么这棵子树一定能缩起来</p>
+<p>然后A'成为这个新的权值,然后继续重复上面...</p>
+<p>具体的我们有一个dfs函数(x,a)表示点x的子树得到权值a后缩起来的序列....</p>
+<p>然后相当于按照<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>c</mi><mi>i</mi></msub><mo>−</mo><msub><mi>b</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">c_i-b_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.73333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">b</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>从大到小这样子缩,这样a非负了...</p>
+<p>先dfs那棵最大的子树就好了Qwq这样我们保证每个阶段&gt;=0了....</p>
+<p>Part2匹配与网络流</p>
+<p>Hall 定理</p>
+<p>存在完美匹配的充要条件:</p>
+<p>左半边的任何一个点的点集他小于等于与右半边的连边的点的点集</p>
+<figure data-type="image" tabindex="5"><img src="https://xiaxiaoguang.github.io/post-images/1597583876265.png" alt="" loading="lazy"></figure>
+<p>有上下界,先流了下界,边变成只有上界,再从超级源点向v连边流下界,再从u连边向超级汇点为下界,其实就是u点少了流量,而v点多了流量qwq</p>
+<p>这样我们对于原来的源,我们从超级源点向源点inf,汇点向超级汇点inf</p>
+<p>最大流再从s到t增广,否则反着来一下qwq</p>
+<figure data-type="image" tabindex="6"><img src="https://xiaxiaoguang.github.io/post-images/1597584335952.png" alt="" loading="lazy"></figure>
+<p>CF510E</p>
+<p>首先显然的是我们如果把能成质数的一些东西连边能形成二分图,因为偶数之间奇数之间都不能连边...</p>
+<p>然后考虑我们从这个图上找出环,那么我们从S向所以奇数点连流量为2的边,然后所有偶数点向T连流量为2的边</p>
+<p>会发现我们从一个地方dfs一定能dfs出一个合法的环,否则无解</p>
+<p>我切掉了</p>
+<p>如果没有环长&gt;=3就是个完美匹配了....</p>
+<figure data-type="image" tabindex="7"><img src="https://xiaxiaoguang.github.io/post-images/1597585040091.png" alt="" loading="lazy"></figure>
+<p>说人话,就是找出若干个环,使得每个点都被经过了一次QAQ</p>
+<p>正则图一定有完美匹配,就是每个点度数都相等的图</p>
+<p>所以我们先来个最小路径覆盖的模型</p>
+<p>然后会发现每条边可能被用了两次</p>
+<p>度数都是偶数??我们可以把一条边改成有向边u-&gt;v'保留,v-&gt;u'不要了</p>
+<p>如果我们能定个向,使得新二分图能完美匹配就好了</p>
+<p>定向?好像很熟悉??偶数且度数相同???</p>
+<p>跑欧拉回路即可定向.......</p>
+<p><s>国籍作业真强...</s></p>
+<figure data-type="image" tabindex="8"><img src="https://xiaxiaoguang.github.io/post-images/1597586586809.png" alt="" loading="lazy"></figure>
+<p>对于<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>a</mi><mi>i</mi></msub><mo>=</mo><msub><mi>a</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">a_i=a_j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.716668em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>,我们渴望[i+1,j]保留一下这本书,然后我们就能算出每本书保持的时间段</p>
+<p>所以变成了一个书在一段时间内占领书架的位置并且剩下<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>c</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">c_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>的代价</p>
+<p>相当于线段覆盖问题,然后每个位置不能覆盖超过k个,并且我们要最小化代价</p>
+<p>直接上经典建图硬干即可qwq</p>
+<p>保序回归问题</p>
+<p>魔法商店</p>
+<figure data-type="image" tabindex="9"><img src="https://xiaxiaoguang.github.io/post-images/1597586962361.png" alt="" loading="lazy"></figure>
+<p>今年的版本:k=2而且一定要是整数....</p>
+<p>k=1或者全是整数时</p>
+<p>solve(S,low,high)表示确定S中的值都在low,high中</p>
+<p>然后添加限制S集合中b的值只能在mid和mid+1中选择</p>
+<p>然后取值是mid的向左区间递归,取值mid+1的在右区间递归</p>
+<p>如果可能是实数,我们可以mid,mid+eps.....</p>
+<figure data-type="image" tabindex="10"><img src="https://xiaxiaoguang.github.io/post-images/1597629628882.png" alt="" loading="lazy"></figure>
+<p>缩个点,然后拓扑dp一下</p>
+<p>可以用bitset优化连通性</p>
+<figure data-type="image" tabindex="11"><img src="https://xiaxiaoguang.github.io/post-images/1597629876581.png" alt="" loading="lazy"></figure>
+<p>先求出每个点作为正方形左上角时正方形最大的变成是多少,可以二分?</p>
+<p>那么现在所有的点都要l(x,y)&gt;=k</p>
+<p>也就是说找到一条路径使得最小值最大</p>
+<p>离线可以加点然后维护</p>
+<p>在线可以把点权放到边权上然后最小生成树</p>
+<p>变成求路径最小值...</p>
+<figure data-type="image" tabindex="12"><img src="https://xiaxiaoguang.github.io/post-images/1597630798171.png" alt="" loading="lazy"></figure>
+<p>....边双啊....</p>
+<p>s,t位于同一边双里面你怎么定都是可以的啊...QAQ</p>
+<p>然后对于不同边双的,我们还要考虑构成的边双树上那些树边会不会有冲突的情况....</p>
+<p>这一部分我们可以打一个树上差分的标记啊Qwq,就能解决一条边是否会被双定向了...</p>
+<figure data-type="image" tabindex="13"><img src="https://xiaxiaoguang.github.io/post-images/1597631039427.png" alt="" loading="lazy"></figure>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/lgr-073-luo-gu-7-yue-yue-sai-div1/">
+              <h3 class="post-title">
+                【LGR-073】洛谷 7 月月赛
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
