@@ -1,0 +1,337 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>P6665 [清华集训2016] Alice 和 Bob 又在玩游戏 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1597920273126">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="P6665 [清华集训2016] Alice 和 Bob 又在玩游戏 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="SG定理好题
+首先一个树在经过一次删除操作后,会变成许多森林
+然后这些森林其实就是原问题局面的一些子局面,那么不难记一个局面就是一个树,然后会发现不同的树之间的操作是不会产生影响的,所以我们把所有树的SG值异或起来,就可以计算出在这次操作之..." />
+    <meta name="keywords" content="SG定理,博弈论,Trie" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1597920273126" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              P6665 [清华集训2016] Alice 和 Bob 又在玩游戏
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-08-20
+              </span>
+              <span>
+                5 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/hai9LlDUn/" class="post-tag">
+                  # SG定理
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/VQRcKuMe-y/" class="post-tag">
+                  # 博弈论
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/Pc0nIo3FuH/" class="post-tag">
+                  # Trie
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/45NBuzDIW489QBoVep5mce8rXK5ro241ocmtoGehaY4mHRWH4HW*BR3uE.n8Te3d072fy1jk6Vl2QafumoE2qwYUoo8M3I0c4TO5gGZ2Eak!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>SG定理好题</p>
+<p>首先一个树在经过一次删除操作后,会变成许多森林</p>
+<p>然后这些森林其实就是原问题局面的一些子局面,那么不难记一个局面就是一个树,然后会发现<strong>不同的树</strong>之间的操作是不会产生影响的,所以我们把所有树的SG值异或起来,就可以计算出在这次操作之后子局面的SG值</p>
+<p>同时由SG定理,原树的SG值就是所有不同删除操作之后得到的子局面的SG值的mex,所以我们就是要快速求出所有这样的SG值的mex</p>
+<p>仔细想想,如果一次删除操作删在根,那么直接把根每个子树的SG值异或起来就能得到剩下的了</p>
+<p>而如果删除操作在一颗子树内,那么把这棵子树外其他子树的SG值异或起来,再把这棵子树的操作完之后得到的SG集合都和那个值异或来转移</p>
+<p>所以我们可以对于每棵子树记录一个SG集合表示子树内删除每个点后分别得到的后继SG值集合</p>
+<p>然后我们需要一个全局异或,单点插入,快速合并以及支持查询全局mex的数据结构来维护</p>
+<p>使用01trie即可,这样我们就能在<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(nlogn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>的时间内完成此题</p>
+<p>code:</p>
+<pre><code class="language-cpp">
+#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+const int MAXN = 5e5 + 7;
+const int MAXM = 1e6 + 7;
+const int MAXT = 5e6 + 7;
+using namespace std;
+
+int T, n, m, ccnt, ans;
+int home[MAXN], nxt[MAXM], to[MAXM], vis[MAXN], rt[MAXN];
+int sg[MAXN];
+inline void ct(int x, int y) {
+	ccnt++;
+	nxt[ccnt] = home[x];
+	home[x] = ccnt;
+	to[ccnt] = y;
+}
+
+const int up = 20;
+
+namespace trie {
+#define swap(x,y) (x^=y^=x^=y)
+	int ls[MAXT], rs[MAXT], nd, siz[MAXT], tag[MAXT];
+	inline void pushdown(int x, int dep) {
+		if(tag[x]) {
+			if(ls[x])tag[ls[x]] ^= tag[x];
+			if(rs[x])tag[rs[x]] ^= tag[x];
+			if(tag[x] &amp; (1 &lt;&lt; dep))swap(ls[x], rs[x]);
+			tag[x] = 0;
+		}
+	}
+	inline void pushup(int x) {
+		siz[x] = siz[ls[x]] + siz[rs[x]];
+	}
+	inline void ins(int &amp;x, int v, int dep = up) {
+		if(!x)x = ++nd,
+				  ls[nd] = rs[nd] = siz[nd] = tag[nd] = 0;
+		if(dep == -1)return (void)(siz[x] = 1); //重复的只算一个
+		pushdown(x, dep);
+		if(v &amp; (1 &lt;&lt; dep))ins(rs[x], v, dep - 1);
+		else ins(ls[x], v, dep - 1);
+		pushup(x);
+	}
+	inline int merge(int x, int y, int dep = up) {
+		if(!x || !y)return x | y;
+		pushdown(x, dep);
+		pushdown(y, dep);
+		ls[x] = merge(ls[x], ls[y], dep - 1);
+		rs[x] = merge(rs[x], rs[y], dep - 1);
+		if(dep != -1)pushup(x);
+		return x;
+	}
+	inline int query(int x, int dep = up) {
+		if(!x)return 0;
+		if(siz[ls[x]] &lt; (1 &lt;&lt; dep))return query(ls[x], dep - 1);
+		else return query(rs[x], dep - 1) | (1 &lt;&lt; dep);
+	}
+};
+using namespace trie;
+
+inline void init() {
+	nd = 0;
+	memset(rt, 0, sizeof(rt));
+	memset(home, 0, sizeof(home));
+	memset(vis, 0, sizeof(vis));
+	ans = 0;
+	ccnt = 0;
+}
+
+inline void dfs(int u, int F) {
+	vis[u] = 1;
+	int S = 0;
+	for(int i = home[u]; i; i = nxt[i]) {
+		int v = to[i];
+		if(v == F)continue;
+		dfs(v, u);
+		S ^= sg[v];
+	}
+	for(int i = home[u]; i; i = nxt[i]) {
+		int v = to[i];
+		if(v == F)continue;
+		tag[rt[v]] ^= (S ^ sg[v]);
+		rt[u] = merge(rt[u], rt[v]);
+	}
+	ins(rt[u], S);
+	sg[u] = query(rt[u]);
+	return ;
+}
+
+int main() {
+	scanf(&quot;%d&quot;, &amp;T);
+	while(T-- &gt; 0) {
+		init();
+		scanf(&quot;%d%d&quot;, &amp;n, &amp;m);
+		for(int i = 1, x, y; i &lt;= m; ++i) {
+			scanf(&quot;%d%d&quot;, &amp;x, &amp;y);
+			ct(x, y);
+			ct(y, x);
+		}
+		for(int i = 1; i &lt;= n; ++i)
+			if(!vis[i]) {
+				dfs(i, 0);
+				ans ^= sg[i];
+			}
+
+		if(ans)
+			printf(&quot;Alice\n&quot;);
+		else printf(&quot;Bob\n&quot;);
+	}
+	return 0;
+}
+
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/noi2020/">
+              <h3 class="post-title">
+                NOI2020
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
