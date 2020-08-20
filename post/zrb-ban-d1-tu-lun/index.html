@@ -3,7 +3,7 @@
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ZRB班D1图论 | 夏晓光(loveJY)的博客</title>
-<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1597663595865">
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1597889946201">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
 <link rel="alternate" type="application/atom+xml" title="ZRB班D1图论 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
@@ -12,6 +12,7 @@
 
 
     <meta name="description" content="By 陈孙立
+上午
 说是简单题....啊这...
 图论一般是树,仙人掌,DAG,有向图,无向图,网格图这样子的....
 下面一般1e5级别
@@ -19,7 +20,7 @@
 充要条件是小于号关系不成环
 所以我们把图建出来然后缩点,考虑拓扑排序一下,能等于就等于这样子
 
-会发现有..." />
+会..." />
     <meta name="keywords" content="网络流,培训题,建图,图论" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
     <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
@@ -29,7 +30,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://xiaxiaoguang.github.io">
-  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1597663595865" alt="">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1597889946201" alt="">
   </a>
   <h1 class="site-title">
     夏晓光(loveJY)的博客
@@ -95,7 +96,7 @@
                 2020-08-16
               </span>
               <span>
-                7 min read
+                10 min read
               </span>
               
                 <a href="https://xiaxiaoguang.github.io/tag/MASIXoy8U/" class="post-tag">
@@ -121,6 +122,7 @@
             <div class="post-content-wrapper">
               <div class="post-content">
                 <p>By 陈孙立</p>
+<h2 id="上午">上午</h2>
 <p>说是简单题....啊这...</p>
 <p>图论一般是树,仙人掌,DAG,有向图,无向图,网格图这样子的....</p>
 <p>下面一般1e5级别</p>
@@ -217,10 +219,71 @@
 <p>然后对于不同边双的,我们还要考虑构成的边双树上那些树边会不会有冲突的情况....</p>
 <p>这一部分我们可以打一个树上差分的标记啊Qwq,就能解决一条边是否会被双定向了...</p>
 <figure data-type="image" tabindex="13"><img src="https://xiaxiaoguang.github.io/post-images/1597631039427.png" alt="" loading="lazy"></figure>
+<h2 id="下午">下午</h2>
+<figure data-type="image" tabindex="14"><img src="https://xiaxiaoguang.github.io/post-images/1597670881198.png" alt="" loading="lazy"></figure>
+<p>首先ans不会超过<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mi>n</mi><mn>3</mn></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n^3)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></p>
+<p>而且我们会发现每个人走的时候都会减少1</p>
+<p>可以考虑一个O(ans)的暴力</p>
+<p>具体来说,如果一个点是有人的,就是周围最小值+1,否则是+0</p>
+<p>然后我们发现某个点减少之后会使得周围四个点距离可能减少,而如果我们只bfs那些减少的,就可以O(ans)</p>
+<figure data-type="image" tabindex="15"><img src="https://xiaxiaoguang.github.io/post-images/1597671269339.png" alt="" loading="lazy"></figure>
+<p>GXOI2019旅行者</p>
+<p><s>是不是做过啊?qwq</s></p>
+<p>考虑二进制分组,然后我们每次以某一位为1的那些是起点,为0的那些是终点</p>
+<p>不难发现只有log次bfs,而且我们对于一个作为答案的起点终点,一定会在某一位被算到,所以正确性也是有的qwq</p>
+<p>还有一个做法,我们把所有关键点都是出发点</p>
+<p>然后每个点记录一下最近关键点距离+从哪个关键点来?</p>
+<p>然后对于一条边如果两个from不一样我们就可以计算答案Qwq</p>
+<p>可能会有奇妙的原因丢失解....</p>
+<p>所以我们可以把每个点记录两个from就可以了....就是两个从不同的起点的最短路,但是满足是全局最短和次短路....</p>
+<figure data-type="image" tabindex="16"><img src="https://xiaxiaoguang.github.io/post-images/1597671968066.png" alt="" loading="lazy"></figure>
+<p><s>好像直接暴力白边做LCT也是可以的!</s></p>
+<p>然后我们考虑把所有白边都加进去,然后黑边加入组成生成树</p>
+<p>然后考虑白边能扩大多少,对于一个黑边,他能管住一条路径上所有的白边</p>
+<p>也就是说他们路径取min....</p>
+<p>这个就可以数据结构维护了!<s>LCT</s></p>
+<p>然后我们就需要用取min的优势了,权值排序后从小到大加入,每个位置只会被取min一次,然后用一个并查集维护那些已经取min了的即可</p>
+<p>暴力跳的时候就可以用并查集优化<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(nlogn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></p>
+<figure data-type="image" tabindex="17"><img src="https://xiaxiaoguang.github.io/post-images/1597672552586.png" alt="" loading="lazy"></figure>
+<p>好选择题啊....</p>
+<p>if(a==b)</p>
+<p>正a-&gt;反b</p>
+<p>我们能够翻转一些边方向</p>
+<p>会发现每个出度&lt;=1就不会有两个卡片违法了</p>
+<p>考虑弱联通分量对于每个连通块,只有树或者基环树有解....</p>
+<p>基环树的时候我们对于环上每个点下面是一个内向树就可以</p>
+<p>对于基环树,除了环上边除外其他边只能内向,所以枚举正反向计算最少后,环方案是1||2</p>
+<p>树的情况/jk内向树+?</p>
+<p>根好像可以向下指一条链啊....QAQ不过这个应该也能处理</p>
+<p>枚举根是什么,对于每个根看看多少条边需要翻转...这个显然可以树上递推或者换根DP</p>
+<p>两边dfs</p>
+<figure data-type="image" tabindex="18"><img src="https://xiaxiaoguang.github.io/post-images/1597673489175.png" alt="" loading="lazy"></figure>
+<p>真网络流啊??</p>
+<p>考虑一个数要被打开就要求两侧数和大于等于x</p>
+<p>也就是流量和要为至少x</p>
+<p>不会了</p>
+<p>建两排点</p>
+<p>然后对于<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>a</mi><mi>i</mi></msub><mo>+</mo><msub><mi>b</mi><mi>j</mi></msub><mo>&gt;</mo><mo>=</mo><mi>w</mi></mrow><annotation encoding="application/x-tex">a_i+b_j&gt;=w</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.73333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault">b</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span></span></span></span>连边一个i,j,w</p>
+<p>最后我们求一个完美匹配,对于所有在其中的边满足<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>a</mi><mi>i</mi></msub><mo>+</mo><msub><mi>b</mi><mi>j</mi></msub><mo>=</mo><mi>w</mi></mrow><annotation encoding="application/x-tex">a_i+b_j=w</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.73333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault">b</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span></span></span></span></p>
+<p>直接求二分图最大权匹配,这个东西就是答案....</p>
+<p>1.对于任意匹配a-&gt;(i,j)-&gt;b,<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>∑</mo><mi>a</mi><mo>+</mo><mo>∑</mo><mi>b</mi><mo>&gt;</mo><mo>=</mo><mi>w</mi></mrow><annotation encoding="application/x-tex">\sum{a}+\sum{b}&gt;=w</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.00001em;vertical-align:-0.25001em;"></span><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">a</span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.00001em;vertical-align:-0.25001em;"></span><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">b</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span></span></span></span></p>
+<ol start="2">
+<li>km构造出了<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>∑</mo><mi>a</mi><mo>+</mo><mo>∑</mo><mi>b</mi><mo>=</mo><mo>∑</mo><mi>w</mi></mrow><annotation encoding="application/x-tex">\sum{a}+\sum{b}=\sum{w}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.00001em;vertical-align:-0.25001em;"></span><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">a</span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.00001em;vertical-align:-0.25001em;"></span><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">b</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.00001em;vertical-align:-0.25001em;"></span><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02691em;">w</span></span></span></span></span></li>
+</ol>
+<p>我们可以想象成是一样的,然后不存在的边看成0</p>
+<p>注意这个题求得是最大费用任意流,所以费用小于0的时候停止增广即可</p>
 
               </div>
               <div class="toc-container">
-                
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E4%B8%8A%E5%8D%88">上午</a></li>
+<li><a href="#%E4%B8%8B%E5%8D%88">下午</a></li>
+</ul>
+</li>
+</ul>
+
               </div>
             </div>
           </article>

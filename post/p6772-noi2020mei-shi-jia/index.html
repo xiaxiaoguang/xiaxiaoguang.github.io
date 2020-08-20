@@ -1,0 +1,336 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>P6772 [NOI2020]美食家 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1597889946201">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="P6772 [NOI2020]美食家 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="这么简单的题就是因为没有练矩阵乘法啊QAQ
+想当初矩阵乘法之王啊!
+其实不难看出我们就是要求一个矩阵乘法,但是加权是有延时性的
+所以我们发现这个边权&lt;=5,可以考虑拆时间,把每个点拆成5个点,表示不同的时间
+转移是把求和和乘转换成ma..." />
+    <meta name="keywords" content="二进制,矩阵乘法" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1597889946201" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              P6772 [NOI2020]美食家
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-08-19
+              </span>
+              <span>
+                5 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/DcuPkTvjds/" class="post-tag">
+                  # 二进制
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/_CKsGgMkB/" class="post-tag">
+                  # 矩阵乘法
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://photogz.photo.store.qq.com/psc?/V13b3duC210Fox/45NBuzDIW489QBoVep5mcZZhY3G8.o7aeQzZpPFBtzWZRGtCqU5fnf6WeYftGOzNHset3RqFH1AacesOvaBbq*4FoA9T71F1Ea8qCnrEvEQ!/b" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>这么简单的题就是因为没有练矩阵乘法啊QAQ</p>
+<p>想当初矩阵乘法之王啊!</p>
+<p>其实不难看出我们就是要求一个矩阵乘法,但是加权是有延时性的</p>
+<p>所以我们发现这个边权&lt;=5,可以考虑拆时间,把每个点拆成5个点,表示不同的时间</p>
+<p>转移是把求和和乘转换成max和+</p>
+<p>然后对于原图中的一条(u,v,w)其实就是对应了w-1层图中u-&gt;最新图中v</p>
+<p>然后平移时间的时候用u+n,n+v,0</p>
+<p>再发现这个k可以拆成k段做,但是这个东西不能做...所以我们会发现我们只需要一个[1,n]的矩阵乘来过渡中间的部分</p>
+<p>需要预处理每个2^的转移矩阵...</p>
+<p>所以复杂度是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mi>n</mi><mn>2</mn></msup><mo>∗</mo><mi>k</mi><mo>∗</mo><mi>l</mi><mi>o</mi><mi>g</mi><mo>+</mo><msup><mi>n</mi><mn>3</mn></msup><mi>l</mi><mi>o</mi><mi>g</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n^2*k*log + n^3log)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mclose">)</span></span></span></span></p>
+<p>code</p>
+<pre><code class="language-cpp">
+#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+#define ll long long
+using namespace std;
+const int MAXN = 600;
+int n, m, T, k, c[MAXN],tot;
+int id[MAXN][MAXN],a[MAXN][MAXN];
+ll A[MAXN];
+
+struct festival {
+	int t, x, y;
+	festival(int t=0,int x=0,int y=0):t(t),x(x),y(y) {};
+	bool operator&lt;(const festival &amp;x)const {
+		return t &lt; x.t;
+	}
+} t[MAXN];
+
+struct Mat {
+	ll s[MAXN][MAXN];
+	Mat() {
+		memset(s,-0x3f3f3f3f,sizeof(s));
+	}
+	Mat operator*(const Mat &amp;x)const {
+		Mat c;
+		for(int i = 1; i &lt;= tot; ++i) {
+			for(int k = 1; k &lt;= tot; ++k) {
+				if(a[i][k] &lt; 0)continue;
+				for(int j = 1; j &lt;= tot; ++j) {
+					c.s[i][j] = max(c.s[i][j], s[i][k] + x.s[k][j]);
+				}
+			}
+		}
+		return c;
+	}
+} Q[35];
+
+void Mul(Mat Q) {
+	static ll B[MAXN];
+	for(int i = 1; i &lt;= tot; ++i)B[i] = -4e18;
+	for(int k = 1; k &lt;= tot; ++k) {
+		if(A[k] &lt; 0)continue;
+		for(int j = 1; j &lt;= tot; ++j) {
+			B[j] = max(B[j], A[k] + Q.s[k][j]);
+		}
+	}
+	for(int i = 1; i &lt;= tot; ++i)A[i] = B[i];
+}
+
+inline void output(Mat Q) {
+	for(int i=1; i&lt;=tot; ++i) {
+		for(int j=1; j&lt;=tot; ++j) {
+			printf(&quot;%lld &quot;,Q.s[i][j]);
+		}
+		puts(&quot;&quot;);
+	}
+	return ;
+}
+
+int main() {
+	scanf(&quot;%d%d%d%d&quot;, &amp;n, &amp;m, &amp;T, &amp;k);
+	tot = n;
+	for(int i = 1; i &lt;= n; ++i)
+		scanf(&quot;%d&quot;, &amp;c[i]);
+	for(int i = 1; i &lt;= n; ++i)
+		id[i][0] = i;
+//	printf(&quot;%lld?\n&quot;,Q[0].s[1][1]);
+	for(int i = 1, u, v, w; i &lt;= m; ++i) {
+		scanf(&quot;%d%d%d&quot;, &amp;u, &amp;v, &amp;w);
+		for(int j = 1; j &lt; w; ++j)
+			if(!id[u][j])
+				id[u][j] = ++tot;
+		for(int j = 1; j &lt; w; ++j)
+			Q[0].s[id[u][j - 1]][id[u][j]] = 0;
+		Q[0].s[id[u][w - 1]][v] = c[v];
+	}
+
+	for(int i = 1, x, y, z; i &lt;= k; ++i) {
+		scanf(&quot;%d%d%d&quot;, &amp;x, &amp;y, &amp;z);
+		t[i] = (festival) {
+			x, y, z
+		};
+	}
+	sort(t + 1, t + k + 1);
+	t[0] = (festival) {
+		0, 0, 0
+	};
+	t[k + 1] = (festival) {
+		T, 0, 0
+	};
+	for(int i = 1; i &lt;= 30; ++i) {
+		Q[i] = Q[i - 1] * Q[i - 1];
+//		output(Q[i]);
+	}
+	//鍊嶅
+	for(int i = 2; i &lt;= tot; ++i)
+		A[i] = -4e18;
+	A[1] = c[1];
+	for(int i = 1; i &lt;= k+1; ++i) {
+		int dt = t[i].t - t[i - 1].t;
+//		printf(&quot;%d?%d\n&quot;,i,dt);
+		for(int j = 30; j &gt;= 0; --j) {
+			if(dt &amp; (1 &lt;&lt; j))
+				Mul(Q[j]);
+		}
+		A[t[i].x] += t[i].y;
+	}
+	if(A[1] &lt; 0)puts(&quot;-1&quot;);
+	else printf(&quot;%lld\n&quot;, A[1]);
+	return 0;
+}
+
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/st-oi-round2/">
+              <h3 class="post-title">
+                 「St-OI」Round2 
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
