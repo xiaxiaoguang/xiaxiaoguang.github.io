@@ -1,0 +1,399 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>2/3线性基与100%构造题 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1597994773367">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="2/3线性基与100%构造题 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="T140977 线性基 (hard version)
+排序也没用啊
+第一个数构造2^19+k
+第二个数构造2^18+k
+第三个数及以后构造2^18
+会发现他们会向搞一个219+218之后完蛋
+然后我们219+218+k显然最优解
+如果这个k..." />
+    <meta name="keywords" content="线性基,状态压缩,构造,动态规划" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1597994773367" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              2/3线性基与100%构造题
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-08-21
+              </span>
+              <span>
+                6 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/6qijMlhS4z/" class="post-tag">
+                  # 线性基
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/TN_5AiIbO/" class="post-tag">
+                  # 状态压缩
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/nuL1JOWcod/" class="post-tag">
+                  # 构造
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/CJ-ugjBAY/" class="post-tag">
+                  # 动态规划
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/45NBuzDIW489QBoVep5mcfo26yQKQHg64ZB60kPAUJvK66NUiL0rxo3QQYSMJFgCKqOaxT8nDFTG.eNMmR2Ho5OemRRnr5CB4Z.Zb1iAN.Y!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>T140977 线性基 (hard version)</p>
+<p>排序也没用啊</p>
+<p>第一个数构造2^19+k</p>
+<p>第二个数构造2^18+k</p>
+<p>第三个数及以后构造2^18</p>
+<p>会发现他们会向搞一个2<sup>19+2</sup>18之后完蛋</p>
+<p>然后我们2<sup>19+2</sup>18+k显然最优解</p>
+<p>如果这个k和1e6同阶就完蛋了....</p>
+<p>然额这个会fst,第一个是n=2的时候,k!=0一定无解</p>
+<p>第二个是k=0的时候随便构造一下就行了</p>
+<pre><code class="language-cpp">
+#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+using namespace std;
+
+int n, k;
+
+int main() {
+	scanf(&quot;%d%d&quot;, &amp;n, &amp;k);
+	if(k != 0) {
+		if(n == 2)puts(&quot;-1&quot;);
+		else {
+			printf(&quot;%d %d &quot;, k + (1 &lt;&lt; 19), k + (1 &lt;&lt; 18));
+			for(int i = 3; i &lt;= n; ++i)printf(&quot;%d &quot;, (1 &lt;&lt; 18));
+			puts(&quot;&quot;);
+		}
+	} else {
+		for(int i = 1; i &lt;= n; ++i)printf(&quot;%d &quot;, (1 &lt;&lt; 19));
+		puts(&quot;&quot;);
+	}
+	return 0;
+}
+
+
+</code></pre>
+<p>P4301 [CQOI2013] 新Nim游戏</p>
+<p>k太小了吧?</p>
+<p>先手必胜就是在最后异或起来不是0的时候,也就是说无论第二个人怎么拿走都无法出现0的局面</p>
+<p>仔细想想我们线性基插入过程中插不进去的就能被异或成0....</p>
+<p>而我们其实是想让这个值尽可能的小,也就是说大数能插进去,所以我们从大到小插入就行了</p>
+<p>code:</p>
+<pre><code class="language-cpp">
+#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int MAXN = 1e5 + 7;
+int n, a[MAXN], b[MAXN];
+long long ans;
+
+int main() {
+	scanf(&quot;%d&quot;, &amp;n);
+	for(int i = 1; i &lt;= n; ++i)scanf(&quot;%d&quot;, a + i);
+	sort(a + 1, a + n + 1);
+	for(int i = n; i &gt;= 1; --i) {
+		int tmp = a[i];
+		// printf(&quot;%d?\n&quot;, tmp);
+		bool flg = 1;
+		for(int k = 30; k &gt;= 0; --k) {
+			if(tmp &amp; (1 &lt;&lt; k)) {
+				if(b[k])
+					tmp ^= b[k];
+				else {
+					b[k] = tmp;
+					flg = 0;
+					break;
+				}
+			}
+		}
+		// printf(&quot;%d?%d\namespace&quot;, flg, tmp);
+		if(flg)ans += a[i];
+	}
+	printf(&quot;%lld\n&quot;, ans);
+	return 0;
+}
+
+
+</code></pre>
+<p>P3226 [HNOI2012]集合选数</p>
+<p>显然这个东西每个数能选的是一样的qwq</p>
+<p>然后.....QAQ了</p>
+<p>容斥一下吗?完蛋了,和枚举自己没啥区别</p>
+<p>点开标签: 状压?</p>
+<p>啊这...</p>
+<p>等等啊,这个东西从小到大DP?</p>
+<p>啊这.....</p>
+<p>打开题解:显然这个结论很难搞,我们要找一个等价命题</p>
+<p>构造一个矩阵,第一行第一列的值为1,每一行后面的数都是前面那个数的两倍</p>
+<p>每列的数是他上面的数的三倍</p>
+<pre><code class="language-cpp">
+1  2  4  8   16  32  ...
+3  6  12 24  48  96  ...
+9  18 36 72  ...
+27 ...
+
+</code></pre>
+<p>每个数都是前面那个数2倍,最后长为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi><mi>o</mi><msub><mi>g</mi><mn>2</mn></msub><mi>n</mi></mrow><annotation encoding="application/x-tex">log_2n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathdefault">n</span></span></span></span>宽为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi><mi>o</mi><msub><mi>g</mi><mn>3</mn></msub><mi>n</mi></mrow><annotation encoding="application/x-tex">log_3n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathdefault">n</span></span></span></span></p>
+<p>然后就发现每个数我们选了他就不能选择相邻的,否则会自闭</p>
+<p>然后这样显然没有包括所有的数,可以枚举并check所有的数qwq</p>
+<p>code:</p>
+<pre><code class="language-cpp">
+#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+#define ll long long
+using namespace std;
+const int P = 1e9 + 1;
+const int MAXN = 1e5 + 7;
+const int MAXS = 4096;
+const int MAXH = 20;
+int n, p;
+int vis[MAXN], flg[MAXN], Vvis[MAXN], num[MAXN];
+int dp[MAXH][MAXS];
+ll ans;
+inline void build(int x) {
+	p = 1;
+	for(int i = x; i &lt;= n; i = i * 2, ++p) {
+		num[p] = 0;
+		flg[p] = 0;
+		for(int j = i, q = 1; j &lt;= n; j = j * 3, ++q) {
+			++num[p];
+			Vvis[j] = 1;//值已经有了qwq
+			flg[p] |= (1 &lt;&lt; (q - 1));
+		}
+	}
+	p--;
+	for(int S = flg[1], qwq = 1; S &gt;= 0 &amp;&amp; qwq; S = (S - 1)&amp;flg[1]) {
+		if(S == 0)
+			qwq = 0;
+		if(vis[S]) {
+			dp[1][S] = 1;
+		}
+	}
+	return ;
+}
+
+void solve(int x) {
+	memset(dp, 0, sizeof(dp));
+	build(x);
+	for(int i = 2; i &lt;= p; ++i) {
+		for(int S1 = flg[i], qwq = 1; S1 &gt;= 0 &amp;&amp; qwq; S1 = (S1 - 1)&amp;flg[i]) {
+			if(S1 == 0)qwq = 0;
+			if(!vis[S1])continue;
+			for(int S2 = flg[i - 1], qaq = 1; S2 &gt;= 0 &amp;&amp; qaq; S2 = (S2 - 1)&amp;flg[i - 1]) {
+				if(S2 == 0)qaq = 0;
+				if(!vis[S2])continue;
+				if(!(S2 &amp; S1)) {
+					dp[i][S1] = (dp[i][S1] + dp[i - 1][S2]) % P;
+				}
+			}
+		}
+	}
+	ll Sum = 0;
+	for(int S = flg[p], qwq = 1; S &gt;= 0 &amp;&amp; qwq; S = (S - 1)&amp;flg[p]) {
+		if(S == 0)qwq = 0;
+		if(!vis[S])continue;
+		Sum = (Sum + dp[p][S]) % P;
+	}
+	ans = 1ll * ans * Sum % P;
+}
+
+int main() {
+	scanf(&quot;%d&quot;, &amp;n);
+	for(int i = 0; i &lt;= 4096; ++i)
+		vis[i] = (((i &lt;&lt; 1) &amp; i) || ((i &gt;&gt; 1) &amp; i)) ? 0 : 1;
+	ans = 1;
+	for(int i = 1; i &lt;= n; ++i)
+		if(!Vvis[i]) {
+			solve(i);
+		}
+	printf(&quot;%lld\n&quot;, ans);
+	return 0;
+}
+
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/oi-sai-zhi-xiao-cuo-wu-ji-jin/">
+              <h3 class="post-title">
+                OI赛制小错误集锦
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
