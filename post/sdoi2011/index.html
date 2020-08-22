@@ -1,0 +1,335 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SDOI2011 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1598106395208">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="SDOI2011 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="除去贪吃蛇鬼模拟和火星移民鬼六边形
+P2484 [SDOI2011]打地鼠
+天哪蓝题比黑题还难!
+首先如果我们有给定的锤子,有一个能打就打的O(n4)O(n^4)O(n4)判断可不可行的贪心,就是从左上角,我们对于一个矩阵大小然后全部打一遍..." />
+    <meta name="keywords" content="费用流,整体二分,树的直径" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1598106395208" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              SDOI2011
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-08-21
+              </span>
+              <span>
+                4 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/VWgTcnAj2O/" class="post-tag">
+                  # 费用流
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/DjesUT3xSE/" class="post-tag">
+                  # 整体二分
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/GrK4ZVO52/" class="post-tag">
+                  # 树的直径
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/45NBuzDIW489QBoVep5mcfo26yQKQHg64ZB60kPAUJsjGuirokSOQSNA3B0DUTH3TKYdGHkabZ9DYGKkMH4poATrODJfdCJxFPo0VmX21jA!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>除去贪吃蛇鬼模拟和火星移民鬼六边形</p>
+<p>P2484 [SDOI2011]打地鼠</p>
+<p>天哪蓝题比黑题还难!</p>
+<p>首先如果我们有给定的锤子,有一个能打就打的<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mi>n</mi><mn>4</mn></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n^4)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">4</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>判断可不可行的贪心,就是从左上角,我们对于一个矩阵大小然后全部打一遍...</p>
+<p>然后这个可以二维树状数组优化?(这是我没想到的...)</p>
+<p>然后会发现我们可以枚举一个r,c然后再去判断复杂度低达惊人的<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mi>n</mi><mn>6</mn></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n^6)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">6</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>,过不了100</p>
+<p>然后有一个结论就是这个锤子他越大答案越小,没太大用处可以剪枝</p>
+<p>所以剩下的我们就暴力吧...剪剪剪....</p>
+<p>1.矩阵权值和一定是R*L的倍数...</p>
+<p>2.从大到小枚举吧....</p>
+<p>所以官方正解是什么啊?</p>
+<p>P2491 [SDOI2011]消防</p>
+<p>树网的核加强版</p>
+<p>而且树网的核还比这题出的早</p>
+<p>直接尺取找分界点就行了</p>
+<p>然后还要和树上非直径到直径的距离的max取max</p>
+<p>注意亿点点细节?</p>
+<p>code:</p>
+<pre><code class="language-cpp">
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;iostream&gt;
+#include&lt;algorithm&gt;
+#define ll long long
+using namespace std;
+const int inf = 1e9 + 7;
+const int MAXN = 3e5 + 7;
+const int MAXM = 6e5 + 7;
+int n, s, ccnt, mp, rt, sm;
+int home[MAXN], nxt[MAXM], to[MAXM], fa[MAXN], len[MAXM], vis[MAXN];
+ll ans, dep[MAXN], Ex;
+
+inline void ct(int x, int y, int z) {
+	ccnt++;
+	nxt[ccnt] = home[x];
+	home[x] = ccnt;
+	to[ccnt] = y;
+	len[ccnt] = z;
+}
+
+inline void dfs1(int u, int F) {
+	if(dep[u] &gt; dep[mp])mp = u;
+	for(int i = home[u]; i; i = nxt[i]) {
+		int v = to[i];
+		if(v == F)continue;
+		fa[v] = u;
+		dep[v] = dep[u] + len[i];
+		dfs1(v, u);
+	}
+	return ;
+}
+
+ll dep2[MAXN];
+
+inline void dfs2(int u, int F) {
+	for(int i = home[u]; i; i = nxt[i]) {
+		int v = to[i];
+		if(v == F)continue;
+		dep2[v] = dep2[u] + len[i];
+		if(vis[v])dep2[v] = 0;
+		dfs2(v, u);
+	}
+	return ;
+}
+
+inline void init() {
+	int u = mp;
+	while(u != rt) {
+		vis[u] = 1;
+		u = fa[u];
+	}
+	vis[rt] = 1;
+	return ;
+}
+
+inline void solve() {
+	int u = mp, v = mp;
+	dep[0] = -1e9;
+	while(dep[v] - dep[fa[u]] &lt;= s) {
+		u = fa[u];
+	}
+	ans = max(dep[u], dep[mp] - dep[v]);
+	while(u != rt) {
+		u = fa[u];
+		while(dep[v] - dep[u] &gt; s)
+			v = fa[v];
+		ans = min(ans, max(dep[u], dep[mp] - dep[v]));
+	}
+	ans = max(ans, Ex);
+	printf(&quot;%lld\n&quot;, ans);
+	return ;
+}
+
+int main() {
+	scanf(&quot;%d%d&quot;, &amp;n, &amp;s);
+	for(int i = 2, x, y, z; i &lt;= n; ++i) {
+		scanf(&quot;%d%d%d&quot;, &amp;x, &amp;y, &amp;z);
+		ct(x, y, z);
+		ct(y, x, z);
+	}
+	mp = 0;
+	dfs1(1, 0);//get oneside of the diameter
+	rt = mp;
+	dep[rt] = 0;
+	fa[rt] = 0;
+	dfs1(rt, 0);//get fa array /xyx
+	init();
+	dfs2(rt, 0);//dep node in 直径 is 0
+	for(int i = 1; i &lt;= n; ++i) {
+		Ex = max(Ex, dep2[i]);
+	}
+	solve();//ruler is right
+	return 0;
+}
+
+</code></pre>
+<p>P2494 [SDOI2011]保密</p>
+<p>强行组合题</p>
+<p>SDOI2011题目质量也太差了吧?</p>
+<p>首先整体二分求出从基地到所有出入口的最小危险度</p>
+<p>相当于每个点带权找最小权点覆盖</p>
+<p>然后用一个费用流求出最小权匹配即可</p>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/xian-xing-ji-gou-zao-ti/">
+              <h3 class="post-title">
+                2/3线性基与100%构造题
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
