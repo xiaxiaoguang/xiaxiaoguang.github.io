@@ -1,0 +1,347 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CF710F String Set Queries | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1598453727576">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="CF710F String Set Queries | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="AC自动机好题
+删除的答案其实很好统计qwq,我们先查询在删除自动机里面的答案,再查询在全体自动机的答案
+然后做一个差就是答案....
+不过我们AC自动机这个东西没法边着插入边维护fail树QAQ
+所以我们肯定要用一些定期重构之类的想法去维..." />
+    <meta name="keywords" content="二进制,AC自动机" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1598453727576" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              CF710F String Set Queries
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-08-25
+              </span>
+              <span>
+                5 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/DcuPkTvjds/" class="post-tag">
+                  # 二进制
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/BaS68NENpD/" class="post-tag">
+                  # AC自动机
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/45NBuzDIW489QBoVep5mcSUS6*Dq3BynFX7tDLTTSlwuhOJYI4H4iHfbNfH0asnUscqfuno6RE3r04oaTCfWgQxMgfjQW0ZhMbGoun1firE!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>AC自动机好题</p>
+<p>删除的答案其实很好统计qwq,我们先查询在删除自动机里面的答案,再查询在全体自动机的答案</p>
+<p>然后做一个差就是答案....</p>
+<p>不过我们AC自动机这个东西没法边着插入边维护fail树QAQ</p>
+<p>所以我们肯定要用一些定期重构之类的想法去维护AC自动机</p>
+<p>根号分块是肯定可以的,就是每根号m的开一个自动机,如果不到根号m个没有存入可以直接暴力匹配</p>
+<p>(当然也最推荐写这个)</p>
+<p>然而复杂度不好看,我们有一个log的做法...</p>
+<p>二进制分组....</p>
+<p>假设现在有n个,n的第k位为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>a</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">a_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>就存储<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msubsup><mn>2</mn><mi>i</mi><mi>a</mi></msubsup></mrow><annotation encoding="application/x-tex">2^a_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.923056em;vertical-align:-0.258664em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-2.441336em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">a</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.258664em;"><span></span></span></span></span></span></span></span></span></span>个串构成</p>
+<p>然后查询的时候暴力把log个自动机都跑一遍</p>
+<p>修改n的时候进位我们就把那些都暴力重构组成一个新的自动机放在新的二进制位上</p>
+<p>由于一个串最多重构log次所以是对的</p>
+<p>这样子我们只需要把一些AC自动机中的串拿出来重构</p>
+<p>具体实现的时候我们对于每个二进制位都弄一个链表记录该位存储的哪些串就行了</p>
+<p>这个二进制分组的思想好像也仅适用于这类数据结构的情况?</p>
+<p>有一个大大的细节就是清空ch树的时候要延迟清空.....具体可看看代码实现</p>
+<p>code:</p>
+<pre><code class="language-cpp">
+//二进制分组
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const int MAXN = 4e5 + 7;
+char s[MAXN];
+
+struct ACF {//ACFUN
+	string data[MAXN];
+	int ch[MAXN][26], fail[MAXN], ed[MAXN], T, n;
+	inline void ins(int r, char *s) {
+		int n = strlen(s + 1);
+		int u = r;
+		for(int i = 1, t; i &lt;= n; ++i) {
+			t = s[i] - 'a';
+			if(ch[u][t] == r) {//要把这个点重构然后再把其他的重构
+				ch[u][t] = ++T;
+				for(int j = 0; j &lt; 26; ++j)
+					ch[T][j] = r;
+			}
+			u = ch[u][t];
+		}
+		ed[u]++;
+	}
+	void build(int r) {
+		fail[r] = r;
+		queue&lt;int&gt; q;
+		for(int i = 0; i &lt; 26; ++i) {
+			if(ch[r][i] &gt; r) {
+				q.push(ch[r][i]);
+				fail[ch[r][i]] = r;
+				//fail....
+			}
+		}
+		while(!q.empty()) {
+			int u = q.front();
+			q.pop();
+			for(int i = 0; i &lt; 26; ++i) {
+				int v = ch[u][i];
+				if(v == r)
+					ch[u][i] = ch[fail[u]][i];
+				else {
+					fail[v] = ch[fail[u]][i];
+					ed[v] += ed[ch[fail[u]][i]];
+					q.push(v);//fail重构
+				}
+			}
+		}
+	}
+	int search(int r, char *s) {
+		int n = strlen(s + 1);
+		int u = r;
+		int ret = 0;
+		for(int i = 1, t; i &lt;= n; ++i) {
+			t = s[i] - 'a';
+			u = ch[u][t];
+			ret += ed[u];
+		}
+		return ret;
+	}
+	int stk[MAXN], fr[MAXN], siz[MAXN], N;
+	void merge() {
+		--N;
+		siz[N] &lt;&lt;= 1;
+		for(int i = stk[N]; i &lt;= T; ++i) {
+			ed[i] = fail[i] = 0;
+			for(int j = 0; j &lt; 26; ++j) {
+				ch[i][j] = 0;
+			}
+		}
+		T = stk[N];
+		for(int i = 0; i &lt; 26; ++i)
+			ch[T][i] = T;
+		for(int L = fr[N]; L &lt;= n; ++L)
+			ins(stk[N], &amp;data[L][0]);
+		build(stk[N]);
+	}
+	void ins(char *s) {
+		stk[++N] = ++T;
+		for(int i = 0; i &lt; 26; ++i)
+			ch[T][i] = T;
+		siz[N] = 1;
+		ins(T, s);
+		build(stk[N]);
+		int L = strlen(s + 1);
+		data[fr[N] = ++n] = &quot; &quot;;
+		for(int i = 1; i &lt;= L; ++i)
+			data[n] += s[i];
+		while(siz[N] == siz[N - 1])
+			merge();
+	}
+	int Count(char *s) {
+		int ans = 0;
+		for(int i = 1; i &lt;= N; ++i)
+			ans += search(stk[i], s);
+		return ans;
+	}
+} Add, Sub;
+
+int m;
+int main() {
+	scanf(&quot;%d&quot;, &amp;m);
+	for(int i = 1, typ; i &lt;= m; ++i) {
+		scanf(&quot;%d&quot;, &amp;typ);
+		cin &gt;&gt; (s + 1);
+		if(typ == 1) {
+			Add.ins(s);
+		} else if(typ == 2) {
+			Sub.ins(s);
+		} else {
+			printf(&quot;%d\n&quot;, Add.Count(s) - Sub.Count(s));//做差即可
+		}
+		fflush(stdout);
+	}
+	return 0;
+}
+
+
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/p4198-lou-fang-chong-jian/">
+              <h3 class="post-title">
+                P4198 楼房重建
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

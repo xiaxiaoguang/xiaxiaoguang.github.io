@@ -1,0 +1,305 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>P4198 楼房重建 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1598453727576">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="P4198 楼房重建 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="合并需要log的线段树
+其实本质上是线段树维护单调栈,但是我们直接在某个点上记录一整个栈不太阳间
+我们会发现其实有很多儿子的信息我们没有很好利用,所以我们可以考虑用儿子节点的信息拼成一个单调栈合并的信息
+单调栈合并的时候需要从后面某个地方砍..." />
+    <meta name="keywords" content="处理标记,线段树" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1598453727576" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              P4198 楼房重建
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-08-25
+              </span>
+              <span>
+                4 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/QXUXHAEng/" class="post-tag">
+                  # 处理标记
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/i0TglRCqu/" class="post-tag">
+                  # 线段树
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/45NBuzDIW489QBoVep5mcSUS6*Dq3BynFX7tDLTTSlwqInI1Gx1CK6N3VZAS30oqvrKFjoVZndBjXZujL7GWu3WyZ8OSBDjkPnmlEdvXArg!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>合并需要log的线段树</p>
+<p>其实本质上是线段树维护单调栈,但是我们直接在某个点上记录一整个栈不太阳间</p>
+<p>我们会发现其实有很多儿子的信息我们没有很好利用,所以我们可以考虑用儿子节点的信息拼成一个单调栈合并的信息</p>
+<p>单调栈合并的时候需要从后面某个地方砍一刀然后把后面剩下的地方接到前面去</p>
+<p>所以这个也是一样的,我记录了区间最大值和区间单调栈长度直接写TLE了好几发</p>
+<p>因为我是直接递归看看右边能不能再去划分,只用最大值当做剪枝的判据</p>
+<p>所以这个是能被卡成<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mi>n</mi><mn>2</mn></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>的qwq两边都有可能递归</p>
+<p>不被卡成<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>n</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">n^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span>就要只递归一边......</p>
+<p>如果左边最大值小于V,我们直接递归右边</p>
+<p><strong>否则我们能根据这个区间的单调栈长度和左区间的单调栈长度算出右边区间在左边成单调栈时的长度</strong></p>
+<p>换句话说:右边区间的长度就是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi><mi>r</mi><mo>[</mo><mi>k</mi><mo>]</mo><mi mathvariant="normal">.</mi><mi>L</mi><mo>−</mo><mi>t</mi><mi>r</mi><mo>[</mo><mi>l</mi><mi>s</mi><mo>[</mo><mi>k</mi><mo>]</mo><mo>]</mo><mi mathvariant="normal">.</mi><mi>L</mi></mrow><annotation encoding="application/x-tex">tr[k].L-tr[ls[k]].L</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">t</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mclose">]</span><span class="mord">.</span><span class="mord mathdefault">L</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">t</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">s</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mclose">]</span><span class="mclose">]</span><span class="mord">.</span><span class="mord mathdefault">L</span></span></span></span></p>
+<p>这样就只递归左边即可</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mi>l</mi><mi>o</mi><msup><mi>g</mi><mn>2</mn></msup><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(nlog^2n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></p>
+<p>code:</p>
+<pre><code class="language-cpp">
+#include&lt;bits/stdc++.h&gt;
+#define db double
+using namespace std;
+#define sort(a,b) random_shuffle(a,b)
+const int MAXN = 7e5 + 7;
+const db eps = 1e-11;
+int n, m, x, y;
+struct rec {
+	db Max;
+	int L;//记录最大值和单调栈长度
+	rec(int L = 0, db x = 0): Max(x), L(L) {};
+} tr[MAXN];
+db a[MAXN];
+namespace seg {
+	int ls[MAXN], rs[MAXN], T, root;
+#define mid ((l+r)&gt;&gt;1)
+	inline void build(int &amp;k, int l, int r) {
+		if(!k)k = ++T;
+		if(l == r) {
+			tr[k].Max = 0;
+			tr[k].L = 1;
+			return ;
+		}
+		build(ls[k], l, mid);
+		build(rs[k], mid + 1, r);
+		tr[k].L = 1;
+	}
+	inline int query(int k, int l, int r, db V) {
+		if(tr[k].Max &lt;= V)return 0;
+		if(a[l] &gt; V)return tr[k].L;
+		if(l == r)return a[l] &gt; V;
+		int tmp = 0;
+		if(tr[ls[k]].Max &lt;= V) {
+			return query(rs[k], mid + 1, r, V);
+		} else {
+			return query(ls[k], l, mid, V) + tr[k].L - tr[ls[k]].L;
+		}
+		return tmp;
+	}
+	inline int pushup(int k, int l, int r) {
+		//找到第一个位置
+		//然后再那个位置之后的区间都提出来
+		// printf(&quot;in %d!%d %d\n&quot;, k, l, r);
+		if(tr[rs[k]].Max - tr[ls[k]].Max &gt; eps) {
+			return query(rs[k], mid + 1, r, tr[ls[k]].Max) + tr[ls[k]].L;
+		} else {
+			// printf(&quot;?%d %lf\n&quot;, tr[ls[k]].L, tr[ls[k]].Max);
+			return tr[ls[k]].L;
+		}
+	}
+	inline void modify(int &amp;k, int l, int r, int x, db V) {
+		if(!k)k = ++T;
+		if(l == r) {
+			tr[k].Max = V;
+			tr[k].L = 1;
+			return ;
+		}
+		if(x &lt;= mid)modify(ls[k], l, mid, x, V);
+		else modify(rs[k], mid + 1, r, x, V);
+		// printf(&quot;merge !:-&gt;%d %d %d\n&quot;, k, l, r);
+		tr[k].L = pushup(k, l, r);
+		tr[k].Max = max(tr[ls[k]].Max, tr[rs[k]].Max);
+	}
+}
+using namespace seg;
+int main() {
+	// freopen(&quot;test.in&quot;, &quot;r&quot;, stdin);
+	// freopen(&quot;test.out&quot;, &quot;w&quot;, stdout);
+	scanf(&quot;%d%d&quot;, &amp;n, &amp;m);
+	// build(root, 1, n);
+	for(int i = 1, x, y; i &lt;= m; ++i) {
+		scanf(&quot;%d%d&quot;, &amp;x, &amp;y);
+		a[x] = (1.00 * y) / (1.00 * x);
+		modify(root, 1, n, x, (1.00 * y) / (1.00 * x));
+		printf(&quot;%d\n&quot;, tr[root].L);
+	}
+	return 0;
+}
+
+
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/p2403-sdoi2010suo-tuo-men-wang-de-bao-cang/">
+              <h3 class="post-title">
+                P2403 [SDOI2010]所驼门王的宝藏
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

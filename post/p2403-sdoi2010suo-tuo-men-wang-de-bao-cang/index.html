@@ -1,0 +1,387 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>P2403 [SDOI2010]所驼门王的宝藏 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1598453727576">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="P2403 [SDOI2010]所驼门王的宝藏 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="啊这
+优化建图题调的时候一定要把整个图画出来然后自己慢慢看
+还有就是图论中基础板子一定不能写错了
+对于此题,我们建n+R+C个点
+R:表示行电梯,乘上该电梯可以到达所有同一行的点
+C:表示列电梯....
+然后对于一个点i,如果是一二类边,我..." />
+    <meta name="keywords" content="优化建图,Tarjan,建图" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1598453727576" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              P2403 [SDOI2010]所驼门王的宝藏
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-08-25
+              </span>
+              <span>
+                6 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/7N0hCJdc7/" class="post-tag">
+                  # 优化建图
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/GVvvx6QO1/" class="post-tag">
+                  # Tarjan
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/xAnkr98Aw/" class="post-tag">
+                  # 建图
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/45NBuzDIW489QBoVep5mcSUS6*Dq3BynFX7tDLTTSlwuhOJYI4H4iHfbNfH0asnUscqfuno6RE3r04oaTCfWgTbmM*R1Wx2uoZTRGL5bDbE!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>啊这</p>
+<p>优化建图题调的时候一定要把整个图画出来然后自己慢慢看</p>
+<p>还有就是图论中基础板子一定不能写错了</p>
+<p>对于此题,我们建n+R+C个点</p>
+<p>R:表示行电梯,乘上该电梯可以到达所有同一行的点</p>
+<p>C:表示列电梯....</p>
+<p>然后对于一个点i,如果是一二类边,我们就把另一类的电梯向他连边,并从该点向对应特征电梯连边!</p>
+<p>最后还有第三类边,可以直接暴力,用一个map存一下每个点的pair即可!</p>
+<p>时间复杂度O(nlogn),复杂度在于map</p>
+<pre><code class="language-cpp">
+#include&lt;bits/stdc++.h&gt;
+#define mkp(x,y) (make_pair(x,y))
+const int MAXN = 5e5 + 7;
+const int MAXM = 2e6 + 7;
+using namespace std;
+map&lt;pair&lt;int, int&gt;, int&gt; mp;
+int n, R, C, T;
+const int dx[] = {-1, -1, -1, 0, 0, 1, 1, 1};
+const int dy[] = {-1, 0, 1, -1, 1, -1, 0, 1};
+int H[MAXM], L[MAXM], in[MAXN], d[MAXN], first[MAXN];
+int hd, que[MAXN], tl, dis[MAXN], fl[MAXN];
+int ccnt2, exn;
+int a[MAXN], S[MAXN];
+
+struct rec {
+	int nxt, to;
+} e[MAXM];
+struct NODE {
+	int x, y, t;
+} nd[MAXN];
+
+
+inline void tpdp() {
+	puts(&quot;In tpdp&quot;);
+	for(int i = 1; i &lt;= exn; ++i) {
+		if(in[i] == 0) {
+			que[tl++] = i;
+			dis[i] = S[i];
+			// printf(&quot;起点 :%d %d? %d\n&quot;,  i, S[i], in[i]);
+		}
+	}
+
+	while(hd &lt;= tl) {
+		int u = que[hd];
+		++hd;
+		// printf(&quot;poor boy:%d?\n&quot;, u);
+		for(int i = first[u]; i; i = e[i].nxt) {
+			int v = e[i].to;
+			in[v]--;
+			// printf(&quot;update%d %d %d-&gt;\n&quot;, dis[u], dis[v], S[v]);
+			dis[v] = max(dis[u] + S[v], dis[v]);
+			if(!in[v]) {
+				que[++tl] = v;
+			}
+		}
+	}
+
+	return ;
+}
+int ccnt, home[MAXN], nxt[MAXM], to[MAXM];
+inline void ct(int x, int y) {
+	ccnt++;
+	nxt[ccnt] = home[x];
+	home[x] = ccnt;
+	to[ccnt] = y;
+}
+
+inline void ct2(int x, int y) {
+	ccnt2++;
+	e[ccnt2].nxt = first[x];
+	first[x] = ccnt2;
+	e[ccnt2].to = y;
+	in[y]++;
+}
+
+int dfn[MAXN], low[MAXN], depp, st[MAXN], tp;
+inline void tarjan(int u) {
+	dfn[u] = ++depp;
+	low[u] = dfn[u];
+	st[++tp] = u;
+	fl[u] = 1;
+	// printf(&quot;now we in node:%d %d?\n&quot;, u, dfn[u]);
+	for(int i = home[u]; i; i = nxt[i]) {
+		int v = to[i];
+		if(!dfn[v]) {
+			tarjan(v);
+			low[u] = min(low[u], low[v]);
+		} else if(!fl[v])continue;
+		low[u] = min(low[u], dfn[v]);
+	}
+	// printf(&quot;so the %d' low is %d?\n&quot;, u, low[u]);
+	if(low[u] == dfn[u]) {
+		exn++;
+		while(st[tp] != u) {
+			int v = st[tp];
+			--tp;
+			S[exn] += a[v];
+			d[v] = exn;
+			fl[v] = 0;
+		}
+		tp--;
+		S[exn] += a[u];
+		d[u] = exn;
+		fl[u] = 0;
+		// printf(&quot;%d?%d\n&quot;, tp, exn);
+	}
+	return ;
+}
+
+int main() {
+	scanf(&quot;%d%d%d&quot;, &amp;n, &amp;R, &amp;C);
+	T = n;
+	for(int i = 1; i &lt;= n; ++i) {
+		scanf(&quot;%d%d%d&quot;, &amp;nd[i].x, &amp;nd[i].y, &amp;nd[i].t);
+		if(!L[nd[i].y])L[nd[i].y] = ++T;
+		if(!H[nd[i].x])H[nd[i].x] = ++T;
+		// printf(&quot;%d %d\n&quot;, L[nd[i].y], H[nd[i].x]);
+		if(nd[i].t == 1) {
+			ct(H[nd[i].x], i);
+			ct(i, H[nd[i].x]);
+			ct(L[nd[i].y], i);//列只能被动接受
+		}
+		if(nd[i].t == 2) {
+			ct(H[nd[i].x], i);//行只能被动接受
+			ct(L[nd[i].y], i);
+			ct(i, L[nd[i].y]);
+		}
+		if(nd[i].t == 3) {
+			ct(H[nd[i].x], i);
+			ct(L[nd[i].y], i);//都只能被迫接受
+		}
+		a[i] = 1;
+		mp[mkp(nd[i].x, nd[i].y)] = i;
+	}
+	for(int i = 1; i &lt;= n; ++i) {
+		if(nd[i].t == 3) {
+			for(int k = 0; k &lt; 8; ++k) {
+				int nx = dx[k] + nd[i].x;
+				int ny = dy[k] + nd[i].y;
+				// printf(&quot;%d %d?\n&quot;, nx, ny);
+				if(mp.find(mkp(nx, ny)) != mp.end()) {
+					// printf(&quot;U:%d?%d\n&quot;, nx, ny);
+					ct(i, mp[mkp(nx, ny)]);
+				}
+			}
+		}
+	}
+	for(int i = 1; i &lt;= T; ++i) {
+		if(!dfn[i])
+			tarjan(i);
+	}
+	for(int u = 1; u &lt;= T; ++u) {
+		// printf(&quot;where is Kindom!:%d here %d have lots of %d\n&quot;, u, d[u], S[d[u]]);
+		for(int i = home[u]; i; i = nxt[i]) {
+			int v = to[i];
+			if(d[u] == d[v])continue;
+			// printf(&quot;I'm %d and belong to %d:edge to %d?\n&quot;, u, d[u], d[v]);
+			ct2(d[u], d[v]);
+		}
+	}
+	tpdp();
+	int ans = 0;
+	for(int i = 1; i &lt;= exn; ++i) {
+		// printf(&quot;%d %d\n&quot;, i, dis[i]);
+		ans = max(ans, dis[i]);
+	}
+	printf(&quot;%d\n&quot;, ans);
+	return 0;
+}
+
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/p6329-mo-ban-dian-fen-shu-or-zhen-bo/">
+              <h3 class="post-title">
+                P6329 【模板】点分树 | 震波
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

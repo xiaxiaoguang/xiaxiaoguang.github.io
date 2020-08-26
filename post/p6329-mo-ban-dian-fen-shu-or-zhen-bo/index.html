@@ -1,0 +1,463 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>P6329 【模板】点分树 | 震波 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1598453727576">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="P6329 【模板】点分树 | 震波 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="看到模板两字,先建出点分树吧
+就是在点分治的过程把每个点记录下来,然后另开一张图记录下来
+然后再在新图上dfs一遍,我们把每个点的子树全部压入一个线段树
+由于我们一些奇怪的原因只能用动态开点线段树 保证空间合法,下标是子树内所有点到他的距离..." />
+    <meta name="keywords" content="点分树,点分治,线段树" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1598453727576" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              P6329 【模板】点分树 | 震波
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-08-25
+              </span>
+              <span>
+                8 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/LLUSno4dg/" class="post-tag">
+                  # 点分树
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/C6OfrSnce/" class="post-tag">
+                  # 点分治
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/i0TglRCqu/" class="post-tag">
+                  # 线段树
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/45NBuzDIW489QBoVep5mcSUS6*Dq3BynFX7tDLTTSlxBN7Gu1.kVTDRA4ajOOL74sJH8JF6.buJBY4JKzznRLhYMfzOVWISTjfF.Wx4rXDM!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>看到模板两字,先建出点分树吧</p>
+<p>就是在点分治的过程把每个点记录下来,然后另开一张图记录下来</p>
+<p>然后再在新图上dfs一遍,我们把每个点的子树全部压入一个线段树</p>
+<p>由于我们一些奇怪的原因只能用动态开点线段树 保证空间合法,下标是子树内所有点到他的距离</p>
+<p>然后查询的时候暴力向父亲跳,然后每次log查询一下,注意容斥容斥,就是减去跳上去的儿子距离他小的部分</p>
+<p>但是这个容斥并不简单,所以要对于每个点再开一个线段树记录子树内所有点到(点分树父亲的距离)为下标的权值</p>
+<p>算法流程:</p>
+<ol>
+<li>
+<p>建出点分树</p>
+</li>
+<li>
+<p>在点分树上用<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mo>∑</mo><mi>s</mi><mi>i</mi><mi>z</mi><mi>l</mi><mi>o</mi><mi>g</mi><mi>s</mi><mi>i</mi><mi>z</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(\sum sizlogsiz)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.00001em;vertical-align:-0.25001em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">s</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="mclose">)</span></span></span></span>的复杂度建出两棵线段树,一个记录到父亲的一个记录到自己的</p>
+</li>
+<li>
+<p>查询和修改的时候暴力跳父亲</p>
+</li>
+</ol>
+<p>extra细节:</p>
+<p>建点分树的时候第一步要把全局中心找出来当做根</p>
+<p>查询时如果跳到某个点距离大于了阈值不能停下,继续向上跳,因为可能某个祖先的距离到他又合法了...</p>
+<p>修改的时候要改两棵树</p>
+<p>code:</p>
+<pre><code class="language-cpp">
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const int MAXN = 3e5 + 7;
+const int MAXM = 7e5 + 7;
+const int MAXT = 2e7 + 7;
+int n, m, a[MAXN];
+int ccnt, home[MAXN], nxt[MAXM], to[MAXM];
+
+inline void ct(int x, int y) {
+	ccnt++;
+	nxt[ccnt] = home[x];
+	home[x] = ccnt;
+	to[ccnt] = y;
+}
+
+int first[MAXN], cccnt, dep[MAXN];
+struct rec {
+	int to, nxt;
+} e[MAXM];
+inline void ct2(int x, int y) {
+	cccnt++;
+	e[cccnt].nxt = first[x];
+	first[x] = cccnt;
+	e[cccnt].to = y;
+}
+
+int rt, S, RT, rt2;
+int siz[MAXN], dp[MAXN], vis[MAXN];
+inline void getroot(int u, int F) {
+	siz[u] = 1;
+	dp[u] = 0;
+	for(int i = home[u]; i; i = nxt[i]) {
+		int v = to[i];
+		if(v == F || vis[v])continue;
+		getroot(v, u);
+		siz[u] += siz[v];
+		dp[u] = max(dp[u], siz[v]);
+	}
+	dp[u] = max(dp[u], S - siz[u]);
+	if(dp[rt] &gt; dp[u])
+		rt = u;
+	return;
+}
+
+inline void solve(int u) {
+	vis[u] = 1;
+	for(int i = home[u]; i; i = nxt[i]) {
+		int v = to[i];
+		if(vis[v])continue;
+		rt = 0;
+		dp[rt] = n;
+		S = siz[v];
+		getroot(v, u);
+		ct2(u, rt);
+		ct2(rt, u);
+		// printf(&quot;%d %d??\n&quot;, u, rt);
+		solve(rt);
+	}
+	return ;
+}
+
+int fa[MAXN], son[MAXN], top[MAXN];
+inline void dfs1(int u, int F) {
+	siz[u] = 1;
+	fa[u] = F;
+	for(int i = home[u]; i; i = nxt[i]) {
+		int v = to[i];
+		if(v == F)continue;
+		dep[v] = dep[u] + 1;
+		dfs1(v, u);
+		siz[u] += siz[v];
+		if(siz[v] &gt; siz[son[u]])son[u] = v;
+	}
+	return ;
+}
+
+inline void dfs2(int u, int topf) {
+	top[u] = topf;
+	if(!son[u])return ;
+	dfs2(son[u], topf);
+	for(int i = home[u]; i; i = nxt[i]) {
+		int v = to[i];
+		if(v == fa[u] || v == son[u])continue;
+		dfs2(v, v);
+	}
+	return ;
+}
+
+inline int LCA(int x, int y) {
+	while(top[x] != top[y]) {
+		// printf(&quot;%d?%d\n&quot;, x, y);
+		if(dep[top[x]] &lt; dep[top[y]])x ^= y ^= x ^= y;
+		x = fa[top[x]];
+	}
+	if(dep[x] &gt; dep[y])x ^= y ^= x ^= y;
+	return x;
+}
+
+inline void init() {
+	dep[1] = 1;
+	dfs1(1, 0);//预处理LCA相关
+	dfs2(1, 1);
+	S = n;
+	dp[rt = 0] = n;
+	getroot(1, 0);
+	RT = rt;
+	solve(rt);//建出点分树
+	return ;
+}
+
+int root[MAXN];
+namespace seg {
+	int ls[MAXT], rs[MAXT], T, sum[MAXT];
+#define mid ((l+r)&gt;&gt;1)
+	inline void modify(int &amp;k, int l, int r, int pos, int V) {
+		if(!k)k = ++T;
+		if(l == r) {
+			sum[k] += V;
+			return ;
+		}
+		if(pos &lt;= mid)modify(ls[k], l, mid, pos, V);
+		else modify(rs[k], mid + 1, r, pos, V);
+		sum[k] = sum[ls[k]] + sum[rs[k]];
+	}
+	inline int query(int k, int l, int r, int x, int y) {
+		if(x &lt;= l &amp;&amp; y &gt;= r) {
+			return sum[k];
+		}
+		if(y &lt;= mid)return query(ls[k], l, mid, x, y);
+		else if(x &gt; mid)return query(rs[k], mid + 1, r, x, y);
+		else return query(ls[k], l, mid, x, y) + query(rs[k], mid + 1, r, x, y);
+	}
+}
+using namespace seg;
+int  fa2[MAXN];
+
+inline int DIS(int x, int y) {
+	return dep[x] + dep[y] - 2 * dep[LCA(x, y)];
+}
+
+inline void add(int u, int F) {
+	// printf(&quot;in- &gt; %d %d %d %d %d\n&quot;, u, rt, S, DIS(u, rt), a[u]);
+	// printf(&quot;try!%d %d %d %d?\n&quot;, u, F, DIS(u, rt), a[u]);
+	modify(root[rt], 0, S, DIS(u, rt2), a[u]);
+	// printf(&quot;query -&gt;:%d?\n&quot;, query(root[rt], 0, S, 0, S));
+	for(int i = first[u]; i; i = e[i].nxt) {
+		int v = e[i].to;
+		if(v == F)continue;
+		add(v, u);
+	}
+	return;
+}
+
+inline void dfs3(int u, int F) {
+	fa2[u] = F;
+	rt = u;
+	S = siz[u];
+	rt2 = u;
+	// printf(&quot;in-&gt;%d?%d %d\n&quot;, u, F, root[u]);
+	add(u, F);
+	S = siz[F];
+	rt = u + n;
+	rt2 = F;
+	add(u, F);//到父亲的答案...
+	// printf(&quot;%d %d?\n&quot;, u, F);
+	for(int i = first[u]; i; i = e[i].nxt) {
+		int v = e[i].to;
+		if(v == F)continue;
+		dfs3(v, u);
+	}
+	return ;
+}
+
+int main() {
+	scanf(&quot;%d%d&quot;, &amp;n, &amp;m);
+	for(int i = 1; i &lt;= n; ++i)scanf(&quot;%d&quot;, a + i);
+	for(int i = 2, u, v; i &lt;= n; ++i) {
+		scanf(&quot;%d%d&quot;, &amp;u, &amp;v);
+		ct(u, v);
+		ct(v, u);
+	}
+	init();
+	dfs3(RT, 0);//dfs new tree
+	int lsa = 0;
+	for(int i = 1, x, y, z; i &lt;= m; ++i) {
+		scanf(&quot;%d%d%d&quot;, &amp;z, &amp;x, &amp;y);
+		x ^= lsa;
+		y ^= lsa;
+		if(z == 1) {
+			int anc = x;
+			while(anc) {
+				// printf(&quot;%d??\n&quot;, DIS(x, anc));
+				modify(root[anc], 0, siz[anc], DIS(x, anc), y - a[x]);
+				if(fa2[anc])
+					modify(root[anc + n], 0, siz[fa2[anc]], DIS(x, fa2[anc]), y - a[x]);
+				anc = fa2[anc];
+			}
+			a[x] = y;
+		} else {
+			int anc = x, tmp = 0, lst = 0;
+			lsa = 0;
+			while(anc) {
+				tmp = y - DIS(x, anc);
+				// printf(&quot;now step : anc%d  lstanc:%d  jl:%d\n&quot;, anc, lsa, tmp);
+				if(tmp &lt; 0) {
+					lst = anc;
+					anc = fa2[anc];
+					continue;
+				}
+				lsa += query(root[anc], 0, siz[anc], 0, tmp);
+				// printf(&quot;ans is ?:%d &quot;, query(root[anc], 0, siz[anc], 0, tmp));
+
+				// printf(&quot;- %d??\n&quot;, query(root[anc + n], 0, siz[fa2[anc]], 0, tmp));
+				if(lst)
+					lsa -= query(root[lst + n], 0, siz[anc], 0, tmp);
+				lst = anc;
+				anc = fa2[anc];
+			}
+			printf(&quot;%d\n&quot;, lsa);
+		}
+	}
+	return 0;
+}
+
+
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/p3242-hnoi2015jie-shui-guo/">
+              <h3 class="post-title">
+                P3242 [HNOI2015]接水果
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

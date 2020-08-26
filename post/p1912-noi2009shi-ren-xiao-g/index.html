@@ -1,0 +1,306 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>P1912 [NOI2009]诗人小G | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1598453727576">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="P1912 [NOI2009]诗人小G | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="决策单调性优化
+钦定sis_isi​为前i个串的前缀和
+fi=fj+abs(si−sj−L+(i−j−1))Pf_i=f_j+abs(s_i-s_j-L+(i-j-1))^Pfi​=fj​+abs(si​−sj​−L+(i−j−1))P
+其..." />
+    <meta name="keywords" content="单调队列,决策单调性,动态规划" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1598453727576" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              P1912 [NOI2009]诗人小G
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-08-26
+              </span>
+              <span>
+                4 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/-Umsra_bq/" class="post-tag">
+                  # 单调队列
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/COtpYRseX/" class="post-tag">
+                  # 决策单调性
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/CJ-ugjBAY/" class="post-tag">
+                  # 动态规划
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/45NBuzDIW489QBoVep5mcSrJkSSmOdPHOl6Zvfnr1OgQp*pnCMgDueWnK8lhipXoepC1.2jyPmjs5V5E1XWQ8YwN4yJhewKDxEHvcKeMeBY!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>决策单调性优化</p>
+<p>钦定<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>s</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">s_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>为前i个串的前缀和</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>f</mi><mi>i</mi></msub><mo>=</mo><msub><mi>f</mi><mi>j</mi></msub><mo>+</mo><mi>a</mi><mi>b</mi><mi>s</mi><mo>(</mo><msub><mi>s</mi><mi>i</mi></msub><mo>−</mo><msub><mi>s</mi><mi>j</mi></msub><mo>−</mo><mi>L</mi><mo>+</mo><mo>(</mo><mi>i</mi><mo>−</mo><mi>j</mi><mo>−</mo><mn>1</mn><mo>)</mo><msup><mo>)</mo><mi>P</mi></msup></mrow><annotation encoding="application/x-tex">f_i=f_j+abs(s_i-s_j-L+(i-j-1))^P</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">a</span><span class="mord mathdefault">b</span><span class="mord mathdefault">s</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8694379999999999em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">L</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.0913309999999998em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8413309999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.13889em;">P</span></span></span></span></span></span></span></span></span></span></span></p>
+<p>其中i-j-1是空格的数量</p>
+<p>然后我们这个式子就可以<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mi>n</mi><mn>2</mn></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>求,并且得出每个i的最优决策点来输出方案</p>
+<p>30pts好成绩,因为还有两个点L很小,所以处理的好一点能拿到50pts</p>
+<p>紧接着斜率优化就70pts了</p>
+<p>最后我们可以决策单调性优化</p>
+<p>根据第一篇博客:导函数单增,求最小值,可以使用单调队列</p>
+<p>就是说我们i的决策点每次更新的是队列最后的一段,而计算新数的时候用靠前的一段</p>
+<p>导函数单增求最大值用单调栈,就是更新的是靠前的一段而计算的时候也用靠前的一段</p>
+<p>也就是说导函数增减和最大小值相同就是队列,否则就是栈</p>
+<p>二分的时候有点细节,不要写l=m-1,r=m+1那种,因为我们可能连续一段区间都满足,但我们要的是左端点(lower_bound)</p>
+<p>code:</p>
+<pre><code class="language-cpp">
+#include&lt;bits/stdc++.h&gt;
+#define ll long double
+using namespace std;
+const int MAXN = 2e5 + 7;
+const int P = 1e9 + 7;
+int T, n, l, p;
+int s[MAXN], que[MAXN], k[MAXN], pr[MAXN];
+ll f[MAXN];
+char str[MAXN][33];//每组数据字符串
+
+inline ll ksm(ll x, int y) {
+	ll ans = 1;
+	while(y) {
+		if(y &amp; 1)ans = ans * x;
+		x = x * x;
+		y &gt;&gt;= 1;
+	}
+	return ans;
+}
+
+inline ll calc(int x, int y) {
+	// printf(&quot;x: %dy: %df[y]:%Lf del:%d P:%d %d %d\n&quot;, x, y, f[y], s[x], s[y], abs(s[x] - s[y] - l), p);
+	// printf(&quot;calc:%d %d??\n&quot;, x, y);
+	return f[y] + ksm(abs(s[x] - s[y] + (x - y - 1) - l), p);
+}
+
+inline int bound(int x, int y) {
+	int l = x, r = n + 1, m;
+	while(l &lt; r) {
+		m = (l + r) &gt;&gt; 1;
+		if(calc(m, x) &gt;= calc(m, y)) {
+			r = m;
+		} else {
+			l = m + 1;
+		}
+	}
+	// printf(&quot;%d %d %d\n&quot;, l, r, ans);
+	return r;
+}
+
+int main() {
+	scanf(&quot;%d&quot;, &amp;T);
+	while(T-- &gt; 0) {
+		scanf(&quot;%d%d%d&quot;, &amp;n, &amp;l, &amp;p);
+		memset(s, 0, sizeof(s));
+		for(int i = 1; i &lt;= n; ++i) {
+			scanf(&quot;%s&quot;, str[i]);
+			s[i] = s[i - 1] + strlen(str[i]);
+		}
+		// for(int i = 1; i &lt;= n; ++i)printf(&quot;%d \n&quot;, s[i]);
+		int i = 1, h = 1, t = 1;
+		for(que[1] = 0; i &lt;= n; ++i) {
+			while(h &lt; t &amp;&amp; k[h] &lt;= i)
+				++h;//k是右端点
+			f[i] = calc(i, que[h]);
+			// printf(&quot;our choice: %Lf %d %d\n&quot;, f[i], que[h], i);
+			pr[i] = que[h];//记录决策点
+			while(h &lt; t &amp;&amp; k[t - 1] &gt;= bound(que[t], i))
+				--t;//如果右端点大于我们栈内二分的端点
+			k[t] = bound(que[t], i);
+			que[++t] = i;
+		}
+		if(f[n] &gt; 1e18)puts(&quot;Too hard to arrange&quot;);
+		else {
+			printf(&quot;%.0Lf\n&quot;, f[n]);
+			for(que[t = 0] = i = n; i; que[++t] = i = pr[i]);
+			for(; t; --t) {
+				for(i = que[t] + 1; i &lt; que[t - 1]; ++i)printf(&quot;%s &quot;, str[i]);
+				puts(str[i]);
+			}
+		}
+		puts(&quot;--------------------&quot;);
+	}
+	return 0;
+}
+
+
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/cf710f-string-set-queries/">
+              <h3 class="post-title">
+                CF710F String Set Queries
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
