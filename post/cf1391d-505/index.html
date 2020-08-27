@@ -1,0 +1,334 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CF1391D 505 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1598508906172">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="CF1391D 505 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="做个D题还这么慢QAQ
+首先我们必须猜出一个结论,n&gt;=4时无解
+因为n&gt;=4的时候一定存在一个4*4的矩阵
+而这个矩阵可以被分成4个2*2的小矩阵
+同时每个矩阵都要是奇数个,那么4*4的那个矩阵就一定不能是奇数个了
+这个还是很..." />
+    <meta name="keywords" content="状态压缩,猜结论,动态规划" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1598508906172" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              CF1391D 505
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-08-27
+              </span>
+              <span>
+                5 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/TN_5AiIbO/" class="post-tag">
+                  # 状态压缩
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/c7QHdP10U/" class="post-tag">
+                  # 猜结论
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/CJ-ugjBAY/" class="post-tag">
+                  # 动态规划
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/45NBuzDIW489QBoVep5mcYILKTsz51Tr51S*IJ8FL5VJKXluziH2fSwoOlZKc*FcGOkzQwhS6yazlJsDdWHqWjOOUj4J40c*Kglr.FpAgZw!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>做个D题还这么慢QAQ</p>
+<p>首先我们必须猜出一个结论,n&gt;=4时无解</p>
+<p>因为n&gt;=4的时候一定存在一个4*4的矩阵</p>
+<p>而这个矩阵可以被分成4个2*2的小矩阵</p>
+<p>同时每个矩阵都要是奇数个,那么4*4的那个矩阵就一定不能是奇数个了</p>
+<p>这个还是很妙的</p>
+<p>然后剩下我们就可以状压了...</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><msub><mi>p</mi><mrow><mi>i</mi><mo separator="true">,</mo><mi>S</mi></mrow></msub></mrow><annotation encoding="application/x-tex">dp_{i,S}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="mord mathdefault">d</span><span class="mord"><span class="mord mathdefault">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.328331em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight" style="margin-right:0.05764em;">S</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>表示前i行第i行的状态是S的最少次数</p>
+<p>转移的时候预处理相邻状态合法的是那些以及<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi><mi>n</mi><msub><mi>t</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">cnt_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76508em;vertical-align:-0.15em;"></span><span class="mord mathdefault">c</span><span class="mord mathdefault">n</span><span class="mord"><span class="mord mathdefault">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>表示i的二进制位</p>
+<p>然后直接做就好了....QAQ</p>
+<p>code:</p>
+<pre><code class="language-cpp">
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const int MAXN = 15;
+const int MAXM = 1e6 + 7;
+int n, m;
+char s[MAXM];
+int vis[MAXN][MAXN];
+int a[MAXN][MAXM], tmp[MAXM], dp[MAXM][MAXN], cnt[MAXN];
+
+inline void init() {
+	// printf(&quot;%d %d\n&quot;, n, m);
+	for(int S1 = 0; S1 &lt; (1 &lt;&lt; n); ++S1) {
+		for(int S2 = 0; S2 &lt; (1 &lt;&lt; n); ++S2) {
+			int tmp1 = 0, tmp2 = 0;
+			vis[S1][S2] = 1;
+			for(int k = 0; k &lt; n; ++k) {
+				tmp2 = (S1 &gt;&gt; k &amp; 1) + (S2 &gt;&gt; k &amp; 1);
+				// printf(&quot;%d?%d\n&quot;, tmp2, tmp1);
+				if(k != 0 &amp;&amp; ((tmp1 + tmp2) &amp; 1) == 0)
+					vis[S1][S2] = 0;
+				tmp1 = tmp2;
+				tmp2 = 0;
+			}
+			// printf(&quot;%d %d %d?\n&quot;, S1, S2, vis[S1][S2]);
+		}
+	}
+	// printf(&quot;%d %d\n&quot;, n, m);
+	for(int S = 0; S &lt; (1 &lt;&lt; n); ++S) {
+		for(int i = 0; i &lt; n; ++i) {
+			if(S &amp; (1 &lt;&lt; i))cnt[S]++;
+		}
+		// printf(&quot;%d %d\n&quot;, S, cnt[S]);
+	}
+	memset(dp, 0x3f3f3f3f, sizeof(dp));
+	for(int i = 1; i &lt;= m; ++i) {
+		// printf(&quot;in - &gt;%d?\n&quot;, i);
+		for(int j = 1; j &lt;= n; ++j) {
+			// printf(&quot;%d?a :%d\n&quot;, j, a[j][i]);
+			tmp[i] |= (a[j][i] &lt;&lt; (j - 1));
+		}
+		// printf(&quot;%d %d\n&quot;, i, tmp[i]);
+		// dp[i][tmp[i]] = 0;
+	}
+	int MAXS = (1 &lt;&lt; n) - 1;
+	for(int S = MAXS, qwq = 1; S || qwq; S = (S - 1)&amp;MAXS) {
+		if(!S)qwq = 0;
+		dp[1][S] = cnt[S ^ tmp[1]];
+	}
+	return;
+}
+
+inline void solve() {
+	int MAXS = (1 &lt;&lt; n) - 1;
+	for(int i = 2; i &lt;= m; ++i) {
+		for(int S1 = MAXS, qwq = 1; S1 || qwq; S1 = (S1 - 1)&amp;MAXS) {
+			if(!S1)qwq = 0;
+			for(int S2 = MAXS, qaq = 1; S2 || qaq; S2 = (S2 - 1)&amp;MAXS) {
+				if(!S2)qaq = 0;
+				// printf(&quot;%d?%d?\n&quot;, S1, S2);
+				if(!vis[S1][S2])continue;
+				int qwq = cnt[S1 ^ tmp[i]];
+				// printf(&quot;we are in-&gt;%d? %d? %d\n&quot;, S1, S2, i);
+				dp[i][S1] = min(dp[i][S1], dp[i - 1][S2] + qwq);
+				// printf(&quot;qwq is %d dp value is%d and %d\n&quot;, qwq, dp[i][S1], dp[i - 1][S2]);
+			}
+		}
+	}
+	int ans = 1e9;
+	for(int S = 0; S &lt;= MAXS; ++S) {
+		ans = min(ans, dp[m][S]);
+	}
+	if(ans != 1e9)
+		printf(&quot;%d\n&quot;, ans);
+	else puts(&quot;-1&quot;);
+	return ;
+}
+
+int main() {
+	scanf(&quot;%d%d&quot;, &amp;n, &amp;m);
+	if(n &gt;= 4 &amp;&amp; m &gt;= 4)return puts(&quot;-1&quot;), 0;
+	if(n &lt;= m) {
+		for(int i = 1; i &lt;= n; ++i) {
+			scanf(&quot;%s&quot;, s + 1);
+			for(int j = 1; j &lt;= m; ++j) {
+				a[i][j] = s[j] - '0';
+			}
+		}
+	} else {
+		for(int i = 1; i &lt;= n; ++i) {
+			scanf(&quot;%s&quot;, s + 1);
+			for(int j = 1; j &lt;= m; ++j) {
+				a[j][i] = s[j] - '0';
+			}
+		}
+		n ^= m ^= n ^= m;
+		// for(int i = 1; i &lt;= n; ++i) {
+		// 	for(int j = 1; j &lt;= m; ++j) {
+		// 		printf(&quot;shuchu a:%d %d %d\n&quot;, i, j, a[i][j]);
+		// 	}
+		// }
+	}
+	init();
+	solve();
+	return 0;
+}
+
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/p1263-gong-ting-shou-wei/">
+              <h3 class="post-title">
+                P1263 宫廷守卫
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
