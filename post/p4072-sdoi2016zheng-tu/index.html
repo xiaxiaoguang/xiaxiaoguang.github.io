@@ -1,0 +1,390 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>P4072 [SDOI2016]征途 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1598540322582">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="P4072 [SDOI2016]征途 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="额...很难想象这题我调了好长时间....
+首先我们不难得出答案就是
+minm∗∑x2−(∑x)2min{m*\sum{x^2}-(\sum{x})^2}
+minm∗∑x2−(∑x)2
+最小化中间那个平方
+做法一是斜率优化
+细节有:
+
+斜率..." />
+    <meta name="keywords" content="凸优化,动态规划" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1598540322582" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              P4072 [SDOI2016]征途
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-08-27
+              </span>
+              <span>
+                6 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/_4qYscVLp/" class="post-tag">
+                  # 凸优化
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/CJ-ugjBAY/" class="post-tag">
+                  # 动态规划
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://photogz.photo.store.qq.com/psc?/V13b3duC210Fox/45NBuzDIW489QBoVep5mcYILKTsz51Tr51S*IJ8FL5V*ALB*3ck7FIbAwNaytI*dUa72GSZSU7wnZ0QazlZMtnMit5FmXhAQnc62DZhXh2o!/b" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>额...很难想象这题我调了好长时间....</p>
+<p>首先我们不难得出答案就是</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi><mi>i</mi><mi>n</mi><mrow><mi>m</mi><mo>∗</mo><mo>∑</mo><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><mo>(</mo><mo>∑</mo><mi>x</mi><msup><mo>)</mo><mn>2</mn></msup></mrow></mrow><annotation encoding="application/x-tex">min{m*\sum{x^2}-(\sum{x})^2}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.6000100000000002em;vertical-align:-0.55001em;"></span><span class="mord mathdefault">m</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mord"><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mop op-symbol large-op" style="position:relative;top:-0.000004999999999977245em;">∑</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641079999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mopen">(</span><span class="mop op-symbol large-op" style="position:relative;top:-0.000004999999999977245em;">∑</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">x</span></span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641079999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span></span></p>
+<p>最小化中间那个平方</p>
+<p>做法一是斜率优化</p>
+<p>细节有:</p>
+<ol>
+<li>斜率不要带负数单调递减......</li>
+<li>注意double的用法</li>
+<li>直接使用滚动数组即可,除了求值完全基于上个数组</li>
+</ol>
+<p>做法二再加上wqs二分凑齐凸优化</p>
+<p>细节:判断的时候别用你妈的eps</p>
+<p>f[n].se&gt;=m的时候就统计答案</p>
+<p>还用longlong</p>
+<p>斜率优化<br>
+code:</p>
+<pre><code class="language-cpp">
+#include&lt;bits/stdc++.h&gt;
+#define db double
+#define ll long long
+using namespace std;
+const int MAXN = 3e3 + 7;
+int n, m;
+int a[MAXN], sum[MAXN];
+int que[MAXN];
+ll f[MAXN], g[MAXN];
+
+inline ll calc(int x, int y) {
+	return g[y] + 1ll * (sum[x] - sum[y]) * (sum[x] - sum[y]);
+}
+
+inline db k(int x) {
+	return 2.0 * sum[x];
+}
+
+//y f_x+sum_x^2
+inline ll gety(int b) {
+	return g[b] + 1ll * sum[b] * sum[b];
+}
+//x sum_x
+//k 2*sum_k
+//b f_y-sum_y^2
+inline db getslope(int x, int y) {
+	return (gety(y) - gety(x)) / (sum[y] - sum[x]);//del(y)/del(x);
+}
+
+int main() {
+	scanf(&quot;%d%d&quot;, &amp;n, &amp;m);
+	for(int i = 1; i &lt;= n; ++i) {
+		scanf(&quot;%d&quot;, &amp;a[i]);
+		sum[i] = sum[i - 1] + a[i];
+		g[i] = sum[i] * sum[i];
+		// printf(&quot;%d?\n&quot;, sum[i]);
+	}
+	int h = 1, t = 1;
+	for(int j = 2; j &lt;= m; ++j) {
+		h = 1, t = 1;
+		que[h] = j - 1;
+		for(int i = 1; i &lt;= n; ++i) {
+			f[i] = 0;
+		}
+		for(int i = j; i &lt;= n; ++i) {
+			while(h &lt; t &amp;&amp; getslope(que[h], que[h + 1]) &lt; k(i)) {
+				// printf(&quot;%d %d %d %lf %lf\n&quot;, i, que[h], que[h + 1], getslope(que[h], que[h + 1]), k(i));
+				++h;
+			}
+			// printf(&quot;%d %d %d %lf %lf\n&quot;, i, que[h], que[h + 1], getslope(que[h], que[h + 1]), k(i));
+			// printf(&quot;in-&gt;%d %d?%d %d\n&quot;, i, que[h], h, t);
+			f[i] = calc(i, que[h]);
+			// printf(&quot;dedaole :%d?%d %d?\n&quot;, f[i], g[que[h]], sum[i] - sum[que[h]]);
+			// if(h &lt; t)
+			// 	printf(&quot;now tb is :%lf?%lf\n&quot;, getslope(que[h], que[h + 1]), k(i));
+			while(h &lt; t &amp;&amp; getslope(que[t], que[t - 1]) &gt; getslope(que[t], i))
+				--t;
+			que[++t] = i;
+		}
+		for(int i = 1; i &lt;= n; ++i) {
+			g[i] = f[i];
+		}
+	}
+	printf(&quot;%lld\n&quot;, 1ll * m * f[n] - 1ll * sum[n] * sum[n]);
+	return 0;
+}
+
+
+</code></pre>
+<pre><code class="language-cpp">
+#include&lt;bits/stdc++.h&gt;
+#define db double
+#define ll long long
+#define fi first
+#define se second
+#define pii pair&lt;ll,int&gt;
+#define mkp(x,y) (make_pair(x,y))
+using namespace std;
+const int MAXN = 3e3 + 7;
+const db eps = 1e-7;
+int n, m;
+int a[MAXN];
+ll sum[MAXN];
+int que[MAXN];
+pii f[MAXN];
+
+inline pii calc(int x, int y) {
+	return mkp(f[y].fi + 1ll * (sum[x] - sum[y]) * (sum[x] - sum[y]), 1 + f[y].se);
+}
+
+inline db k(int x) {
+	return 2.0 * sum[x];
+}
+
+//y f_x+sum_x^2
+inline ll gety(int b) {
+	return f[b].fi + 1ll * sum[b] * sum[b];
+}
+//x sum_x
+//k 2*sum_k
+//b f_y-sum_y^2
+inline db getslope(int x, int y) {
+	return (db)(gety(y) - gety(x)) / (db)(sum[y] - sum[x]);//del(y)/del(x);
+}
+
+inline pii solve(int x) {
+	int h = 1, t = 1;
+	for(int i = 1; i &lt;= n; ++i) {
+		f[i].fi = 0;
+		f[i].se = 0;
+	}
+	que[h] = 0;
+	for(int i = 1; i &lt;= n; ++i) {
+		while(h &lt; t &amp;&amp; getslope(que[h], que[h + 1])  &lt; k(i)) {
+			// printf(&quot;%d %d %d %lf %lf\n&quot;, i, que[h], que[h + 1], getslope(que[h], que[h + 1]), k(i));
+			++h;
+		}
+		// printf(&quot;%d %d %d %lf %lf\n&quot;, i, que[h], que[h + 1], getslope(que[h], que[h + 1]), k(i));
+		// printf(&quot;in-&gt;%d %d?%d %d\n&quot;, i, que[h], h, t);
+		f[i] = calc(i, que[h]);
+		f[i].fi += x;
+		// printf(&quot;dedaole :%d?%d %d?\n&quot;, f[i], f[que[h]], sum[i] - sum[que[h]]);
+		// if(h &lt; t)
+		// 	printf(&quot;now tb is :%lf?%lf\n&quot;, getslope(que[h], que[h + 1]), k(i));
+		while(h &lt; t &amp;&amp; getslope(que[t], que[t - 1])  &gt; getslope(que[t], i))
+			--t;
+		que[++t] = i;
+	}
+	return f[n];
+}
+
+int main() {
+	scanf(&quot;%d%d&quot;, &amp;n, &amp;m);
+	for(int i = 1; i &lt;= n; ++i) {
+		scanf(&quot;%d&quot;, &amp;a[i]);
+		sum[i] = sum[i - 1] + a[i];
+		// g[i] = sum[i] * sum[i];
+		// printf(&quot;%d?\n&quot;, sum[i]);
+	}
+	int l = -1e9, r = 1e9, mid, Ans = 0;
+	for(int i = 1; i &lt;= 36; ++i) {
+		mid = (l + r) &gt;&gt; 1;
+		// printf(&quot;%d %d %d\n&quot;, l, r, mid);
+		solve(mid);
+		if(f[n].se &gt; m) {
+			l = mid;
+		} else {
+			Ans = f[n].fi - m * mid;
+			r = mid;
+		}
+	}
+	printf(&quot;%lld\n&quot;, 1ll * m * Ans - 1ll * sum[n]*sum[n]);
+	return 0;
+}
+
+
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/p1973-noi2011noi-jia-nian-hua/">
+              <h3 class="post-title">
+                P1973 [NOI2011]NOI 嘉年华
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

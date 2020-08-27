@@ -3,7 +3,7 @@
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>P1973 [NOI2011]NOI 嘉年华 | 夏晓光(loveJY)的博客</title>
-<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1598508906172">
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1598540322582">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
 <link rel="alternate" type="application/atom+xml" title="P1973 [NOI2011]NOI 嘉年华 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
@@ -16,7 +16,7 @@
 然后这个可以用n3n^3n3的时间预处理
 接下来我们再预处理两个数组
 prei,jpre_{i,j}prei,j​表示1~i时间我们第一..." />
-    <meta name="keywords" content="" />
+    <meta name="keywords" content="决策单调性,NOI系列,动态规划" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
     <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
   </head>
@@ -25,7 +25,7 @@ prei,jpre_{i,j}prei,j​表示1~i时间我们第一..." />
       <div class="main-content">
         <div class="site-header">
   <a href="https://xiaxiaoguang.github.io">
-  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1598508906172" alt="">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1598540322582" alt="">
   </a>
   <h1 class="site-title">
     夏晓光(loveJY)的博客
@@ -91,10 +91,24 @@ prei,jpre_{i,j}prei,j​表示1~i时间我们第一..." />
                 2020-08-27
               </span>
               <span>
-                4 min read
+                8 min read
               </span>
               
+                <a href="https://xiaxiaoguang.github.io/tag/COtpYRseX/" class="post-tag">
+                  # 决策单调性
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/B3bL-fv2n/" class="post-tag">
+                  # NOI系列
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/CJ-ugjBAY/" class="post-tag">
+                  # 动态规划
+                </a>
+              
             </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/45NBuzDIW489QBoVep5mcYILKTsz51Tr51S*IJ8FL5UIVAJaMTAQqcdE.mR0T15vH.Eh5uDhjVVouVu1WikoqnYkvTqvwR0WXIYozmdvmQw!/r" alt="">
             
             <div class="post-content-wrapper">
               <div class="post-content">
@@ -128,12 +142,132 @@ prei,jpre_{i,j}prei,j​表示1~i时间我们第一..." />
 <p>所以对于x增加我们的y只能从大到小的变换....</p>
 <p>然后x一增大y变小挨着找最优决策点就做完了....因为一定min在取到后面那个数之后一定不会再取回之前了.....只会越来越劣</p>
 <p>这样决策单调性优化我们就可以<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mi>n</mi><mn>3</mn></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n^3)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>了...</p>
+<p>但是还有一个问题,由于tot是记录了所有完全包含的,所以会导致如果有两个完全相同的区间,我们的f数组步长为1就会更新出错,而且这个hack在讨论区也给出了</p>
+<p>要么更改求f数组的过程,要么使得没有两个相同区间,由于这样其实本质上我们只是缺少了只选择其中几个区间的决策,所以我们最后把相同的区间右端点扰动一下就好了</p>
 <p>code:</p>
 <pre><code class="language-cpp">
+#include&lt;bits/stdc++.h&gt;
+#define db double
+using namespace std;
+#define mkp(x,y) (make_pair(x,y))
+const int MAXN = 500;
+map&lt;pair&lt;db, db&gt;, int&gt; mp;
+vector&lt;db&gt; v;
+int n, m;
+struct rec {
+	db s, t;
+	bool operator&lt;(const rec &amp;x)const {
+		return s + t &lt; x.s + x.t;
+	}
+} a[MAXN];
+int pre[MAXN][MAXN], suf[MAXN][MAXN], f[MAXN][MAXN], tot[MAXN][MAXN];
+int s[MAXN], t[MAXN]; //强卡区间重复....
+
+inline int getid(db x) {
+	return lower_bound(v.begin(), v.end(), x) - v.begin() + 1;
+}
+
+inline void init() {
+	sort(v.begin(), v.end());
+	v.erase(unique(v.begin(), v.end()), v.end());
+	for(int i = 1; i &lt;= n; ++i) {
+		s[i] = getid(a[i].s);
+		t[i] = getid(a[i].t);
+		// printf(&quot;activity %d st in : %d ed in :%d \n&quot;, i, s[i], t[i]);
+	}
+	m = v.size();
+	return;
+}
+
+inline void init2() {
+	for(int i = 1; i &lt;= m; ++i) {
+		for(int j = 1; j &lt;= n; ++j) {
+			pre[i][j] = suf[i][j] = -0x3f3f3f3f;
+		}
+	}
+	for(int i = 1; i &lt;= m; ++i) {
+		for(int j = 0; j &lt;= n; ++j) {
+			for(int k = 1; k &lt; i; ++k) {
+				pre[i][j] = max(pre[i][j], tot[k][i] + pre[k][j]);
+				if(j &gt;= tot[k][i]) {
+					pre[i][j] = max(pre[i][j], pre[k][j - tot[k][i]]);
+				}
+			}
+			// printf(&quot;pre:!%d %d %d?\n&quot;, i, j, pre[i][j]);
+		}
+	}
+	for(int i = m; i &gt;= 1; --i) {
+		for(int j = 0; j &lt;= n; ++j) {
+			for(int k = i + 1; k &lt;= m; ++k) {
+				suf[i][j] = max(suf[i][j], tot[i][k] + suf[k][j]);
+				if(j &gt;= tot[i][k]) {
+					suf[i][j] = max(suf[i][j], suf[k][j - tot[i][k]]);
+				}
+			}
+			// printf(&quot;suf:!%d %d %d?\n&quot;, i, j, suf[i][j]);
+		}
+	}
+	return ;
+}
+
+int main() {
+	scanf(&quot;%d&quot;, &amp;n);
+	for(int i = 1; i &lt;= n; ++i) {
+		scanf(&quot;%lf%lf&quot;, &amp;a[i].s, &amp;a[i].t);
+		a[i].t = a[i].s + a[i].t;
+		if(mp.find(mkp(a[i].s, a[i].t)) != mp.end())
+			a[i].t = a[i].t - mp[mkp(a[i].s, a[i].t)] * 0.001;
+		mp[mkp(a[i].s, a[i].t)]++;
+		v.push_back(a[i].s);
+		v.push_back(a[i].t);
+	}
+	init();
+	for(int i = 1; i &lt;= m; ++i) {
+		for(int j = i + 1; j &lt;= m; ++j) {
+			for(int k = 1; k &lt;= n; ++k) {
+				if(s[k] &gt;= i &amp;&amp; t[k] &lt;= j)
+					tot[i][j]++;
+			}
+			// printf(&quot;%d %d %d\n&quot;, i, j, tot[i][j]);
+		}
+	}
+	init2();
+	for(int i = 1; i &lt;= m; ++i) {
+		for(int j = i + 1; j &lt;= m; ++j) {
+			int p0, p1;
+			for(int y = n, x = 0; x &lt;= n; ++x) {
+				p0 = min(x + y + tot[i][j], pre[i][x] + suf[j][y]);
+				while(y &amp;&amp; p0 &lt;= (p1 = min(x + y - 1 + tot[i][j], pre[i][x] + suf[j][y - 1])))
+					p0 = p1, --y;
+				f[i][j] = max(f[i][j], min(x + y + tot[i][j], pre[i][x] + suf[j][y]));
+			}
+		}
+	}
+	int ans = 0;
+	for(int j = 1; j &lt;= n; ++j) {
+		ans = max(ans, min(pre[m][j], j));
+		// printf(&quot;?%d?%d?\n&quot;, j, pre[m][j]);
+	}
+	printf(&quot;%d\n&quot;, ans);
+	for(int i = 1; i &lt;= n; ++i) {
+		ans = 0;
+		for(int j = 1; j &lt;= s[i]; ++j) {
+			for(int k = t[i]; k &lt;= m; ++k) {
+				ans = max(ans, f[j][k]);
+			}
+		}
+		printf(&quot;%d\n&quot;, ans);
+	}
+	return 0;
+}
 
 
 
 </code></pre>
+<p>七海死了</p>
+<p>在弹丸论破扯几把蛋的世界观里她的珍贵才能体现出来吧</p>
+<p>但是弹丸论破世界观还是真tm的太扯淡了</p>
+<p>绝望篇按理应该很好看的,但是太你妈扯淡了!!!!!</p>
 
               </div>
               <div class="toc-container">
