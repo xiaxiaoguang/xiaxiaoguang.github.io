@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://xiaxiaoguang.github.io</id>
     <title>夏晓光(loveJY)的博客</title>
-    <updated>2020-08-27T14:59:00.105Z</updated>
+    <updated>2020-08-28T06:11:20.214Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://xiaxiaoguang.github.io"/>
     <link rel="self" href="https://xiaxiaoguang.github.io/atom.xml"/>
@@ -10,6 +10,133 @@
     <logo>https://xiaxiaoguang.github.io/images/avatar.png</logo>
     <icon>https://xiaxiaoguang.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 夏晓光(loveJY)的博客</rights>
+    <entry>
+        <title type="html"><![CDATA[P3724 [AHOI2017/HNOI2017]大佬]]></title>
+        <id>https://xiaxiaoguang.github.io/post/p3724-ahoi2017hnoi2017da-lao/</id>
+        <link href="https://xiaxiaoguang.github.io/post/p3724-ahoi2017hnoi2017da-lao/">
+        </link>
+        <updated>2020-08-28T05:27:06.000Z</updated>
+        <content type="html"><![CDATA[<p>好难啊</p>
+<p>首先我们应该能观察到我刷水题和我怼大佬两件事是可以分开的,也就是说我们可以先写一个dp处理我前i天刷水题的最少次数(也就是留给其他操作的最多次数),再写一个dp处理之后操作?</p>
+<p>会发现我们不太行,因为我们有两次怼大佬,如果只有一次的话我们就可以搜索出来所有的最少操作打出的伤害了</p>
+<p>就是说写一个类似于bfs的东西,然后把(使用天数,造成伤害)所有的这样的pair搞出来,这样我们就能得知只使用一次怼大佬操作的答案,就是使用一个pair,搜索的状态....这个不用说了吧?</p>
+<p>把上述pair按照嘲讽值排序,由于这样的pair可能高达<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mn>2</mn></msup><mn>0</mn></mrow><annotation encoding="application/x-tex">2^20</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mord">0</span></span></span></span>个,我们只好思考能不能用双指针类似的思想来快速找到两个合并得到两次操作的答案</p>
+<p>怎么合并呢?</p>
+<p>首先我们有使用天数要合并,显然使用的天数不能超过第一个DP得出的怼大佬次数的最大值,其次我们造成的伤害由于题目的要求不能超过大佬的<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>C</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">C_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>如果超过就会导致一击打成负数然后被暴虐了.....</p>
+<p>紧接着,我们要有机会把大佬的自信打成0,所以我们剩下的天数(maxd-d1-d2)还要大于大佬剩下的(C_i-f1-f2),这样我们才能打爆他</p>
+<p>综上,我们天数和一定,所以一维单增同时另一维单减,再每次减少的同时判断能不能打死即可,双指针了</p>
+<p>code:</p>
+<pre><code class="language-cpp">
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+#define fi first
+#define se second
+#define mkp(x,y) (make_pair(x,y))
+const int MAXN = 120;
+const int MAXT = 1e6 + 7;
+int n, m, mc, T, mx;
+int a[MAXN], w[MAXN], c[MAXN];
+int dp[MAXN][MAXN];
+int maxd;
+inline int chkmax(int &amp;x, int y) {
+	x = max(x, y);
+	return x;
+}
+
+map&lt;pair&lt;int, int&gt;, int&gt; mp;
+struct nod {
+	int i, F, L;
+	nod(int x = 0, int y = 0, int z = 0): i(x), F(y), L(z) {};
+};
+pair&lt;int, int&gt; zt[MAXT];
+
+queue&lt;nod&gt; Q;
+inline void search() {
+	queue&lt;nod&gt; Q;
+	Q.push((nod) {
+		1, 1, 0
+	});
+	while(!Q.empty()) {
+		nod u = Q.front();
+		Q.pop();
+		if(u.i == maxd)continue;
+		// printf(&quot;node:%d %d %d\n&quot;, u.i, u.F, u.L);
+		Q.push((nod) {
+			u.i + 1, u.F, u.L + 1
+		});
+		if(u.L &gt; 1 &amp;&amp; 1ll * u.F * u.L &lt;= 1ll * mx &amp;&amp;
+				(mp.find(mkp(u.F * u.L, u.i + 1)) == mp.end())) {
+			Q.push((nod) {
+				u.i + 1, u.F *u.L, u.L
+			});
+			zt[++T] = mkp(u.L * u.F, u.i + 1);
+			mp[mkp(u.F * u.L, u.i + 1)] = 1;
+		}
+	}
+	return ;
+}
+
+int main() {
+	scanf(&quot;%d%d%d&quot;, &amp;n, &amp;m, &amp;mc);
+	for(int i = 1; i &lt;= n; ++i) {
+		scanf(&quot;%d&quot;, &amp;a[i]);
+	}
+	for(int i = 1; i &lt;= n; ++i) {
+		scanf(&quot;%d&quot;, &amp;w[i]);
+	}
+	for(int i = 1; i &lt;= m; ++i) {
+		scanf(&quot;%d&quot;, &amp;c[i]);
+		mx = max(mx, c[i]);
+	}
+	// for(int p = 1; p &lt;= m; ++p) {
+	memset(dp, -0x3f, sizeof(dp));
+	dp[0][mc] = 0;//初始状态?
+	for(int i = 0; i &lt; n; ++i) {
+		for(int k = 0; k &lt;= mc; ++k) {
+			if(k &gt;= a[i + 1]) {
+				chkmax(dp[i + 1][min(k - a[i + 1] + w[i + 1], mc)], dp[i][k]); //刷题
+				chkmax(dp[i + 1][k - a[i + 1]], dp[i][k] + 1);//不刷题
+			}
+			// printf(&quot;%d %d %d?%d %d \n&quot;, i, k, dp[i][k], dp[i + 1][k - a[i + 1] + w[i + 1]], dp[i + 1][k - a[i + 1]]);
+		}
+	}
+	for(int i = 1; i &lt;= n; ++i)
+		for(int k = 0; k &lt;= mc; ++k) {
+			chkmax(maxd, dp[i][k]);
+		}
+	search();
+	// printf(&quot;%d %d\n&quot;, p, maxd[p]);
+	// }
+	sort(zt + 1, zt + T + 1);
+	for(int i = 1; i &lt;= m; ++i) {
+		if(c[i] &lt;= maxd) {//如果小于最大天数直接反死
+			puts(&quot;1&quot;);
+			continue;
+		}
+		bool fl = 0;
+		int mm = 1e9;
+		for(int j = T, k = 1; j; --j) {
+			while(k &lt; T &amp;&amp; zt[k].fi + zt[j].fi &lt;= c[i])//伤害和小于
+				mm = min(mm, zt[k].se - zt[k].fi),//最小化这个才能满足下面的式子
+				++k;
+			if(mm + c[i] - zt[j].fi &lt;= maxd - zt[j].se) {//拆开mm可以得到c_i-fj-fi&lt;=maxd-di-dj
+				fl = 1;
+				break;
+			}
+			if(zt[j].fi &lt;= c[i] &amp;&amp; c[i] - zt[j].fi &lt;= maxd - zt[j].se) {//如果我们一击就能打死
+				fl = 1;
+				break;
+			}
+		}
+		fl ? puts(&quot;1&quot;) : puts(&quot;0&quot;);
+	}
+	return 0;
+}
+
+
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[P2900 [USACO08MAR]Land Acquisition G]]></title>
         <id>https://xiaxiaoguang.github.io/post/p2900-usaco08marland-acquisition-g/</id>
@@ -1343,107 +1470,6 @@ int main() {
 		// printf(&quot;finish:%Lf\n&quot;, f[i]);
 	}
 	printf(&quot;%.6Lf\n&quot;, f[n]);
-	return 0;
-}
-
-
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[P1912 [NOI2009]诗人小G]]></title>
-        <id>https://xiaxiaoguang.github.io/post/p1912-noi2009shi-ren-xiao-g/</id>
-        <link href="https://xiaxiaoguang.github.io/post/p1912-noi2009shi-ren-xiao-g/">
-        </link>
-        <updated>2020-08-26T01:38:52.000Z</updated>
-        <content type="html"><![CDATA[<p>决策单调性优化</p>
-<p>钦定<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>s</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">s_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>为前i个串的前缀和</p>
-<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>f</mi><mi>i</mi></msub><mo>=</mo><msub><mi>f</mi><mi>j</mi></msub><mo>+</mo><mi>a</mi><mi>b</mi><mi>s</mi><mo>(</mo><msub><mi>s</mi><mi>i</mi></msub><mo>−</mo><msub><mi>s</mi><mi>j</mi></msub><mo>−</mo><mi>L</mi><mo>+</mo><mo>(</mo><mi>i</mi><mo>−</mo><mi>j</mi><mo>−</mo><mn>1</mn><mo>)</mo><msup><mo>)</mo><mi>P</mi></msup></mrow><annotation encoding="application/x-tex">f_i=f_j+abs(s_i-s_j-L+(i-j-1))^P</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">a</span><span class="mord mathdefault">b</span><span class="mord mathdefault">s</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8694379999999999em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">L</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.0913309999999998em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8413309999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.13889em;">P</span></span></span></span></span></span></span></span></span></span></span></p>
-<p>其中i-j-1是空格的数量</p>
-<p>然后我们这个式子就可以<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mi>n</mi><mn>2</mn></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>求,并且得出每个i的最优决策点来输出方案</p>
-<p>30pts好成绩,因为还有两个点L很小,所以处理的好一点能拿到50pts</p>
-<p>紧接着斜率优化就70pts了</p>
-<p>最后我们可以决策单调性优化</p>
-<p>根据第一篇博客:导函数单增,求最小值,可以使用单调队列</p>
-<p>就是说我们i的决策点每次更新的是队列最后的一段,而计算新数的时候用靠前的一段</p>
-<p>导函数单增求最大值用单调栈,就是更新的是靠前的一段而计算的时候也用靠前的一段</p>
-<p>也就是说导函数增减和最大小值相同就是队列,否则就是栈</p>
-<p>二分的时候有点细节,不要写l=m-1,r=m+1那种,因为我们可能连续一段区间都满足,但我们要的是左端点(lower_bound)</p>
-<p>code:</p>
-<pre><code class="language-cpp">
-#include&lt;bits/stdc++.h&gt;
-#define ll long double
-using namespace std;
-const int MAXN = 2e5 + 7;
-const int P = 1e9 + 7;
-int T, n, l, p;
-int s[MAXN], que[MAXN], k[MAXN], pr[MAXN];
-ll f[MAXN];
-char str[MAXN][33];//每组数据字符串
-
-inline ll ksm(ll x, int y) {
-	ll ans = 1;
-	while(y) {
-		if(y &amp; 1)ans = ans * x;
-		x = x * x;
-		y &gt;&gt;= 1;
-	}
-	return ans;
-}
-
-inline ll calc(int x, int y) {
-	// printf(&quot;x: %dy: %df[y]:%Lf del:%d P:%d %d %d\n&quot;, x, y, f[y], s[x], s[y], abs(s[x] - s[y] - l), p);
-	// printf(&quot;calc:%d %d??\n&quot;, x, y);
-	return f[y] + ksm(abs(s[x] - s[y] + (x - y - 1) - l), p);
-}
-
-inline int bound(int x, int y) {
-	int l = x, r = n + 1, m;
-	while(l &lt; r) {
-		m = (l + r) &gt;&gt; 1;
-		if(calc(m, x) &gt;= calc(m, y)) {
-			r = m;
-		} else {
-			l = m + 1;
-		}
-	}
-	// printf(&quot;%d %d %d\n&quot;, l, r, ans);
-	return r;
-}
-
-int main() {
-	scanf(&quot;%d&quot;, &amp;T);
-	while(T-- &gt; 0) {
-		scanf(&quot;%d%d%d&quot;, &amp;n, &amp;l, &amp;p);
-		memset(s, 0, sizeof(s));
-		for(int i = 1; i &lt;= n; ++i) {
-			scanf(&quot;%s&quot;, str[i]);
-			s[i] = s[i - 1] + strlen(str[i]);
-		}
-		// for(int i = 1; i &lt;= n; ++i)printf(&quot;%d \n&quot;, s[i]);
-		int i = 1, h = 1, t = 1;
-		for(que[1] = 0; i &lt;= n; ++i) {
-			while(h &lt; t &amp;&amp; k[h] &lt;= i)
-				++h;//k是右端点
-			f[i] = calc(i, que[h]);
-			// printf(&quot;our choice: %Lf %d %d\n&quot;, f[i], que[h], i);
-			pr[i] = que[h];//记录决策点
-			while(h &lt; t &amp;&amp; k[t - 1] &gt;= bound(que[t], i))
-				--t;//如果右端点大于我们栈内二分的端点
-			k[t] = bound(que[t], i);
-			que[++t] = i;
-		}
-		if(f[n] &gt; 1e18)puts(&quot;Too hard to arrange&quot;);
-		else {
-			printf(&quot;%.0Lf\n&quot;, f[n]);
-			for(que[t = 0] = i = n; i; que[++t] = i = pr[i]);
-			for(; t; --t) {
-				for(i = que[t] + 1; i &lt; que[t - 1]; ++i)printf(&quot;%s &quot;, str[i]);
-				puts(str[i]);
-			}
-		}
-		puts(&quot;--------------------&quot;);
-	}
 	return 0;
 }
 

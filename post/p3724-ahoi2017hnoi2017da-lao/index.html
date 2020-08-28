@@ -1,0 +1,331 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>P3724 [AHOI2017/HNOI2017]大佬 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1598595066300">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="P3724 [AHOI2017/HNOI2017]大佬 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="好难啊
+首先我们应该能观察到我刷水题和我怼大佬两件事是可以分开的,也就是说我们可以先写一个dp处理我前i天刷水题的最少次数(也就是留给其他操作的最多次数),再写一个dp处理之后操作?
+会发现我们不太行,因为我们有两次怼大佬,如果只有一次的话..." />
+    <meta name="keywords" content="决策单调性,双指针,动态规划" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1598595066300" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              P3724 [AHOI2017/HNOI2017]大佬
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-08-28
+              </span>
+              <span>
+                6 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/COtpYRseX/" class="post-tag">
+                  # 决策单调性
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/BJr2HAfsR/" class="post-tag">
+                  # 双指针
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/CJ-ugjBAY/" class="post-tag">
+                  # 动态规划
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/45NBuzDIW489QBoVep5mcWgl6acD9A5en3zNyBMisFWGQZ6qYTMnfbMzwzoSS.GzX0csy20usdJWW54nKi*a4pxD7.cZ.0Wn5z6cMzfPLQc!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>好难啊</p>
+<p>首先我们应该能观察到我刷水题和我怼大佬两件事是可以分开的,也就是说我们可以先写一个dp处理我前i天刷水题的最少次数(也就是留给其他操作的最多次数),再写一个dp处理之后操作?</p>
+<p>会发现我们不太行,因为我们有两次怼大佬,如果只有一次的话我们就可以搜索出来所有的最少操作打出的伤害了</p>
+<p>就是说写一个类似于bfs的东西,然后把(使用天数,造成伤害)所有的这样的pair搞出来,这样我们就能得知只使用一次怼大佬操作的答案,就是使用一个pair,搜索的状态....这个不用说了吧?</p>
+<p>把上述pair按照嘲讽值排序,由于这样的pair可能高达<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mn>2</mn></msup><mn>0</mn></mrow><annotation encoding="application/x-tex">2^20</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mord">0</span></span></span></span>个,我们只好思考能不能用双指针类似的思想来快速找到两个合并得到两次操作的答案</p>
+<p>怎么合并呢?</p>
+<p>首先我们有使用天数要合并,显然使用的天数不能超过第一个DP得出的怼大佬次数的最大值,其次我们造成的伤害由于题目的要求不能超过大佬的<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>C</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">C_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>如果超过就会导致一击打成负数然后被暴虐了.....</p>
+<p>紧接着,我们要有机会把大佬的自信打成0,所以我们剩下的天数(maxd-d1-d2)还要大于大佬剩下的(C_i-f1-f2),这样我们才能打爆他</p>
+<p>综上,我们天数和一定,所以一维单增同时另一维单减,再每次减少的同时判断能不能打死即可,双指针了</p>
+<p>code:</p>
+<pre><code class="language-cpp">
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+#define fi first
+#define se second
+#define mkp(x,y) (make_pair(x,y))
+const int MAXN = 120;
+const int MAXT = 1e6 + 7;
+int n, m, mc, T, mx;
+int a[MAXN], w[MAXN], c[MAXN];
+int dp[MAXN][MAXN];
+int maxd;
+inline int chkmax(int &amp;x, int y) {
+	x = max(x, y);
+	return x;
+}
+
+map&lt;pair&lt;int, int&gt;, int&gt; mp;
+struct nod {
+	int i, F, L;
+	nod(int x = 0, int y = 0, int z = 0): i(x), F(y), L(z) {};
+};
+pair&lt;int, int&gt; zt[MAXT];
+
+queue&lt;nod&gt; Q;
+inline void search() {
+	queue&lt;nod&gt; Q;
+	Q.push((nod) {
+		1, 1, 0
+	});
+	while(!Q.empty()) {
+		nod u = Q.front();
+		Q.pop();
+		if(u.i == maxd)continue;
+		// printf(&quot;node:%d %d %d\n&quot;, u.i, u.F, u.L);
+		Q.push((nod) {
+			u.i + 1, u.F, u.L + 1
+		});
+		if(u.L &gt; 1 &amp;&amp; 1ll * u.F * u.L &lt;= 1ll * mx &amp;&amp;
+				(mp.find(mkp(u.F * u.L, u.i + 1)) == mp.end())) {
+			Q.push((nod) {
+				u.i + 1, u.F *u.L, u.L
+			});
+			zt[++T] = mkp(u.L * u.F, u.i + 1);
+			mp[mkp(u.F * u.L, u.i + 1)] = 1;
+		}
+	}
+	return ;
+}
+
+int main() {
+	scanf(&quot;%d%d%d&quot;, &amp;n, &amp;m, &amp;mc);
+	for(int i = 1; i &lt;= n; ++i) {
+		scanf(&quot;%d&quot;, &amp;a[i]);
+	}
+	for(int i = 1; i &lt;= n; ++i) {
+		scanf(&quot;%d&quot;, &amp;w[i]);
+	}
+	for(int i = 1; i &lt;= m; ++i) {
+		scanf(&quot;%d&quot;, &amp;c[i]);
+		mx = max(mx, c[i]);
+	}
+	// for(int p = 1; p &lt;= m; ++p) {
+	memset(dp, -0x3f, sizeof(dp));
+	dp[0][mc] = 0;//初始状态?
+	for(int i = 0; i &lt; n; ++i) {
+		for(int k = 0; k &lt;= mc; ++k) {
+			if(k &gt;= a[i + 1]) {
+				chkmax(dp[i + 1][min(k - a[i + 1] + w[i + 1], mc)], dp[i][k]); //刷题
+				chkmax(dp[i + 1][k - a[i + 1]], dp[i][k] + 1);//不刷题
+			}
+			// printf(&quot;%d %d %d?%d %d \n&quot;, i, k, dp[i][k], dp[i + 1][k - a[i + 1] + w[i + 1]], dp[i + 1][k - a[i + 1]]);
+		}
+	}
+	for(int i = 1; i &lt;= n; ++i)
+		for(int k = 0; k &lt;= mc; ++k) {
+			chkmax(maxd, dp[i][k]);
+		}
+	search();
+	// printf(&quot;%d %d\n&quot;, p, maxd[p]);
+	// }
+	sort(zt + 1, zt + T + 1);
+	for(int i = 1; i &lt;= m; ++i) {
+		if(c[i] &lt;= maxd) {//如果小于最大天数直接反死
+			puts(&quot;1&quot;);
+			continue;
+		}
+		bool fl = 0;
+		int mm = 1e9;
+		for(int j = T, k = 1; j; --j) {
+			while(k &lt; T &amp;&amp; zt[k].fi + zt[j].fi &lt;= c[i])//伤害和小于
+				mm = min(mm, zt[k].se - zt[k].fi),//最小化这个才能满足下面的式子
+				++k;
+			if(mm + c[i] - zt[j].fi &lt;= maxd - zt[j].se) {//拆开mm可以得到c_i-fj-fi&lt;=maxd-di-dj
+				fl = 1;
+				break;
+			}
+			if(zt[j].fi &lt;= c[i] &amp;&amp; c[i] - zt[j].fi &lt;= maxd - zt[j].se) {//如果我们一击就能打死
+				fl = 1;
+				break;
+			}
+		}
+		fl ? puts(&quot;1&quot;) : puts(&quot;0&quot;);
+	}
+	return 0;
+}
+
+
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/p2900-usaco08marland-acquisition-g/">
+              <h3 class="post-title">
+                P2900 [USACO08MAR]Land Acquisition G
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
