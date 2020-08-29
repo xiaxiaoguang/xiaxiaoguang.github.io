@@ -1,0 +1,276 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>P3694 邦邦的大合唱站队 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1598689483490">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="P3694 邦邦的大合唱站队 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="害
+挺简单的,自己就切掉了??
+没有构造的思想,首先问题变成我们要把这些偶像团队排成一列,然后问最小的前后序列差异值
+显然M!是不现实的,所以我们可以考虑状压优化全排列
+一下就能猜出复杂度是O(m2m)O(m2^m)O(m2m),那么我们d..." />
+    <meta name="keywords" content="状态压缩,动态规划" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1598689483490" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              P3694 邦邦的大合唱站队
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-08-28
+              </span>
+              <span>
+                4 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/TN_5AiIbO/" class="post-tag">
+                  # 状态压缩
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/CJ-ugjBAY/" class="post-tag">
+                  # 动态规划
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://photogz.photo.store.qq.com/psc?/V13b3duC210Fox/45NBuzDIW489QBoVep5mcTo.SVFccG2gJdKPrSacFyQUCA.Uw*QtShps0zbFGTajxjbBv10wyT92SKIdQPKBWZe.8PBGQdbfJOeFiJzy57s!/b" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>害</p>
+<p>挺简单的,自己就切掉了??</p>
+<p>没有构造的思想,首先问题变成我们要把这些偶像团队排成一列,然后问最小的前后序列差异值</p>
+<p>显然M!是不现实的,所以我们可以考虑状压优化全排列</p>
+<p>一下就能猜出复杂度是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>m</mi><msup><mn>2</mn><mi>m</mi></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(m2^m)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">m</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">m</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>,那么我们dp状态撑死了两维,2^m?</p>
+<p>注意到我们本质上是在找一个<strong>顺序使得每个团队都加入分配好集合中</strong>,所以这个<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mi>m</mi></msup></mrow><annotation encoding="application/x-tex">2^m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.664392em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">m</span></span></span></span></span></span></span></span></span></span></span>就表示每个团队是否加入集合中</p>
+<p>然后我们把这<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mi>m</mi></msup></mrow><annotation encoding="application/x-tex">2^m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.664392em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">m</span></span></span></span></span></span></span></span></span></span></span>个S按照有多少个01排序,我们就能按照此顺序依次枚举,然后再去枚举下一个放进去的团队,由于我们已经知道了有多少个团队你分配好了,所以我们也能知道对应这个团队放入的区间</p>
+<p>计算代价....其实你会发现这个区间内原属于这个团队的不用动外其他的位置都要移走....</p>
+<p>就是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mi>u</mi><mi>m</mi><mo>−</mo><mi>s</mi><mi>u</mi><msub><mi>m</mi><mi>r</mi></msub><mo>−</mo><mi>s</mi><mi>u</mi><msub><mi>m</mi><mrow><mi>l</mi><mo>−</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">sum-sum_r-sum_{l-1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">u</span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.73333em;vertical-align:-0.15em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">u</span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.02778em;">r</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.638891em;vertical-align:-0.208331em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">u</span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.208331em;"><span></span></span></span></span></span></span></span></span></span></p>
+<p>可以看成区间其他位置全动然后之后一定会有某次算上其他位置的</p>
+<p>code:</p>
+<pre><code class="language-cpp">
+#include&lt;bits/stdc++.h&gt;
+#define mkp(x,y) (make_pair(x,y))
+#define fi first
+#define se second
+using namespace std;
+const int MAXN = 1e5 + 7;
+const int MAXM = 21;
+const int MAXS = 2097152;
+int n, m, a[MAXN], sum[MAXN][MAXM];
+int dp[MAXS], T, cnt[MAXS], nwS[MAXS];
+pair&lt;int, int&gt; que[MAXS];
+
+int main() {
+	scanf(&quot;%d%d&quot;, &amp;n, &amp;m);
+	for(int i = 1; i &lt;= n; ++i) {
+		scanf(&quot;%d&quot;, &amp;a[i]);
+		sum[i][a[i]]++;
+		for(int j = 1; j &lt;= m; ++j) {
+			sum[i][j] += sum[i - 1][j];
+			// printf(&quot;i:%d j:%d sum:%d\n&quot;, i, j, sum[i][j]);
+		}
+	}
+	int MAXS = (1 &lt;&lt; m) - 1;
+	for(int S = 0; S &lt;= MAXS; ++S) {
+		for(int i = 0; i &lt; m; ++i) {
+			if(S &gt;&gt; i &amp; 1) {
+				cnt[S]++;
+				nwS[S] += sum[n][i + 1];
+				// printf(&quot;%d????%d %d\n&quot;, nwS[S], sum[n][i + 1], a[i + 1]);
+			}
+		}
+		que[++T] = mkp(cnt[S], S);
+		// printf(&quot;%d %d %d?\n&quot;, S, cnt[S], nwS[S]);
+	}
+	sort(que + 1, que + T + 1);
+	memset(dp, 0x3f3f3f3f, sizeof(dp));
+	dp[0] = 0;
+	for(int k = 1; k &lt;= T; ++k) {
+		int nS = que[k].se;
+		// int nV = que[k].fi;
+		int nL = nwS[nS] + 1, nR, cost; //现在的
+		for(int i = 1; i &lt;= m; ++i) {
+			if(nS &gt;&gt; (i - 1) &amp; 1)continue; //已经加入
+			nR = nL + sum[n][i] - 1;
+			cost = (sum[n][i]) - (sum[nR][i] - sum[nL - 1][i]);
+			// printf(&quot;%d %d %d %d %d %d %d&gt;&gt;&gt;???\n&quot;, nS, i, nL, nR, cost, dp[nS], dp[nS | (1 &lt;&lt; (i - 1))]);
+			dp[nS | (1 &lt;&lt; (i - 1))] = min(dp[nS | (1 &lt;&lt; (i - 1))], dp[nS] + cost);
+		}
+	}
+	printf(&quot;%d\n&quot;, dp[MAXS]);
+	return 0;
+}
+
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/p3327-sdoi2015yue-shu-ge-shu-he/">
+              <h3 class="post-title">
+                P3327 [SDOI2015]约数个数和
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

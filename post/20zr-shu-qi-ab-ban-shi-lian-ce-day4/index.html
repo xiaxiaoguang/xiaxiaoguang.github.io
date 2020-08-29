@@ -3,7 +3,7 @@
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>20zr暑期AB班十连测day4 | 夏晓光(loveJY)的博客</title>
-<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1598595066300">
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1598689483490">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
 <link rel="alternate" type="application/atom+xml" title="20zr暑期AB班十连测day4 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
@@ -26,7 +26,7 @@ C
       <div class="main-content">
         <div class="site-header">
   <a href="https://xiaxiaoguang.github.io">
-  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1598595066300" alt="">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1598689483490" alt="">
   </a>
   <h1 class="site-title">
     夏晓光(loveJY)的博客
@@ -92,7 +92,7 @@ C
                 2020-07-31
               </span>
               <span>
-                3 min read
+                6 min read
               </span>
               
                 <a href="https://xiaxiaoguang.github.io/tag/xSqe844Al/" class="post-tag">
@@ -139,6 +139,118 @@ C
 <p>如果可以离线可以O(\sqrt n)修改O(1)分块</p>
 <p>值域分块就是首先我们处理出每个块内部的前缀和，那么查询时块块之间前缀和+块内前缀和</p>
 <p>然后强制在线可以可持久化分块，空间复杂度是带根号的，绝对完蛋啊</p>
+<p>代码细节:移动端点的时候我们对于一个逆序对只在大的时候计算,work的时候找到区间最优决策点要另开变量因为不一定能update</p>
+<p>code:</p>
+<pre><code class="language-cpp">
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+#define lowbit(x) (x&amp;(-x))
+#define ll long long
+const int MAXN = 5e5 + 7;
+int n, X, a[MAXN], q, p;
+ll f[MAXN], b[MAXN], res;
+
+inline void add(int x, int y) {
+	for(; x &lt;= n; x += lowbit(x)) {
+		b[x] += y;
+	}
+	return ;
+}
+
+inline void chkmin(ll &amp;x, ll y) {
+	if(x &gt; y)x = y;
+}
+
+inline ll query(int x) {
+	ll ret = 0;
+	for(; x; x -= lowbit(x)) {
+		ret += b[x];
+	}
+	return ret;
+}
+
+inline ll get(int l, int r) {
+	// printf(&quot;%d %d %d %d %d\n&quot;, l, r, p, q, res);
+	while(q &lt; r) {
+		++q;
+		res += q - p - query(a[q]);
+		// printf(&quot;%d %d\n&quot;, q - p, query(a[q]));
+		add(a[q], 1);
+	}
+	while(p &gt; l) {
+		--p;
+		res += query(a[p]);
+		add(a[p], 1);
+	}
+	while(q &gt; r) {
+		add(a[q], -1);
+		res -= q - p - query(a[q]);//q&gt;r,q变小,我们在大的时候计算逆序对
+		q--;
+	}
+	while(p &lt; l) {
+		add(a[p], -1);
+		res -= query(a[p]);
+		p++;
+	}
+	return res;
+}
+
+inline void work(int l, int r, int L, int R) {//解决l,r的答案问题,利用L,R的决策点
+	// if(l == r) {
+	// 	for(int i = L; i &lt;= R; ++i) {
+	// 		chkmax(f[l], f[i] + get(i + 1, l));
+	// 	}
+	// 	return;
+	// }
+	// if(L == R) {
+	// 	for(int i = l; i &lt;= r; ++i) {
+	// 		chkmax(f[i], f[L] + get(L + 1, i));
+	// 	}
+	// 	return ;
+	// }
+	// printf(&quot;qwq - &gt;:l%d r%d L%d R%d\n&quot;, l, r, L, R);
+	// for(int i = L; i &lt;= R; ++i) {
+	// 	printf(&quot;%d &quot;, f[i]);
+	// }
+	// puts(&quot;&quot;);
+	int mid = (l + r) &gt;&gt; 1, pos = -1;
+	ll minx = 1e18;
+	for(int i = L; i &lt;= R; ++i) {
+		ll tmp = f[i] + get(i + 1, mid) + X;
+		// printf(&quot;%d?%d\n&quot;, tmp, f[mid]);
+		if(tmp &lt; minx) {
+			minx = tmp;
+			pos = i;
+		}
+	}
+	chkmin(f[mid], minx);
+	assert(~pos);
+	if(l &lt; mid)work(l, mid - 1, L, pos);
+	if(r &gt; mid)work(mid + 1, r, pos, R); //决策点单调不减
+}
+
+inline void solve(int l, int r) {
+	if(l == r)return ;
+	int mid = (l + r) &gt;&gt; 1;
+	// printf(&quot;solve:%d?%d\n&quot;, l, r);
+	solve(l, mid);
+	work(mid + 1, r, l, mid);
+	solve(mid + 1, r);
+}
+
+int main() {
+	scanf(&quot;%d%d&quot;, &amp;n, &amp;X);
+	for(int i = 1; i &lt;= n; ++i)scanf(&quot;%d&quot;, &amp;a[i]);
+	memset(f, 0x3f3f3f3f, sizeof(f));
+	f[0] = 0;
+	// printf(&quot;%lld?%lld\n&quot;, f[1], f[2]);
+	p = 1, q = 0;
+	solve(0, n);
+	printf(&quot;%lld\n&quot;, f[n]);
+	return 0;
+}
+
+</code></pre>
 <p>A</p>
 <p>带  花  树</p>
 <p>路径简单，而且颜色交替，而且端点不同，两两不交，端点标记，权值和最大</p>

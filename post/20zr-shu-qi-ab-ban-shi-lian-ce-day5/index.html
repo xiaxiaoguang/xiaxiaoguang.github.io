@@ -3,7 +3,7 @@
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>20zr暑期AB班十连测day5 | 夏晓光(loveJY)的博客</title>
-<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1598595066300">
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1598689483490">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
 <link rel="alternate" type="application/atom+xml" title="20zr暑期AB班十连测day5 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
@@ -25,7 +25,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://xiaxiaoguang.github.io">
-  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1598595066300" alt="">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1598689483490" alt="">
   </a>
   <h1 class="site-title">
     夏晓光(loveJY)的博客
@@ -91,7 +91,7 @@
                 2020-08-01
               </span>
               <span>
-                11 min read
+                16 min read
               </span>
               
                 <a href="https://xiaxiaoguang.github.io/tag/JnCW-H7if/" class="post-tag">
@@ -408,6 +408,163 @@ int main() {
 <figure data-type="image" tabindex="1"><img src="https://xiaxiaoguang.github.io/post-images/1596268289265.png" alt="" loading="lazy"></figure>
 <figure data-type="image" tabindex="2"><img src="https://xiaxiaoguang.github.io/post-images/1596268283405.png" alt="" loading="lazy"></figure>
 <figure data-type="image" tabindex="3"><img src="https://xiaxiaoguang.github.io/post-images/1596268271417.png" alt="" loading="lazy"></figure>
+<p>其实就是想我们有很多刀,然后通过拓扑dp从小到大一刀一刀的加入</p>
+<p>考虑我们每次计入相邻两刀的计算方案,然后在统计答案的时候加入每一段的不同的限制</p>
+<p>具体可以分成好几段</p>
+<ol>
+<li>开头的刀刀之间 + 中途的加速部分的几段</li>
+<li>开头到第一刀</li>
+<li>最后一套限制到第一块加速开始的一段</li>
+<li>最后一套最后一刀和n的一段</li>
+</ol>
+<p>具体看代码吧,讲的相当清楚了/....\</p>
+<p>code:</p>
+<pre><code class="language-cpp">
+
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+#define ll long long
+const int MAXW = 66;
+const int P = 998244353;
+int T;
+int n, k, ans, tot;
+int f[MAXW][MAXW][MAXW], fpre[MAXW][MAXW][MAXW];
+int dp[MAXW][MAXW][MAXW][MAXW], g[MAXW][MAXW], lst[MAXW];
+inline void init() {
+	scanf(&quot;%d%d&quot;, &amp;n, &amp;k);
+	memset(f, 0, sizeof(f));
+	memset(fpre, 0, sizeof(fpre));
+	memset(g, 0, sizeof(g));
+	memset(dp, 0, sizeof(dp));
+}
+
+inline ll ksm(ll x, int y) {
+	ll ans = 1;
+	while(y) {
+		if(y &amp; 1)ans = ans * x % P;
+		x = x * x % P;
+		y &gt;&gt;= 1;
+	}
+	return ans;
+}
+
+inline void add(int &amp;x, int y) {
+	x += y;
+	if(x &gt;= P)x -= P;
+}
+
+
+inline void initg() {
+	int frm, stp, nw;
+	//预处理部分,
+	//第二维stp表示i,而nw表示j
+	//frm是已知了前面一些数不同的填涂方案
+	for(frm = 0; frm &lt;= k; frm++) {
+		f[frm][0][frm] = 1;
+		for(stp = 0; stp &lt;= k; ++stp) {
+			for(nw = 0; nw &lt;= k; ++nw) {
+				if(f[frm][stp][nw]) {
+					for(int nxt = 1; nxt &lt;= nw; ++nxt)
+						add(f[frm][stp + 1][nxt], f[frm][stp][nw]);
+					add(f[frm][stp + 1][nw + 1],
+						1ll * (k - nw) * f[frm][stp][nw] % P);
+					// printf(&quot;frm:%d stp:%d now:%d f:%d\n&quot;, frm, stp, nw, f[frm][stp][nw]);
+				}
+			}
+		}
+	}
+	for(int i = 0; i &lt;= k; ++i) {
+		for(int j = 0; j &lt;= k; ++j) {
+			for(int t = k; t &gt;= 0; --t) {
+				fpre[i][j][t] = f[i][j][t] + fpre[i][j][t + 1];
+				if(fpre[i][j][t] &gt;= P)fpre[i][j][t] -= P;
+				//fpre是f的后缀和
+				//就是至少t个不相同
+			}
+		}
+	}
+	for(int i = 0; i &lt; k; ++i) {
+		for(int j = 0; j &lt; k; ++j) {
+			if(i &lt; j) {
+				//这个是考虑两个中间的刀数
+				//中间的限制是j-i
+				int num = (n - j &gt;= 0 ? (n - j) / k : 0);
+				//然后会被统计num次
+				g[i][j] = ksm(f[k][j - i][k], num);
+			} else {//i&gt;=j
+				//这个是考虑两个之外的限制
+				//每k个之间夹得之外的....|----|.....
+				//....的部分
+				//就是k-(i-j)
+				//会被统计num次
+				int num = (n - j - k &gt;= 0 ? (n - j - k) / k : 0);
+				g[i][j] = ksm(f[k][j + k - i][k], num);
+			}
+		}
+	}
+	for(int i = 0; i &lt; k; ++i) {
+		//论取模是如何自闭的
+		//其实就是(n-i)%k....
+		int x = (n - i &gt;= 0 ? n - ((n - i) / k * k + i) : n);
+		lst[i] = x;
+		// printf(&quot;i=%d lst=%d\n&quot;, i, lst[i]);
+	}
+}
+
+inline void solve() {
+	for(int i = 0; i &lt; k; ++i) {
+		add(dp[i][i][lst[i]][lst[i]], 1);
+	}
+	ll ans = 0;
+	for(int i = 0; i &lt; k; ++i) {//第一块中最后一套限制i,i
+		for(int fst = 0; fst &lt;= i; ++fst) {//第一块中第一套限制fst,fst
+			for(int mx = 0; mx &lt; k; ++mx) {//最后一个数的最后一套限制,n,&gt;=mx!!!
+				for(int mn = 0; mn &lt; k; ++mn) {//最后一块中第一套限制,n,&gt;=mn
+					if(dp[i][fst][mx][mn]) {
+						int nw = dp[i][fst][mx][mn];
+						if(i &lt;= n) {
+							int coef = 1ll * nw * f[0][i][i] % P * g[i][fst] % P;
+							//首先第一步把i的限制加入然后再把第一块之外的限制加入
+							if(k + fst &lt;= n)
+								coef = 1ll * coef * f[i][fst + k - i][k] % P;
+							//如果k+fst&lt;=n,说明我们至少存在中间限制的刀法
+							//就是...fst-----i***|*fst+k----i+k.....
+							//中间*部分的限制
+							if(n - mn &lt;= k)
+								coef = 1ll * coef * fpre[n - mn][mn][mx] % P;
+							//n-mn步是我们已知的,然后再填mn步使得mx个满足
+							else  coef = 1ll * coef * fpre[k][mn][mx] % P;
+							//...mn......n解决最后一段,大于k所以安心走
+							ans += coef;
+							if(ans &gt; P)ans -= P;
+						} else
+							ans = (ans + 1ll * nw * f[0][n][n]) % P;
+						//i&gt;n直接容斥,让他满足这套限制
+						for(int nxt = i + 1; nxt &lt; k; ++nxt) {//下一套限制
+							add(dp[nxt][fst][max(mx, lst[nxt])][min(mn, lst[nxt])],//这个转移非常能定夺mn,mx一切意义
+								1ll * (P - nw) * g[i][nxt] % P//-nw * go i,nxt表示我们新加入了一刀,并计算了中间的贡献
+							   );
+						}
+					}
+				}
+			}
+		}
+	}
+	printf(&quot;%lld\n&quot;, ans);
+}
+
+int main() {
+	scanf(&quot;%d&quot;, &amp;T);
+	while(T-- &gt; 0) {
+		init();
+		initg();
+		solve();
+	}
+	return 0;
+}
+
+
+</code></pre>
 
               </div>
               <div class="toc-container">

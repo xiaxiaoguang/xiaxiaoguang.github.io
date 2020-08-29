@@ -3,7 +3,7 @@
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>20zr暑期AB班十连测day3 | 夏晓光(loveJY)的博客</title>
-<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1598595066300">
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1598689483490">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
 <link rel="alternate" type="application/atom+xml" title="20zr暑期AB班十连测day3 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
@@ -27,7 +27,7 @@ A
       <div class="main-content">
         <div class="site-header">
   <a href="https://xiaxiaoguang.github.io">
-  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1598595066300" alt="">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1598689483490" alt="">
   </a>
   <h1 class="site-title">
     夏晓光(loveJY)的博客
@@ -93,7 +93,7 @@ A
                 2020-07-30
               </span>
               <span>
-                11 min read
+                16 min read
               </span>
               
                 <a href="https://xiaxiaoguang.github.io/tag/EgVG2tkBI/" class="post-tag">
@@ -148,6 +148,183 @@ A
 <p>右端点右移时左端点也只会单调向左移动qwq一层复杂度就<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>l</mi><mi>e</mi><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(len)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>了</p>
 <p>笛卡尔树就可以考虑把每个都变成前缀和然后大概率两两数不同所以就可以一开始就建出来然后查询即可qwq</p>
 <p>就是说我们每次只走小的一侧</p>
+<p>下面提供AC代码</p>
+<p>code:</p>
+<pre><code class="language-cpp">
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+#define ll long long
+const ll P = 500000003453647861ll;
+const int MAXN = 2e5 + 7;
+int n, a[MAXN],  lg2[MAXN];
+ll s[MAXN], pre2[MAXN], fac2[MAXN], ans;
+const int w = 32000;
+
+inline ll ksm(ll a, ll b, ll p) {
+	ll ans = (a * b - (ll)((long double)a / p * b) * p) % p;
+	if(ans &lt; 0)ans += p;
+	//运用公式m%p=m-(m/p)*p
+	return ans;
+}
+
+inline ll pow2(int x) {
+	return ksm(fac2[x % w], pre2[x / w], P);
+}//光速幂
+//原理:我们预处理根号值域的答案,然后对于一组询问,可以变成整块*散块的答案
+
+inline void init() {
+	lg2[1] = 0;
+	for(int i = 2; i &lt;= n; ++i) {
+		lg2[i] = lg2[i &gt;&gt; 1] + 1;
+		// printf(&quot;lg2:%d?%d\n&quot;, lg2[i], i);
+	}
+	fac2[0] = 1;
+	for(int i = 1; i &lt;= w; ++i) {
+		fac2[i] = fac2[i - 1] * 2 % P;
+	}
+	pre2[0] = 1;
+	for(int i = 1; i &lt;= w; ++i)
+		pre2[i] = ksm(fac2[w], pre2[i - 1], P) % P;
+	//整除qwq
+	// printf(&quot;%lld %lld %lld\n&quot;, fac2[10], fac2[w], pre2[1]);
+	for(int i = 1; i &lt;= n; ++i) {
+		s[i] = (s[i - 1] + pow2(a[i])) % P;//前缀和
+		// printf(&quot;%lld %lld\n&quot;, s[i], pow2(a[i]));
+	}
+}
+
+
+namespace Hash {
+	const int mod = 3e5 + 7;
+	int home[mod], ccnt;
+	struct {
+		int nxt, w;
+		ll to;
+	} e[mod];
+	inline int &amp;add(int x, ll y) {
+		ccnt++;
+		e[ccnt].to = y;
+		e[ccnt].nxt = home[x];
+		home[x] = ccnt;
+		e[ccnt].w = 0;
+		return e[ccnt].w;
+	}
+	int vis[mod], st[mod], tp;
+	int &amp;get(ll x) {
+		int p = x % mod;
+		if(!vis[p])vis[st[++tp] = p] = 1;
+		for(int i = home[p]; i; i = e[i].nxt) {
+			if(e[i].to == x)
+				return e[i].w;
+		}
+		return add(p, x);
+	}
+	int qry(ll x) {
+		int p = x % mod;
+		if(!vis[p])return 0;
+		for(int i = home[p]; i; i = e[i].nxt) {
+			if(e[i].to == x) {
+				return e[i].w;
+			}
+		}
+		return 0;
+	}
+	void clear() {
+		for(int i = 1; i &lt;= tp ; ++i) {
+			vis[st[i]] = 0;
+			home[st[i]] = 0;//快速清空
+		}
+		ccnt = 0;
+		tp = 0;
+	}
+}
+
+const int B = 20;
+inline int ckma(int &amp;x, int y) {
+	if(x &lt; y)x = y;
+	return x;
+}
+inline int ckmi(int &amp;x, int y) {
+	if(x &gt; y)x = y;
+	return x;
+}
+
+
+void fz(int l, int r) {
+	if(l == r) {
+		ans++; return ;
+	}
+	int mid = (l + r) &gt;&gt; 1;
+	// printf(&quot;in fz :%d %d %d\n&quot;, l, r, mid);
+	int i, j, MAX, MIN;
+
+	Hash::clear();
+	MAX = 0;
+	MIN = 1e9;
+	for(i = mid + 1, j = mid + 1; j &lt;= r; ++j) {
+		ckma(MAX, a[j]);
+		ckmi(MIN, a[j]);
+		while(l &lt; i &amp;&amp; a[i - 1] &lt;= MAX) {
+			--i;
+			// ckmi(MIN, a[i]);
+			Hash::get(s[i - 1])++;//这个前缀压入hash
+		}
+		// printf(&quot;and l,r is :%d %d %d %d\n&quot;, i, j, a[i - 1], MAX);
+		if(MAX - MIN &gt; j - i - 1)continue;
+		ll tmp = 0;
+		if(i &lt;= mid) {
+			ll t = pow2(MAX + 1);
+			// printf(&quot;but ans is :%lld %lld %lld\n&quot;, MAX, MIN, t);
+			for(int x = MAX + 1; x &lt;= MAX + lg2[j - i + 1]; ++x) {
+				tmp = Hash::qry((s[j] + P - t) % P);
+				// printf(&quot;value is :%lld %lld %lld %lld\n&quot;, x, t, tmp, (s[j] + P - t) % P);
+				ans += Hash::qry((s[j] + P - t) % P);
+				//查是否有合法前驱
+				t = 2 * t % P;
+			}
+		}
+	}
+	Hash::clear();
+	MAX = 0;
+	MIN = 1e9;
+	// puts(&quot;qwq&quot;);
+	for(i = mid, j = mid; l &lt;= i; --i) {
+		ckma(MAX, a[i]);
+		ckmi(MIN, a[i]);
+		while(j &lt; r &amp;&amp; a[j + 1] &lt; MAX) {//细节!!!!
+			++j;
+			// ckmi(MIN, a[i]);
+			Hash::get(s[j])++;
+		}
+		// printf(&quot;and l,r is :%d %d %lld %lld\n&quot;, i, j, a[j + 1], MAX);
+		if(MAX - MIN &gt; j - i - 1)continue;
+		ll tmp = 0;
+		if(j &gt; mid) {
+			ll t = pow2(MAX + 1);
+			// printf(&quot;but ans is :%lld %lld %lld\n&quot;, MAX, MIN, t);
+			for(int x = MAX + 1; x &lt;= MAX + lg2[j - i + 1]; ++x) {
+				tmp = Hash::qry((s[i - 1] + t) % P);
+				ans += Hash :: qry((s[i - 1] + t) % P);
+				// printf(&quot;value is :%lld %lld %lld %lld\n&quot;, x, t, tmp, (s[i - 1] + t) % P);
+				t = 2 * t % P;
+			}
+		}
+	}
+	fz(l, mid);
+	fz(mid + 1, r);
+}
+int main() {
+	scanf(&quot;%d&quot;, &amp;n);
+	for(int i = 1; i &lt;= n; ++i)
+		scanf(&quot;%d&quot;, &amp;a[i]);
+	init();
+	fz(1, n);
+	printf(&quot;%lld\n&quot;, ans);
+	return 0;
+}
+
+
+</code></pre>
 <p>B</p>
 <p>一个初始的<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>a</mi><mi>i</mi></msub><mo separator="true">,</mo><msub><mi>b</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">a_i,b_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">b</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>对应了点<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><msub><mi>a</mi><mi>i</mi></msub><mo separator="true">,</mo><msub><mi>b</mi><mi>i</mi></msub><mo>)</mo></mrow><annotation encoding="application/x-tex">(a_i,b_i)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">b</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>,然后那些组合数加起来...</p>
 <p>其实就是点(x,y)走到x轴一排点(0,0),(x,0)的方案数</p>
