@@ -1,0 +1,299 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>P4151 [WC2011]最大XOR和路径 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1599034314785">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="P4151 [WC2011]最大XOR和路径 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="首先我们随便走走会发现如果我们走了重复路,就会消掉那一段,而走重复路的先决条件是走一个环
+所以我们可以考虑线性基
+就是找出所有环把他们的异或值当做元素
+然后我们随便找到一条合法的路径,拿他去跑线性基,跑出最大值
+然后得到的就是答案qaq
+正..." />
+    <meta name="keywords" content="线性基,构造" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1599034314785" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              P4151 [WC2011]最大XOR和路径
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-08-30
+              </span>
+              <span>
+                3 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/6qijMlhS4z/" class="post-tag">
+                  # 线性基
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/nuL1JOWcod/" class="post-tag">
+                  # 构造
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/45NBuzDIW489QBoVep5mceRZazz6MeZpbcBANAA7JWvjF3NIzm6dF*Dsq9xmLUCaeDHR.*z.XQjL4FhVgsawS*2jFrtiP0t7*jaVgG3vHwo!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>首先我们随便走走会发现如果我们走了重复路,就会消掉那一段,而走重复路的先决条件是走一个环</p>
+<p>所以我们可以考虑线性基</p>
+<p>就是找出所有环把他们的异或值当做元素</p>
+<p>然后我们随便找到一条合法的路径,拿他去跑线性基,跑出最大值</p>
+<p>然后得到的就是答案qaq</p>
+<p>正确性是我们这样每条边在环内的都一定被计入了</p>
+<p>而所有的环都能被用这样的环异或出来</p>
+<p>同时我们一定存在一条路径可以做到把各个元素异或上</p>
+<p>code:</p>
+<pre><code class="language-cpp">
+#include&lt;bits/stdc++.h&gt;
+#define ll long long
+using namespace std;
+const int MAXN = 1e5 + 7;
+const int MAXM = 2e5 + 7;
+int ccnt, home[MAXN], nxt[MAXM], to[MAXM], vis[MAXN];
+int n, m;
+ll a[MAXN], c[MAXN], ans, w[MAXM];
+inline void ct(int x, int y, ll z) {
+	ccnt++;
+	nxt[ccnt] = home[x];
+	home[x] = ccnt;
+	to[ccnt] = y;
+	w[ccnt] = z;
+}
+
+inline void ins(ll x) {
+	// printf(&quot;!!%lld?\n&quot;, x);
+	for(ll i = 63; i &gt;= 0; --i) {
+		// if(x == 1115964016452419888)
+		// printf(&quot;%lld\n&quot;, i);
+		if(x &gt;&gt; i &amp; 1) {
+			// if(x == 1115964016452419888)
+			// 	printf(&quot;%lld?%lld %lld?%lld\n&quot;, x, i, c[i], x ^ c[i]);
+			if(c[i]) {
+				x = x ^ c[i];
+			} else {
+				c[i] = x;
+				break;
+			}
+			// puts(&quot;qwq&quot;);
+		}
+		// puts(&quot;??&quot;);
+	}
+	// puts(&quot;qwq&quot;);
+	return ;
+}
+
+inline void dfs(int u, int F) {
+	vis[u] = 1;
+	// printf(&quot;%d %d\n&quot;, u, F);
+	for(int i = home[u]; i; i = nxt[i]) {
+		int v = to[i];
+		if(v == F)continue;
+		if(!vis[v]) {
+			a[v] = a[u] ^ w[i];
+			dfs(v, u);
+		} else
+			ins(w[i]^a[u]^a[v]);
+	}
+	// puts(&quot;exit&quot;);
+	return ;
+}
+
+int main() {
+	scanf(&quot;%d%d&quot;, &amp;n, &amp;m);
+	ll z = 0;
+	for(int i = 1, x, y; i &lt;= m; ++i) {
+		scanf(&quot;%d%d%lld&quot;, &amp;x, &amp;y, &amp;z);
+		ct(x, y, z);
+		ct(y, x, z);
+	}
+	dfs(1, 0);
+	// puts(&quot;qwq&quot;);
+	ans = a[n];
+	// printf(&quot;%lld?\n&quot;, ans);
+	for(ll i = 63; i &gt;= 0; --i) {
+		if((ans ^ c[i]) &gt; ans) {
+			// printf(&quot;%lld %lld\n&quot;, i, c[i]);
+			ans = ans ^ c[i];
+		}
+	}
+	printf(&quot;%llu\n&quot;, ans);
+	return 0;
+}
+
+
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/2020-ti-gao-zu-shi-lian-ce-day1/">
+              <h3 class="post-title">
+                2020提高组十连测day1
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
