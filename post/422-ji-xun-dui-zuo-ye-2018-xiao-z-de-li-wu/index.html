@@ -1,0 +1,339 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>#422. 【集训队作业2018】小Z的礼物 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1599491794960">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="#422. 【集训队作业2018】小Z的礼物 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="容斥DP
+首先套一个min-max容斥
+由期望的线性型我们得到
+ans=∑(−1)∣T∣+1f(T)ans=\sum(-1)^{|T|+1}f(T)
+ans=∑(−1)∣T∣+1f(T)
+f(T)表示物品T集合最小的被覆盖时间
+这个式子可以..." />
+    <meta name="keywords" content="容斥DP,插头DP,动态规划" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1599491794960" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              #422. 【集训队作业2018】小Z的礼物
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-09-02
+              </span>
+              <span>
+                6 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/tPnn69gQF/" class="post-tag">
+                  # 容斥DP
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/d-lHOvQnoE/" class="post-tag">
+                  # 插头DP
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/CJ-ugjBAY/" class="post-tag">
+                  # 动态规划
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/45NBuzDIW489QBoVep5mcSZvyTczRwffvIvcDrQEwm2mfi20ziFbJYNvZ2188IWcZZU7CHLunu9uuZ3SnL7kOIWVp.YMY7QcGv5kPYshVc8!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>容斥DP</p>
+<p>首先套一个min-max容斥</p>
+<p>由期望的线性型我们得到</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi><mi>n</mi><mi>s</mi><mo>=</mo><mo>∑</mo><mo>(</mo><mo>−</mo><mn>1</mn><msup><mo>)</mo><mrow><mi mathvariant="normal">∣</mi><mi>T</mi><mi mathvariant="normal">∣</mi><mo>+</mo><mn>1</mn></mrow></msup><mi>f</mi><mo>(</mo><mi>T</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">ans=\sum(-1)^{|T|+1}f(T)
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">a</span><span class="mord mathdefault">n</span><span class="mord mathdefault">s</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.6000100000000002em;vertical-align:-0.55001em;"></span><span class="mop op-symbol large-op" style="position:relative;top:-0.000004999999999977245em;">∑</span><span class="mopen">(</span><span class="mord">−</span><span class="mord">1</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.938em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">∣</span><span class="mord mathdefault mtight" style="margin-right:0.13889em;">T</span><span class="mord mtight">∣</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mclose">)</span></span></span></span></span></p>
+<p>f(T)表示物品T集合最小的被覆盖时间</p>
+<p>这个式子可以<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mn>2</mn><mi>T</mi></msup><mo>∗</mo><mi>T</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(2^T*T)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0913309999999998em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8413309999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.13889em;">T</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mclose">)</span></span></span></span>QAQ</p>
+<p>然后我们要优化必须要来一个容斥DP算法了...</p>
+<p>考虑<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>f</mi><mrow><mi>i</mi><mo separator="true">,</mo><mi>j</mi><mo separator="true">,</mo><mi>S</mi></mrow></msub></mrow><annotation encoding="application/x-tex">f_{i,j,S}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.328331em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight" style="margin-right:0.05764em;">S</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>表示dp到点(i,j)然后得到的轮廓线上选或没选状态是S,带容斥系数的方案数是什么</p>
+<p>因为T变大当且仅当我们多选了所以可以转移</p>
+<p>然而你会发现我们算不了答案,因为我们还是不知道我们的<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>(</mo><mi>T</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">f(T)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mclose">)</span></span></span></span></p>
+<p>解决方法是你会发现这个时间本质上是最多有多少个1*2的子矩阵满足包括了T中的物品,设为k</p>
+<p>然后期望步数就是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>∗</mo><mo>(</mo><mi>m</mi><mo>−</mo><mn>1</mn><mo>)</mo><mo>+</mo><mi>m</mi><mo>∗</mo><mo>(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo>)</mo><mi mathvariant="normal">/</mi><mi>k</mi></mrow><annotation encoding="application/x-tex">n*(m-1)+m*(n-1)/k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.46528em;vertical-align:0em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.46528em;vertical-align:0em;"></span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mord">/</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span></span></span></span></p>
+<p>这样我们再多记一维就好了QAQ,表示当前有多少个1*2子矩阵是包含T中物品的,注意计算k的变化</p>
+<p>时间复杂度<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mn>2</mn><mi>n</mi></msup><msup><mi>n</mi><mn>2</mn></msup><msup><mi>m</mi><mn>2</mn></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(2^nn^2m^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">n</span></span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></p>
+<p><s>我竟然码出来了</s></p>
+<p>code:</p>
+<pre><code class="language-cpp">
+//轮廓线容斥dp
+//我一定能写出来!
+#include&lt;bits/stdc++.h&gt;
+#define ll long long
+using namespace std;
+const int MAXL = 103;
+const int MAXH = 7;
+const int MAXS = (1 &lt;&lt; 6) + 1;
+const int MAXP = MAXL * MAXH * 2;
+const int MAXN = 1e4 + 7;
+const int P = 998244353;
+int n, m, p, maxs;
+int dp[MAXL][MAXH][MAXS][MAXP], a[MAXH][MAXL];
+int fac[MAXN], ifac[MAXN];
+char s[MAXL];
+
+inline ll ksm(ll x, ll y) {
+	ll ans = 1;
+	while(y) {
+		if(y &amp; 1)ans = ans * x % P;
+		x = x * x % P;
+		y &gt;&gt;= 1;
+	}
+	return ans;
+}
+
+inline void add(int &amp;x, ll y) {
+	x += y;
+	if(x &gt;= P)
+		x -= P;
+}
+
+inline void init() {
+	fac[0] = 1;
+	ifac[0] = ifac[1] = 1;
+	for(int i = 1; i &lt;= p; ++i) {
+		fac[i] = 1ll * fac[i - 1] * i % P;
+	}
+	ifac[p] = ksm(fac[p], P - 2);
+	for(int i = p - 1; i &gt;= 2; --i) {
+		ifac[i] = 1ll * ifac[i + 1] * (i + 1) % P;
+	}
+	// printf(&quot;%d ? %d %d\n&quot;, ifac[2], fac[4], 1ll * ifac[5]*fac[5] % P);
+	for(int i = 1; i &lt;= p; ++i) {
+		ifac[i] = 1ll * ifac[i] * fac[i - 1] % P;
+		// printf(&quot;%lld?\n&quot;, 1ll * ifac[i] * i % P);
+	}
+}
+
+int main() {
+	scanf(&quot;%d%d&quot;, &amp;n, &amp;m);
+	for(int i = 1; i &lt;= n; ++i) {
+		scanf(&quot;%s&quot;, s + 1);
+		for(int j = 1; j &lt;= m; ++j) {
+			if(s[j] == '*') {
+				a[i][j] = 1;//第一维小,第二维大
+			}
+		}
+	}
+	p = n * (m - 1) + m * (n - 1);
+	init();
+	maxs = (1 &lt;&lt; n) - 1;//qwq
+	dp[1][1][0][0] = P - 1;
+	//第几列,第几行,轮廓线状态为(1)在T中,有多少个点对
+	for(int i = 1; i &lt;= m; ++i) {
+		for(int j = 1; j &lt;= n; ++j) {
+			for(int S = 0; S &lt;= maxs; ++S) {
+				for(int k = 0; k &lt;= p; ++k) {
+					if(dp[i][j][S][k]) {
+						// printf(&quot;we are in :%d %d %d %d qwq%d\n &quot;, i, j, S, k, dp[i][j][S][k]);
+						if(a[j][i]) {
+							int nS = S | (1 &lt;&lt; (j - 1));
+							int nk = k;//一定多出
+							if(i &lt; m)nk++;//下一列
+							if(j &lt; n)nk++;//下一行
+							if(i &gt; 1)nk += (S &gt;&gt; (j - 1) &amp; 1) ^ 1;//如果不是第一列,可以从之前转移
+							if(j &gt; 1)nk += (S &gt;&gt; (j - 2) &amp; 1) ^ 1;//如果不是第一行,可以从上一格转移
+							// printf(&quot;now nS is :%d nk is: %d naddV is: %d\n&quot;, nS, nk, P - dp[i][j][S][k]);
+							if(j != n)add(dp[i][j + 1][nS][nk], P - dp[i][j][S][k]);//多了一个,集合变大,所以变成负数
+							else add(dp[i + 1][1][nS][nk], P - dp[i][j][S][k]);
+						}
+						// puts(&quot;&quot;);
+						//j,i不是格子
+						int nS = S &amp; (S ^ (1 &lt;&lt; (j - 1)));
+						// printf(&quot;now nS is :%d nk is: %d naddV is: %d\n&quot;, nS, k, dp[i][j][S][k]);
+						if(j != n)add(dp[i][j + 1][nS][k], dp[i][j][S][k]);
+						else add(dp[i + 1][1][nS][k], dp[i][j][S][k]);
+						// puts(&quot;\n&quot;);
+					}
+				}
+			}
+		}
+	}
+	int ans = 0;
+	for(int S = 0; S &lt;= maxs; ++S)
+		for(int i = 1; i &lt;= p; ++i) {
+			// printf(&quot;%d %d %d %d\n&quot;, S, i, dp[m + 1][1][S][i], ifac[i]);
+			add(ans, 1ll * dp[m + 1][1][S][i] * ifac[i] % P * p % P);
+		}
+	printf(&quot;%d\n&quot;, ans);
+	return 0;
+}
+
+
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/zrb-ban-d2/">
+              <h3 class="post-title">
+                ZRB班D2
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

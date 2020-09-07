@@ -1,0 +1,476 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>2020提高组十连测day2 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1599491794960">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="2020提高组十连测day2 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="B
+按照a+b&lt;b+aa+b&lt;b+aa+b&lt;b+a排序即可,时间复杂度O(nlog2n)O(nlog^2n)O(nlog2n)
+A
+弱者做法:
+直接贪心是O(nm)O(nm)O(nm)的,然后我们分析下复杂度瓶颈在哪
+
+全..." />
+    <meta name="keywords" content="分块,线性基,比赛题,猜结论" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1599491794960" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              2020提高组十连测day2
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-09-06
+              </span>
+              <span>
+                9 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/2ioLAuAHI/" class="post-tag">
+                  # 分块
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/6qijMlhS4z/" class="post-tag">
+                  # 线性基
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/A3FIICRYA/" class="post-tag">
+                  # 比赛题
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/c7QHdP10U/" class="post-tag">
+                  # 猜结论
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/45NBuzDIW489QBoVep5mcSW4che.Z0*SYNe50pBUty4YWe2wFCOxWVfBqsNYM.gdD0CRZOkbq.dqANfdwLUGLY0xcT1KshyGxkvqypqDxho!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>B</p>
+<p>按照<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi><mo>+</mo><mi>b</mi><mo>&lt;</mo><mi>b</mi><mo>+</mo><mi>a</mi></mrow><annotation encoding="application/x-tex">a+b&lt;b+a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">a</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.73354em;vertical-align:-0.0391em;"></span><span class="mord mathdefault">b</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.77777em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">b</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">a</span></span></span></span>排序即可,时间复杂度<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mi>l</mi><mi>o</mi><msup><mi>g</mi><mn>2</mn></msup><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(nlog^2n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></p>
+<p>A</p>
+<p>弱者做法:</p>
+<p>直接贪心是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mi>m</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(nm)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mord mathdefault">m</span><span class="mclose">)</span></span></span></span>的,然后我们分析下复杂度瓶颈在哪</p>
+<ol>
+<li>全局加数量</li>
+<li>查询x要多少种才能凑齐</li>
+</ol>
+<p>解决这个的显然做法就是分块啊</p>
+<p>把所有操作排序后分成根号m段</p>
+<p>全局加变成打标记</p>
+<p>然后考虑对于第i块,如果我们完全取走都无法凑齐这个月的,就全部取走</p>
+<p>反之,我们重构这个块</p>
+<p>需要维护的标记:</p>
+<ol>
+<li>加标记</li>
+<li>清空标记</li>
+</ol>
+<p>额外数组</p>
+<ol>
+<li>每一块,每个月数量净收入</li>
+<li>每一块,每个月价钱净收入</li>
+</ol>
+<p>code:</p>
+<pre><code class="language-cpp">
+
+#include&lt;bits/stdc++.h&gt;
+#define ll long long
+using namespace std;
+const int MAXN=2e5+7;
+int n,m;
+ll c[MAXN];
+struct rec {
+	ll x,y;
+	bool operator&lt;(const rec &amp;w)const {
+		return x&lt;w.x;
+	}
+} a[MAXN],b[MAXN];
+ll sumn[MAXN],sumc[MAXN],addn[MAXN],sad[MAXN],sct[MAXN],qk[MAXN],hve[MAXN];
+ll ans;
+int sz,L[MAXN],R[MAXN],bel[MAXN],tot;
+inline void init() {
+	sz=sqrt(m);
+	tot=1;
+	L[tot]=1;
+	for(int i=1; i&lt;=m; ++i) {
+		if(i%sz==0) {
+			R[tot]=i-1;
+			++tot;
+			L[tot]=i;
+		}
+		bel[i]=tot;
+	}
+	R[tot]=m;
+	for(int i=1; i&lt;=m; ++i) {
+		sad[bel[i]]+=a[i].y;
+		sct[bel[i]]+=a[i].x * a[i].y;
+	}
+
+	return ;
+}
+
+inline void solve(int B,int q) {
+	for(int i=L[B]; i&lt;=R[B]; ++i) { //下穿标记
+		if(qk[B]!=-1) {
+			hve[i]=0;
+		}
+		hve[i]+=addn[B] * a[i].y;
+	}
+	qk[B]=-1;
+	addn[B]=0;
+	for(int i=L[B]; i&lt;=R[B]; ++i) {
+		if(hve[i]&lt;q) {
+			q-=hve[i];
+			ans+=hve[i]*a[i].x;
+			hve[i]=0;
+		} else {
+			hve[i]-=q;
+			ans+=q*a[i].x;
+			break;
+		}
+	}
+	sumn[B]=0;
+	sumc[B]=0;
+	for(int i=L[B]; i&lt;=R[B]; ++i) {
+		sumn[B]+=hve[i];
+		sumc[B]+=hve[i]*a[i].x;
+	}
+	return ;
+}
+
+
+namespace fastIO {
+#define BUF_SIZE (1&lt;&lt;19)
+	static char buf[BUF_SIZE],*p1=buf+BUF_SIZE,*pend=buf+BUF_SIZE;
+	inline char nc() {
+		if(p1==pend) {
+			p1=buf;
+			pend=buf+fread(buf,1,BUF_SIZE,stdin);
+		}
+		return *p1++;
+	}
+	inline int read() {
+		int x=0,f=1;
+		char s=nc();
+		for(; !isdigit(s); s=nc())if(s=='-')f=-1;
+		for(; isdigit(s); s=nc())x=(x&lt;&lt;1)+(x&lt;&lt;3)+s-'0';
+		return x*f;
+	}
+}
+using namespace fastIO;
+
+int main() {
+	scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+	for(int i=1; i&lt;=n; ++i) {
+		c[i]=read();
+	}
+	for(int i=1; i&lt;=m; ++i) {
+		a[i].x=read();
+		a[i].y=read();
+		if(a[i].y==-1)a[i].y=1e7;
+	}
+	sort(a+1,a+m+1);
+	int qwq=0;
+	for(int i=1; i&lt;=m; ++i) {
+		if(a[i].x!=a[i-1].x) {
+			b[++qwq]=a[i];
+		} else {
+			b[qwq].y+=a[i].y;
+		}
+	}
+	m=qwq;
+	for(int i=1; i&lt;=m; ++i) {
+		a[i]=b[i];
+	}
+	init();
+	//分根号段
+	//然后直接跳
+	for(int u=1; u&lt;=n; ++u) {
+		for(int i=1; i&lt;=tot; ++i) {
+			sumn[i]+=sad[i];
+			sumc[i]+=sct[i];
+			addn[i]++;//多一天
+		}
+		for(int i=1; i&lt;=tot; ++i) {
+			if(sumn[i] &gt; c[u]) {
+				solve(i,c[u]);//暴力改块内
+				break;
+			} else {
+				c[u]-=sumn[i];
+				ans+=sumc[i];
+				sumn[i]=0;
+				sumc[i]=0;
+				addn[i]=0;
+				qk[i]=u;
+				//第u天这个块卖空了
+			}
+		}
+	}
+	printf(&quot;%lld\n&quot;,ans);
+	return 0;
+}
+
+
+</code></pre>
+<p>C</p>
+<p>好难难难难啊/kk</p>
+<p>首先我们发现原题的眼睛,做过一个也是可以轮流开大招取走一些数然后nim游戏的题</p>
+<p>这个是那个题的完全升级版,我们要把每个石子复制两堆,但是一次可以选择1或2个</p>
+<p>然后<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>3</mn><mo>−</mo><mi>n</mi><mi>i</mi><mi>m</mi></mrow><annotation encoding="application/x-tex">3-nim</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">3</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">n</span><span class="mord mathdefault">i</span><span class="mord mathdefault">m</span></span></span></span>,也就是每个二进制位下<span class="katex"><span class="katex-mathml"><math><semantics><mrow></mrow><annotation encoding="application/x-tex">%3==0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"></span></span></p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>x</mi><mn>1</mn></msub><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><msub><mi>x</mi><mi>n</mi></msub><mo>∈</mo><mo>(</mo><mn>0</mn><mo separator="true">,</mo><mn>1</mn><mo separator="true">,</mo><mn>2</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">x_1....x_n \in (0,1,2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6891em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord">.</span><span class="mord">.</span><span class="mord">.</span><span class="mord">.</span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mclose">)</span></span></span></span></p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><munder><mo>∑</mo><mrow><mi>b</mi><mi>i</mi><mi>t</mi></mrow></munder><mo>∑</mo><msub><mi>x</mi><mi>i</mi></msub><mo>∗</mo><mi>a</mi><msub><mi>i</mi><mrow><mi>b</mi><mi>i</mi><mi>t</mi></mrow></msub><mo>=</mo><mn>0</mn><mo>(</mo><mi>m</mi><mi>o</mi><mi>d</mi><mn>3</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">\sum_{bit} \sum x_i*ai_{bit}=0 (mod 3)
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.3521180000000004em;vertical-align:-1.3021129999999999em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.0500050000000005em;"><span style="top:-1.847887em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">b</span><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight">t</span></span></span></span><span style="top:-3.050005em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.3021129999999999em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop op-symbol large-op" style="position:relative;top:-0.000004999999999977245em;">∑</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.80952em;vertical-align:-0.15em;"></span><span class="mord mathdefault">a</span><span class="mord"><span class="mord mathdefault">i</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">b</span><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">0</span><span class="mopen">(</span><span class="mord mathdefault">m</span><span class="mord mathdefault">o</span><span class="mord mathdefault">d</span><span class="mord">3</span><span class="mclose">)</span></span></span></span></span></p>
+<p>那么我们可以发现其实就是找到膜3意义下权值最大的线性无关组</p>
+<p>这个和之前那个题就很相像了</p>
+<p>可以考虑遍历线性基的每个位置,如果某个位置在线性基是空的,我们就直接加入</p>
+<p>否则把当前向量和线性基中这个位置对应的向量中攻击力小的那个拿出来继续消元</p>
+<p>显然是题解,我们想想怎么找QAQ</p>
+<p>代码告诉我:我们对于每个二进制位维护一个是1还是2的b数组线性基</p>
+<p>然后我们用一个三进制异或的东西,找到一个可行的答案</p>
+<p>解释一下三进制异或吧:</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn><mo>+</mo><mn>2</mn><mi mathvariant="normal">∣</mi><mi mathvariant="normal">∣</mi><mn>1</mn><mo>+</mo><mn>0</mn><mi mathvariant="normal">∣</mi><mi mathvariant="normal">∣</mi><mn>0</mn><mo>+</mo><mn>1</mn><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2+2||1+0||0+1 = 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">2</span><span class="mord">∣</span><span class="mord">∣</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">0</span><span class="mord">∣</span><span class="mord">∣</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span></p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mo>+</mo><mn>1</mn><mi mathvariant="normal">∣</mi><mi mathvariant="normal">∣</mi><mn>2</mn><mo>+</mo><mn>0</mn><mi mathvariant="normal">∣</mi><mi mathvariant="normal">∣</mi><mn>0</mn><mo>+</mo><mn>2</mn><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">1+1||2+0||0+2 = 2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord">∣</span><span class="mord">∣</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">0</span><span class="mord">∣</span><span class="mord">∣</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span></p>
+<p>然后QAQ....</p>
+<p>好像本质上是我们考虑三进制的每一位他们都可以被两个二进制位表示一下</p>
+<p>比如11-&gt;1,1,10-&gt;1,0</p>
+<p>然后我们开两个二进制数,第一个表示我们第一位三进制位意义下,第二个表示我们第二个三进制位</p>
+<p>然后显然一开始我们如果只用第一个三进制位就能得到纯二进制位的答案</p>
+<p>然后自己抿了抿,完全不会了</p>
+<p>update in 9/6/16:48</p>
+<p>抓本质说话:我们本质上是维护一个三进制线性基</p>
+<p>那么我们首先开一个<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>b</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>b</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">b_1,b_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault">b</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">b</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>数组,表示三进制下我哪些位是1哪些位是2</p>
+<p>然后我们考虑正常的线性基过程:如果这一位有数我们就要异或一下</p>
+<p>考虑三进制异或分开放在哪些位是1哪些位是2的数意义下面</p>
+<p>对于二进制都是2的,我们有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mo>+</mo><mn>1</mn><mi mathvariant="normal">∣</mi><mi mathvariant="normal">∣</mi><mn>2</mn><mo>+</mo><mn>0</mn><mi mathvariant="normal">∣</mi><mi mathvariant="normal">∣</mi><mn>0</mn><mo>+</mo><mn>2</mn><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">1+1||2+0||0+2 = 2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord">∣</span><span class="mord">∣</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">0</span><span class="mord">∣</span><span class="mord">∣</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span></p>
+<p>对于二进制都为1的,我们有<br>
+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn><mo>+</mo><mn>2</mn><mi mathvariant="normal">∣</mi><mi mathvariant="normal">∣</mi><mn>1</mn><mo>+</mo><mn>0</mn><mi mathvariant="normal">∣</mi><mi mathvariant="normal">∣</mi><mn>0</mn><mo>+</mo><mn>1</mn><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2+2||1+0||0+1 = 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">2</span><span class="mord">∣</span><span class="mord">∣</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">0</span><span class="mord">∣</span><span class="mord">∣</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span></p>
+<p>其实就是代码中两个长的位运算式子</p>
+<p>这样我们就维护了整个三进制操作的线性基,就可以套用之前那个nim游戏题的思想结束整个题了</p>
+<p>复杂度<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(nlogn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></p>
+<p>思考本题+读代码时间 : <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn><mi>h</mi><mn>30</mn><mi>m</mi><mi>i</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">2h30min</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord mathdefault">h</span><span class="mord">3</span><span class="mord">0</span><span class="mord mathdefault">m</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span></span></span></span></p>
+<p><s>浪费时间....</s></p>
+<p>code:</p>
+<pre><code class="language-cpp">
+#include&lt;bits/stdc++.h&gt;
+#define mkp(x,y) (make_pair(x,y))
+#define se second
+#define fi first
+#define ll long long
+#define pii pair&lt;int,int&gt;
+#define swap(x,y) (x^=y^=x^=y)
+using namespace std;
+const int P = 1e9 + 7;
+int n;
+ll b0[60], b1[60], b2[60], ans;
+
+void ins(ll x, ll y, int z) {
+	for(ll i = 59; i &gt;= 0; --i) {
+		if(x &gt;&gt; i &amp; 1 || y &gt;&gt; i &amp; 1) {
+			if(!b1[i] &amp;&amp; !b2[i]) {
+				b1[i] = x;
+				b2[i] = y;
+				b0[i] = z;
+				return ;
+			}
+			if(z &gt; b0[i])
+				swap(x, b1[i]), swap(y, b2[i]), swap(z, b0[i]);
+			ll p = b1[i], q = b2[i];
+			if((y ^ q) &gt;&gt; i &amp; 1)swap(p, q);
+			ll u = (x &amp; ~(p | q)) | (y &amp; p) | (~(x | y) &amp; q);
+			ll v = (y &amp; ~(p | q)) | (~(x | y) &amp; p) | (x &amp; q);
+			//得到三进制异或之后的b_1,b_2
+			//然后新的u,v就是对应下一次的....
+			x = u, y = v;
+		}
+	}
+}
+
+int main() {
+	scanf(&quot;%d&quot;, &amp;n);
+	for(int i = 1; i &lt;= n; ++i) {
+		ll x;
+		int y;
+		scanf(&quot;%lld %d&quot;, &amp;x, &amp;y);
+		x ^= ans;
+		ins(x, 0, y);
+		ans = 0;
+		for(int i = 0; i &lt; 60; ++i)
+			ans += b0[i];
+		printf(&quot;%lld\n&quot;, ans);
+	}
+	return 0;
+}
+
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/p2300-he-bing-shen-ben/">
+              <h3 class="post-title">
+                P2300 合并神犇
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
