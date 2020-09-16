@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://xiaxiaoguang.github.io</id>
     <title>夏晓光(loveJY)的博客</title>
-    <updated>2020-09-12T10:39:49.318Z</updated>
+    <updated>2020-09-16T14:17:15.163Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://xiaxiaoguang.github.io"/>
     <link rel="self" href="https://xiaxiaoguang.github.io/atom.xml"/>
@@ -10,6 +10,832 @@
     <logo>https://xiaxiaoguang.github.io/images/avatar.png</logo>
     <icon>https://xiaxiaoguang.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 夏晓光(loveJY)的博客</rights>
+    <entry>
+        <title type="html"><![CDATA[ZR20秋季普转提day2]]></title>
+        <id>https://xiaxiaoguang.github.io/post/zr20-qiu-ji-pu-zhuan-ti-day2/</id>
+        <link href="https://xiaxiaoguang.github.io/post/zr20-qiu-ji-pu-zhuan-ti-day2/">
+        </link>
+        <updated>2020-09-15T14:41:19.000Z</updated>
+        <content type="html"><![CDATA[<p>zzzz</p>
+<p>孙笑川都干了那些坏事?</p>
+<p>A</p>
+<p>考虑他的转化问题:随机一个n个点的排列,从左往右删除每次删掉一个点之后我们把他的所有祖先都删除掉</p>
+<p>那么答案就是这样一个排列的期望删除次数</p>
+<p>不难发现可以变成每个数期望删除次数之和</p>
+<p>然后就会发现概率是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mi mathvariant="normal">/</mi><mi>s</mi><mi>i</mi><mi>z</mi></mrow><annotation encoding="application/x-tex">1/siz</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord">/</span><span class="mord mathdefault">s</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.04398em;">z</span></span></span></span>,也就是说我有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mi mathvariant="normal">/</mi><mi>s</mi><mi>i</mi><mi>z</mi></mrow><annotation encoding="application/x-tex">1/siz</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord">/</span><span class="mord mathdefault">s</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.04398em;">z</span></span></span></span>的几率在排列中比我儿子都靠前</p>
+<p>对上述求和即可</p>
+<p>复杂度O(n)</p>
+<pre><code class="language-cpp">
+
+#include&lt;bits/stdc++.h&gt;
+#define ll long long
+const int P = 998244353;
+const int MAXN = 1e7 + 7;
+int ccnt, home[MAXN], nxt[MAXN], to[MAXN], n, siz[MAXN];
+ll ans, A[MAXN];
+
+namespace fastIO {
+#define BUF_SIZE (1&lt;&lt;24)
+	char buf[BUF_SIZE], *p1 = buf, *pend = buf;
+	inline char nc() {
+		if(p1 == pend) {
+			p1 = buf;
+			pend = buf + fread(buf, 1, BUF_SIZE, stdin);
+		}
+		return *p1++;
+	}
+	inline int read() {
+		char s = nc();
+		int x = 0;
+		for(; !isdigit(s); s = nc());
+		for(; isdigit(s); s = nc())x = (x &lt;&lt; 1) + (x &lt;&lt; 3) + s - '0';
+		return x;
+	}
+};
+using namespace fastIO;
+
+inline void ct(int x, int y) {
+	ccnt++;
+	nxt[ccnt] = home[x];
+	home[x] = ccnt;
+	to[ccnt] = y;
+}
+
+inline void dfs(int u) {
+	siz[u] = 1;
+	for(int i = home[u]; i; i = nxt[i]) {
+		int v = to[i];
+		dfs(v);
+		siz[u] += siz[v];
+	}
+	ans = (ans + A[siz[u]]) % P;
+}
+
+int main() {
+	n = read();
+	for(int i = 2, x; i &lt;= n; ++i) {
+		x = read();
+		ct(x, i);
+	}
+	A[0] = 1;
+	A[1] = 1;
+	for(int i = 2; i &lt;= n; ++i)		{
+		A[i] = (P - (P / i)) * A[P % i] % P;
+	}
+	dfs(1);
+	printf(&quot;%lld\n&quot;, ans);
+	return 0;
+
+}
+
+
+
+</code></pre>
+<p>B</p>
+<p>考场上用数据结构写了个很能卡的贪心hhh</p>
+<p>但是出题人不一定想的到,数据也很水就过了</p>
+<p>正确做法:</p>
+<p>n为偶数,随便拿走一个变成奇数的情况</p>
+<p>n为奇数,我们按照a排序,然后拿走第一个,</p>
+<p>然后剩下的我们两组两组之间拿走b值较大的那个</p>
+<p>可以证明我们拿走了最大的那个a就能保证我们剩下一定不会卡</p>
+<p>也可以证明因为我们每次都拿了两两较大的b,rank最劣也是倒2,倒4,倒6.....一定大于倒1,倒3....即<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mi>u</mi><mi>m</mi><mi mathvariant="normal">/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">sum/2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">u</span><span class="mord mathdefault">m</span><span class="mord">/</span><span class="mord">2</span></span></span></span></p>
+<p>code:</p>
+<pre><code class="language-cpp">
+#include&lt;bits/stdc++.h&gt;
+#define ll long long
+using namespace std;
+const int MAXN = 1e6 + 7;
+int n;
+ll S1, S2;
+struct rec {
+	int x, y, id;
+	bool operator&lt;(const rec &amp;w)const {
+		return x &gt; w.x;
+	}
+} a[MAXN];
+
+int main() {
+	scanf(&quot;%d&quot;, &amp;n);
+	for(int i = 1; i &lt;= n; ++i) {
+		scanf(&quot;%d&quot;, &amp;a[i].x);
+	}
+	for(int i = 1; i &lt;= n; ++i) {
+		scanf(&quot;%d&quot;, &amp;a[i].y);
+		a[i].id = i;
+	}
+	sort(a + 1, a + n + 1);
+	int i = 0;
+	printf(&quot;%d\n&quot;, n / 2 + 1);
+	if(!(n &amp; 1)) {
+		printf(&quot;%d %d &quot;, a[1].id, a[2].id);
+		i = 3;
+	} else {
+		printf(&quot;%d &quot;, a[1].id);
+		i = 2;
+	}
+	for(; i &lt;= n; i += 2) {
+		if(a[i].y &gt;= a[i + 1].y) {
+			printf(&quot;%d &quot;, a[i].id);
+		} else {
+			printf(&quot;%d &quot;, a[i + 1].id);
+		}
+	}
+	puts(&quot;&quot;);
+	return 0;
+}
+
+
+</code></pre>
+<p>C</p>
+<p>二分之后限制二变成了子树内至多有一些点能染色</p>
+<p>然后我们按照这个range的性质dp去判断可不可行</p>
+<p>细节有一堆</p>
+<ol>
+<li>上界更新的时候注意+1</li>
+<li>不要阴间的重设上界范围</li>
+<li>注意判断siz和down大小范围,all和up的范围</li>
+</ol>
+<p>坑死了,因为造不出很强的数据所以过拍不过题调了好久</p>
+<p>code:</p>
+<pre><code class="language-cpp">
+#include&lt;bits/stdc++.h&gt;
+#define int long long
+using namespace std;
+const int MAXN = 3e5 + 7;
+const int inf = 1e9 + 7;
+int n, ccnt, home[MAXN], nxt[MAXN], to[MAXN];
+int up[MAXN], down[MAXN], A, B, g[MAXN];
+int f[MAXN], flg, siz[MAXN], all,rc[MAXN];
+inline void ct(int x, int y) {
+	ccnt++;
+	nxt[ccnt] = home[x];
+	home[x] = ccnt;
+	to[ccnt] = y;
+}
+
+inline void dfs1(int u, int F) {
+	siz[u] = 1;
+	for(int i = home[u]; i; i = nxt[i]) {
+		int v = to[i];
+		if(v == F)continue;
+		dfs1(v, u);
+		siz[u] += siz[v];
+	}
+	if(n - siz[u] &lt; up[u]) {
+		flg = 0;
+	}
+	return ;
+}
+
+inline void dfs(int u, int F) {
+	bool tflg = 0;
+	int tmp = 1;
+	for(int i = home[u]; i; i = nxt[i]) {
+		int v = to[i];
+		if(v == F)continue;
+		dfs(v, u);
+		f[u] += f[v];
+		tmp += up[v];
+	}
+	up[u] = min(tmp, up[u]);
+	if(f[u] &lt; down[u])
+		f[u] = down[u];
+	if(f[u] &gt; siz[u])flg = 0;
+	if(f[u] &gt; up[u] || f[u] &gt; all)flg = 0;
+	return;
+}
+
+inline int chk(int x) {
+	all = x;
+	for(int i = 1; i &lt;= n; ++i) {
+		rc[i] = up[i];
+		up[i] = x - up[i];
+	}
+	memset(f, 0, sizeof(f));
+	memset(g, 0, sizeof(g));
+	flg = 1;
+	dfs(1, 0);
+	if(x &gt; up[1]) flg=0;
+	for(int i = 1; i &lt;= n; ++i) {
+		up[i] = rc[i];
+	}
+	return flg;
+}
+
+inline void solve() {
+	int l = 0, r = n + 1, ans = -1, mid = 1;
+	for(int i = 1; i &lt;= n; ++i) {
+		l = max(l, down[i] + up[i]);
+	}
+	while(l &lt;= r) {
+		mid = (l + r) &gt;&gt; 1;
+		if(chk(mid)) {
+			r = mid - 1;
+			ans = mid;
+		} else {
+			l = mid + 1;
+		}
+	}
+	printf(&quot;%lld\n&quot;, ans);
+	return;
+}
+
+signed main() {
+	scanf(&quot;%lld&quot;, &amp;n);
+	for(int i = 1, x, y; i &lt; n; ++i) {
+		scanf(&quot;%lld%lld&quot;, &amp;x, &amp;y);
+		ct(x, y);
+		ct(y, x);
+	}
+	scanf(&quot;%lld&quot;, &amp;A);
+	for(int i = 1, x, y; i &lt;= A; ++i) {
+		scanf(&quot;%lld%lld&quot;, &amp;x, &amp;y);
+		down[x] = max(down[x], y);
+	}
+	scanf(&quot;%lld&quot;, &amp;B);
+	for(int i = 1, x, y; i &lt;= B; ++i) {
+		scanf(&quot;%lld%lld&quot;, &amp;x, &amp;y);
+		up[x] = max(up[x], y);
+	}
+	flg = 1;
+	dfs1(1, 0);
+	if(!flg)return puts(&quot;-1&quot;), 0;
+	solve();
+	return 0;
+}
+
+/*
+
+3
+1 3
+1 2
+1 4
+0
+3
+2 3
+3 2
+4 2
+
+
+*/
+
+
+</code></pre>
+<p>D</p>
+<p>博弈论+计数dp</p>
+<p>非常烦啊</p>
+<p>首先预处理两个数组g[0/1][x][i]表示alice/bob在x子树任意总方案(包括染色方案和重儿子选择方案)下保证权值小于等于i的方案数,这个方案可以不均衡</p>
+<p>转移:,以alice层为例</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>g</mi><mo>[</mo><mn>1</mn><mo>]</mo><mo>[</mo><mi>x</mi><mo>]</mo><mo>[</mo><mi>i</mi><mo>]</mo><mo>=</mo><mi>g</mi><mo>[</mo><mn>1</mn><mo>]</mo><mo>[</mo><mi>l</mi><mi>s</mi><mo>]</mo><mo>[</mo><mi>i</mi><mo>]</mo><mo>∗</mo><mi>a</mi><mo>[</mo><mi>r</mi><mi>s</mi><mo>]</mo><mo>+</mo><mi>g</mi><mo>[</mo><mn>1</mn><mo>]</mo><mo>[</mo><mi>r</mi><mi>s</mi><mo>]</mo><mo>[</mo><mi>i</mi><mo>]</mo><mo>∗</mo><mi>a</mi><mo>[</mo><mi>l</mi><mi>s</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">g[1][x][i]=g[1][ls][i]*a[rs]+g[1][rs][i]*a[ls]
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mopen">[</span><span class="mord">1</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault">x</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mopen">[</span><span class="mord">1</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">s</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">a</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">s</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mopen">[</span><span class="mord">1</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">s</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">a</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">s</span><span class="mclose">]</span></span></span></span></span></p>
+<p>a数组是任意选择的方案数(不限制权值)</p>
+<p>表示我们Alice在转移的时候可以选择左子树走下去也可以选择右子树走下去</p>
+<p>但是我们选择什么就是什么,所以另一颗子树随便选择</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>g</mi><mo>[</mo><mn>2</mn><mo>]</mo><mo>[</mo><mi>x</mi><mo>]</mo><mo>[</mo><mi>i</mi><mo>]</mo><mo>=</mo><mn>2</mn><mo>∗</mo><mi>g</mi><mo>[</mo><mn>2</mn><mo>]</mo><mo>[</mo><mi>l</mi><mi>s</mi><mo>]</mo><mo>[</mo><mi>i</mi><mo>]</mo><mo>∗</mo><mi>g</mi><mo>[</mo><mn>2</mn><mo>]</mo><mo>[</mo><mi>r</mi><mi>s</mi><mo>]</mo><mo>[</mo><mi>i</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">g[2][x][i]=2*g[2][ls][i]*g[2][rs][i]
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mopen">[</span><span class="mord">2</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault">x</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mopen">[</span><span class="mord">2</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">s</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mopen">[</span><span class="mord">2</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">s</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span></span></span></span></span></p>
+<p>表示我们bob在转移时,左右子树必须都能够<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>&lt;</mo><mo>=</mo><mi>i</mi></mrow><annotation encoding="application/x-tex">&lt;=i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&lt;</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span>否则一切换可能会导致最后走下去权值变大</p>
+<p>然后处理f数组<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>f</mi><mrow><mn>0</mn><mi mathvariant="normal">/</mi><mn>1</mn><mo separator="true">,</mo><mi>i</mi><mo separator="true">,</mo><mi>x</mi></mrow></msub></mrow><annotation encoding="application/x-tex">f_{0/1,i,x}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.04964em;vertical-align:-0.3551999999999999em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.34480000000000005em;"><span style="top:-2.5198em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">0</span><span class="mord mtight">/</span><span class="mord mtight">1</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight">i</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight">x</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3551999999999999em;"><span></span></span></span></span></span></span></span></span></span>表示alice/bob从上到下走到点x,权值等于i的均衡方案数</p>
+<p>转移的时候(假设我们在转移)我们会发现,如果这个正好是他的层,就直接从上面继承下来就好了</p>
+<p>否则我们可能要面临对手切换子树的风险,所以要保证另一颗子树走下去权值不会超过i</p>
+<p>也就是乘上<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>g</mi><mrow><mn>0</mn><mi mathvariant="normal">/</mi><mn>1</mn><mo separator="true">,</mo><mi>i</mi><mo separator="true">,</mo><mi>r</mi><mi>s</mi></mrow></msub></mrow><annotation encoding="application/x-tex">g_{0/1,i,rs}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7857599999999999em;vertical-align:-0.3551999999999999em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.34480000000000005em;"><span style="top:-2.5198em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">0</span><span class="mord mtight">/</span><span class="mord mtight">1</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight">i</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight" style="margin-right:0.02778em;">r</span><span class="mord mathdefault mtight">s</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3551999999999999em;"><span></span></span></span></span></span></span></span></span></span></p>
+<p>最后到叶子的时候,你会发现我们这个方案乘起来一定包括了整棵树的决策,所以只需要f数组求个和然后对应相乘了</p>
+<p>因为我们再alice层只会让bob去计算另一颗子树的选择方案,而在bob层只会让alice算,那么和你的第二维没关系,之和你这条链长啥样有关</p>
+<p>复杂度<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mi>k</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(nk)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mclose">)</span></span></span></span></p>
+<p>code:</p>
+<pre><code class="language-cpp">
+#include&lt;bits/stdc++.h&gt;
+#define ll long long
+using namespace std;
+const int P = 998244353;
+const int MAXN = 5e3 + 7;
+int n, K, ans;
+int dep[MAXN], fa[MAXN], ls[MAXN], rs[MAXN];
+int g[3][MAXN][MAXN], f[3][MAXN][MAXN], a[MAXN];
+
+inline void add(int &amp;x, ll y) {
+	x = x + y &gt; P ? (x + y - P) : (x + y);
+}
+
+inline void dfs(int u) {
+	if(!ls[u] &amp;&amp; !rs[u]) {
+		for(int i = 1; i &lt;= K; ++i) {
+			g[1][u][i] = g[2][u][i] = 1ll * i * K % P;
+		}
+		a[u] = 1ll * K * K % P;
+		return ;
+	}
+	dep[ls[u]] = dep[u] + 1;
+	dep[rs[u]] = dep[u] + 1;
+	if(ls[u])dfs(ls[u]);
+	if(rs[u])dfs(rs[u]);
+	a[u] = 2ll * a[ls[u]] % P * a[rs[u]] % P;
+	if(dep[u] &amp; 1) {//奇数,bob
+		for(int i = 1; i &lt;= K; ++i) {
+			add(g[1][u][i], 1ll * g[1][ls[u]][i] * a[rs[u]] % P + 1ll * g[1][rs[u]][i] * a[ls[u]] % P);
+			g[2][u][i] = 2ll * g[2][ls[u]][i] % P * g[2][rs[u]][i] % P;
+		}
+	} else {
+		for(int i = 1; i &lt;= K; ++i) {
+			g[1][u][i] = 2ll * g[1][ls[u]][i] % P * g[1][rs[u]][i] % P;
+			add(g[2][u][i], 1ll * g[2][ls[u]][i] * a[rs[u]] % P + 1ll * g[2][rs[u]][i] * a[ls[u]] % P);
+		}
+	}
+	return ;
+}
+
+inline void dfs2(int u) {
+	if(!ls[u] &amp;&amp; !rs[u]) {
+		int suma = 0, sumb = 0;
+		for(int i = 1; i &lt;= K; ++i) {
+			add(suma, f[1][u][i]);
+			add(sumb, f[2][u][i]);
+		}
+		add(ans, 1ll * suma * sumb % P);
+		return ;
+	}
+	if(dep[u] &amp; 1) {
+		for(int i = 1; i &lt;= K; ++i) {
+			f[1][rs[u]][i] = f[1][ls[u]][i] = f[1][u][i];
+			f[2][ls[u]][i] = 1ll * f[2][u][i] * g[2][rs[u]][i] % P;
+			f[2][rs[u]][i] = 1ll * f[2][u][i] * g[2][ls[u]][i] % P;
+		}
+	} else {
+		for(int i = 1; i &lt;= K; ++i) {
+			f[2][rs[u]][i] = f[2][ls[u]][i] = f[2][u][i];
+			f[1][ls[u]][i] = 1ll * f[1][u][i] * g[1][rs[u]][i] % P;
+			f[1][rs[u]][i] = 1ll * f[1][u][i] * g[1][ls[u]][i] % P;
+		}
+	}
+	if(ls[u])dfs2(ls[u]);
+	if(rs[u])dfs2(rs[u]);
+}
+
+
+int main() {
+	scanf(&quot;%d%d&quot;, &amp;n, &amp;K);
+	for(int i = 2, x; i &lt;= n; ++i) {
+		scanf(&quot;%d&quot;, &amp;x);
+		if(!ls[x])ls[x] = i;
+		else rs[x] = i;
+	}
+	dfs(1);
+	for(int i = 1; i &lt;= K; ++i)f[1][1][i] = f[2][1][i] = 1;
+	dfs2(1);
+	printf(&quot;%d\n&quot;, ans);
+	return 0;
+}
+
+
+
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[ZR2020提高组十连测day3]]></title>
+        <id>https://xiaxiaoguang.github.io/post/zr2020-ti-gao-zu-shi-lian-ce-day3/</id>
+        <link href="https://xiaxiaoguang.github.io/post/zr2020-ti-gao-zu-shi-lian-ce-day3/">
+        </link>
+        <updated>2020-09-13T08:11:00.000Z</updated>
+        <content type="html"><![CDATA[<p>锅是锅了,但是还是有本质很好的题目的...</p>
+<p>出锅原因:</p>
+<ol>
+<li>数据和题面不符</li>
+<li>二三题数据随机,导致暴力与正解一样</li>
+</ol>
+<p>A</p>
+<p>有毒</p>
+<p>我们会发现,本质上就是求一个图的染色方案,使得异色边数最大....大于m/2</p>
+<p>做法很简单,直接dfs实现二分图染色即可,然后如果一遍不行我们randomshuffle存图顺序多dfs几遍</p>
+<p>其实有个结论是如果我们二分图染色能做到每个奇环只有一条边是没有用的...</p>
+<p>而奇环最小三个边</p>
+<p>而且这样我们就有重复的边,如果选了一个包含了多个奇环就能变得很优....</p>
+<p>当然这个最优化是NPh的</p>
+<p>code:</p>
+<pre><code class="language-cpp">
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const int MAXN = 1e6 + 7;
+const int MAXM = 2e6 + 7;
+
+int n, m, ccnt, ans;
+int home[MAXN], nxt[MAXM], to[MAXM];
+int eu[MAXM], ev[MAXM], col[MAXN];
+
+struct rec {
+	int u, v;
+} e[MAXM];
+
+inline void ct(int x, int y) {
+	ccnt++;
+	nxt[ccnt] = home[x];
+	home[x] = ccnt;
+	to[ccnt] = y;
+}
+
+inline void dfs(int u) {
+	for(int i = home[u]; i; i = nxt[i]) {
+		int v = to[i];
+		if(!col[v]) {
+			col[v] = -col[u];
+			dfs(v);
+		}
+	}
+}
+
+inline void solve() {
+	ccnt = 0;
+	memset(home, 0, sizeof(home));
+	for(int i = 1; i &lt;= m; ++i) {
+		ct(e[i].u, e[i].v);
+		ct(e[i].v, e[i].u);
+	}
+	memset(col, 0, sizeof(col));
+	for(int i = 1; i &lt;= n; ++i) {
+		if(!col[i]) {
+			col[i] = 1;
+			dfs(i);
+		}
+	}
+	int cnt = 0;
+	for(int i = 1; i &lt;= m; ++i) {
+		if(col[e[i].u] != col[e[i].v]) {
+			cnt++;
+		}
+	}
+	if(cnt &gt; m / 2) {
+		// for(int i = 1; i &lt;= n; ++i) {
+		// 	printf(&quot;%d %d\n&quot;, i, col[i]);
+		// }
+		ans = 1;
+	}
+	return ;
+}
+
+int main() {
+	// freopen(&quot;test.in&quot;, &quot;r&quot;, stdin);
+	// freopen(&quot;test.out&quot;, &quot;w&quot;, stdout);
+	scanf(&quot;%d%d&quot;, &amp;n, &amp;m);
+	if(m == 0) {
+		puts(&quot;No&quot;);
+		return 0;
+	}
+	for(int i = 1; i &lt;= m; ++i) {
+		scanf(&quot;%d%d&quot;, &amp;e[i].u, &amp;e[i].v);
+	}
+	for(int i = 1; i &lt;= 17; ++i) {
+		random_shuffle(e + 1, e + m + 1);
+		solve();
+		if(ans)break;
+	}
+	if(ans)
+		printf(&quot;Yes\n&quot;);
+	else printf(&quot;No\n&quot;);
+	return 0;
+}
+
+
+
+</code></pre>
+<p>B</p>
+<p>不需要构造方案不够妙啊!</p>
+<p>但是本质上还是很妙的</p>
+<p>我们观察一下,交换更简化的是什么</p>
+<p>k=3</p>
+<p>000101<br>
+-&gt;<br>
+101000</p>
+<p>可以通过把错位k来把有些1搞过去,操作前提是我们有连续k个空格0</p>
+<p>啊!你会发现这个相当于一个翻转操作啊</p>
+<p>所以说我们一定可以把连续长为k的一段相同的和然后把一段长度小于等于k的随意位置搞到前面去</p>
+<p>所以我们可以先把所有的空白段移动到最后然后看前面那些不是空白段的是不是完全匹配</p>
+<p>因为如果不一样我们没法动就暴毙了</p>
+<p>做法很简单,我们开一个栈然后把长度等于k的平移消除掉就好了,因为他们相当于没用了</p>
+<p>code:</p>
+<pre><code class="language-cpp">
+
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const int MAXN = 1e6 + 7;
+int T, n, k;
+char s1[MAXN], s[MAXN], t1[MAXN], t[MAXN];
+
+inline void init(char *str, char *res, int &amp;x) {
+	static int len[MAXN], st[MAXN];
+	x = 0;
+	st[0] = -1;
+	len[0] = 0;
+	for(int i = 1; i &lt;= n; ++i) {
+		++x;
+		res[x] = str[i];
+		if(str[i] - 'a' == st[x - 1]) {
+			len[x] = len[x - 1] + 1;
+			st[x] = st[x - 1];
+		} else {
+			len[x] = 1;
+			st[x] = str[i] - 'a';
+		}
+		while(x &gt; 0 &amp;&amp; len[x] == k) {
+			x -= k;
+		}
+	}
+}
+
+inline void solve() {
+	scanf(&quot;%d%d&quot;, &amp;n, &amp;k);
+	scanf(&quot;%s%s&quot;, s + 1, t + 1);
+	int sl = 0, tl = 0;
+	init(s, s1, sl);
+	init(t, t1, tl);
+	bool flg = sl == tl;
+	for(int i = 1; i &lt;= tl; ++i) {
+		flg &amp;= (s1[i] == t1[i]);
+	}
+	if(flg)puts(&quot;Yes&quot;);
+	else puts(&quot;No&quot;);
+}
+
+int main() {
+	// freopen(&quot;test.in&quot;, &quot;r&quot;, stdin);
+	scanf(&quot;%d&quot;, &amp;T);
+	while(T-- &gt; 0) {
+		solve();
+	}
+	return 0;
+}
+
+
+</code></pre>
+<p>C</p>
+<p>考虑直接计数</p>
+<p>你会发现只有两两之间的差一起取gcd,然后得到的d的所有的因数可能成为答案</p>
+<p>然后要判断这个约数可不可以合法,就是能不能过被卡的位置</p>
+<p>首先但凡中间的一定不行,因为我们就不能同时过开头和结尾了</p>
+<p>判断条件是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mi>t</mi><mo>+</mo><mi>k</mi><mi>b</mi><mo>=</mo><mo>=</mo><mi>j</mi></mrow><annotation encoding="application/x-tex">st+kb==j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69841em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord mathdefault">b</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span></span></span></span>-&gt;<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mi>t</mi><mo>=</mo><mo>=</mo><mi>j</mi><mo>(</mo><mi>m</mi><mi>o</mi><mi>d</mi><mi>b</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">st==j(mod b)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mopen">(</span><span class="mord mathdefault">m</span><span class="mord mathdefault">o</span><span class="mord mathdefault">d</span><span class="mord mathdefault">b</span><span class="mclose">)</span></span></span></span></p>
+<p>然后两边的就有毒,他会限制我们合法序列的数量....</p>
+<p>仔细思考一下应该可</p>
+<p>如果两个数<span class="katex"><span class="katex-mathml"><math><semantics><mrow></mrow><annotation encoding="application/x-tex">%b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"></span></span>同余就能限制</p>
+<p>那么就是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>s</mi><mi>t</mi><mo>−</mo><mi>x</mi><mo>−</mo><mn>1</mn><mo>)</mo><mi mathvariant="normal">/</mi><mi>x</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">(st-x-1)/x+1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mord">/</span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span></p>
+<p>暴力实现上面的</p>
+<p>复杂度显然是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>d</mi><mo>(</mo><mi>n</mi><mo>)</mo><mi>m</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(d(n)m)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">d</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span><span class="mord mathdefault">m</span><span class="mclose">)</span></span></span></span></p>
+<p>std:</p>
+<p>复杂度在两个方面,计算合法的序列,判断合法的约数</p>
+<p>对于第一步,我们可以lowerbound!</p>
+<p>对于第二步,我们可以压所有的质因数指数然后dp,因为一个不合法他的子集就都不合法....</p>
+<p>具体的:我们可以用一个dfs类似的东西传导一下我们的限制和前后limit</p>
+<p>std:</p>
+<p>code:</p>
+<pre><code class="language-cpp">
+#include &lt;bits/stdc++.h&gt;
+#define rep(i, a, b) for (int i = (a); i &lt;= int(b); i++)
+#define per(i, a, b) for (int i = (a); i &gt;= int(b); i--)
+#define fir first
+#define sec second
+#define tct template&lt;class type&gt;
+using namespace std;
+
+typedef long long ll;
+typedef pair&lt;int, int&gt; P;
+const int maxn = 1e5, maxm = 2e6, mod = 1e9 + 7;
+int m, c, q[maxn + 5], S[maxn + 5], T, C[maxm + 5];
+ll N, K, p[maxn + 5], lst[maxn + 5], nxt[maxn + 5], A[maxm + 5], B[maxm + 5], Num[maxm + 5];
+
+inline void red(int &amp;x) {
+	x += x &gt;&gt; 31 &amp; mod;
+}
+tct inline void cmax(type &amp;x, type y) {
+	x &lt; y ? x = y : 0;
+}
+tct inline void cmin(type &amp;x, type y) {
+	x &gt; y ? x = y : 0;
+}
+
+struct event {
+	int t; ll x;
+	bool operator &lt; (const event &amp;o) const {
+		return x &lt; o.x;
+	}
+} ev[maxn + 5];
+
+ll gcd(ll a, ll b) {
+	return b ? gcd(b, a % b) : a;
+}
+
+void work(ll N) {
+	for (ll i = 2; i * i &lt;= N; i++) if (N % i == 0) {
+			p[++c] = i;
+			while (N % i == 0) N /= i, q[c]++;
+		}
+	if (N &gt; 1) p[++c] = N, q[c] = 1;
+}
+
+map&lt;ll, int&gt; M;
+
+void dfs(int x, ll y, int z) {
+	if (x == c + 1) {//预处理所有约数
+		M[y] = z;
+		Num[z] = y;
+		return;
+	}
+	z *= q[x] + 1;
+	dfs(x + 1, y, z);
+	rep(i, 1, q[x]) {
+		y *= p[x];
+		dfs(x + 1, y, z + i);
+	}
+}
+
+void dfs0(int x, int z, int y) {
+	if (x == c + 1) {//传导
+		cmax(A[z], A[z + S[y]]);
+		cmin(B[z], B[z + S[y]]);
+		C[z] |= C[z + S[y]];
+		return;
+	}
+	z *= q[x] + 1;
+	per(i, q[x], 0) {
+		if (i == q[x] &amp;&amp; x == y) continue;
+		dfs0(x + 1, z + i, y);
+	}
+}
+
+int main() {
+	scanf(&quot;%lld %d&quot;, &amp;N, &amp;m);
+	rep(i, 1, m) scanf(&quot;%d %lld&quot;, &amp;ev[i].t, &amp;ev[i].x);
+	sort(ev + 1, ev + m + 1);
+	ll x = 0, mx = 0, mn = N + 1;
+	rep(i, 1, m) if (ev[i].t == 1) {
+		if (x) K = gcd(K, ev[i].x - x);
+		x = ev[i].x;
+		cmax(mx, ev[i].x), cmin(mn, ev[i].x);
+	}
+	x = 0;
+	rep(i, 1, m) {
+		if (ev[i].t == 0) lst[i] = x;
+		else x = ev[i].x;
+	}
+	x = N + 1;
+	per(i, m, 1) {
+		if (ev[i].t == 0) nxt[i] = x;
+		else x = ev[i].x;
+	}
+	work(K);
+	dfs(1, 1, 0);
+	S[c] = 1;
+	per(i, c, 1) S[i - 1] = S[i] * (q[i] + 1);
+	T = S[0];
+	fill(B, B + T, N + 1);
+	rep(i, 1, m) if (ev[i].t == 0) {
+		if (!lst[i]) {
+			cmax(A[M[gcd(K, nxt[i] - ev[i].x)]], ev[i].x);
+		} else if (nxt[i] == N + 1) {
+			cmin(B[M[gcd(K, ev[i].x - lst[i])]], ev[i].x);
+		} else {
+			C[M[gcd(K, gcd(nxt[i] - ev[i].x, ev[i].x - lst[i]))]] = 1;
+		}
+	}
+	rep(i, 1, c) dfs0(1, 0, i);
+	int res = 0;
+	rep(i, 0, T - 1) if (!C[i]) {
+		ll x = (mn - A[i] - 1) / Num[i] + 1;
+		ll y = (B[i] - 1 - mx) / Num[i] + 1;
+		res = (res + x % mod * y % mod) % mod;
+	}
+	printf(&quot;%d\n&quot;, res);
+	return 0;
+}
+
+
+
+</code></pre>
+<p>数据太水了</p>
+<p>code:</p>
+<pre><code class="language-cpp">
+
+#include&lt;bits/stdc++.h&gt;
+#define ll long long
+using namespace std;
+const int MAXN = 1e6 + 7;
+const int P = 1e9 + 7;
+int m, T1, T2;
+ll N, ans, tot, cnt[MAXN];
+struct  rec {
+	ll id, x;
+	bool operator&lt;(const rec &amp;w)const {
+		return x &lt; w.x;
+	}
+} a[MAXN], b[MAXN], c[MAXN];
+int vis[MAXN];
+
+
+inline ll gcd(ll x, ll y) {
+	return y == 0 ? x : gcd(y, x % y);
+}
+
+inline void solve(ll x) {
+	ll rc1 = 0, rc2 = 0;
+	// for(int i = 0; i &lt;= x; ++i)vvis[i] = 0;
+	ll tmp1 = 0;
+	for(int i = 1; i &lt;= T1; ++i) {
+		if(b[i].x &gt; c[1].x) {
+			break;
+		} else {
+			if(b[i].x % x == c[1].x % x)
+				tmp1 = b[i].x;
+		}
+	}
+	// printf(&quot;c1 %lld\n&quot;, tmp1);
+	rc1 = (c[1].x - tmp1 - 1) / x + 1;
+	ll tmp2 = N + 1;
+	for(int i = T1; i &gt;= 1; --i) {
+		if(b[i].x &lt; c[T2].x) {
+			break;
+		} else {
+			if(b[i].x % x == c[T2].x % x)
+				tmp2 = b[i].x;
+		}
+	}
+	// printf(&quot;c2 %lld\n&quot;, tmp2);
+	rc2 = (tmp2 - c[T2].x - 1) / x + 1;
+	if(tmp2 == N - N % x + c[1].x % x)rc2 += ((N - c[T2].x) % x == 0);
+	// printf(&quot;QAQ%lld??%lld %lld %lld %lld\n&quot;, x, rc1, rc2, c[1].x / x + 1, ((N - c[T2].x) / x + 1));
+	ans += rc1 * rc2 % P;
+	ans %= P;
+}
+
+inline void build(ll x) {
+	for(ll i = 1; i * i &lt;= x; ++i) {
+		if(x % i == 0) {
+			cnt[++tot] = i;
+			if(i * i != x) {
+				cnt[++tot] = x / i;
+			}
+		}
+	}
+	sort(cnt + 1, cnt + tot + 1);
+	for(int i = 1; i &lt;= tot; ++i) {
+		bool flg = 1;
+		if(vis[i])continue;
+		// printf(&quot;%lld??\n&quot;, cnt[i]);
+		for(int k = 1; k &lt;= m; ++k) {
+			if((a[k].id == 1) &amp;&amp; ((a[k].x % cnt[i] != c[1].x % cnt[i]) || (c[1].x &gt; a[k].x))) {
+				// printf(&quot;%d?\n&quot;, k);
+				flg = 0;
+			}
+			if((a[k].id == 0) &amp;&amp; (a[k].x % cnt[i] == c[1].x % cnt[i]) &amp;&amp; ((c[1].x &lt; a[k].x) &amp;&amp; (c[T2].x &gt; a[k].x))) {
+				// printf(&quot;%d!%lld %lld\n&quot;, k, c[1].x, a[k].x);
+				flg = 0;
+			}
+			if(!flg)break;
+		}
+		if(flg) {
+			// printf(&quot;qwq\n&quot;);
+			for(int j = i; j &lt;= tot; ++j) {
+				if(cnt[j] % cnt[i] == 0 &amp;&amp; !vis[j]) {
+					solve(cnt[j]);
+					vis[j] = 1;
+				}
+			}
+		}
+	}
+	return ;
+}
+
+int main() {
+	// freopen(&quot;test.in&quot;, &quot;r&quot;, stdin);
+	// freopen(&quot;test1.out&quot;, &quot;w&quot;, stdout);
+	scanf(&quot;%lld%d&quot;, &amp;N, &amp;m);
+	for(int i = 1; i &lt;= m; ++i) {
+		scanf(&quot;%lld%lld&quot;, &amp;a[i].id, &amp;a[i].x);
+		if(a[i].id == 0) {
+			b[++T1] = a[i];
+		} else {
+			c[++T2] = a[i];
+		}
+	}
+	sort(a + 1, a + m + 1);
+	// for(int i = 1; i &lt;= m; ++i) {
+	// 	printf(&quot;%lld %lld\n&quot;, a[i].id, a[i].x);
+	// }
+	sort(b + 1, b + T1 + 1);
+	sort(c + 1, c + T2 + 1);
+	ll tmp1 = 1;
+	tmp1 = c[2].x - c[1].x;
+	for(int i = 2; i &lt; T2; ++i) {
+		// printf(&quot;%lld %lld\n&quot;, tmp1, c[i + 1].x - c[i].x);
+		tmp1 = gcd(tmp1, c[i + 1].x - c[i].x);
+		//预处理
+	}
+	// printf(&quot;%lld\n&quot;, tmp1);
+	build(tmp1);//建图
+	printf(&quot;%lld\n&quot;, ans);
+	return 0;
+}
+
+
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[20zr普及组五连测day1]]></title>
         <id>https://xiaxiaoguang.github.io/post/20zr-pu-ji-zu-wu-lian-ce-day1/</id>
@@ -1478,218 +2304,6 @@ int main() {
 
 </code></pre>
 <p>比起插头DP就是大巫见小巫吧</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[CF161C Abracadabra]]></title>
-        <id>https://xiaxiaoguang.github.io/post/cf161c-abracadabra/</id>
-        <link href="https://xiaxiaoguang.github.io/post/cf161c-abracadabra/">
-        </link>
-        <updated>2020-09-03T07:46:56.000Z</updated>
-        <content type="html"><![CDATA[<p>分治</p>
-<p>很恶心的那种</p>
-<p>观察到我们每一层都是一个回文串而且回文中心很显然,又因为每次变小一半,所以可以考虑分治</p>
-<p>我们首先把两个区间分成四类情况</p>
-<ol>
-<li>都在左/右边区间</li>
-</ol>
-<p>解决方法直接递归即可</p>
-<ol start="2">
-<li>分在左右两侧</li>
-</ol>
-<p>解决方法把一个按照回文串的性质对称到另一侧即可</p>
-<ol start="3">
-<li>两个都过了中间</li>
-</ol>
-<p>解决方法把能匹配的位置匹配掉,然后挂到两个串的左右,表示前继匹配长度</p>
-<ol start="4">
-<li>一个过了中间</li>
-</ol>
-<p>解决方法把小的翻到大的一侧,因为你会发现匹配长度一定不会</p>
-<p>于是你qaq因为显然不能很简单的写出来了</p>
-<p>我们考虑把其中本质相同的合并一下</p>
-<p>跨过中间的可以合并成一种情况!</p>
-<p>变成左边和左边的匹配,右边和右边的匹配,那么其实只是用mid去截一半</p>
-<p>写的时候你会发现这个东西可以用四个minmax之类的式子省去分类讨论</p>
-<p>code:</p>
-<pre><code class="language-cpp">
-#include&lt;bits/stdc++.h&gt;
-using namespace std;
-
-int l1, l2, r2, r1, ans;
-inline void solve(int L, int R, int l1, int r1, int l2, int r2, int Lh1, int Rh1, int Lh2, int Rh2) {
-	if(R &lt; L) {
-		ans = max(ans, Lh1);
-		ans = max(ans, Rh1);
-		ans = max(ans, Lh2);
-		ans = max(ans, Rh1);
-		return ;
-	}
-	int mid = (L + R) &gt;&gt; 1;
-	// printf(&quot;%d %d %d %d %d %d %d %d %d %d %d \n&quot;, L, mid, R, l1, r1, l2, r2, Lh1, Rh1, Lh2, Rh2);
-
-	if(r1 &lt; mid &amp;&amp; r2 &lt; mid)solve(L, mid - 1, l1, r1, l2, r2, Lh1, Rh1, Lh2, Rh2);
-	if(l1 &gt; mid &amp;&amp; l2 &gt; mid)solve(L, mid - 1, 2 * mid - r1, 2 * mid - l1, 2 * mid - r2, 2 * mid - l2, Rh1, Lh1, Rh2, Lh2); //第一类,均两侧
-	if(l1 &gt; mid &amp;&amp; r2 &lt; mid)solve(L, mid - 1, 2 * mid - r1, 2 * mid - l1, l2, r2, Rh1, Lh1, Lh2, Rh2);
-	if(l2 &gt; mid &amp;&amp; r1 &lt; mid)solve(L, mid - 1, l1, r1, 2 * mid - r2, 2 * mid - l2, Lh1, Rh1, Rh2, Lh2); //第二类,对折齐
-	//l1小,l2大
-	if(l1 &lt;= mid &amp;&amp; r1 &gt;= mid) {
-		if(l2 &lt;= mid &amp;&amp; r2 &gt;= mid) {//第三类,均居中
-			int tmpl = max(l1, l2);
-			int tmpr = min(r1, r2);
-			if(tmpl == l1)Lh1 += tmpr - tmpl + 1;
-			else Lh2 += tmpr - tmpl + 1;
-			if(tmpr == r1)Rh1 += tmpr - tmpl + 1;
-			else Rh2 += tmpr - tmpl + 1;
-			if((tmpl == l1 &amp;&amp; tmpr == r1) || (tmpl == l2 &amp;&amp; tmpr == r2)) {
-				ans = max(ans, Lh1);
-				ans = max(ans, Rh1);
-				return ;
-			}
-			// printf(&quot;qwq?l1?%d r1?%d l2?%d r2?%d %d %d %d %d %d %d\n&quot;, l1, tmpl - 1, 2 * mid - r2, 2 * mid - (tmpr + 1), tmpl, tmpr, Lh1, Rh1, Lh2, Rh2);
-			// assert(0);
-			solve(L, mid - 1, l1, tmpl - 1, 2 * mid - r2, 2 * mid - (tmpr + 1), Lh1, Rh1, Rh2, Lh2);
-		} else {
-			if(r2 &lt;= mid) {
-				//第四类,小入大
-				if(l1 == r1 &amp;&amp; l1 == mid) {
-					ans = max(ans, Lh1);
-					ans = max(ans, Rh1);
-					return;
-				}
-				// printf(&quot;qWq?l1?%d r1?%d l2?%d r2?%d %d %d %d %d\n&quot;, 2 * mid - r1, 2 * mid - (mid + 1), l2, r2, Lh1, Rh1, Lh2, Rh2);
-				if(r1 - mid + 1 &gt; mid - l1 + 1)solve(L, mid - 1, 2 * mid - r1, 2 * mid - (mid + 1), l2, r2, Rh1, Lh1, Lh2, Rh2);
-				else solve(L, mid - 1, l1, mid - 1, l2, r2, Lh1, Rh1, Lh2, Rh2);
-			} else {
-				if(l1 == r1 &amp;&amp; l1 == mid) {
-					ans = max(ans, Lh1);
-					ans = max(ans, Rh1);
-					return;
-				}
-				// printf(&quot;Qwq?l1?%d r1?%d l2?%d r2?%d %d %d %d %d\n&quot;, 2 * mid - r1, 2 * mid - (mid + 1), 2 * mid - r2, 2 * mid - l2, Lh1, Rh1, Lh2, Rh2);
-				if(r1 - mid + 1 &gt; mid - l1 + 1)solve(L, mid - 1, 2 * mid - r1, 2 * mid - (mid + 1), 2 * mid - r2, 2 * mid - l2, Rh1, Lh1, Rh2, Lh2);
-				else solve(L, mid - 1, l1, mid - 1, 2 * mid - r2, 2 * mid - l2, Lh1, Rh1, Rh2, Lh2);
-			}
-		}
-	} else if(l2 &lt;= mid &amp;&amp; r2 &gt;= mid) {//也是第四类
-		if(r1 &lt;= mid) {
-			if(l2 == r2 &amp;&amp; l2 == mid) {
-				ans = max(ans, Lh1);
-				ans = max(ans, Rh1);
-				return ;
-			}
-			// printf(&quot;qAq?l1?%d r1?%d l2?%d r2?%d %d %d %d %d\n&quot;, l1, r1, 2 * mid - r2, 2 * mid - (mid + 1), Lh1, Rh1, Lh2, Rh2);
-			if(r2 - mid + 1 &gt; mid - l2 + 1)solve(L, mid - 1, l1, r1, 2 * mid - r2, 2 * mid - (mid + 1), Lh1, Rh1, Rh2, Lh2);
-			else solve(L, mid - 1, l1, r1, l2, mid - 1, Lh1, Rh1, Lh2, Rh2);
-		} else {
-			if(l2 == r2 &amp;&amp; l2 == mid) {
-				ans = max(ans, Lh1);
-				ans = max(ans, Rh1);
-				return ;
-			}
-			// printf(&quot;Qaq?l1?%d r1?%d l2?%d r2?%d %d %d %d %d\n&quot;, 2 * mid - r1, 2 * mid - l1, 2 * mid - r2, 2 * mid - (mid + 1), Lh1, Rh1, Lh2, Rh2);
-			if(r2 - mid + 1 &gt; mid - l2 + 1)solve(L, mid - 1, 2 * mid - r1, 2 * mid - l1, 2 * mid - r2, 2 * mid - (mid + 1), Rh1, Lh1, Rh2, Lh2);
-			else solve(L, mid - 1, 2 * mid - r1, 2 * mid - l1, l2, mid - 1, Rh1, Lh1, Lh2, Rh2);
-		}
-	}
-}
-
-inline int solve2(int k, int l1, int r1, int l2, int r2) {
-	printf(&quot;%d %d %d %d\n&quot;, l1, r1, l2, r2);
-	if(r1 - l1 &lt; 0 || r2 - l2 &lt; 0)return 0;
-	int L = max(l1, l2);
-	int R = min(r1, r2);
-	int res = L &lt;= R ? (R - L + 1) : 0;
-	if((l1 &lt;= l2 &amp;&amp; r2 &lt;= r1) || (l2 &lt;= l1 &amp;&amp; r1 &lt;= r2))return res;
-	int mid = (1 &lt;&lt; k);
-	res = max(res, solve2(k - 1, min(l1, mid), min(r1, mid - 1), min(l2, mid), min(r2, mid - 1)));
-	res = max(res, solve2(k - 1, min(l1, mid), min(r1, mid - 1), max(l2, mid + 1) - mid, max(r2, mid) - mid));
-	res = max(res, solve2(k - 1, max(l1, mid + 1) - mid, max(r1, mid) - mid, min(l2, mid), min(r2, mid - 1)));
-	res = max(res, solve2(k - 1, max(l1, mid + 1) - mid, max(r1, mid) - mid, max(l2, mid + 1) - mid, max(r2, mid) - mid));
-	return res;
-}
-
-int main() {
-	scanf(&quot;%d%d%d%d&quot;, &amp;l1, &amp;r1, &amp;l2, &amp;r2);
-	//第几层,左边区间,右边区间
-	printf(&quot;%d\n&quot;, solve2(29, l1, r1, l2, r2));
-	return 0;
-}
-
-
-
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[CF1227G Not Same]]></title>
-        <id>https://xiaxiaoguang.github.io/post/cf1227g-not-same/</id>
-        <link href="https://xiaxiaoguang.github.io/post/cf1227g-not-same/">
-        </link>
-        <updated>2020-09-03T00:21:52.000Z</updated>
-        <content type="html"><![CDATA[<p>QAQ</p>
-<p>构造题,关键是想到我们要去构造那个矩阵</p>
-<p>一开始想了个鬼畜构造法就是向整体减一然后剩下来非零的数跑一个空一个删一个的过程</p>
-<p>就是参照样例一的构造QAQ</p>
-<p>这样不一定有解,比如5 1 1 1 1</p>
-<p>我们整体减1之后就直接暴毙了</p>
-<p>于是我们可以考虑去掉整体减一,直接跑空删的过程,显然也是过不了这个数据的</p>
-<p>所以我们想是不是没有很好利用到n+1和<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">2^n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.664392em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">n</span></span></span></span></span></span></span></span></span></span></span>数量级的差异啊?</p>
-<p>我们线性基一下,每一次都至少钦定一个位置是0,然后其他的1再想办法放入剩下n个空位置</p>
-<p>于是有很显然的想法,第(i,i)为0,然后剩下的我们怎么构造呢?</p>
-<p>随机填充??不太能行吧?QAQ</p>
-<p>说完我就写了一下,第三个样例都过不了/cy</p>
-<p>而且存在卡的定法,就是一堆1,只要随到两组两个1在同一个pos就没了</p>
-<p>确定性构造其实很简单,首先从大到小排序,我们还是钦定那个位置是0,然后从i+1行开始填1,一直填<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>a</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">a_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>个1,超过了n+1就回到1</p>
-<p>证明:</p>
-<p>如果我们存在两行相同,设为i,j两行,其中j&gt;i,那么因为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>a</mi><mi>i</mi></msub><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">a_i&gt;1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6891em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>我们必然有(j,j)位置左边那个数为1,因为j-1行满足了(j-1,j-1)为0</p>
-<p>然后我们显然(j-i,i)也必然要是1,而又因为我们第(i,i)个位置是0,第(j,i)个位置也是0,所以这个j-1位置上的数必然要满足大于<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>a</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">a_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>位置上的数,所以在<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>j</mi><mo>−</mo><mi>i</mi><mo>−</mo><mn>1</mn><mo>&lt;</mo><mi>i</mi><mo>−</mo><mn>1</mn><mo>+</mo><mi>n</mi><mo>−</mo><mi>j</mi></mrow><annotation encoding="application/x-tex">j-i-1&lt;i-1+n-j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.74285em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68354em;vertical-align:-0.0391em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.74285em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span></span></span></span>时候就成立了</p>
-<p>而当大于时,即中间空白更多的时候,我们会神奇的发现<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>j</mi><mo>−</mo><mn>1</mn><mo separator="true">,</mo><mi>j</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">(j -1,j)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mclose">)</span></span></span></span>位置上的数至少要为2(选取i,j为第一行最后一行时)</p>
-<p>那么<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>j</mi><mo>−</mo><mn>2</mn><mo separator="true">,</mo><mi>i</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">(j-2,i)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">i</span><span class="mclose">)</span></span></span></span>位置上的数也至少要为2,所以他也会在j行有一个1,然后i行又要多出1.....</p>
-<p>这样反推下去你会发现我们每一行位置上都要有一个1,而(i,i)位置绝对是0,所以就矛盾了,所以两行的数在大于时也不能相同</p>
-<p>code:</p>
-<pre><code class="language-cpp">
-
-#include&lt;bits/stdc++.h&gt;
-using namespace std;
-const int MAXN = 1e3 + 7;
-int n, l, tot;
-struct rec {
-	int a, id;
-	bool operator&lt;(const rec &amp;x)const {
-		return a &gt; x.a;
-	}
-} a[MAXN];
-int ans[MAXN][MAXN];
-
-int main() {
-	scanf(&quot;%d&quot;, &amp;n);
-	for(int i = 1; i &lt;= n; ++i) {
-		scanf(&quot;%d&quot;, &amp;a[i].a);
-		a[i].id = i;
-	}
-	sort(a + 1, a + n + 1);
-	for(int i = 1; i &lt;= n; ++i) {
-		int p = i % (n + 1);
-		if(p == 0)p = 1;
-		for(int cnt = 1; cnt &lt;= n + 1; ++cnt) {
-			p = p % (n + 1) + 1;
-			ans[p][a[i].id] = 1;
-			a[i].a--;
-			if(a[i].a == 0)break;
-		}
-	}
-	printf(&quot;%d\n&quot;, n + 1);
-	for(int i = 1; i &lt;= n + 1; ++i) {
-		for(int j = 1; j &lt;= n; ++j) {
-			printf(&quot;%d&quot;, ans[i][j]);
-		}
-		puts(&quot;&quot;);
-	}
-	return 0;
-}
-
-</code></pre>
 ]]></content>
     </entry>
 </feed>

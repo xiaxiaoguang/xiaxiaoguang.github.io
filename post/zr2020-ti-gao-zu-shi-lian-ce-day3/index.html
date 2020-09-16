@@ -1,0 +1,664 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ZR2020提高组十连测day3 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1600265795779">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="ZR2020提高组十连测day3 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="锅是锅了,但是还是有本质很好的题目的...
+出锅原因:
+
+数据和题面不符
+二三题数据随机,导致暴力与正解一样
+
+A
+有毒
+我们会发现,本质上就是求一个图的染色方案,使得异色边数最大....大于m/2
+做法很简单,直接dfs实现二分图染色即可..." />
+    <meta name="keywords" content="乱搞,计数题,比赛题,构造,动态规划" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1600265795779" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              ZR2020提高组十连测day3
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-09-13
+              </span>
+              <span>
+                13 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/NH8qBUraXa/" class="post-tag">
+                  # 乱搞
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/JP89ddpfS/" class="post-tag">
+                  # 计数题
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/A3FIICRYA/" class="post-tag">
+                  # 比赛题
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/nuL1JOWcod/" class="post-tag">
+                  # 构造
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/CJ-ugjBAY/" class="post-tag">
+                  # 动态规划
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/45NBuzDIW489QBoVep5mcWlhPcV.XjKP9koSbCQh4U9ZR8Vcv6UvxP5GnAb9O2q5C2u56zqvwzL3VnJqXRxnbfFYPMsRUfZoBhbQKDnLb4k!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>锅是锅了,但是还是有本质很好的题目的...</p>
+<p>出锅原因:</p>
+<ol>
+<li>数据和题面不符</li>
+<li>二三题数据随机,导致暴力与正解一样</li>
+</ol>
+<p>A</p>
+<p>有毒</p>
+<p>我们会发现,本质上就是求一个图的染色方案,使得异色边数最大....大于m/2</p>
+<p>做法很简单,直接dfs实现二分图染色即可,然后如果一遍不行我们randomshuffle存图顺序多dfs几遍</p>
+<p>其实有个结论是如果我们二分图染色能做到每个奇环只有一条边是没有用的...</p>
+<p>而奇环最小三个边</p>
+<p>而且这样我们就有重复的边,如果选了一个包含了多个奇环就能变得很优....</p>
+<p>当然这个最优化是NPh的</p>
+<p>code:</p>
+<pre><code class="language-cpp">
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const int MAXN = 1e6 + 7;
+const int MAXM = 2e6 + 7;
+
+int n, m, ccnt, ans;
+int home[MAXN], nxt[MAXM], to[MAXM];
+int eu[MAXM], ev[MAXM], col[MAXN];
+
+struct rec {
+	int u, v;
+} e[MAXM];
+
+inline void ct(int x, int y) {
+	ccnt++;
+	nxt[ccnt] = home[x];
+	home[x] = ccnt;
+	to[ccnt] = y;
+}
+
+inline void dfs(int u) {
+	for(int i = home[u]; i; i = nxt[i]) {
+		int v = to[i];
+		if(!col[v]) {
+			col[v] = -col[u];
+			dfs(v);
+		}
+	}
+}
+
+inline void solve() {
+	ccnt = 0;
+	memset(home, 0, sizeof(home));
+	for(int i = 1; i &lt;= m; ++i) {
+		ct(e[i].u, e[i].v);
+		ct(e[i].v, e[i].u);
+	}
+	memset(col, 0, sizeof(col));
+	for(int i = 1; i &lt;= n; ++i) {
+		if(!col[i]) {
+			col[i] = 1;
+			dfs(i);
+		}
+	}
+	int cnt = 0;
+	for(int i = 1; i &lt;= m; ++i) {
+		if(col[e[i].u] != col[e[i].v]) {
+			cnt++;
+		}
+	}
+	if(cnt &gt; m / 2) {
+		// for(int i = 1; i &lt;= n; ++i) {
+		// 	printf(&quot;%d %d\n&quot;, i, col[i]);
+		// }
+		ans = 1;
+	}
+	return ;
+}
+
+int main() {
+	// freopen(&quot;test.in&quot;, &quot;r&quot;, stdin);
+	// freopen(&quot;test.out&quot;, &quot;w&quot;, stdout);
+	scanf(&quot;%d%d&quot;, &amp;n, &amp;m);
+	if(m == 0) {
+		puts(&quot;No&quot;);
+		return 0;
+	}
+	for(int i = 1; i &lt;= m; ++i) {
+		scanf(&quot;%d%d&quot;, &amp;e[i].u, &amp;e[i].v);
+	}
+	for(int i = 1; i &lt;= 17; ++i) {
+		random_shuffle(e + 1, e + m + 1);
+		solve();
+		if(ans)break;
+	}
+	if(ans)
+		printf(&quot;Yes\n&quot;);
+	else printf(&quot;No\n&quot;);
+	return 0;
+}
+
+
+
+</code></pre>
+<p>B</p>
+<p>不需要构造方案不够妙啊!</p>
+<p>但是本质上还是很妙的</p>
+<p>我们观察一下,交换更简化的是什么</p>
+<p>k=3</p>
+<p>000101<br>
+-&gt;<br>
+101000</p>
+<p>可以通过把错位k来把有些1搞过去,操作前提是我们有连续k个空格0</p>
+<p>啊!你会发现这个相当于一个翻转操作啊</p>
+<p>所以说我们一定可以把连续长为k的一段相同的和然后把一段长度小于等于k的随意位置搞到前面去</p>
+<p>所以我们可以先把所有的空白段移动到最后然后看前面那些不是空白段的是不是完全匹配</p>
+<p>因为如果不一样我们没法动就暴毙了</p>
+<p>做法很简单,我们开一个栈然后把长度等于k的平移消除掉就好了,因为他们相当于没用了</p>
+<p>code:</p>
+<pre><code class="language-cpp">
+
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const int MAXN = 1e6 + 7;
+int T, n, k;
+char s1[MAXN], s[MAXN], t1[MAXN], t[MAXN];
+
+inline void init(char *str, char *res, int &amp;x) {
+	static int len[MAXN], st[MAXN];
+	x = 0;
+	st[0] = -1;
+	len[0] = 0;
+	for(int i = 1; i &lt;= n; ++i) {
+		++x;
+		res[x] = str[i];
+		if(str[i] - 'a' == st[x - 1]) {
+			len[x] = len[x - 1] + 1;
+			st[x] = st[x - 1];
+		} else {
+			len[x] = 1;
+			st[x] = str[i] - 'a';
+		}
+		while(x &gt; 0 &amp;&amp; len[x] == k) {
+			x -= k;
+		}
+	}
+}
+
+inline void solve() {
+	scanf(&quot;%d%d&quot;, &amp;n, &amp;k);
+	scanf(&quot;%s%s&quot;, s + 1, t + 1);
+	int sl = 0, tl = 0;
+	init(s, s1, sl);
+	init(t, t1, tl);
+	bool flg = sl == tl;
+	for(int i = 1; i &lt;= tl; ++i) {
+		flg &amp;= (s1[i] == t1[i]);
+	}
+	if(flg)puts(&quot;Yes&quot;);
+	else puts(&quot;No&quot;);
+}
+
+int main() {
+	// freopen(&quot;test.in&quot;, &quot;r&quot;, stdin);
+	scanf(&quot;%d&quot;, &amp;T);
+	while(T-- &gt; 0) {
+		solve();
+	}
+	return 0;
+}
+
+
+</code></pre>
+<p>C</p>
+<p>考虑直接计数</p>
+<p>你会发现只有两两之间的差一起取gcd,然后得到的d的所有的因数可能成为答案</p>
+<p>然后要判断这个约数可不可以合法,就是能不能过被卡的位置</p>
+<p>首先但凡中间的一定不行,因为我们就不能同时过开头和结尾了</p>
+<p>判断条件是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mi>t</mi><mo>+</mo><mi>k</mi><mi>b</mi><mo>=</mo><mo>=</mo><mi>j</mi></mrow><annotation encoding="application/x-tex">st+kb==j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69841em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord mathdefault">b</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span></span></span></span>-&gt;<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mi>t</mi><mo>=</mo><mo>=</mo><mi>j</mi><mo>(</mo><mi>m</mi><mi>o</mi><mi>d</mi><mi>b</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">st==j(mod b)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mopen">(</span><span class="mord mathdefault">m</span><span class="mord mathdefault">o</span><span class="mord mathdefault">d</span><span class="mord mathdefault">b</span><span class="mclose">)</span></span></span></span></p>
+<p>然后两边的就有毒,他会限制我们合法序列的数量....</p>
+<p>仔细思考一下应该可</p>
+<p>如果两个数<span class="katex"><span class="katex-mathml"><math><semantics><mrow></mrow><annotation encoding="application/x-tex">%b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"></span></span>同余就能限制</p>
+<p>那么就是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>s</mi><mi>t</mi><mo>−</mo><mi>x</mi><mo>−</mo><mn>1</mn><mo>)</mo><mi mathvariant="normal">/</mi><mi>x</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">(st-x-1)/x+1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mord">/</span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span></p>
+<p>暴力实现上面的</p>
+<p>复杂度显然是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>d</mi><mo>(</mo><mi>n</mi><mo>)</mo><mi>m</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(d(n)m)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">d</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span><span class="mord mathdefault">m</span><span class="mclose">)</span></span></span></span></p>
+<p>std:</p>
+<p>复杂度在两个方面,计算合法的序列,判断合法的约数</p>
+<p>对于第一步,我们可以lowerbound!</p>
+<p>对于第二步,我们可以压所有的质因数指数然后dp,因为一个不合法他的子集就都不合法....</p>
+<p>具体的:我们可以用一个dfs类似的东西传导一下我们的限制和前后limit</p>
+<p>std:</p>
+<p>code:</p>
+<pre><code class="language-cpp">
+#include &lt;bits/stdc++.h&gt;
+#define rep(i, a, b) for (int i = (a); i &lt;= int(b); i++)
+#define per(i, a, b) for (int i = (a); i &gt;= int(b); i--)
+#define fir first
+#define sec second
+#define tct template&lt;class type&gt;
+using namespace std;
+
+typedef long long ll;
+typedef pair&lt;int, int&gt; P;
+const int maxn = 1e5, maxm = 2e6, mod = 1e9 + 7;
+int m, c, q[maxn + 5], S[maxn + 5], T, C[maxm + 5];
+ll N, K, p[maxn + 5], lst[maxn + 5], nxt[maxn + 5], A[maxm + 5], B[maxm + 5], Num[maxm + 5];
+
+inline void red(int &amp;x) {
+	x += x &gt;&gt; 31 &amp; mod;
+}
+tct inline void cmax(type &amp;x, type y) {
+	x &lt; y ? x = y : 0;
+}
+tct inline void cmin(type &amp;x, type y) {
+	x &gt; y ? x = y : 0;
+}
+
+struct event {
+	int t; ll x;
+	bool operator &lt; (const event &amp;o) const {
+		return x &lt; o.x;
+	}
+} ev[maxn + 5];
+
+ll gcd(ll a, ll b) {
+	return b ? gcd(b, a % b) : a;
+}
+
+void work(ll N) {
+	for (ll i = 2; i * i &lt;= N; i++) if (N % i == 0) {
+			p[++c] = i;
+			while (N % i == 0) N /= i, q[c]++;
+		}
+	if (N &gt; 1) p[++c] = N, q[c] = 1;
+}
+
+map&lt;ll, int&gt; M;
+
+void dfs(int x, ll y, int z) {
+	if (x == c + 1) {//预处理所有约数
+		M[y] = z;
+		Num[z] = y;
+		return;
+	}
+	z *= q[x] + 1;
+	dfs(x + 1, y, z);
+	rep(i, 1, q[x]) {
+		y *= p[x];
+		dfs(x + 1, y, z + i);
+	}
+}
+
+void dfs0(int x, int z, int y) {
+	if (x == c + 1) {//传导
+		cmax(A[z], A[z + S[y]]);
+		cmin(B[z], B[z + S[y]]);
+		C[z] |= C[z + S[y]];
+		return;
+	}
+	z *= q[x] + 1;
+	per(i, q[x], 0) {
+		if (i == q[x] &amp;&amp; x == y) continue;
+		dfs0(x + 1, z + i, y);
+	}
+}
+
+int main() {
+	scanf(&quot;%lld %d&quot;, &amp;N, &amp;m);
+	rep(i, 1, m) scanf(&quot;%d %lld&quot;, &amp;ev[i].t, &amp;ev[i].x);
+	sort(ev + 1, ev + m + 1);
+	ll x = 0, mx = 0, mn = N + 1;
+	rep(i, 1, m) if (ev[i].t == 1) {
+		if (x) K = gcd(K, ev[i].x - x);
+		x = ev[i].x;
+		cmax(mx, ev[i].x), cmin(mn, ev[i].x);
+	}
+	x = 0;
+	rep(i, 1, m) {
+		if (ev[i].t == 0) lst[i] = x;
+		else x = ev[i].x;
+	}
+	x = N + 1;
+	per(i, m, 1) {
+		if (ev[i].t == 0) nxt[i] = x;
+		else x = ev[i].x;
+	}
+	work(K);
+	dfs(1, 1, 0);
+	S[c] = 1;
+	per(i, c, 1) S[i - 1] = S[i] * (q[i] + 1);
+	T = S[0];
+	fill(B, B + T, N + 1);
+	rep(i, 1, m) if (ev[i].t == 0) {
+		if (!lst[i]) {
+			cmax(A[M[gcd(K, nxt[i] - ev[i].x)]], ev[i].x);
+		} else if (nxt[i] == N + 1) {
+			cmin(B[M[gcd(K, ev[i].x - lst[i])]], ev[i].x);
+		} else {
+			C[M[gcd(K, gcd(nxt[i] - ev[i].x, ev[i].x - lst[i]))]] = 1;
+		}
+	}
+	rep(i, 1, c) dfs0(1, 0, i);
+	int res = 0;
+	rep(i, 0, T - 1) if (!C[i]) {
+		ll x = (mn - A[i] - 1) / Num[i] + 1;
+		ll y = (B[i] - 1 - mx) / Num[i] + 1;
+		res = (res + x % mod * y % mod) % mod;
+	}
+	printf(&quot;%d\n&quot;, res);
+	return 0;
+}
+
+
+
+</code></pre>
+<p>数据太水了</p>
+<p>code:</p>
+<pre><code class="language-cpp">
+
+#include&lt;bits/stdc++.h&gt;
+#define ll long long
+using namespace std;
+const int MAXN = 1e6 + 7;
+const int P = 1e9 + 7;
+int m, T1, T2;
+ll N, ans, tot, cnt[MAXN];
+struct  rec {
+	ll id, x;
+	bool operator&lt;(const rec &amp;w)const {
+		return x &lt; w.x;
+	}
+} a[MAXN], b[MAXN], c[MAXN];
+int vis[MAXN];
+
+
+inline ll gcd(ll x, ll y) {
+	return y == 0 ? x : gcd(y, x % y);
+}
+
+inline void solve(ll x) {
+	ll rc1 = 0, rc2 = 0;
+	// for(int i = 0; i &lt;= x; ++i)vvis[i] = 0;
+	ll tmp1 = 0;
+	for(int i = 1; i &lt;= T1; ++i) {
+		if(b[i].x &gt; c[1].x) {
+			break;
+		} else {
+			if(b[i].x % x == c[1].x % x)
+				tmp1 = b[i].x;
+		}
+	}
+	// printf(&quot;c1 %lld\n&quot;, tmp1);
+	rc1 = (c[1].x - tmp1 - 1) / x + 1;
+	ll tmp2 = N + 1;
+	for(int i = T1; i &gt;= 1; --i) {
+		if(b[i].x &lt; c[T2].x) {
+			break;
+		} else {
+			if(b[i].x % x == c[T2].x % x)
+				tmp2 = b[i].x;
+		}
+	}
+	// printf(&quot;c2 %lld\n&quot;, tmp2);
+	rc2 = (tmp2 - c[T2].x - 1) / x + 1;
+	if(tmp2 == N - N % x + c[1].x % x)rc2 += ((N - c[T2].x) % x == 0);
+	// printf(&quot;QAQ%lld??%lld %lld %lld %lld\n&quot;, x, rc1, rc2, c[1].x / x + 1, ((N - c[T2].x) / x + 1));
+	ans += rc1 * rc2 % P;
+	ans %= P;
+}
+
+inline void build(ll x) {
+	for(ll i = 1; i * i &lt;= x; ++i) {
+		if(x % i == 0) {
+			cnt[++tot] = i;
+			if(i * i != x) {
+				cnt[++tot] = x / i;
+			}
+		}
+	}
+	sort(cnt + 1, cnt + tot + 1);
+	for(int i = 1; i &lt;= tot; ++i) {
+		bool flg = 1;
+		if(vis[i])continue;
+		// printf(&quot;%lld??\n&quot;, cnt[i]);
+		for(int k = 1; k &lt;= m; ++k) {
+			if((a[k].id == 1) &amp;&amp; ((a[k].x % cnt[i] != c[1].x % cnt[i]) || (c[1].x &gt; a[k].x))) {
+				// printf(&quot;%d?\n&quot;, k);
+				flg = 0;
+			}
+			if((a[k].id == 0) &amp;&amp; (a[k].x % cnt[i] == c[1].x % cnt[i]) &amp;&amp; ((c[1].x &lt; a[k].x) &amp;&amp; (c[T2].x &gt; a[k].x))) {
+				// printf(&quot;%d!%lld %lld\n&quot;, k, c[1].x, a[k].x);
+				flg = 0;
+			}
+			if(!flg)break;
+		}
+		if(flg) {
+			// printf(&quot;qwq\n&quot;);
+			for(int j = i; j &lt;= tot; ++j) {
+				if(cnt[j] % cnt[i] == 0 &amp;&amp; !vis[j]) {
+					solve(cnt[j]);
+					vis[j] = 1;
+				}
+			}
+		}
+	}
+	return ;
+}
+
+int main() {
+	// freopen(&quot;test.in&quot;, &quot;r&quot;, stdin);
+	// freopen(&quot;test1.out&quot;, &quot;w&quot;, stdout);
+	scanf(&quot;%lld%d&quot;, &amp;N, &amp;m);
+	for(int i = 1; i &lt;= m; ++i) {
+		scanf(&quot;%lld%lld&quot;, &amp;a[i].id, &amp;a[i].x);
+		if(a[i].id == 0) {
+			b[++T1] = a[i];
+		} else {
+			c[++T2] = a[i];
+		}
+	}
+	sort(a + 1, a + m + 1);
+	// for(int i = 1; i &lt;= m; ++i) {
+	// 	printf(&quot;%lld %lld\n&quot;, a[i].id, a[i].x);
+	// }
+	sort(b + 1, b + T1 + 1);
+	sort(c + 1, c + T2 + 1);
+	ll tmp1 = 1;
+	tmp1 = c[2].x - c[1].x;
+	for(int i = 2; i &lt; T2; ++i) {
+		// printf(&quot;%lld %lld\n&quot;, tmp1, c[i + 1].x - c[i].x);
+		tmp1 = gcd(tmp1, c[i + 1].x - c[i].x);
+		//预处理
+	}
+	// printf(&quot;%lld\n&quot;, tmp1);
+	build(tmp1);//建图
+	printf(&quot;%lld\n&quot;, ans);
+	return 0;
+}
+
+
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/20zr-pu-ji-zu-wu-lian-ce-day1/">
+              <h3 class="post-title">
+                20zr普及组五连测day1
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
