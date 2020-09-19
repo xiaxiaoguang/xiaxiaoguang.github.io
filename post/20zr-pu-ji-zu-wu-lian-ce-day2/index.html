@@ -1,0 +1,641 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>20zr普及组五连测day2 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1600528643039">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="20zr普及组五连测day2 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="哎...人总有写挂的一天吗?
+A
+傻逼题用map直接模拟即可
+最后剩下的那个就是答案
+卡双模hash
+时间复杂度O(nlogn)
+
+#include&lt;bits/stdc++.h&gt;
+#define ll long long
+usi..." />
+    <meta name="keywords" content="计数题,比赛题,构造" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1600528643039" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              20zr普及组五连测day2
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-09-18
+              </span>
+              <span>
+                11 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/JP89ddpfS/" class="post-tag">
+                  # 计数题
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/A3FIICRYA/" class="post-tag">
+                  # 比赛题
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/nuL1JOWcod/" class="post-tag">
+                  # 构造
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/45NBuzDIW489QBoVep5mcdhVJMEw.v0aX3C0hhG.D.t4CGlWXJIRuhqpM8gI2O7.Wa6Bc.afKEm1As1S9IsfFDZE7M66YZLVqRHDwcIDGSM!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>哎...人总有写挂的一天吗?</p>
+<p>A</p>
+<p>傻逼题用map直接模拟即可</p>
+<p>最后剩下的那个就是答案</p>
+<p>卡双模hash</p>
+<p>时间复杂度O(nlogn)</p>
+<pre><code class="language-cpp">
+#include&lt;bits/stdc++.h&gt;
+#define ll long long
+using namespace std;
+const int bas1 = 12344;
+const int bas2 = 67891;
+const int P1 = 1e9 + 9;
+const int P2 = 1e9 + 3;
+const int MAXS = 30;
+const int MAXN = 1e5 + 7;
+#define pii pair&lt;ll,ll&gt;
+#define se second
+#define fi first
+#define mkp(x,y) make_pair(x,y)
+int n;
+string s;
+map&lt;string, int&gt; mp;
+
+int main() {
+	scanf(&quot;%d&quot;, &amp;n);
+	for(int i = 0; i &lt; n + n - 1; ++i) {
+		cin &gt;&gt; s;
+		mp[s]++;
+	}
+	for(auto v : mp) {
+		if(v.se &amp; 1)
+			cout &lt;&lt; v.fi &lt;&lt; endl;
+	}
+	return 0;
+}
+
+
+</code></pre>
+<p>B</p>
+<p>就是base为2i的进制转换</p>
+<p>直接模拟即可</p>
+<p>这个可以看看代码</p>
+<p>注意</p>
+<ol>
+<li>输出虚数部分的+时要小心,因为可能前面那个数是0啊</li>
+<li>特判0</li>
+</ol>
+<p>而又没法对拍,只能手动....</p>
+<p>code:</p>
+<pre><code class="language-cpp">/*
+_/_/_/_/    _/_/_/_/_/  _/_/_/
+_/      _/      _/    _/      _/
+_/      _/      _/    _/      _/
+_/      _/      _/    _/      _/
+_/      _/      _/    _/  _/  _/
+_/      _/  _/  _/    _/    _/_/
+_/_/_/_/      _/_/     _/_/_/_/_/
+
+_/_/_/_/    _/    _/  _/      _/
+_/      _/   _/  _/   _/_/  _/_/
+_/      _/    _/_/    _/ _/_/ _/
+_/      _/     _/     _/  _/  _/
+_/      _/    _/_/    _/      _/
+_/      _/   _/  _/   _/      _/
+_/_/_/_/    _/    _/  _/      _/
+
+_/_/_/_/_/ _/_/_/_/_/ _/_/_/_/_/
+    _/         _/     _/
+    _/         _/     _/
+    _/         _/     _/_/_/_/
+    _/         _/     _/
+    _/         _/     _/
+    _/     _/_/_/_/_/ _/_/_/_/_/
+
+_/_/_/_/_/ _/_/_/_/_/ _/_/_/_/_/
+    _/         _/     _/
+    _/         _/     _/
+    _/         _/     _/_/_/_/
+    _/         _/     _/
+    _/         _/     _/
+    _/     _/_/_/_/_/ _/_/_/_/_/
+*/
+//orzEI!
+#include&lt;bits/stdc++.h&gt;
+#define ll __int128
+using namespace std;
+const int MAXN = 100;
+
+ll t1, t2, p1, p2, q1, q2;
+char s[MAXN];
+int cnt;
+ll qwq[MAXN];
+
+namespace fastIO {
+	int _C = -1, _Z;
+	char _sr[1 &lt;&lt; 21], _z[20];
+	inline void Ot() {
+		fwrite(_sr, 1, _C + 1, stdout), _C = -1;
+	}
+	inline void print(ll x) {
+		if(_C &gt; 1 &lt;&lt; 20)Ot();
+		while(_z[++_Z] = x % 10 + 48, x /= 10);
+		while(_sr[++_C] = _z[_Z], --_Z);
+	}
+	inline void print2(char s) {
+		_sr[++_C] = s;
+	}
+}
+using namespace fastIO;
+
+inline void init() {
+	qwq[0] = 1;
+	for(int i = 1; i &lt; 80; ++i)qwq[i] = qwq[i - 1] * 2;
+	return ;
+}
+
+inline ll ksm(int x) {
+	return qwq[x];
+}
+
+inline ll gcd(ll x, ll y) {
+	return y == 0 ? x : gcd(y, x % y);
+}
+
+int main() {
+	scanf(&quot;%s&quot;, s + 1);
+	int a = strlen(s + 1);
+	if(a == 1 &amp;&amp; s[1] == '0') {
+		return puts(&quot;0&quot;), 0;
+	}
+	init();
+	cnt = a + 1;
+	for(int i = 1; i &lt;= a; ++i) {
+		if(s[i] == '.') {
+			cnt = i;
+			break;
+		}
+	}
+	//处理整数部分
+	for(int i = 1; i &lt; cnt; ++i) {
+		int t = (cnt - i) % 4;
+		if(t == 1) { //正数
+			t1 += ksm(cnt - i - 1) * (s[i] - '0');
+		} else if(t == 2) { //正数i
+			t2 += ksm(cnt - i - 1) * (s[i] - '0');
+		} else if (t == 3) { //负数
+			t1 -= ksm(cnt - i - 1) * (s[i] - '0');
+		} else {//负数i
+			t2 -= ksm(cnt - i - 1) * (s[i] - '0');
+		}
+		//		printf(&quot;%d %lld %lld %d\n&quot;,s[i]-'0',t1,t2,i);
+	}
+	//处理小数部分
+	//使用最大的那一部分，然后除除gcd吧QAQ
+	for(int i = a; i &gt; cnt; --i) {
+		if(s[i] == '0')continue;
+		int t = (i - cnt) % 4;
+		//		printf(&quot;%d?%d\n&quot;,t,i);
+		if((t == 1 || t == 3) &amp;&amp; !q2) {
+			q2 = ksm(i - cnt);
+		}
+		if((t == 2 || t == 0) &amp;&amp; !q1) {
+			q1 = ksm(i - cnt);
+		}
+	}
+	if(!q1)q1 = 1;
+	if(!q2)q2 = 1;
+	//	printf(&quot;%lld %lld\n&quot;,q1,q2);
+	for(int i = cnt + 1; i &lt;= a; ++i) {
+		int t = (i - cnt) % 4;
+		if(t == 1) { //负数i
+			p2 -= q2 / ksm(i - cnt) * (s[i] - '0');
+		} else if(t == 2) { //负数
+			p1 -= q1 / ksm(i - cnt) * (s[i] - '0');
+		} else if(t == 3) { //正数i
+			p2 += q2 / ksm(i - cnt) * (s[i] - '0');
+		} else {//正数
+			p1 += q1 / ksm(i - cnt) * (s[i] - '0');
+		}
+		//		printf(&quot;%d %lld %lld %d\n&quot;,s[i]-'0',p1,p2,i);
+	}
+	//	printf(&quot;%lld %lld %lld %lld %lld %lld\n&quot;,p1,q1,t1,p2,q2,t2);
+	p2 += q2 * t2;
+	p1 += q1 * t1;
+	ll qwq1 = gcd(p1, q1);
+	ll qwq2 = gcd(p2, q2);
+	p2 /= qwq2;
+	q2 /= qwq2;
+	p1 /= qwq1;
+	q1 /= qwq1;
+	if(q1 &lt; 0)p1 = -p1, q1 = -q1; //同时乘-1
+	if(q2 &lt; 0)p2 = -p2, q2 = -q2;
+	if(p1 != 0) {
+		if(p1 &lt; 0) {
+			print2('-');
+			p1 = -p1;
+		}
+		if(q1 == 1) {
+			print(p1);
+		} else {
+			print(p1);
+			print2('/');
+			print(q1);
+		}
+	}
+	if(p2 != 0) {
+		if(p2 &lt; 0) {
+			print2('-');
+			p2 = -p2;
+		} else {
+			if(p1 != 0)
+				print2('+');//死因啊
+		}
+		if(q2 == 1) {
+			if(p2 != 1)
+				print(p2);
+		} else {
+			print(p2);
+			print2('/');
+			print(q2);
+		}
+		print2('i');
+	}
+	Ot();
+	return 0;
+}
+
+/*
+
+311111111.11111
+11111111.11111
+111111111111111111111111111111.11111111111111111111111111111111
+11111111111111111111111111111111
+
+*/
+
+
+
+</code></pre>
+<p>哎...这尼玛的都能卡</p>
+<p>C</p>
+<p>就差一步啊QAQTAT</p>
+<p>首先把整个序列变成一个前1后-1的差分的形式后</p>
+<p>我们可以发现相邻的1,-1可以用后面的一个1替代,然后相邻的-1,1 可以用后面的一个-1替代....</p>
+<p>就做完了....最后数数序列中有数的位置有多少个即可</p>
+<pre><code class="language-cpp">
+/*
+_/_/_/_/    _/_/_/_/_/  _/_/_/
+_/      _/      _/    _/      _/
+_/      _/      _/    _/      _/
+_/      _/      _/    _/      _/
+_/      _/      _/    _/  _/  _/
+_/      _/  _/  _/    _/    _/_/
+_/_/_/_/      _/_/     _/_/_/_/_/
+
+_/_/_/_/    _/    _/  _/      _/
+_/      _/   _/  _/   _/_/  _/_/
+_/      _/    _/_/    _/ _/_/ _/
+_/      _/     _/     _/  _/  _/
+_/      _/    _/_/    _/      _/
+_/      _/   _/  _/   _/      _/
+_/_/_/_/    _/    _/  _/      _/
+
+_/_/_/_/_/ _/_/_/_/_/ _/_/_/_/_/
+    _/         _/     _/
+    _/         _/     _/
+    _/         _/     _/_/_/_/
+    _/         _/     _/
+    _/         _/     _/
+    _/     _/_/_/_/_/ _/_/_/_/_/
+
+_/_/_/_/_/ _/_/_/_/_/ _/_/_/_/_/
+    _/         _/     _/
+    _/         _/     _/
+    _/         _/     _/_/_/_/
+    _/         _/     _/
+    _/         _/     _/
+    _/     _/_/_/_/_/ _/_/_/_/_/
+*/
+
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const int MAXN = 2e6 + 7;
+int T;
+char a[MAXN];
+int b[MAXN];
+
+
+// inline void solve() {
+// 	int n = strlen(a + 1);
+// 	int cnt = 0;
+// 	ans = 0;
+// 	bool flg = 1;
+// 	memset(b, 0, sizeof(b));
+// 	a[n + 1] = '0';
+// 	for(int i = 1; i &lt;= n; ++i) {
+// 		if(flg &amp;&amp; a[i] == '1') {
+// 			//			ans++;
+// 			b[i] = 1;
+// 			continue;
+// 		}
+// 		if(flg &amp;&amp; a[i] == '0') {
+// 			flg = 0;
+// 		}
+// 		cnt += a[i] - '0';
+// 		if(cnt == 1 &amp;&amp; a[i + 1] == '0') {
+// 			//			++ans;
+// 			b[i] = 1;
+// 			cnt = 0;
+// 		} else if(a[i + 1] == '0' &amp;&amp; cnt &gt; 1) {
+// 			b[i - cnt] = 1;
+// 			b[i] = -1;
+// 			cnt = 0;
+// 			//			ans+=2;
+// 		}
+// 	}
+// 	//	puts(&quot;qwq&quot;);
+// 	for(int i = 1; i &lt;= n; ++i) {
+// 		if(b[i] == -1 &amp;&amp; b[i + 1] == 1) {
+// 			b[i + 1] = -1;
+// 			b[i] = 0;
+// 		}
+// 		ans += (b[i] != 0);
+// 		//		printf(&quot;%d &quot;,b[i]);
+
+// 	}
+// 	//	puts(&quot;&quot;);
+// 	//	printf(&quot;%d\n&quot;,ans);
+// }
+
+inline void solve2() {
+	int n = strlen(a + 1);
+	int cnt = 0;
+	int ans = 0;
+	bool flg = 1;
+	memset(b, 0, sizeof(b));
+	a[n + 1] = '0';
+	for(int i = 1; i &lt;= n; ++i) {
+		if(flg &amp;&amp; a[i] == '1') {
+			//			ans++;
+			b[i] = 1;
+			continue;
+		}
+		if(flg &amp;&amp; a[i] == '0') {
+			flg = 0;
+		}
+		cnt += a[i] - '0';
+		if(a[i + 1] == '0' &amp;&amp; cnt &gt;= 1) {
+			b[i - cnt] = 1;
+			b[i] = -1;
+			cnt = 0;
+			//			ans+=2;
+		}
+	}
+	//	puts(&quot;qwq&quot;);
+	for(int i = 1; i &lt;= n; ++i) {
+		if(b[i] == 1 &amp;&amp; b[i + 1] == -1) {
+			b[i + 1] = 1;
+			b[i] = 0;
+		}
+		if(b[i] == -1 &amp;&amp; b[i + 1] == 1) {
+			b[i + 1] = -1;
+			b[i] = 0;
+		}
+		ans += (b[i] != 0);
+		//		printf(&quot;%d &quot;,b[i]);
+
+	}
+	//	puts(&quot;&quot;);
+	printf(&quot;%d\n&quot;, ans);
+}
+
+int main() {
+	scanf(&quot;%d&quot;, &amp;T);
+	while(T-- &gt; 0) {
+		scanf(&quot;%s&quot;, a + 1);
+		// solve();
+		solve2();
+	}
+	return 0;
+}
+
+
+</code></pre>
+<p>D</p>
+<p>OEIS</p>
+<p>i*(i+1)爆int了</p>
+<p>code:</p>
+<pre><code class="language-cpp">
+#include&lt;bits/stdc++.h&gt;
+#define ll long long
+using namespace std;
+const int P = 998244353;
+const int MAXN = 1e6 + 7;
+inline ll ksm(ll x, ll y) {
+	ll ans = 1;
+	while(y) {
+		if(y &amp; 1)ans = ans * x % P;
+		x = x * x % P;
+		y &gt;&gt;= 1;
+	}
+	return ans;
+}
+ll f[MAXN];
+int main() {
+	int n;
+	scanf(&quot;%d&quot;, &amp;n);
+	f[1] = 6;
+	f[2] = 30;
+	for(int i = 3; i &lt;= n; ++i) {
+		f[i] = (f[i - 1] * (7 * i - 4) % P * (i + 1) % P + f[i - 2] * 8 % P * (i - 2) % P * (i - 2) % P) % P * ksm(1ll * i * (i + 1) % P, P - 2) % P;
+		f[i] %= P;
+	}
+	printf(&quot;%lld\n&quot;, f[n]);
+	return 0;
+}
+
+
+
+
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/zr20-qiu-ji-pu-zhuan-ti-day2/">
+              <h3 class="post-title">
+                ZR20秋季普转提day2
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
