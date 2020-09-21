@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://xiaxiaoguang.github.io</id>
     <title>夏晓光(loveJY)的博客</title>
-    <updated>2020-09-19T15:17:37.940Z</updated>
+    <updated>2020-09-21T15:12:09.894Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://xiaxiaoguang.github.io"/>
     <link rel="self" href="https://xiaxiaoguang.github.io/atom.xml"/>
@@ -10,6 +10,175 @@
     <logo>https://xiaxiaoguang.github.io/images/avatar.png</logo>
     <icon>https://xiaxiaoguang.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 夏晓光(loveJY)的博客</rights>
+    <entry>
+        <title type="html"><![CDATA[ZR2020普转提七连测day3]]></title>
+        <id>https://xiaxiaoguang.github.io/post/zr2020-pu-zhuan-ti-qi-lian-ce-day3/</id>
+        <link href="https://xiaxiaoguang.github.io/post/zr2020-pu-zhuan-ti-qi-lian-ce-day3/">
+        </link>
+        <updated>2020-09-21T14:56:57.000Z</updated>
+        <content type="html"><![CDATA[<p>http://www.zhengruioi.com/contest/704</p>
+<p>没有上场毒瘤啊</p>
+<p>A</p>
+<p>打眼一看好像直接模拟就好了</p>
+<p>但是可能有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi><mo>&gt;</mo><mi>n</mi><mi mathvariant="normal">/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">k&gt;n/2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.73354em;vertical-align:-0.0391em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">n</span><span class="mord">/</span><span class="mord">2</span></span></span></span>情况</p>
+<p>这种情况下根据kmp的错位相同原理,我们可能有很多字符是要一样的</p>
+<p>那么我们用一个并查集把这样的字符形成的连通块找出来然后暴力看看每一块改成什么就好了</p>
+<p>时间复杂度<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mi>a</mi><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(nalogn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>属于不精细的实现QAQ</p>
+<p>code:</p>
+<pre><code class="language-cpp">
+#include&lt;bits/stdc++.h&gt;
+const int MAXN = 1e5 + 7;
+int n, k, ans;
+char a[MAXN];
+int fa[MAXN], num[MAXN][26];
+inline int getf(int x) {
+	return fa[x] == x ? x : fa[x] = getf(fa[x]);
+}
+
+inline void merge(int x, int y) {
+	for(int i = 0; i &lt; 26; ++i) {
+		num[getf(x)][i] += num[getf(y)][i];
+	}
+	fa[getf(y)] = getf(x);
+
+	return ;
+}
+
+inline void init() {
+	for(int i = 1; i &lt;= n; ++i) {
+		fa[i] = i;
+		num[i][a[i] - 'a'] = 1;
+	}
+	return ;
+}
+int main() {
+	scanf(&quot;%d%d&quot;, &amp;n, &amp;k);
+	scanf(&quot;%s&quot;, a + 1);
+	init();
+	int l = n - k + 1, r, tmp;
+	//错位相同,显然我们错位不能多了
+	for(int i = 1; i &lt;= k; ++i) {
+		if(fa[i] != i)continue;
+		r = l + i - 1;
+		merge(i, r);
+		tmp = r - 1 + l;
+		while(tmp &lt;= n) {
+			merge(i, tmp);
+			if(tmp &gt; k) {
+				break;
+			}
+			tmp = tmp - 1 + l;
+		}
+	}
+	for(int i = 1; i &lt;= k; ++i) {
+		if(fa[i] == i) {
+			int S = 0, Max = -1;
+			for(int j = 0; j &lt; 26; ++j) {
+				if(num[i][j] &gt; Max)Max = num[i][j];
+				S += num[i][j];
+			}
+			ans += S - Max;
+		}
+	}
+	printf(&quot;%d\n&quot;, ans);
+	return 0;
+}
+
+/*
+
+10 7
+aabaabaabc
+5 4
+abcde
+5 3
+abcba
+6 4
+abbbaa
+
+*/
+
+
+</code></pre>
+<p>B</p>
+<p>每一位只要出现011三个字符就一定可以判断出三种运算了</p>
+<p>因为&amp;和其他可以用01去试,然后xor和|可以用11去试</p>
+<p>显然不存在其他的不包括这个011的方案能验证出来....</p>
+<p>答案每一位取max即可</p>
+<p>code:</p>
+<pre><code class="language-cpp">
+
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const int MAXN = 505;
+
+int n, m, T;
+char a[MAXN][MAXN];
+int cnt[MAXN], flg[MAXN];
+
+inline void init() {
+	for(int i = 1; i &lt;= m; ++i) {
+		cnt[i] = flg[i] = 0;
+	}
+}
+
+int main() {
+	scanf(&quot;%d&quot;, &amp;T);
+	while(T-- &gt; 0) {
+		scanf(&quot;%d%d&quot;, &amp;n, &amp;m);
+		init();
+		for(int i = 1; i &lt;= n; ++i) {
+			scanf(&quot;%s&quot;, a[i] + 1);
+		}
+		for(int i = 1; i &lt;= n; ++i) {
+			for(int j = 1; j &lt;= m; ++j) {
+				if(a[i][j] == '0') {
+					flg[j] = 1;
+				}
+				if(a[i][j] == '1') {
+					cnt[j]++;
+				}
+			}
+		}
+		int ans = 0;
+		for(int i = 1; i &lt;= m; ++i) {
+			if(flg[i] &amp;&amp; cnt[i] &gt;= 2) {//110
+				continue;
+			} else if(!flg[i] &amp;&amp; cnt[i] &gt;= 2) {//111
+				ans = max(ans, 1);
+			} else if(flg[i] &amp;&amp; cnt[i] &lt; 2) {//0??
+				ans = max(ans, 2 - cnt[i]);
+			} else if(!flg[i] &amp;&amp; cnt[i] &lt; 2) {//???
+				ans = max(ans, 3 - cnt[i]);
+			}
+		}
+		printf(&quot;%d\n&quot;, ans);
+	}
+	return 0;
+}
+
+
+</code></pre>
+<p>C</p>
+<p>md....好像做过啊!</p>
+<p>结论:大于53的质数没有用处,大于60的数没有用处</p>
+<p>因为我们改成1一定更优秀</p>
+<p>所以你会发现我们最后序列每个质因数一定只用了一次....</p>
+<p>所以状压一下这16个质因数</p>
+<p>然后考虑dp,f_{i,S}表示考虑了前i个数已经用了的质因数集合为S的最小代价</p>
+<p>转移枚举下个数填什么,然后一定要是某个补集的子集才行</p>
+<p>有很多种优化的方法</p>
+<ol>
+<li>60个数不用全部枚举,可以剪掉一些显然sb的</li>
+<li>只枚举当前有用集合中的,而有用集合可以预处理</li>
+</ol>
+<p>code就没有了</p>
+<p>D</p>
+<p>重题</p>
+<p>跟沈睿哥哥吐糟还被骂了</p>
+<figure data-type="image" tabindex="1"><img src="https://xiaxiaoguang.github.io/post-images/1600701080965.png" alt="" loading="lazy"></figure>
+<p>参照某篇叫[国家集训队]等差子序列的题</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[P5384 [Cnoi2019]雪松果树]]></title>
         <id>https://xiaxiaoguang.github.io/post/p5384-cnoi2019xue-song-guo-shu/</id>
@@ -596,6 +765,22 @@ int main() {
 <p>D</p>
 <p>OEIS</p>
 <p>i*(i+1)爆int了</p>
+<p>正确做法:</p>
+<p>考虑组合数学</p>
+<p>首先我们枚举k表示把第一类小球分成几组</p>
+<p>然后方案数为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo fence="true">(</mo><mfrac linethickness="0px"><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow><mrow><mi>k</mi><mo>−</mo><mn>1</mn></mrow></mfrac><mo fence="true">)</mo></mrow><annotation encoding="application/x-tex">\binom{n-1}{k-1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.2984390000000001em;vertical-align:-0.403331em;"></span><span class="mord"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size1">(</span></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.895108em;"><span style="top:-2.355em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.144em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.403331em;"><span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size1">)</span></span></span></span></span></span></p>
+<p>然后我们在此基础上把第二类小球加进去,就是考虑我们只能插在第一类小球之间,和第一类放在一起</p>
+<p>假设有t种,方案数为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo fence="true">(</mo><mfrac linethickness="0px"><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow><mrow><mi>t</mi><mo>−</mo><mn>1</mn></mrow></mfrac><mo fence="true">)</mo></mrow><annotation encoding="application/x-tex">\binom{n-1}{t-1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.2984390000000001em;vertical-align:-0.403331em;"></span><span class="mord"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size1">(</span></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.895108em;"><span style="top:-2.355em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">t</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.144em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.403331em;"><span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size1">)</span></span></span></span></span></span></p>
+<p>那么我们第一种是第一类小球两侧都是第二类小球,第二种是左侧或者右侧是第二类小球,第三种是第二类小球两侧都是第一类小球</p>
+<p>对应t的k+1,k,k-1三种可能</p>
+<p>方案数就是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mrow><mo fence="true">(</mo><mfrac linethickness="0px"><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow><mrow><mi>k</mi><mo>−</mo><mn>1</mn></mrow></mfrac><mo fence="true">)</mo></mrow><mrow><mo fence="true">(</mo><mfrac linethickness="0px"><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow><mrow><mi>t</mi><mo>−</mo><mn>1</mn></mrow></mfrac><mo fence="true">)</mo></mrow><mo>∗</mo><mo>(</mo><mn>1</mn><mo>+</mo><mo>[</mo><mi>t</mi><mo>=</mo><mo>=</mo><mi>k</mi><mo>]</mo><mo>)</mo></mrow><annotation encoding="application/x-tex">\binom{n-1}{k-1}\binom{n-1}{t-1}*(1+[t==k])</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.2984390000000001em;vertical-align:-0.403331em;"></span><span class="mord"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size1">(</span></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.895108em;"><span style="top:-2.355em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.144em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.403331em;"><span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size1">)</span></span></span><span class="mord"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size1">(</span></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.895108em;"><span style="top:-2.355em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">t</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.144em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.403331em;"><span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size1">)</span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathdefault">t</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mclose">]</span><span class="mclose">)</span></span></span></span></p>
+<p>然后第三类小球只能把所有我们相邻的位置杀掉</p>
+<p>考虑我们一共有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>k</mi><mo>+</mo><mi>t</mi><mo>+</mo><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">(k+t+1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69841em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">t</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span>个位置颜色相邻不相同</p>
+<p>而我们现在加入了2n个球,所以我们有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn><mi>n</mi><mo>+</mo><mn>1</mn><mo>−</mo><mi>k</mi><mo>−</mo><mi>t</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2n+1-k-t-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">2</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.77777em;vertical-align:-0.08333em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69841em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">t</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>个位置颜色相邻相同</p>
+<p>所以说我们需要插入<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>−</mo><mo>(</mo><mn>2</mn><mi>n</mi><mo>−</mo><mi>k</mi><mo>−</mo><mi>t</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">n-(2n-k-t)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">2</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.77777em;vertical-align:-0.08333em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">t</span><span class="mclose">)</span></span></span></span>个第三类小球干掉这些位置</p>
+<p>然后剩下的第三类小球从左向右依次蹦进我们相邻颜色不相同的位置就行了</p>
+<p>因为其实就是每个第三类小球匹配了前面的一些合法空当位置,变成了有标号</p>
+<p>然后我们再把他们拿出一些分给不相同就是无标号组合数了</p>
 <p>code:</p>
 <pre><code class="language-cpp">
 #include&lt;bits/stdc++.h&gt;
@@ -2622,95 +2807,6 @@ int main() {
 	}
 	return 0;
 }
-
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[P2300 合并神犇]]></title>
-        <id>https://xiaxiaoguang.github.io/post/p2300-he-bing-shen-ben/</id>
-        <link href="https://xiaxiaoguang.github.io/post/p2300-he-bing-shen-ben/">
-        </link>
-        <updated>2020-09-05T15:01:50.000Z</updated>
-        <content type="html"><![CDATA[<p>CSP D2T2</p>
-<p>这...好神似啊QAQ?</p>
-<p>我们要最少的操作次数使得合并后的序列单调不降</p>
-<p>如果写出一个dp,<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>f</mi><mrow><mi>i</mi><mo separator="true">,</mo><mi>j</mi></mrow></msub></mrow><annotation encoding="application/x-tex">f_{i,j}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>表示考虑前i个数最后一刀砍在j处的最小代价是什么,然后直接dp即可</p>
-<p>所以可以发现这个东西具有决策单调性....等等是贪心吧?</p>
-<p>你会发现<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>g</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">g_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>表示前i个数我们最小分割次数下最后一段最小是多少</p>
-<p>然后f_i转移的时候只需要枚举到前面的一个j满足<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>g</mi><mi>j</mi></msub><mo>&lt;</mo><mo>=</mo><mi>s</mi><mi>u</mi><msub><mi>m</mi><mi>i</mi></msub><mo>−</mo><mi>s</mi><mi>u</mi><msub><mi>m</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">g_j&lt;=sum_i-sum_j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8252079999999999em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.73333em;vertical-align:-0.15em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">u</span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.716668em;vertical-align:-0.286108em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">u</span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>即可</p>
-<p>所以就做完了,直接写break优化就能2e5飞快了!</p>
-<p>期望复杂度<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mi>n</mi><mn>2</mn></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>,实际复杂度<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></p>
-<p>code:</p>
-<pre><code class="language-cpp">
-
-#include&lt;bits/stdc++.h&gt;
-#define ll long long
-using namespace std;
-const int MAXN=3e5+7;
-ll f[MAXN],sum[MAXN],pre[MAXN];
-int a[MAXN],n;
-
-int main() {
-	scanf(&quot;%d&quot;,&amp;n);
-	for(int i=1; i&lt;=n; ++i) {
-		scanf(&quot;%d&quot;,&amp;a[i]);
-		sum[i]=sum[i-1]+a[i];
-//		printf(&quot;%lld?\n&quot;,sum[i]);
-	}
-	memset(f,0x3f3f3f3f,sizeof(f));
-	f[0]=0;
-	for(int i=1; i&lt;=n; ++i) {
-		for(int j=i-1; j&gt;=0; --j) {
-			if(pre[j]&lt;=sum[i]-sum[j] &amp;&amp; (f[j]+i-j-1&lt;f[i])) {
-				f[i]=f[j]+i-j-1;
-				pre[i]=sum[i]-sum[j];
-				break;
-			}
-		}
-	}
-	printf(&quot;%lld\n&quot;,f[n]);
-	return 0;
-}
-
-
-</code></pre>
-<p>还有一题,一样的break剪枝,过<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mi>e</mi><mn>5</mn></mrow><annotation encoding="application/x-tex">1e5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord mathdefault">e</span><span class="mord">5</span></span></span></span><br>
-P4954 [USACO09OPEN]Tower of Hay G</p>
-<pre><code class="language-cpp">
-#include&lt;bits/stdc++.h&gt;
-#define ll long long
-using namespace std;
-const int MAXN=3e5+7;
-ll f[MAXN],sum[MAXN],pre[MAXN];
-int a[MAXN],n;
-
-int main() {
-	scanf(&quot;%d&quot;,&amp;n);
-	for(int i=1; i&lt;=n; ++i) {
-		scanf(&quot;%d&quot;,&amp;a[i]);
-//		printf(&quot;%lld?\n&quot;,sum[i]);
-	}
-	reverse(a+1,a+n+1);
-	for(int i=1; i&lt;=n; ++i) {
-		sum[i]=sum[i-1]+a[i];
-	}
-	memset(f,0,sizeof(f));
-	f[0]=0;
-	for(int i=1; i&lt;=n; ++i) {
-		for(int j=i-1; j&gt;=0; --j) {
-			if(pre[j]&lt;=sum[i]-sum[j] &amp;&amp; (f[j]+1&gt;f[i])) {
-				f[i]=f[j]+1;
-				pre[i]=sum[i]-sum[j];
-//				printf(&quot;%lld %lld\n&quot;,pre[i],f[i]);
-				break;
-			}
-		}
-	}
-	printf(&quot;%lld\n&quot;,f[n]);
-	return 0;
-}
-
 
 </code></pre>
 ]]></content>
