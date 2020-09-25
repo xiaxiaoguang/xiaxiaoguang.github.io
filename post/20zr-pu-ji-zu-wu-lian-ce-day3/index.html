@@ -1,0 +1,568 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>20zr普及组五连测day3 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1601046548788">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="20zr普及组五连测day3 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="浪费生命的3h30min...
+A
+map
+n2n^2n2比较巧妙
+
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+//const int MAXN=1e5+7;
+int n,m;
+m..." />
+    <meta name="keywords" content="树上链交,乱搞,比赛题" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1601046548788" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              20zr普及组五连测day3
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-09-25
+              </span>
+              <span>
+                9 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/xaEvL_eju/" class="post-tag">
+                  # 树上链交
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/NH8qBUraXa/" class="post-tag">
+                  # 乱搞
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/A3FIICRYA/" class="post-tag">
+                  # 比赛题
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/45NBuzDIW489QBoVep5mcW2axCsNXatgPQiH9ideT6S2SNgXGOtcVdskDLYFlEM3anVo*Xw2qzV4hUouQ6T7CuEG1c0dfR0qbxQg7DOdvpI!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>浪费生命的3h30min...</p>
+<p>A</p>
+<p>map</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>n</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">n^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span>比较巧妙</p>
+<pre><code class="language-cpp">
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+//const int MAXN=1e5+7;
+int n,m;
+map&lt;int,int&gt; mp;
+int main() {
+//	freopen(&quot;test.in&quot;,&quot;r&quot;,stdin);
+//	freopen(&quot;test.out&quot;,&quot;w&quot;,stdout);
+	scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+	for(int i=1,x,y,opt; i&lt;=n; ++i) {
+		scanf(&quot;%d&quot;,&amp;opt);
+		if(opt==1) {
+			scanf(&quot;%d%d&quot;,&amp;x,&amp;y);
+			mp[x]=y;
+		} else {
+			scanf(&quot;%d&quot;,&amp;x);
+			if(mp.find(x)==mp.end()) {
+				puts(&quot;0&quot;);
+			} else printf(&quot;%d\n&quot;,mp[x]);
+		}
+	}
+	return 0;
+}
+
+
+</code></pre>
+<p>B</p>
+<p>每个点记录状压2^k的状态</p>
+<p>然后发现边长为1</p>
+<p>可以广度优先搜索</p>
+<p>code:</p>
+<pre><code class="language-cpp">
+#include&lt;bits/stdc++.h&gt;
+#define pii pair&lt;int,int&gt;
+#define se second
+#define fi first
+#define mkp(x,y) (make_pair(x,y))
+const int MAXS=1100;
+const int MAXN=5007;
+const int MAXM=6007;
+using namespace std;
+
+namespace fastIO {
+#define BUF_SIZE (1&lt;&lt;20)
+	static char buf[BUF_SIZE],*p1=buf+BUF_SIZE,*pend=buf+BUF_SIZE;
+	inline char nc() {
+		if(p1==pend) {
+			p1=buf;
+			pend=buf+fread(buf,1,BUF_SIZE,stdin);
+		}
+		return *p1++;
+	}
+	inline int read() {
+		int x=0;
+		char s=nc();
+		for(; !isdigit(s); s=nc());
+		for(; isdigit(s); s=nc())x=(x&lt;&lt;1)+(x&lt;&lt;3)+s-'0';
+		return x;
+	}
+}
+using namespace fastIO;
+
+int n,ccnt,m,k,hd,tl;
+int home[MAXN],nxt[MAXM],to[MAXM],w[MAXM],hve[MAXN];
+
+int f[MAXN][MAXS],vis[MAXN][MAXS];//f_uS表示点u在已经有了S之后能不能走过去。。。
+pii que[MAXS*MAXN];//不能炸吧。。。
+
+inline void ct(int x,int y,int z) {
+	++ccnt;
+	nxt[ccnt]=home[x];
+	home[x]=ccnt;
+	to[ccnt]=y;
+	w[ccnt]=z;
+}
+
+inline void solve() {
+	memset(f,0x3f3f3f3f,sizeof(f));
+	f[1][hve[1]]=0;
+	vis[1][hve[1]]=1;
+	hd=tl=1;
+	que[hd]=mkp(1,hve[1]);
+	while(hd&lt;=tl) {
+		int u=que[hd].fi,S=que[hd].se;
+		hd++;
+		if(u==n)break;
+		for(int i=home[u]; i; i=nxt[i]) {
+			int v=to[i],q=w[i];
+			int nS=S|hve[v];
+			if(!vis[v][nS] &amp;&amp; ((q&amp;S)==q)) {
+				vis[v][nS]=1;
+				que[++tl]=mkp(v,nS);
+				f[v][nS]=f[u][S]+1;
+			}
+		}
+	}
+	int ans=1e9;
+	for(int i=0; i&lt;MAXS; ++i)ans=min(ans,f[n][i]);
+	if(ans==1e9)printf(&quot;No Solution&quot;);
+	else printf(&quot;%d\n&quot;,ans);
+	return;
+}
+
+int main() {
+//	freopen(&quot;test1.in&quot;,&quot;r&quot;,stdin);
+//	freopen(&quot;test1.out&quot;,&quot;w&quot;,stdout);
+
+	n=read();
+	m=read();
+	k=read();
+	for(int i=1,x; i&lt;=n; ++i) {
+		for(int j=0; j&lt;k; ++j) {
+			x=read();
+			hve[i]|=(x&lt;&lt;j);
+		}
+	}
+	for(int i=1,x,y,z; i&lt;=m; ++i) {
+		x=read();
+		y=read();
+		z=0;
+		for(int j=0,p; j&lt;k; ++j) {
+			p=read();
+			z|=(p&lt;&lt;j);
+		}
+		ct(x,y,z);//qaq
+	}
+	solve();//bfs
+	return 0;
+}
+
+
+</code></pre>
+<p>C</p>
+<p>一个质数能被分解成两个质数的乘积</p>
+<p>当且仅当质因数指数和为2</p>
+<p>问题变得显然,线性筛每个数最小质因子即可</p>
+<p>复杂度<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>+</mo><mi>Q</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n+Q)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">Q</span><span class="mclose">)</span></span></span></span></p>
+<p>code:</p>
+<pre><code class="language-cpp">
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const int MAXN=1e7+7;
+int q;
+int sum[MAXN];
+int pri[MAXN],isp[MAXN],mpr[MAXN];
+
+
+namespace fastIO {
+#define BUF_SIZE (1&lt;&lt;20)
+	static char buf[BUF_SIZE],*p1=buf+BUF_SIZE,*pend=buf+BUF_SIZE;
+	inline char nc() {
+		if(p1==pend) {
+			p1=buf;
+			pend=buf+fread(buf,1,BUF_SIZE,stdin);
+		}
+		return *p1++;
+	}
+	inline int read() {
+		int x=0;
+		char s=nc();
+		for(; !isdigit(s); s=nc());
+		for(; isdigit(s); s=nc())x=(x&lt;&lt;1)+(x&lt;&lt;3)+s-'0';
+		return x;
+	}
+}
+using namespace fastIO;
+
+inline void init() {
+	int tot=0;
+	for(int i=2; i&lt;MAXN; ++i) {
+		if(!isp[i]) {
+			pri[++tot]=i;
+			mpr[i]=i;
+		}
+		for(int j=1; j&lt;=tot &amp;&amp; i * pri[j] &lt; MAXN; ++j) {
+			isp[i*pri[j]]=1;
+			mpr[i*pri[j]]=min(pri[j],mpr[i]);
+			if(i%pri[j]==0) {
+				mpr[i*pri[j]]=pri[j];
+				continue;
+			}
+		}
+	}
+	for(int i=2; i&lt;MAXN; ++i) {
+		if(!isp[i]) {
+			sum[i]=sum[i-1]+1;
+		} else {
+			int x=i;
+			x/=mpr[x];
+			x/=mpr[x];
+			if(x==1) {
+				sum[i]=sum[i-1]+1;
+			} else sum[i]=sum[i-1];
+		}
+	}
+	return;
+}
+
+int main() {
+//	freopen(&quot;test2.in&quot;,&quot;r&quot;,stdin);
+//	freopen(&quot;test1.out&quot;,&quot;w&quot;,stdout);
+	init();
+	q=read();
+	for(int i=1,l,r; i&lt;=q; ++i) {
+		l=read();
+		r=read();
+		printf(&quot;%d\n&quot;,sum[r]-sum[l-1]);
+	}
+	return 0;
+}
+
+
+</code></pre>
+<p>D</p>
+<p>树上链交!</p>
+<p>首先判断有没有空集,就是看两者<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi><mi>c</mi><mi>a</mi></mrow><annotation encoding="application/x-tex">lca</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">c</span><span class="mord mathdefault">a</span></span></span></span>的深度哪个更浅</p>
+<p>然后把浅的那个LCA和另外两个端点再做LCA,如果有一个等于本身就说明LCA在另外的链上</p>
+<p>然后链交大小?</p>
+<p>设两条路径为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mo separator="true">,</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">x,y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span></span></span></span>,<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>u</mi><mo separator="true">,</mo><mi>v</mi></mrow><annotation encoding="application/x-tex">u,v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">u</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span></span></span></span></p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>L</mi><mi>C</mi><mi>A</mi><mo>(</mo><mi>x</mi><mo separator="true">,</mo><mi>u</mi><mo>)</mo><mo separator="true">,</mo><mi>L</mi><mi>C</mi><mi>A</mi><mo>(</mo><mi>x</mi><mo separator="true">,</mo><mi>v</mi><mo>)</mo><mo separator="true">,</mo><mi>L</mi><mi>C</mi><mi>A</mi><mo>(</mo><mi>u</mi><mo separator="true">,</mo><mi>y</mi><mo>)</mo><mo separator="true">,</mo><mi>L</mi><mi>C</mi><mi>A</mi><mo>(</mo><mi>v</mi><mo separator="true">,</mo><mi>y</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">LCA(x,u),LCA(x,v),LCA(u,y),LCA(v,y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">L</span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mord mathdefault">A</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">u</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">L</span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mord mathdefault">A</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">L</span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mord mathdefault">A</span><span class="mopen">(</span><span class="mord mathdefault">u</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">L</span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mord mathdefault">A</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mclose">)</span></span></span></span></p>
+<p>四个点按照dfs序排下序,然后选取最后两个求dis即可</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(nlogn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></p>
+<p>code:</p>
+<pre><code class="language-cpp">
+
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const int MAXN=4e5+7;
+int n,q,qwq,depp,ccnt;
+int siz[MAXN],dfn[MAXN],dep[MAXN],fa[MAXN],son[MAXN],top[MAXN];
+int home[MAXN],nxt[MAXN],to[MAXN];
+int a[10];
+
+
+namespace fastIO {
+#define BUF_SIZE (1&lt;&lt;20)
+	static char buf[BUF_SIZE],*p1=buf+BUF_SIZE,*pend=buf+BUF_SIZE;
+	inline char nc() {
+		if(p1==pend) {
+			p1=buf;
+			pend=buf+fread(buf,1,BUF_SIZE,stdin);
+		}
+		return *p1++;
+	}
+	inline int read() {
+		int x=0;
+		char s=nc();
+		for(; !isdigit(s); s=nc());
+		for(; isdigit(s); s=nc())x=(x&lt;&lt;1)+(x&lt;&lt;3)+s-'0';
+		return x;
+	}
+}
+using namespace fastIO;
+
+inline void ct(int x,int y) {
+	ccnt++;
+	nxt[ccnt]=home[x];
+	home[x]=ccnt;
+	to[ccnt]=y;
+}
+
+inline void dfs1(int u,int F) {
+	siz[u]=1;
+	dfn[u]=++depp;
+	for(int i=home[u]; i; i=nxt[i]) {
+		int v=to[i];
+		if(v==F)continue;
+		dep[v]=dep[u]+1;
+		fa[v]=u;
+		dfs1(v,u);
+		siz[u]+=siz[v];
+		if(siz[v]&gt;siz[son[u]])son[u]=v;
+	}
+	return ;
+}
+
+inline void dfs2(int u,int topf) {
+	top[u]=topf;
+	if(!son[u])return ;
+	dfs2(son[u],topf);
+	for(int i=home[u]; i; i=nxt[i]) {
+		int v=to[i];
+		if(v==fa[u] || v==son[u])continue;
+		dfs2(v,v);
+	}
+}
+
+inline int LCA(int x,int y) {
+	while(top[x]!=top[y]) {
+		if(dep[top[x]]&lt;dep[top[y]])
+			x^=y^=x^=y;
+		x=fa[top[x]];
+	}
+	if(dep[x]&gt;dep[y])x^=y^=x^=y;
+	return x;
+}
+
+inline bool cmp(const int &amp;x,const int &amp;y) {
+	return dfn[x]&lt;dfn[y];
+}
+
+inline int DIS(int x,int y) {
+	return dep[x]+dep[y]-2*dep[LCA(x,y)];
+}
+
+//this is a completely 链交大小
+inline void solve(int u,int v,int x,int y) {
+	a[1]=LCA(u,x);
+	a[2]=LCA(u,y);
+	a[3]=LCA(v,x);
+	a[4]=LCA(v,y);
+	sort(a+1,a+5,cmp);
+	printf(&quot;%d\n&quot;,DIS(a[3],a[4])+1);
+	return;
+}
+
+int main() {
+//	freopen(&quot;test3.in&quot;,&quot;r&quot;,stdin);
+//	freopen(&quot;test1.out&quot;,&quot;w&quot;,stdout);
+	n=read();
+	q=read();
+	qwq=read();
+	for(int i=1,x,y; i&lt;n; ++i) {
+		x=read();
+		y=read();
+		ct(x,y);
+		ct(y,x);
+	}
+	dep[1]=1;
+	dfs1(1,0);
+	dfs2(1,1);
+	for(int i=1,x,y,z; i&lt;=q; ++i) {
+		x=read();
+		y=read();
+		z=read();
+		solve(x,y,z,y);//直接链交走人了。。。
+	}
+	return 0;
+}
+
+
+
+
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/lgr-076-luo-gu-yue-yue-sai-i-and-cnoi2020/">
+              <h3 class="post-title">
+                 【LGR-076】洛谷 ⑨ 月月赛 I &amp; Cnoi2020 
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
