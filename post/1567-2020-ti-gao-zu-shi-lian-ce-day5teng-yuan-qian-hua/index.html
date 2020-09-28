@@ -1,0 +1,511 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>#1567. [2020提高组十连测day5]藤原千花 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1601305818029">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="#1567. [2020提高组十连测day5]藤原千花 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="马耀华的比赛题A
+太重要了所以这场比赛题我将拆成三篇博客讲述
+http://www.zhengruioi.com/problem/1567
+线图....QAQ他的点数是按照组合数级别上涨的...
+真的来说是图中多少条长为k的路径...
+详情..." />
+    <meta name="keywords" content="分类讨论,比赛题,图论" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1601305818029" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              #1567. [2020提高组十连测day5]藤原千花
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-09-27
+              </span>
+              <span>
+                8 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/8qb1vYxjo/" class="post-tag">
+                  # 分类讨论
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/A3FIICRYA/" class="post-tag">
+                  # 比赛题
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/vkAXDJ4vz/" class="post-tag">
+                  # 图论
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/45NBuzDIW489QBoVep5mcW2axCsNXatgPQiH9ideT6S3kzozauGyp7G9eVfx4VxYw2Y7Tx1yAXm5GjVxGUvbZznH40OOt4fcv2591QTDc.M!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>马耀华的比赛题A</p>
+<p>太重要了所以这场比赛题我将拆成三篇博客讲述</p>
+<p>http://www.zhengruioi.com/problem/1567</p>
+<p>线图....QAQ他的点数是按照组合数级别上涨的...</p>
+<p>真的来说是图中多少条长为k的路径...</p>
+<p>详情请见zjoi 线图那道题</p>
+<p>考场时没有判断一个点然后挂掉了QAQ</p>
+<p>现在来看是什么我都没有判断就挂掉了....</p>
+<h1 id="暴力">暴力</h1>
+<p>k=0,判断是否连通&amp;&amp;是否是每个点度数都为偶数</p>
+<p>k=1,你会发现新图中一个点是原图中两个点的度数和-2</p>
+<p>那么我们就可以把所有新图中的点度数算出来然后和k=0一样了</p>
+<p>然鹅...不严谨的我没有想到这样一个可爱的情况:</p>
+<p>1孤零零的站在那里,第一次线图他消失了</p>
+<p>所以要特殊判断一个点...</p>
+<h1 id="正解">正解:</h1>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi><mo>&gt;</mo><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">k&gt;=2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.73354em;vertical-align:-0.0391em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span></p>
+<p>首先k=0的判据:所有点度数为偶数一定还成立</p>
+<p>然后根据k=1我们可以发现:如果所有点度数奇偶性相同也可以</p>
+<p>那....所有点度数都为奇数的图能否由线图导出?</p>
+<p>你会发现可以,此时只需要所有边两侧的点度数奇偶性不同</p>
+<p>那...这样好像可以递归下去,这样的图又能否由线图导出?</p>
+<p>然后你又会发现这样的图好像一定是一个二分图...</p>
+<p>也就是说我们不存在奇环,至少三元环</p>
+<p>再一想,一旦一个图中某个点度数为3就会出现这样一个三元环!就暴毙了</p>
+<p>不过好像左边一个点右边两个点的完全二分图也满足这个性质而且能够导出??.....QAQ</p>
+<p><strong>但是至少这种情况是特殊的</strong></p>
+<p>即,它属于那种能够越变越小的特殊线图:链</p>
+<p>每进行一次,链的长度会缩短1</p>
+<h2 id="判no判据">判No判据</h2>
+<h3 id="存在长度大于k的链">存在长度大于k的链</h3>
+<p>缩不完</p>
+<h3 id="存在长度等于k的链而且有其他剩下的连通块">存在长度等于k的链,而且有其他剩下的连通块</h3>
+<p>长度等于k的链会变成一个点</p>
+<p>至少剩下两个连通块</p>
+<h3 id="存在多个长度等于k的链">存在多个长度等于k的链</h3>
+<p>QAQ这个其实和上面一样</p>
+<p>但是判断起来可不一样啊</p>
+<h3 id="不存在点">不存在点</h3>
+<p>QAQ这个卡了我一会..</p>
+<p>题目定义</p>
+<h3 id="存在不止一个连通块">存在不止一个连通块</h3>
+<p>QAQ这个又卡了我一会....</p>
+<p>注意有些链可能缩没了</p>
+<h3 id="上面都没触犯结果三个图性质都没满足">上面都没触犯,结果三个图性质都没满足</h3>
+<p>这个最好判断qwq</p>
+<h2 id="判yes判据">判Yes判据</h2>
+<h3 id="最后只剩下存在长为k的链">最后只剩下存在长为k的链</h3>
+<p>一个点也行</p>
+<h3 id="满足一个图性质">满足一个图性质</h3>
+<p>显然</p>
+<p>于是我们大胆实践</p>
+<p>就用2h完成了这道题!!!</p>
+<p>附赠第一发AC的代码/se</p>
+<p>code:</p>
+<pre><code class="language-cpp">
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const int MAXN = 2e6 + 7;
+int n, m, k;
+struct rec {
+	int x, y;
+} e[MAXN];
+int f[MAXN], in[MAXN];
+inline int getf(int x) {
+	return f[x] == x ? x : f[x] = getf(f[x]);
+}
+
+inline void pd1() {
+	for(int i = 1; i &lt;= n; ++i)f[i] = i;
+	for(int i = 1; i &lt;= m; ++i) {
+		in[e[i].x]++;
+		in[e[i].y]++;
+		f[getf(e[i].x)] = getf(e[i].y);
+	}
+	for(int i = 1; i &lt;= n; ++i) {
+		if(getf(i) != getf(1))return (void)puts(&quot;No&quot;);
+	}
+	for(int i = 1; i &lt;= n; ++i) {
+		//		printf(&quot;%d %d?\n&quot;,i,in[i]);
+		if(in[i] &amp; 1)return (void)puts(&quot;No&quot;);
+	}
+	return (void)puts(&quot;Yes&quot;);
+}//k equal 0
+
+//one node
+inline void pd2() {
+	static int siz[MAXN];
+	for(int i = 1; i &lt;= n; ++i)f[i] = i;
+	for(int i = 1; i &lt;= m; ++i) {
+		in[e[i].x]++;
+		in[e[i].y]++;
+		f[getf(e[i].x)] = getf(e[i].y);
+	}
+	for(int i = 1; i &lt;= n; ++i) {
+		siz[getf(i)]++;
+	}
+	int cnt = 0;
+	for(int i = 1; i &lt;= n; ++i) {
+		if(siz[i] &gt; 1) {
+			++cnt;
+		}
+	}
+	if(cnt &gt; 1)return (void)puts(&quot;No&quot;);
+	if(cnt == 0)return (void)puts(&quot;No&quot;);
+	for(int i = 1; i &lt;= m; ++i) {
+		if((in[e[i].x] + in[e[i].y]) &amp; 1)return (void)puts(&quot;No&quot;);
+	}
+	puts(&quot;Yes&quot;);
+	return ;
+}
+
+int home[MAXN], nxt[MAXN], to[MAXN], ccnt;
+
+inline void ct(int x, int y) {
+	ccnt++;
+	nxt[ccnt] = home[x];
+	home[x] = ccnt;
+	to[ccnt] = y;
+}
+
+int flg, mx;
+int dep[MAXN], vis[MAXN];
+//du shu is 2
+//with out circle
+//lian tong kuai!
+inline void dfs(int u, int F) {
+	if(!flg)return ;
+	vis[u] = 1;
+	mx = max(mx, dep[u]);
+	for(int i = home[u]; i; i = nxt[i]) {
+		int v = to[i];
+		if(v == F)continue;
+		//		printf(&quot;%d-&gt; %d %d in? %d\n&quot;,u,v,vis[v],in[v]);
+		if(vis[v])flg = 0;
+		else {
+			if(in[v] != 1 &amp;&amp; in[v] != 2)flg = 0;
+			dep[v] = dep[u] + 1;
+			dfs(v, u);
+		}
+	}
+}
+
+int visp[MAXN];
+inline void dfs2(int u, int F) {
+	visp[u] = 1;
+	for(int i = home[u]; i; i = nxt[i]) {
+		if(to[i] == F)continue;
+		dfs2(to[i], u);
+	}
+}
+
+//if k &gt; maxlen lian ,can1
+//if graph is jishu or graph is jioutu,can2
+inline void pd3() {
+	for(int i = 1; i &lt;= n; ++i)f[i] = i;
+	for(int i = 1; i &lt;= m; ++i) {
+		in[e[i].x]++;
+		in[e[i].y]++;
+		f[getf(e[i].x)] = getf(e[i].y);
+		ct(e[i].x, e[i].y);
+		ct(e[i].y, e[i].x);
+	}
+	int cnt = 0;
+	int flg2 = 1;
+	for(int i = 1; i &lt;= n; ++i) {
+		if(in[i] == 0) {
+			visp[i] = 1;
+			continue;
+		}
+		if(!vis[getf(i)] &amp;&amp; in[i] == 1) { //is himself
+			// printf(&quot;%d?%d\n&quot;, i, in[i]);
+			flg = 1;
+			mx = 0;
+			dfs(i, 0);
+			if(!flg) continue;
+			if(mx &gt; k)return (void)puts(&quot;No&quot;);
+			else if(mx == k) {
+				if(!flg2)return (void)puts(&quot;No&quot;);
+				flg2 = 0; //cunzai!
+				dfs2(i, 0);
+			} else dfs2(i, 0);
+		}
+	}
+	// puts(&quot;qwq&quot;);
+	for(int i = 1; i &lt;= n; ++i) {
+		if(!visp[i] &amp;&amp; i == getf(i)) {
+			cnt++;
+			//				printf(&quot;%d \n&quot;,i);
+		}
+	}
+	// printf(&quot;%d %d\n&quot;, cnt, flg2);
+
+	if(flg2 &amp;&amp; cnt == 0)return (void)puts(&quot;No&quot;);
+	// printf(&quot;%d %d\n&quot;, flg2, cnt);
+	if(!flg2 &amp;&amp; cnt == 0) {
+		// if(n == 890000 &amp;&amp; m == 269874)puts(&quot;qwq&quot;);
+		return (void)puts(&quot;Yes&quot;);
+	} else if(!flg2) {//too....
+		return (void)puts(&quot;No&quot;);
+	}
+	if(cnt &gt; 1)return (void)puts(&quot;No&quot;);
+	flg = 1;
+	for(int i = 1; i &lt;= n; ++i) {
+		if(visp[i])continue;
+		if(!(in[i] &amp; 1)) {
+			flg = 0;
+			break;
+		}
+	}
+	if(flg)return (void)puts(&quot;Yes&quot;);
+	flg = 1;
+	for(int i = 1; i &lt;= n; ++i) {
+		if(visp[i])continue;
+		if((in[i] &amp; 1)) {
+			flg = 0;
+			break;
+		}
+	}
+	if(flg) {
+		// if(n == 890000 &amp;&amp; m == 269874)puts(&quot;QAq&quot;);
+		return (void)puts(&quot;Yes&quot;);
+	}
+	flg = 1;
+	for(int i = 1; i &lt;= m; ++i) {
+		if(visp[e[i].x] || visp[e[i].y])continue;
+		if(!((in[e[i].x] &amp; 1) ^ (in[e[i].y] &amp; 1))) {
+			flg = 0;
+			break;
+		}
+	}
+	if(flg) {
+		// if(n == 890000 &amp;&amp; m == 269874)puts(&quot;qAq&quot;);
+		return (void)puts(&quot;Yes&quot;);
+	}
+	return (void)puts(&quot;No&quot;);
+}
+
+int main() {
+	scanf(&quot;%d%d%d&quot;, &amp;n, &amp;m, &amp;k);
+	for(int i = 1; i &lt;= m; ++i) {
+		scanf(&quot;%d%d&quot;, &amp;e[i].x, &amp;e[i].y);
+	}
+	if(k == 0) {
+		return pd1(), 0;
+	}//qaq
+	if(k == 1) {
+		return pd2(), 0;
+	}//qwq
+	pd3();//QAQAQAQ
+	return 0;
+}
+
+/*
+
+12 10 2
+1 2
+3 4
+
+5 6
+6 7
+7 8
+8 5
+
+9 10
+10 11
+11 12
+12 9
+
+*/
+
+
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#%E6%9A%B4%E5%8A%9B">暴力</a></li>
+<li><a href="#%E6%AD%A3%E8%A7%A3">正解:</a>
+<ul>
+<li><a href="#%E5%88%A4no%E5%88%A4%E6%8D%AE">判No判据</a>
+<ul>
+<li><a href="#%E5%AD%98%E5%9C%A8%E9%95%BF%E5%BA%A6%E5%A4%A7%E4%BA%8Ek%E7%9A%84%E9%93%BE">存在长度大于k的链</a></li>
+<li><a href="#%E5%AD%98%E5%9C%A8%E9%95%BF%E5%BA%A6%E7%AD%89%E4%BA%8Ek%E7%9A%84%E9%93%BE%E8%80%8C%E4%B8%94%E6%9C%89%E5%85%B6%E4%BB%96%E5%89%A9%E4%B8%8B%E7%9A%84%E8%BF%9E%E9%80%9A%E5%9D%97">存在长度等于k的链,而且有其他剩下的连通块</a></li>
+<li><a href="#%E5%AD%98%E5%9C%A8%E5%A4%9A%E4%B8%AA%E9%95%BF%E5%BA%A6%E7%AD%89%E4%BA%8Ek%E7%9A%84%E9%93%BE">存在多个长度等于k的链</a></li>
+<li><a href="#%E4%B8%8D%E5%AD%98%E5%9C%A8%E7%82%B9">不存在点</a></li>
+<li><a href="#%E5%AD%98%E5%9C%A8%E4%B8%8D%E6%AD%A2%E4%B8%80%E4%B8%AA%E8%BF%9E%E9%80%9A%E5%9D%97">存在不止一个连通块</a></li>
+<li><a href="#%E4%B8%8A%E9%9D%A2%E9%83%BD%E6%B2%A1%E8%A7%A6%E7%8A%AF%E7%BB%93%E6%9E%9C%E4%B8%89%E4%B8%AA%E5%9B%BE%E6%80%A7%E8%B4%A8%E9%83%BD%E6%B2%A1%E6%BB%A1%E8%B6%B3">上面都没触犯,结果三个图性质都没满足</a></li>
+</ul>
+</li>
+<li><a href="#%E5%88%A4yes%E5%88%A4%E6%8D%AE">判Yes判据</a>
+<ul>
+<li><a href="#%E6%9C%80%E5%90%8E%E5%8F%AA%E5%89%A9%E4%B8%8B%E5%AD%98%E5%9C%A8%E9%95%BF%E4%B8%BAk%E7%9A%84%E9%93%BE">最后只剩下存在长为k的链</a></li>
+<li><a href="#%E6%BB%A1%E8%B6%B3%E4%B8%80%E4%B8%AA%E5%9B%BE%E6%80%A7%E8%B4%A8">满足一个图性质</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/20zr-pu-ji-zu-wu-lian-ce-day3/">
+              <h3 class="post-title">
+                20zr普及组五连测day3
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
