@@ -1,0 +1,470 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CSP-S2考前综合强化刷题（第二场） | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1601647885444">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="CSP-S2考前综合强化刷题（第二场） | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="QAQ
+T2被降智
+A
+二分答案
+判断的时候我们先让之前(如果有灯)就放光放过去,照亮一些路灯
+然后再找到第一个照不亮的我们从哪个点向后找第二个要照亮的路灯就好了
+时间复杂度O(nlogn)
+考场空间开小?成为全场唯一90
+以后1.5倍空间..." />
+    <meta name="keywords" content="计数题,培训题,比赛题,猜结论,动态规划" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1601647885444" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              CSP-S2考前综合强化刷题（第二场）
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-10-02
+              </span>
+              <span>
+                7 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/JP89ddpfS/" class="post-tag">
+                  # 计数题
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/GZNzWf9EG/" class="post-tag">
+                  # 培训题
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/A3FIICRYA/" class="post-tag">
+                  # 比赛题
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/c7QHdP10U/" class="post-tag">
+                  # 猜结论
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/CJ-ugjBAY/" class="post-tag">
+                  # 动态规划
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/45NBuzDIW489QBoVep5mcatNm750txzpI1gQ6ekEmGLm22R4HOggF.SwaCg7hPwXf0GS3WTQi6D1YTrUz.yLkg3iT6AZGkexvoybimyPwuk!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>QAQ</p>
+<p>T2被降智</p>
+<p>A</p>
+<p>二分答案</p>
+<p>判断的时候我们先让之前(如果有灯)就放光放过去,照亮一些路灯</p>
+<p>然后再找到第一个照不亮的我们从哪个点向后找第二个要照亮的路灯就好了</p>
+<p>时间复杂度O(nlogn)</p>
+<p>考场空间开小?成为全场唯一90</p>
+<h1 id="以后15倍空间一定要开">以后1.5倍空间一定要开!!!</h1>
+<p>code:</p>
+<pre><code class="language-cpp">
+#include&lt;bits/stdc++.h&gt;
+#define int long long
+using namespace std;
+const int MAXN = 2e5 + 7;
+
+int n, k, a[MAXN];
+
+inline int chk(int x) {
+	int lstl = 0;
+	int lstu = 1;
+	lstu = 1;
+	lstl = 1;
+	while(fabs(a[lstl + 1] - a[lstu]) &lt;= x &amp;&amp; lstl &lt;= n) {
+		++lstl;
+	}
+	lstu = lstl + 1;
+	for(int i = 2; i &lt;= k; ++i) {
+		while(fabs(a[lstu] - a[lstl]) &lt;= x &amp;&amp; lstu &lt;= n) {
+			++lstu;
+		}
+		lstl = lstu;
+		while(fabs(a[lstl + 1] - a[lstu]) &lt;= x &amp;&amp; lstl &lt;= n) {
+			++lstl;
+		}
+		lstu = lstl + 1;
+	}
+	while(fabs(a[lstu] - a[lstl]) &lt;= x &amp;&amp; lstu &lt;= n)
+		++lstu;
+	return lstu &gt; n;
+}
+
+signed main() {
+	scanf(&quot;%lld%lld&quot;, &amp;n, &amp;k);
+	a[n + 1] = 2e9;
+	a[0] = -2e9;
+	int	L = 0, R = 2e9, ans = 0;
+	for(int i = 1; i &lt;= n; ++i) {
+		scanf(&quot;%lld&quot;, &amp;a[i]);
+	}
+	while(L &lt;= R) {
+		int mid = (L + R) &gt;&gt; 1;
+		if(chk(mid)) {
+			ans = mid;
+			R = mid - 1;
+		} else {
+			L = mid + 1;
+		}
+	}
+	printf(&quot;%lld\n&quot;, ans);
+	return 0;
+
+}
+
+
+</code></pre>
+<p>B</p>
+<p>惨</p>
+<p>首先n^2很easy</p>
+<p>然后考虑怎么观察来优化</p>
+<p>你会发现我们就算交换很鬼畜也会有很多不动的位置</p>
+<p>比如12345对于2交换一次</p>
+<p>21435</p>
+<p>1,3,5都没有变</p>
+<p>但是数组整个下标其实向后平移了一位,然后有一些特殊位置要暴力修改....</p>
+<p>做法就很显然了...开个2n的数组就行了</p>
+<p>然后每次我们交换交换特殊位置...QAQ</p>
+<p>code:</p>
+<pre><code class="language-cpp">
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const int MAXN = 3e6 + 7;
+int n, p[MAXN];
+int main() {
+	scanf(&quot;%d&quot;, &amp;n);
+	for(int i = 1; i &lt;= n; ++i)p[i] = i;
+	for(int i = 2; i &lt;= n; ++i) {
+		int nw = 0;
+		for(int j = 1; j &lt;= n; j += i) {
+			swap(nw, p[j + i - 2]);
+		}
+		p[i + n - 1] = nw;
+
+	}
+	for(int i = n; i &lt; 2 * n; ++i) {
+		printf(&quot;%d &quot;, p[i]);
+	}
+	puts(&quot;&quot;);
+	return 0;
+}
+
+</code></pre>
+<p>C</p>
+<p>随便dp即可</p>
+<p>单指针计数可以实现快速判断最近的是哪个</p>
+<p>同时计算一段贡献也很basic</p>
+<p>code:</p>
+<pre><code class="language-cpp">
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+#define ll long long
+const int MAXN = 205;
+const int MAXK = 32;
+ll a[MAXN], sum[MAXN], b[MAXN], suf[MAXN];
+int n, k;
+ll f[MAXN][MAXK][2];
+inline ll cst1(int l, int r) {//l light -&gt;r
+	return sum[r] - sum[l - 1] - 1ll * (r - l + 1) * a[l];
+}
+
+inline ll cst2(int l, int r) {//r light -&gt; l
+	return suf[l] - suf[r + 1] - 1ll * (r - l + 1) * b[r];
+}
+
+int main() {
+	scanf(&quot;%d%d&quot;, &amp;n, &amp;k);
+	for(int i = 1; i &lt;= n; ++i) {
+		scanf(&quot;%lld&quot;, &amp;a[i]);
+		sum[i] = sum[i - 1] + a[i];
+	}
+	for(int i = 1; i &lt;= n; ++i) {
+		b[i] = a[n] - a[i];
+	}
+	for(int i = n; i &gt;= 1; --i) {
+		suf[i] = suf[i + 1] + b[i];
+	}
+	memset(f, 0x3f3f3f3f, sizeof(f));
+	for(int i = 1; i &lt;= n; ++i) {
+		for(int j = 1; j &lt;= min(i, k); ++j) {
+			if(j != 1) {
+				int lstu = i;
+				for(int k = i - 1; k &gt;= 1; --k) {
+					while(a[i] - a[lstu - 1] &lt; a[lstu - 1] - a[k]) --lstu;
+					f[i][j][1] = min(f[i][j][1], f[k][j - 1][1] + cst1(k, lstu - 1) + cst2(lstu, i));
+				}
+			} else {
+				f[i][j][1] = min(f[i][j][1], cst2(1, i));
+			}
+			for(int k = i - 1; k &gt;= 1; --k)
+				f[i][j][0] = min(f[i][j][0], f[k][j][1] + cst1(k, i));
+		}
+	}
+	printf(&quot;%lld\n&quot;, min(f[n][k][0], f[n][k][1]));
+	return 0;
+}
+
+
+</code></pre>
+<p>D</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>f</mi><mrow><mi>i</mi><mo separator="true">,</mo><mi>j</mi></mrow></msub></mrow><annotation encoding="application/x-tex">f_{i,j}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>表示点i子树到i距离为j的点数有多少个</p>
+<p>然后<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>g</mi><mrow><mi>i</mi><mo separator="true">,</mo><mi>j</mi></mrow></msub></mrow><annotation encoding="application/x-tex">g_{i,j}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.716668em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>表示点i子树中满足<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><mi>i</mi><mi>s</mi><mo>(</mo><mi>L</mi><mi>C</mi><mi>A</mi><mo>(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo>)</mo><mo separator="true">,</mo><mi>x</mi><mo>)</mo><mo>=</mo><mi>d</mi><mi>i</mi><mi>s</mi><mo>(</mo><mi>L</mi><mi>C</mi><mi>A</mi><mo>(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo>)</mo><mo separator="true">,</mo><mi>y</mi><mo>)</mo><mo>=</mo><mi>d</mi><mi>i</mi><mi>s</mi><mo>(</mo><mi>L</mi><mi>C</mi><mi>A</mi><mo>(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo>)</mo><mo separator="true">,</mo><mi>i</mi><mo>)</mo><mo>+</mo><mi>j</mi></mrow><annotation encoding="application/x-tex">dis(LCA(x,y),x)=dis(LCA(x,y),y)=dis(LCA(x,y),i)+j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">i</span><span class="mord mathdefault">s</span><span class="mopen">(</span><span class="mord mathdefault">L</span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mord mathdefault">A</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">i</span><span class="mord mathdefault">s</span><span class="mopen">(</span><span class="mord mathdefault">L</span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mord mathdefault">A</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">i</span><span class="mord mathdefault">s</span><span class="mopen">(</span><span class="mord mathdefault">L</span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mord mathdefault">A</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">i</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span></span></span></span><br>
+的有多少个</p>
+<p>你会发现g数组更新其实很简单</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>g</mi><mrow><mi>i</mi><mo separator="true">,</mo><mi>j</mi></mrow></msub><mo>+</mo><mo>=</mo><msub><mi>g</mi><mrow><mi>v</mi><mo separator="true">,</mo><mi>j</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">g_{i,j}+=g_{v,j+1}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8694379999999999em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mord">+</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.716668em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">v</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span></span></p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>g</mi><mrow><mi>i</mi><mo separator="true">,</mo><mi>j</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>+</mo><mo>=</mo><msub><mi>f</mi><mrow><mi>v</mi><mo separator="true">,</mo><mi>j</mi></mrow></msub><mo>∗</mo><msub><mi>f</mi><mrow><mi>i</mi><mo separator="true">,</mo><mi>j</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">g_{i,j+1}+=f_{v,j}*f_{i,j+1}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8694379999999999em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mord">+</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">v</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span></span></p>
+<p>第二行相当于加入了新的三元组</p>
+<p>f转移一样简单</p>
+<p>code:</p>
+<pre><code class="language-cpp">
+#include&lt;bits/stdc++.h&gt;
+#define int long long
+#define ll long long
+using namespace std;
+const int MAXN = 1e5 + 7;
+const int MAXM = 2e5 + 7;
+int home[MAXN], nxt[MAXM], to[MAXM], ccnt, n;
+ll a[MAXN], ans;
+
+inline void ct(int x, int y) {
+	ccnt++;
+	nxt[ccnt] = home[x];
+	home[x] = ccnt;
+	to[ccnt] = y;
+}
+
+int fa[MAXN];
+ll sum1[MAXN][5], sum2[MAXN][5];
+
+inline void dfs1(int u, int F) {
+	fa[u] = F;
+	for(int i = home[u]; i; i = nxt[i]) {
+		int v = to[i];
+		if(v == F)continue;
+		dfs1(v, u);
+		sum1[u][1] += a[v];
+		sum1[u][3] += sum1[u][2] * sum1[v][1];
+		sum1[u][2] += sum1[v][1] * sum2[u][2];
+		sum2[u][2] += sum1[v][1];
+	}
+	return;
+}
+
+signed main() {
+	// freopen(&quot;test.in&quot;, &quot;r&quot;, stdin);
+	// freopen(&quot;test.out&quot;, &quot;w&quot;, stdout);
+
+	scanf(&quot;%lld&quot;, &amp;n);
+	for(int i = 1; i &lt;= n; ++i) {
+		scanf(&quot;%lld&quot;, &amp;a[i]);
+	}
+	for(int i = 1, x, y; i &lt; n; ++i) {
+		scanf(&quot;%lld%lld&quot;, &amp;x, &amp;y);
+		ct(x, y);
+		ct(y, x);
+	}
+	dfs1(1, 0);
+	//case 1
+	for(int u = 1; u &lt;= n; ++u) {
+		int v = fa[fa[u]];
+		if(v == 0)continue;
+		ans += a[v] * sum1[u][2];
+	}
+	//case 2
+	for(int u = 1; u &lt;= n; ++u) {
+		ans += sum1[u][3];
+	}
+	//case 3
+	for(int u = 1; u &lt;= n; ++u) {
+		int v = fa[u];
+		if(v == 0)continue;
+		ll tp = sum1[v][1] - a[u];
+		ans += tp * sum1[u][2];
+	}
+	printf(&quot;%lld\n&quot;, ans);
+	return 0;
+}
+
+
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#%E4%BB%A5%E5%90%8E15%E5%80%8D%E7%A9%BA%E9%97%B4%E4%B8%80%E5%AE%9A%E8%A6%81%E5%BC%80">以后1.5倍空间一定要开!!!</a></li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/csp-s2-kao-qian-zong-he-qiang-hua-ting-ke-day-1/">
+              <h3 class="post-title">
+                CSP-S2考前综合强化听课(Day 1+2)
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

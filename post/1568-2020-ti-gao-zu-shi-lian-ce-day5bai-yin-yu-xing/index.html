@@ -1,0 +1,487 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>#1568. [2020提高组十连测day5]白银御行 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1601647885444">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="#1568. [2020提高组十连测day5]白银御行 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="哇偶...
+畸形第k大-&gt;
+二分答案
+多次询问-&gt;
+整体二分
+然后考虑怎么把矩阵相交变成数点问题
+两个矩阵相交的条件可以是在两维都要区间相交
+而转换...最好用的消除条件的方法就是容斥
+
+
+所以也就是说我们按照这个条件去处理每一..." />
+    <meta name="keywords" content="容斥,比赛题,整体二分" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1601647885444" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              #1568. [2020提高组十连测day5]白银御行
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-10-01
+              </span>
+              <span>
+                8 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/mUSUJZ9R7J/" class="post-tag">
+                  # 容斥
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/A3FIICRYA/" class="post-tag">
+                  # 比赛题
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/DjesUT3xSE/" class="post-tag">
+                  # 整体二分
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/45NBuzDIW489QBoVep5mcW2axCsNXatgPQiH9ideT6QNoEbQv1JvSKNwPPuHQw5ihpwlHD5c*dEe7cLejEDeJIOa1zvvwO*zmTT.QEZ*HGI!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>哇偶...</p>
+<p>畸形第k大-&gt;</p>
+<p>二分答案</p>
+<p>多次询问-&gt;</p>
+<p>整体二分</p>
+<p>然后考虑怎么把矩阵相交变成数点问题</p>
+<p>两个矩阵相交的条件可以是在两维都要区间相交</p>
+<p>而转换...最好用的消除条件的方法就是容斥</p>
+<figure data-type="image" tabindex="1"><img src="https://xiaxiaoguang.github.io/post-images/1601537501647.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://xiaxiaoguang.github.io/post-images/1601537631151.png" alt="" loading="lazy"></figure>
+<p>所以也就是说我们按照这个条件去处理每一层的整体二分过程就好了</p>
+<p>问题在于代码有好多好多细节QAQ</p>
+<p>堪比接水果</p>
+<p>注意 :</p>
+<ol>
+<li>
+<p>多开几个数组处理每一层询问和修改的分开</p>
+</li>
+<li>
+<p>注意最后值域收缩到一个点那些点的答案就是这个值</p>
+</li>
+<li>
+<p>注意最小化所以&lt;=分左边</p>
+</li>
+</ol>
+<p>code:</p>
+<pre><code class="language-cpp">
+//Finished by dawn light
+//as difficult as frute
+//qwq orzmyh!
+#include&lt;bits/stdc++.h&gt;
+const int MAXN = 1e5 + 7 + 1e4;
+using namespace std;
+
+int n, m;
+struct mat {
+	int r1, c1, r2, c2, z, id;
+	bool operator&lt;(const mat &amp;x)const {
+		return c1 == x.c1 ? z &lt; x.z : c1 &lt; x.c1;
+	}
+} e[MAXN], ask[MAXN], mdq[MAXN * 2], a[MAXN], b[MAXN];
+
+struct rec {
+#define lowbit(x) (x&amp;(-x))
+	int tr[MAXN * 2];
+	inline void mdf(int x, int V) {
+		for(; x &lt;= n; x += lowbit(x))tr[x] += V;
+	}
+	inline int qry(int x) {
+		int ret = 0;
+		for(; x; x -= lowbit(x))ret += tr[x];
+		return ret;
+	}
+} tr;
+int tp[MAXN];
+
+inline void pd1(int L, int R, int l, int r, int P) {
+	int tot = 0;
+	for(int i = L; i &lt;= R; ++i) {
+		if(e[i].id &lt;= P) {
+			mdq[++tot] = e[i];
+			mdq[tot].r1 = e[i].r1;
+			mdq[tot].c1 = e[i].c1;
+			mdq[tot].z = -2;
+		}
+	}
+	for(int i = l; i &lt;= r; ++i) {
+		mdq[++tot] = ask[i];
+		mdq[tot].r1 = ask[i].r2;
+		mdq[tot].c1 = ask[i].c2;
+	}
+	sort(mdq + 1, mdq + tot + 1);
+	for(int i = 1; i &lt;= tot; ++i) {
+		if(mdq[i].z == -2) {
+			tr.mdf(mdq[i].r1, 1);
+		} else {
+			tp[mdq[i].id] += tr.qry(mdq[i].r1);
+		}
+	}
+	for(int i = 1; i &lt;= tot; ++i)
+		if(mdq[i].z == -2) {
+			tr.mdf(mdq[i].r1, -1);
+		}
+}
+
+inline void pd2(int L, int R, int l, int r, int P) {
+	int tot = 0;
+	for(int i = L; i &lt;= R; ++i) {
+		if(e[i].id &lt;= P) {
+			mdq[++tot] = e[i];
+			mdq[tot].r1 = e[i].r2;
+			mdq[tot].c1 = e[i].c1;
+			mdq[tot].z = -2;
+		}
+	}
+	for(int i = l; i &lt;= r; ++i) {
+		mdq[++tot] = ask[i];
+		mdq[tot].r1 = ask[i].r1 - 1;
+		mdq[tot].c1 = ask[i].c2;
+	}
+	sort(mdq + 1, mdq + tot + 1);
+	for(int i = 1; i &lt;= tot; ++i) {
+		if(mdq[i].z == -2) {
+			tr.mdf(mdq[i].r1, 1);
+		} else {
+			if(mdq[i].r1 == 0)continue;
+			tp[mdq[i].id] -= tr.qry(mdq[i].r1);
+		}
+	}
+	for(int i = 1; i &lt;= tot; ++i)if(mdq[i].z == -2)tr.mdf(mdq[i].r1, -1);
+}
+
+inline void pd3(int L, int R, int l, int r, int P) {
+	int tot = 0;
+	for(int i = L; i &lt;= R; ++i) {
+		if(e[i].id &lt;= P) {
+			mdq[++tot] = e[i];
+			mdq[tot].r1 = e[i].r1;
+			mdq[tot].c1 = e[i].c2;
+			mdq[tot].z = -2;
+		}
+	}
+	for(int i = l; i &lt;= r; ++i) {
+		mdq[++tot] = ask[i];
+		mdq[tot].r1 = ask[i].r2;
+		mdq[tot].c1 = ask[i].c1 - 1;
+	}
+	sort(mdq + 1, mdq + tot + 1);
+	for(int i = 1; i &lt;= tot; ++i) {
+		if(mdq[i].z == -2) {
+			tr.mdf(mdq[i].r1, 1);
+		} else {
+			tp[mdq[i].id] -= tr.qry(mdq[i].r1);
+		}
+	}
+	for(int i = 1; i &lt;= tot; ++i)if(mdq[i].z == -2)tr.mdf(mdq[i].r1, -1);
+}
+
+inline void pd4(int L, int R, int l, int r, int P) {
+	int tot = 0;
+	for(int i = L; i &lt;= R; ++i) {
+		if(e[i].id &lt;= P) {
+			mdq[++tot] = e[i];
+			mdq[tot].r1 = e[i].r2;
+			mdq[tot].c1 = e[i].c2;
+			mdq[tot].z = -2;
+		}
+	}
+	for(int i = l; i &lt;= r; ++i) {
+		mdq[++tot] = ask[i];
+		mdq[tot].r1 = ask[i].r1 - 1;
+		mdq[tot].c1 = ask[i].c1 - 1;
+	}
+	sort(mdq + 1, mdq + tot + 1);
+	for(int i = 1; i &lt;= tot; ++i) {
+		if(mdq[i].z == -2) {
+			tr.mdf(mdq[i].r1, 1);
+		} else {
+			if(mdq[i].r1 == 0)continue;
+			tp[mdq[i].id] += tr.qry(mdq[i].r1);
+		}
+	}
+	for(int i = 1; i &lt;= tot; ++i)if(mdq[i].z == -2)tr.mdf(mdq[i].r1, -1);
+}
+
+inline void fz(int vL, int vR, int L, int R, int l, int r) {
+	if(vL == vR) {
+		for(int i = l; i &lt;= r; ++i) {
+			tp[ask[i].id] = vL;
+		}
+		return;
+	}
+	int M = (vL + vR) &gt;&gt; 1;
+	for(int i = l; i &lt;= r; ++i)tp[ask[i].id] = 0;
+	pd1(L, R, l, r, M);
+	pd2(L, R, l, r, M);
+	pd3(L, R, l, r, M);
+	pd4(L, R, l, r, M);
+	int T1 = 0;
+	int T2 = 0;
+	for(int i = l; i &lt;= r; ++i) {
+		if(tp[ask[i].id] &gt;= ask[i].z) {
+			a[++T1] = ask[i];
+		} else {
+			b[++T2] = ask[i];
+			b[T2].z -= tp[ask[i].id];
+		}
+	}
+	int tmp1 = l + T1 - 1;
+	for(int i = l; i &lt;= tmp1; ++i) {
+		ask[i] = a[i - l + 1];
+	}
+	for(int i = tmp1 + 1; i &lt;= r; ++i) {
+		ask[i] = b[i - tmp1];
+	}
+	T1 = 0;
+	T2 = 0;
+	for(int i = L; i &lt;= R; ++i) {
+		if(e[i].id &lt;= M) {
+			a[++T1] = e[i];
+		} else {
+			b[++T2] = e[i];
+		}
+	}
+	int tmp2 = L + T1 - 1;
+	for(int i = L; i &lt;= tmp2; ++i) {
+		e[i] = a[i - L + 1];
+	}
+	for(int i = tmp2 + 1; i &lt;= R; ++i) {
+		e[i] = b[i - tmp2];
+	}
+	if(l &lt;= tmp1)fz(vL, M, L, tmp2, l, tmp1);
+	if(r &gt;= tmp1 + 1)fz(M + 1, vR, tmp2 + 1, R, tmp1 + 1, r);
+	return ;
+}
+
+inline void solve2() {
+	fz(1, n + 1, 1, n, 1, m);
+	for(int i = 1; i &lt;= m; ++i) {
+		if(tp[i] &gt; n)puts(&quot;-1&quot;);
+		else printf(&quot;%d\n&quot;, tp[i]);
+	}
+	return ;
+}
+namespace fastIO {
+#define BUF_SIZE (1&lt;&lt;22)
+	static char buf[BUF_SIZE], *p1 = buf + BUF_SIZE, *pend = BUF_SIZE + buf;
+	inline char nc() {
+		if(p1 == pend) {
+			p1 = buf;
+			pend = buf + fread(buf, 1, BUF_SIZE, stdin);
+		}
+		return *p1++;
+	}
+	inline int read() {
+		int x = 0;
+		char s = nc();
+		for(; !isdigit(s); s = nc());
+		for(; isdigit(s); s = nc())x = (x &lt;&lt; 1) + (x &lt;&lt; 3) + s - '0';
+		return x;
+	}
+}
+using namespace fastIO;
+int main() {
+	n = read();
+	m = read();
+	for(int i = 1; i &lt;= n; ++i) {
+		e[i].r1 = read();
+		e[i].c1 = read();
+		e[i].r2 = read();
+		e[i].c2 = read();
+		e[i].id = i;
+	}
+	for(int i = 1; i &lt;= m; ++i) {
+		ask[i].r1 = read();
+		ask[i].c1 = read();
+		ask[i].r2 = read();
+		ask[i].c2 = read();
+		ask[i].z = read();
+		ask[i].id = i;
+	}
+	solve2();
+	return 0;
+}
+
+
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/csp-s2-kao-qian-zong-he-qiang-hua-shua-ti-di-yi-chang/">
+              <h3 class="post-title">
+                CSP-S2考前综合强化刷题（第一场)
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
