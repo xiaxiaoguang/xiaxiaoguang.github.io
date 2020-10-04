@@ -3,7 +3,7 @@
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>CSP-S2考前综合强化刷题（第三场） | 夏晓光(loveJY)的博客</title>
-<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1601732082946">
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1601771104406">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
 <link rel="alternate" type="application/atom+xml" title="CSP-S2考前综合强化刷题（第三场） | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
@@ -30,7 +30,7 @@ logN!=log1..." />
       <div class="main-content">
         <div class="site-header">
   <a href="https://xiaxiaoguang.github.io">
-  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1601732082946" alt="">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1601771104406" alt="">
   </a>
   <h1 class="site-title">
     夏晓光(loveJY)的博客
@@ -96,7 +96,7 @@ logN!=log1..." />
                 2020-10-03
               </span>
               <span>
-                10 min read
+                14 min read
               </span>
               
                 <a href="https://xiaxiaoguang.github.io/tag/JP89ddpfS/" class="post-tag">
@@ -387,6 +387,115 @@ abc:[a1,a2]:10;AB1:[]:2;AB2:[]:3;ab1:[AB1,AB2]:3;ab3:[AB2]:4;a2:[ab1,ab3,AB2]:2;
 <p>然后会发现我们可以做了!</p>
 <p>每组有12位,要做12次乘法</p>
 <p>然后一共有n/12组</p>
+<p>每组的第一个数之间做多项式乘法</p>
+<p>复杂度瓶颈在于扩展1e6的....</p>
+<p>打码通过精加工变得好快/jk</p>
+<p>code:</p>
+<pre><code class="language-cpp">
+//From Dawn light
+//first kill!
+//orzzhx
+#include&lt;bits/stdc++.h&gt;
+#define ll long long
+using namespace std;
+const int MAXN = 1000;
+const int MAXT = 105;
+const int MAXS = 55;
+const int P = 1e9 + 7;
+int n, la, lc;
+string s[MAXT];
+ll fac[MAXT];
+int L[MAXT], a[MAXT][MAXS], vis[MAXN], B[50][MAXN];
+ll A[MAXN];
+ll D[MAXN], E[MAXN];
+
+inline ll ksm(ll x, ll y) {
+	ll ans = 1;
+	while(y) {
+		if(y &amp; 1)ans = ans * x % P;
+		x = x * x % P;
+		y &gt;&gt;= 1;
+	}
+	return ans;
+}
+
+inline void add(ll &amp;x, ll y) {
+	x += y;
+	if(x &gt;= P)x -= P;
+}
+
+
+ll c[MAXN];
+inline void mul(ll *a, ll *b, int &amp;la, int lb) {
+	memset(c, 0, sizeof(c));
+	for(int i = 0; i &lt; lb; ++i) {
+		for(int j = 0; j &lt; la; ++j) {
+			add(c[i + j], b[i] * a[j] % P);
+		}
+	}
+	la = la + lb - 1;
+	for(int i = 0; i &lt; la; ++i)a[i] = c[i];
+	return ;
+}
+
+const int Bas = 1058400;
+int C[Bas + 3];
+
+inline void init() {
+	fac[0] = 1;
+	for(int i = 1; i &lt;= 50; ++i)fac[i] = fac[i - 1] * i % P;
+	for(int i = 1; i &lt;= n; ++i) {
+		L[i] = s[i].size();
+		for(int k = 0; k &lt; L[i]; ++k)a[i][k] = s[i][k] - '0';
+		int tmp = L[i];
+		while(tmp % 2 == 0)tmp /= 2;
+		while(tmp % 3 == 0)tmp /= 3;
+		while(tmp % 5 == 0)tmp /= 5;
+		while(tmp % 7 == 0)tmp /= 7;
+		if(tmp == 1) {
+			vis[0] = 1;
+			for(int k = 0; k &lt; Bas; ++k)C[k]+=a[i][k % L[i]];
+		} else {
+			int tl = tmp * 12;
+			vis[tmp] = 1;
+			for(int k = 0; k &lt; tl; ++k)B[tmp][k]+= a[i][k % L[i]];
+		}
+	}
+	bool flg = vis[0];
+	for(int t = 0; t &lt; 12; ++t) {
+		la = 0;vis[0] &amp;= flg;memset(A, 0, sizeof(A));
+		for(int k = t; k &lt; Bas; k += 12) {A[C[k]]++;la = max(la, C[k] + 1);}
+		for(int i = 1; i &lt;= 50; ++i) 	{
+			if(!vis[i]) continue;
+			memset(E, 0, sizeof(E));
+			lc = 0;
+			for(int k = t; k &lt; i * 12; k += 12) {E[B[i][k]]++;lc = max(lc, B[i][k] + 1);}
+			if(!vis[0]) {vis[0] = 1; la = lc; for(int k = 0; k &lt; lc; ++k)A[k] = E[k]; continue;}
+			mul(A, E, la, lc);
+		}
+		for(int k = 0; k &lt; la; ++k)add(D[k], A[k]);
+	}
+	vis[0] &amp;= flg;
+	return ;
+}
+inline bool cmp(const string x, const string y) {
+	return x.size() &lt; y.size();
+}
+signed main() {
+	scanf(&quot;%lld&quot;, &amp;n);
+	for(int i = 1; i &lt;= n; ++i)cin &gt;&gt; s[i];
+	sort(s + 1, s + n + 1, cmp);
+	init();
+	int qwq = fac[50];
+	if(vis[0])qwq = qwq * ksm(Bas, P - 2) % P; else qwq = qwq * ksm(12, P - 2) % P;
+	for(int i = 1; i &lt;= 50; ++i)if(vis[i])qwq = qwq * ksm(i, P - 2) % P;
+	for(int i = 0; i &lt;= n; ++i)printf(&quot;%lld\n&quot;, 1ll * D[i] * qwq % P);
+	return 0;
+}
+
+
+
+</code></pre>
 <p>D</p>
 <p>显然我们可以枚举中间的那个j,然后计算左右两边的贡献,就是左边那些大于他的和右边那些大于他的都可以拼起来</p>
 <p>然后你会发现我们这个贡献好像就是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi><mo>∗</mo><mo>(</mo><mi>n</mi><mo>−</mo><mi>k</mi><mo>+</mo><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">i*(n-k+1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.77777em;vertical-align:-0.08333em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span>就是有多少区间包括他</p>
