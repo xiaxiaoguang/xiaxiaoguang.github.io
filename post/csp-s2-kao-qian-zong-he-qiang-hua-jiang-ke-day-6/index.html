@@ -1,0 +1,340 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CSP-S2考前综合强化讲课(Day 6) | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1602168956850">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="CSP-S2考前综合强化讲课(Day 6) | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="A
+乱搞
+
+直接dfs,然后IDA*
+搞出一个Dag,然后再Dag上求最长链,求完后打乱再求
+
+std:
+先弄出几天不相交的路径,然后考虑加入一些边合并路径
+1 -&gt; 2 -&gt; 3
+4 -&gt; 5 -&gt; 6
+如果我们从..." />
+    <meta name="keywords" content="培训题,暴力,二分答案,贪心" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1602168956850" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              CSP-S2考前综合强化讲课(Day 6)
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-10-06
+              </span>
+              <span>
+                7 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/GZNzWf9EG/" class="post-tag">
+                  # 培训题
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/hHHqIfSi2F/" class="post-tag">
+                  # 暴力
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/f5n-zt3hU/" class="post-tag">
+                  # 二分答案
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/m-043j5Q1/" class="post-tag">
+                  # 贪心
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/45NBuzDIW489QBoVep5mcSZvyTczRwffvIvcDrQEwm1UZzUL*s23KE2f7JhioxJRED7mFOHVG7cI6mhqy7NdOECfQU0cEPpHiaQ*Pn*q0DI!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>A</p>
+<p>乱搞</p>
+<ol>
+<li>直接dfs,然后IDA*</li>
+<li>搞出一个Dag,然后再Dag上求最长链,求完后打乱再求</li>
+</ol>
+<p>std:</p>
+<p>先弄出几天不相交的路径,然后考虑加入一些边合并路径</p>
+<p>1 -&gt; 2 -&gt; 3</p>
+<p>4 -&gt; 5 -&gt; 6</p>
+<p>如果我们从2有边连出去,那么就要断掉两条链的一半</p>
+<p>然后调整??</p>
+<p>你会发现我们如果从3-&gt;4,就可以使边数增加</p>
+<p>那么我们可以根据两条链这个边加入边数的增量来调整!</p>
+<p>有这个退火策略就可以退火啦qwq</p>
+<p>匈牙利做一般图最大匹配</p>
+<p>小量舍去</p>
+<p>?老师去摸了</p>
+<figure data-type="image" tabindex="1"><img src="https://xiaxiaoguang.github.io/post-images/1601969896589.png" alt="" loading="lazy"></figure>
+<p>先写个模拟器,支持输入两个点集输出他们的差</p>
+<p>然后背包两个权值尽可能相同的集合</p>
+<p>然后考虑退火来交换一下两个集合的元素</p>
+<p>std:</p>
+<p>让跑的时间尽量长的尽可能短,然后尽可能均分</p>
+<figure data-type="image" tabindex="2"><img src="https://xiaxiaoguang.github.io/post-images/1601970666296.png" alt="" loading="lazy"></figure>
+<p>k比较小,可以暴力dp做啊</p>
+<p>k比较大的,可以动态点分治</p>
+<figure data-type="image" tabindex="3"><img src="https://xiaxiaoguang.github.io/post-images/1601971113895.png" alt="" loading="lazy"></figure>
+<p>看上去是带权二分图最大匹配,不行</p>
+<p>然后考虑对于一个<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>A</mi><mi>i</mi></msub><msub><mi>B</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">A_iB_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">A</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.05017em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>我们连一条边方向不定,这样会发现最后我们形成的图每个连通块不能有多余一个环</p>
+<p>因为一个王子只能娶一个公主,所以就是每个点度数为1</p>
+<p>边权排序一下</p>
+<p>然后合并的时候你会发现就是判断连通块连通性</p>
+<p>相邻并查集合并看看这个连通块有没有环就好了</p>
+<figure data-type="image" tabindex="4"><img src="https://xiaxiaoguang.github.io/post-images/1601971647800.png" alt="" loading="lazy"></figure>
+<p>把折线图画出来</p>
+<p>显然我们不能有一个小于x轴的时刻</p>
+<p>那么我们只能从哪个最低点出发走,这样至少哪个括号序列是合法的</p>
+<p>交换一个括号一定是(.....),因为我们合法的数量是括号序列那些零点的数量啊</p>
+<p>而如果我们交换)(会使得每个段+2而不是-2,减少了零点数量</p>
+<p>交换上述括号会使得折线图中间一段-2</p>
+<p>然后考虑从哪个每个数都大于等于2的极长段开始删就好了,直接维护一下前缀和之类的</p>
+<p>可以做到线性....</p>
+<figure data-type="image" tabindex="5"><img src="https://xiaxiaoguang.github.io/post-images/1601972707592.png" alt="" loading="lazy"></figure>
+<p>观察蛇移动的贪心性质</p>
+<p>我们不封拿出那条链,然后我们先要交换蛇头蛇尾</p>
+<p>我们只有在一个链满足有三个叉才能交换</p>
+<p>而又三个叉之后我们可以把蛇头移到一个叉中,然后把蛇尾移动到另一个叉上,然后再把蛇头移动到最后一个叉上</p>
+<p>而这个点一定在a(叶子)-&gt;b(叶子)的那个链上,同时要满足三个叉的最大深度都大于蛇身长度才行</p>
+<p>我们才能导进去导出来</p>
+<figure data-type="image" tabindex="6"><img src="https://xiaxiaoguang.github.io/post-images/1601973344365.png" alt="" loading="lazy"></figure>
+<p>线性规划转对偶</p>
+<figure data-type="image" tabindex="7"><img src="https://xiaxiaoguang.github.io/post-images/1601973436924.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="8"><img src="https://xiaxiaoguang.github.io/post-images/1601974626924.png" alt="" loading="lazy"></figure>
+<p>在某个时刻在R先生那里寄存信之后,每个时刻都要寄存信....</p>
+<p>因为你但凡不去寄存就意味着一封信放到TLE,而这个显然是可以其中让某个人去寄存一次拿走的</p>
+<p>那么我们会发现每次我的时间开始的时候就一定去寄存信</p>
+<p>因为但凡我不寄存直接送人家的信也一定在那耗钱然后没有意义啊</p>
+<p>所以说第一次一定会去寄存,然后之后可能直接送可能寄存</p>
+<p>那么我们枚举第一次,然后剩下的每一段都可以贪心暴力了</p>
+<p>时间复杂度<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></p>
+<figure data-type="image" tabindex="9"><img src="https://xiaxiaoguang.github.io/post-images/1601979658539.png" alt="" loading="lazy"></figure>
+<p>首先让所有棋子霸占对角线</p>
+<p>然后我们把每个棋子移动到指定位置即可qwq</p>
+<p>为什么要做第一步而不是直接移动?</p>
+<p>因为我们要避免移动到关键pos被其他棋子挡住的情况啊!</p>
+<p>所以你会发现我们先从中间对角线向最远的那个移动,IDA*一下,然后再向次远的......</p>
+<p>一直做下去是不会被挡住的</p>
+<figure data-type="image" tabindex="10"><img src="https://xiaxiaoguang.github.io/post-images/1601980092165.png" alt="" loading="lazy"></figure>
+<p>向如果一个格子被一个看不到格子的传感器看到删除</p>
+<p>如果一个格子多个看到格子的传感器看到不同颜色,也删除持续这个过程我们就知道每个格子的存在性和他应该的颜色了</p>
+<p>直接模拟这个过程!</p>
+<p>二分:连续函数...满足勘根定理</p>
+<p>汉明码</p>
+<p>用2^k位置记录这一位的奇偶性</p>
+<p>这样一旦某一位翻转了就能知道是哪一位了qwq</p>
+<figure data-type="image" tabindex="11"><img src="https://xiaxiaoguang.github.io/post-images/1601982462602.png" alt="" loading="lazy"></figure>
+<p>直接二分答案,然后考虑对于一个mid,如何判断是否合法,可以把小于mid的全部加入然后暴力查询</p>
+<p>那么整体二分也是一样的,直接二分一下答案然后把小于mid的询问和修改分左边,大于等于mid的修改分到右边</p>
+<p>注意值域收缩到一个数会直接赋值啊</p>
+<p>wqs二分</p>
+<p>很easy,凸优化做全一套,可以斜率优化qwq就斜率优化</p>
+<figure data-type="image" tabindex="12"><img src="https://xiaxiaoguang.github.io/post-images/1601983281515.png" alt="" loading="lazy"></figure>
+<p>直接01分数规划,每个数减去二分值</p>
+<p>然后看有多少子串值大于0,这个满足条件子串数能不能大于k</p>
+<p>然后你会发现我们要查一个<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mi>u</mi><msub><mi>m</mi><mi>r</mi></msub></mrow><annotation encoding="application/x-tex">sum_r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">u</span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.02778em;">r</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>前面的小于等于他的<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mi>u</mi><msub><mi>m</mi><mi>l</mi></msub></mrow><annotation encoding="application/x-tex">sum_l</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">u</span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></p>
+<p>这个可以树状数组,要是值域太大了就set吧/kk</p>
+<figure data-type="image" tabindex="13"><img src="https://xiaxiaoguang.github.io/post-images/1601983615358.png" alt="" loading="lazy"></figure>
+<p>每次这个gcd值会变小一半吧</p>
+<p>所以说我们直接二分那个右端点即可,怎么快速判断?线段树??</p>
+<p>QAQ</p>
+<p>反正两个log都可吧(方言)</p>
+<p>二分这个距离之后,你会发现我们能draw出一个圆</p>
+<p>然后交点在园内就是abab的情况(两直线和圆的交点交错)</p>
+<p>怎么维护abab情况?</p>
+<p>相当于一个序列每个数出现恰好两次然后问你这个交错组有多少种</p>
+<p>直接静态二维数点,会发现把靠前的第一个端点放在x轴,然后第二个放在y轴上就能二维数点写公式了.....</p>
+<p>最后要找到这些圆和直线的交点?</p>
+<p>QAQ</p>
+<p>我们要找到前k的交点和</p>
+<p>你会发现知道第k个那么前k个一定都在这上面,极角排序</p>
+<p>可以用set来维护一下,然后这个复杂度<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>m</mi><mo>+</mo><mi>n</mi><mi>l</mi><mi>o</mi><mi>g</mi><mi>l</mi><mi>o</mi><mi>g</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(m+nloglog)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mclose">)</span></span></span></span></p>
+<figure data-type="image" tabindex="14"><img src="https://xiaxiaoguang.github.io/post-images/1601985183045.png" alt="" loading="lazy"></figure>
+<p>轻松二分???一个串?</p>
+<p>等等,<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>&lt;</mo><mn>1000</mn></mrow><annotation encoding="application/x-tex">n&lt;1000</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span></span></span></span>?</p>
+<p>本质不同的子串只有一些</p>
+<p>然后记录一下<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>n</mi><mn>2</mn></msup><mi>d</mi><mi>p</mi></mrow><annotation encoding="application/x-tex">n^2dp</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.008548em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mord mathdefault">d</span><span class="mord mathdefault">p</span></span></span></span>?</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>f</mi><mrow><mi>i</mi><mo separator="true">,</mo><mi>j</mi></mrow></msub></mrow><annotation encoding="application/x-tex">f_{i,j}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>表示考虑了前i个字符划分了j段,直接向前转移是T的</p>
+<p>然后我们考虑向后转移,因为越靠后这个东西字典序越大,所以只会有一个pos可以</p>
+<p>做法就是找到这个pos然后向后维护一个差分?或者后缀和即可</p>
+<p>Uoj305</p>
+<figure data-type="image" tabindex="15"><img src="https://xiaxiaoguang.github.io/post-images/1601985568911.png" alt="" loading="lazy"></figure>
+<p>先二分一下,会发现我们一个点不能对应一条边</p>
+<p>然后你考虑预处理数每个点走到其他点最短路的以及在这个点买入并在那个点卖出,把这个当边</p>
+<p>然后你考虑跑一个<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mi>l</mi><mi>o</mi><mi>y</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">floyd</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mord mathdefault">d</span></span></span></span>如果得到一个最大环大于等于<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>就是可行的qwq</p>
+<p>做完了复杂度<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi><mo>∗</mo><msup><mi>N</mi><mn>3</mn></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(logn*N^3)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></p>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/csp-s2-kao-qian-zong-he-qiang-hua-shua-ti-di-liu-chang/">
+              <h3 class="post-title">
+                CSP-S2考前综合强化刷题（第六场）
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
