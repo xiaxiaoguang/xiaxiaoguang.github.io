@@ -3,7 +3,7 @@
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>CSP-S2考前综合强化刷题（第七场） | 夏晓光(loveJY)的博客</title>
-<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1602168956850">
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1602687181890">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
 <link rel="alternate" type="application/atom+xml" title="CSP-S2考前综合强化刷题（第七场） | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
@@ -14,12 +14,14 @@
     <meta name="description" content="唉,回去了...
 A
 显然取出现次数最多的
-B
-考虑我们期望的线性型,那么我们一个逆序对只需要看后面的那个先消失然后第一个后消失
-然后就是两个数的期望算一下!再考虑所有点对的就好了
-枚举第一组t就是第一个数取走在什么时候,然后我们有
-∑tq..." />
-    <meta name="keywords" content="" />
+code:
+
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const int MAXN = 1e6 + 7;
+
+int a[MAXN], ..." />
+    <meta name="keywords" content="斯特林反演,计算几何,比赛题,二分答案,动态规划" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
     <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
   </head>
@@ -28,7 +30,7 @@ B
       <div class="main-content">
         <div class="site-header">
   <a href="https://xiaxiaoguang.github.io">
-  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1602168956850" alt="">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1602687181890" alt="">
   </a>
   <h1 class="site-title">
     夏晓光(loveJY)的博客
@@ -94,16 +96,71 @@ B
                 2020-10-07
               </span>
               <span>
-                3 min read
+                10 min read
               </span>
               
+                <a href="https://xiaxiaoguang.github.io/tag/jttL14P9P/" class="post-tag">
+                  # 斯特林反演
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/viBkjuGF1n/" class="post-tag">
+                  # 计算几何
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/A3FIICRYA/" class="post-tag">
+                  # 比赛题
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/f5n-zt3hU/" class="post-tag">
+                  # 二分答案
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/CJ-ugjBAY/" class="post-tag">
+                  # 动态规划
+                </a>
+              
             </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/45NBuzDIW489QBoVep5mcSZvyTczRwffvIvcDrQEwm2ZuARPG.e4OG9tJU.fmJojQF7nbEUzuM.OJ2YZtnBGLGl8tfcth90bqpW7CX5TfMg!/r" alt="">
             
             <div class="post-content-wrapper">
               <div class="post-content">
                 <p>唉,回去了...</p>
 <p>A</p>
 <p>显然取出现次数最多的</p>
+<p>code:</p>
+<pre><code class="language-cpp">
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const int MAXN = 1e6 + 7;
+
+int a[MAXN], n, k, tot, ans;
+int que[MAXN], buc[MAXN];
+
+int main() {
+	scanf(&quot;%d%d&quot;, &amp;n, &amp;k);
+	for(int i = 1; i &lt;= n; ++i) {
+		scanf(&quot;%d&quot;, &amp;a[i]);
+		buc[a[i]]++;
+	}
+
+	for(int i = 1; i &lt;= n; ++i) {
+		if(buc[i]) {
+			que[++tot] = buc[i];
+		}
+	}
+	sort(que + 1, que + tot + 1);
+	for(int i = tot; i &gt;= max(tot - k + 1, 1); --i) {
+		ans += que[i];
+	}
+	printf(&quot;%d\n&quot;, n - ans);
+
+	return 0;
+}
+
+
+
+</code></pre>
 <p>B</p>
 <p>考虑我们期望的线性型,那么我们一个逆序对只需要看后面的那个先消失然后第一个后消失</p>
 <p>然后就是两个数的期望算一下!再考虑所有点对的就好了</p>
@@ -118,6 +175,36 @@ B
 <p>得到<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mrow><mi>p</mi><mi>q</mi></mrow><mrow><mn>1</mn><mo>−</mo><msup><mi>p</mi><mn>2</mn></msup></mrow></mfrac></mrow><annotation encoding="application/x-tex">\frac{pq}{1-p^2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.228608em;vertical-align:-0.481108em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7475em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mbin mtight">−</span><span class="mord mtight"><span class="mord mathdefault mtight">p</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7463142857142857em;"><span style="top:-2.786em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.446108em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">p</span><span class="mord mathdefault mtight" style="margin-right:0.03588em;">q</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.481108em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></p>
 <p>然后权值为1</p>
 <p>所以<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>∗</mo><mo>(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo>)</mo><mi mathvariant="normal">/</mi><mn>2</mn><mo>∗</mo><mfrac><mrow><mi>p</mi><mi>q</mi></mrow><mrow><mn>1</mn><mo>−</mo><msup><mi>p</mi><mn>2</mn></msup></mrow></mfrac></mrow><annotation encoding="application/x-tex">n*(n-1)/2*\frac{pq}{1-p^2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.46528em;vertical-align:0em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mord">/</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.228608em;vertical-align:-0.481108em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7475em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mbin mtight">−</span><span class="mord mtight"><span class="mord mathdefault mtight">p</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7463142857142857em;"><span style="top:-2.786em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.446108em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">p</span><span class="mord mathdefault mtight" style="margin-right:0.03588em;">q</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.481108em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></p>
+<p>code:</p>
+<pre><code class="language-cpp">
+#include&lt;bits/stdc++.h&gt;
+#define ll long long
+using namespace std;
+const int MAXN = 1e8 + 7;
+const int P = 998244353;
+ll n, x, y, p, p2, i2;
+
+inline ll ksm(ll x, ll y) {
+	ll ans = 1;
+	while(y) {
+		if(y &amp; 1)ans = ans * x % P;
+		x = x * x % P;
+		y &gt;&gt;= 1;
+	}
+	return ans;
+}
+
+int main() {
+	scanf(&quot;%lld%lld%lld&quot;, &amp;n, &amp;x, &amp;y);
+	p = x * ksm(y, P - 2) % P;
+	p2 = ksm((P - p + 2) % P, P - 2) % P;
+	i2 = ksm(2, P - 2) % P;
+	printf(&quot;%lld\n&quot;, n * (n - 1) % P * i2 % P * (P - p + 1) % P * p2 % P);
+	return 0;
+}
+
+
+</code></pre>
 <p>C</p>
 <p>Wustd:</p>
 <p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>x</mi><mi>k</mi></msup></mrow><annotation encoding="application/x-tex">x^k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.849108em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.849108em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span></span></span></span></span></span></span></span>=k个西格玛求和,然后k元组,而且这个k元组是有序的</p>
@@ -133,16 +220,204 @@ B
 <p>-&gt;</p>
 <p>我们有k个球,m个盒子,要求每个盒子球都丢进去</p>
 <p>这样我们就可以斯特林反演了</p>
-<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>x</mi><mi>k</mi></msup></mrow><annotation encoding="application/x-tex">x^k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.849108em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.849108em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span></span></span></span></span></span></span></span></p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>x</mi><mi>k</mi></msup><mo>=</mo><msub><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><msup><mn>1</mn><mi>m</mi></msup></mrow></msub><msub><mi>S</mi><mrow><mi>m</mi><mo separator="true">,</mo><mi>i</mi></mrow></msub><msub><mi>C</mi><mrow><mi>x</mi><mo separator="true">,</mo><mi>i</mi></mrow></msub><mi>i</mi><mo>!</mo></mrow><annotation encoding="application/x-tex">x^k=\sum_{i=1^m}S_{m,i}C_{x,i} i!</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.849108em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.849108em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.0497100000000001em;vertical-align:-0.29971000000000003em;"></span><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.16195399999999993em;"><span style="top:-2.40029em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight"><span class="mord mtight">1</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.5935428571428571em;"><span style="top:-2.786em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathdefault mtight">m</span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.29971000000000003em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:-0.05764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">m</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">x</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mord mathdefault">i</span><span class="mclose">!</span></span></span></span></p>
+<p>然后设<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>f</mi><mrow><mi>i</mi><mo separator="true">,</mo><mi>j</mi></mrow></msub></mrow><annotation encoding="application/x-tex">f_{i,j}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>把组合数递推一下就好了</p>
+<pre><code class="language-cpp">
+//卡空间
+//使用int空间一定开的下,ll一定开不下
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+#define ll long long
+const int MAXK = 507;
+const int P = 998244353;
+const int MAXN = 1e5 + 7;
+const int MAXM = 3e5 + 7;
+int n, m, K;
+int ccnt, home[MAXN], nxt[MAXM], to[MAXM], in[MAXN];
+int que[MAXN];
+
+inline void ct(int x, int y) {
+	ccnt++;
+	nxt[ccnt] = home[x];
+	home[x] = ccnt;
+	to[ccnt] = y;
+	in[y]++;
+}
+
+int f[MAXN][MAXK];
+
+inline void add(int &amp;x, int y) {
+	x += y;
+	x = x &gt;= P ? x - P : x;
+}
+
+inline void topsort() {
+	int hd = 1;
+	int tl = 0;
+	for(int i = 1; i &lt;= n; ++i) {
+		if(in[i] == 0) {
+			que[++tl] = i;
+		}
+	}
+	f[1][0] = 1;
+	while(hd &lt;= tl) {
+		int u = que[hd];
+		++hd;
+		for(int i = home[u]; i; i = nxt[i]) {
+			int v = to[i];
+			for(int j = 0; j &lt;= K; ++j) {//哪有走0条边的啊
+				add(f[v][j], f[u][j]);
+				if(j &gt; 0)add(f[v][j], f[u][j - 1]);
+			}
+			in[v]--;
+			if(!in[v])que[++tl] = v;
+		}
+	}
+	return ;
+}
+
+ll stl[MAXK][MAXK];
+ll fac[MAXK];
+
+inline void init() {
+	fac[0] = 1;
+	for(int i = 1; i &lt;= K; ++i) {
+		fac[i] = 1ll * fac[i - 1] * i % P;
+	}
+	stl[0][0] = stl[1][1] = 1;
+	for(int i = 2; i &lt;= K; ++i) {
+		for(int j = 1; j &lt;= i; ++j) {
+			stl[i][j] = (stl[i - 1][j] * j % P + stl[i - 1][j - 1]) % P;
+		}
+	}
+	return ;
+}
+
+
+namespace fastIO {
+#define BUF_SIZE (1&lt;&lt;20)
+	static char buf[BUF_SIZE], *p1 = buf, *pend = buf;
+	inline char nc() {
+		if(p1 == pend) {
+			p1 = buf;
+			pend = buf + fread(buf, 1, BUF_SIZE, stdin);
+		} return *p1++;
+	}
+	inline int read() {
+		int x = 0;
+		char s = nc();
+		for(; !isdigit(s); s = nc());
+		for(; isdigit(s); s = nc())x = (x &lt;&lt; 1) + (x &lt;&lt; 3) + s - '0';
+		return x;
+	}
+}
+using namespace fastIO;
+
+int main() {
+	// freopen(&quot;test.in&quot;, &quot;r&quot;, stdin);
+	// freopen(&quot;test1.out&quot;, &quot;w&quot;, stdout);
+	n = read();
+	m = read();
+	K = read();
+	for(int i = 1, x, y; i &lt;= m; ++i) {
+		x = read();
+		y = read();
+		ct(x, y);
+	}
+	topsort();
+	init();
+	for(int i = 1; i &lt;= n; ++i) {
+		ll ans = 0;
+		for(int j = 1; j &lt;= K; ++j) {
+			ans = (ans + f[i][j] * fac[j] % P * stl[K][j] % P) % P;
+		}
+		printf(&quot;%lld\n&quot;, ans);
+	}
+	return 0;
+}
+
+
+</code></pre>
 <p>D</p>
 <p>仔细观察,我们发现答案就是x轴和y轴的中位数</p>
 <p>那么考虑我们怎么快速求出中位数,考虑二分</p>
 <p>然后我们要判断有多少个交点在左边,有多少个交点在右边</p>
 <p>显然可以冲一个分类讨论</p>
 <p>当x是竖线的时候,你会发现两组直线交点在右侧当且仅当斜率小的直线而且与这个竖线交点靠上</p>
-<p>所以说我们可以把这个按照交点排序,然后二维数点</p>
+<p>所以说我们可以把这个按照交点排序,然后二维数点,看看能否达到一半,题目也告诉我们直线两两有交集</p>
 <p>直接冲就好了</p>
-<p>纵坐标上可以交换</p>
+<p>纵坐标上可以交换x,y来实现</p>
+<p>贴一份暴力吧,正解不实现了懒懒懒</p>
+<p>暴力在找中位数的时候可以nth_element/se</p>
+<p>code:</p>
+<pre><code class="language-cpp">
+#include&lt;bits/stdc++.h&gt;
+#define ll long long
+#define db double
+using namespace std;
+int n;
+const int MAXN = 2e7 + 6e6 + 7;
+struct rec {
+	ll A, B, C;
+	bool operator&lt;(const rec &amp;x) {//按照斜率排序,叉积判
+		return A * x.B &gt; B * x.A;//叉积判!!
+	}
+} e[MAXN];
+
+const db eps = 1e-14;
+
+struct  NODE {
+	db x, y;
+} q[MAXN];
+
+inline bool cmp1(const NODE x, const NODE y) {
+	return x.x - y.x &lt; eps;
+}
+
+
+inline bool cmp2(const NODE x, const NODE y) {
+	return x.y - y.y &lt; eps;
+}
+
+inline NODE getnd(int i, int j) {
+	NODE z;
+	z.y = (e[j].C * e[i].A - e[i].C * e[j].A) / (db)(e[j].A * e[i].B - e[i].A * e[j].B);
+	z.x = (e[j].B * e[i].C - e[i].B * e[j].C) / (db)(e[j].A * e[i].B - e[i].A * e[j].B);
+	return z;
+}
+
+int main() {
+	scanf(&quot;%d&quot;, &amp;n);
+	for(int i = 1; i &lt;= n; ++i) {
+		scanf(&quot;%lld%lld%lld&quot;, &amp;e[i].A, &amp;e[i].B, &amp;e[i].C);
+		e[i].C = -e[i].C;
+	}
+	int tot = 0;
+	for(int i = 1; i &lt;= n; ++i) {
+		for(int j = i + 1; j &lt;= n; ++j) {
+			q[++tot] = getnd(i, j);
+		}
+	}
+	if(tot &amp; 1) {
+		nth_element(q + 1, q + tot / 2 + 1, q + tot + 1, cmp1);
+		printf(&quot;%lf &quot;, q[tot / 2 + 1].x);
+	} else {
+		nth_element(q + 1, q + tot / 2, q + tot + 1, cmp1);
+		printf(&quot;%lf &quot;, q[tot / 2].x);
+	}
+	if(tot &amp; 1) {
+		nth_element(q + 1, q + tot / 2, q + tot + 1, cmp2);
+		printf(&quot;%lf\n&quot;, q[tot / 2 + 1].y);
+	} else {
+		nth_element(q + 1, q + tot / 2, q + tot + 1, cmp2);
+		printf(&quot;%lf\n&quot;, q[tot / 2].y);
+	}
+	return 0;
+}
+
+
+
+</code></pre>
 
               </div>
               <div class="toc-container">
