@@ -1,0 +1,409 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CSP-S2周末刷题班（第一场） | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1604415395886">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="CSP-S2周末刷题班（第一场） | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="http://csp.ac/contest/44
+发现这个比赛自己死亡鸽者了....
+另外打的确实很死亡...QAQ
+全都会,但是挂挂挂
+A
+哈希写错了,人没了
+连续两次哈希写炸了,上次我双模哈希也炸裂了
+死因1,bas取得贼大,然后*ba..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1604415395886" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              CSP-S2周末刷题班（第一场）
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-10-26
+              </span>
+              <span>
+                8 min read
+              </span>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/45NBuzDIW489QBoVep5mcSW4che.Z0*SYNe50pBUty6ep7gWTCsktJLWP15e3b5NLBvbpoGJn30R2k0GapgqwxI0mJj02voOd*KN9YENrMQ!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>http://csp.ac/contest/44</p>
+<p>发现这个比赛自己死亡鸽者了....</p>
+<p>另外打的确实很死亡...QAQ</p>
+<p>全都会,但是挂挂挂</p>
+<p>A</p>
+<p>哈希写错了,人没了</p>
+<p>连续两次哈希写炸了,上次我双模哈希也炸裂了</p>
+<p>死因1,bas取得贼大,然后*bas直接没用longlong自然溢出</p>
+<p>只能告诉我们以后哈希用longlong</p>
+<p>死因2.负数直接上没有+P变成P-</p>
+<p>我.....以后哈希一定要取模上心啊啊啊!!!!!!!</p>
+<p>做法 : 直接处理每一行每一列的哈希值,然后单点删除即可,使用map记录哈希值</p>
+<p>另外记一下:哈希查询一次冲突概率为1/mod</p>
+<pre><code class="language-cpp">
+#include&lt;bits/stdc++.h&gt;
+#define ll long long
+using namespace std;
+#define pii pair
+#define mkp(x,y) (make_pair(x,y))
+const int B1 = 101;
+const ll P1 = 1e9 + 7;
+const ll P2 = 1e9 + 9;
+const int MAXN = 3007;
+const int B2 = 132;
+int n, m, q;
+char s[MAXN][MAXN], t[20];
+ll bh1[MAXN], bl1[MAXN], Bs1[MAXN], Bs2[MAXN], bh2[MAXN], bl2[MAXN];
+map&lt;pii&lt;ll, ll&gt;, int&gt; mp;
+
+inline void add1(ll &amp;x, ll y) {
+	x += y;
+	if(x &gt;= P1)x -= P1;
+}
+
+inline void add2(ll &amp;x, ll y) {
+	x += y;
+	if(x &gt;= P2)x -= P2;
+}
+
+inline void inith(int x) {
+	bh1[x] = 0;
+	for(int i = 1; i &lt;= m; ++i) {
+		bh1[x] = (bh1[x] * B1 % P1 + s[x][i] - 'a' + 1) % P1;
+		bh2[x] = (bh2[x] * B2 % P2 + s[x][i] - 'a' + 1) % P2;
+	}
+	mp[mkp(bh1[x], bh2[x])] = 1;
+}
+
+inline void initl() {
+	for(int i = 1; i &lt;= m; ++i) {
+		for(int j = 1; j &lt;= n; ++j) {
+			bl1[i] = (bl1[i] * B1 % P1 + s[j][i] - 'a' + 1) % P1;
+			bl2[i] = (bl2[i] * B2 % P2 + s[j][i] - 'a' + 1) % P2;
+		}
+		mp[mkp(bl1[i], bl2[i])] = 1;
+	}
+	Bs1[0] = 1;
+	for(int i = 1; i &lt;= max(n, m); ++i) {
+		Bs1[i] = Bs1[i - 1] * B1 % P1;
+	}
+	Bs2[0] = 1;
+	for(int i = 1; i &lt;= max(n, m); ++i) {
+		Bs2[i] = Bs2[i - 1] * B2 % P2;
+	}
+	return ;
+}
+
+int main() {
+	scanf(&quot;%d%d%d&quot;, &amp;n, &amp;m, &amp;q);
+	for(int i = 1; i &lt;= n; ++i) {
+		scanf(&quot;%s&quot;, s[i] + 1);
+		inith(i); //
+	}
+	initl();
+	printf(&quot;%lld\n&quot;, (ll)mp.size());
+	for(int i = 1, x, y; i &lt;= q; ++i) {
+		scanf(&quot;%d%d&quot;, &amp;x, &amp;y);
+		scanf(&quot;%s&quot;, t);
+		int tmp = t[0] - 'a' + 1;
+		add1(bh1[x], P1 - 1ll * Bs1[m - y] * (s[x][y] - 'a' + 1) % P1);
+		add1(bl1[y], P1 - 1ll * Bs1[n - x] * (s[x][y] - 'a' + 1) % P1);
+		add1(bh1[x], 1ll * Bs1[m - y] * tmp % P1);
+		add1(bl1[y], 1ll * Bs1[n - x] * tmp % P1);
+
+		add2(bh2[x], P2 - 1ll * Bs2[m - y] * (s[x][y] - 'a' + 1) % P2);
+		add2(bl2[y], P2 - 1ll * Bs2[n - x] * (s[x][y] - 'a' + 1) % P2);
+		add2(bh2[x], 1ll * Bs2[m - y] * tmp % P2);
+		add2(bl2[y], 1ll * Bs2[n - x] * tmp % P2);
+
+		s[x][y] = t[0];
+		mp[mkp(bh1[x], bh2[x])] = 1;
+		mp[mkp(bl1[y], bl2[y])] = 1;
+		printf(&quot;%lld\n&quot;, (ll)mp.size());
+	}
+	return 0;
+}
+
+/*
+
+2 2 10000
+aa
+aa
+1 1 b
+2 2 b
+1 1 b
+
+
+*/
+
+</code></pre>
+<p>B</p>
+<p>ljh就是个菜鸡这题都写不对??</p>
+<p>发现当ab互质的时候,能走到的最大不能表示的数是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi><mo>∗</mo><mi>B</mi><mo>−</mo><mi>a</mi><mo>−</mo><mi>b</mi></mrow><annotation encoding="application/x-tex">A*B-a-b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault">A</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">a</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">b</span></span></span></span>,所以我们只需要考虑这个深度小于<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi><mo>∗</mo><mi>B</mi><mo>−</mo><mi>a</mi><mo>−</mo><mi>b</mi></mrow><annotation encoding="application/x-tex">A*B-a-b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault">A</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">a</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">b</span></span></span></span>的点</p>
+<p>然后ab不互质的时候<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>g</mi><mo>=</mo><mi>g</mi><mi>c</mi><mi>d</mi><mo>(</mo><mi>a</mi><mo separator="true">,</mo><mi>b</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">g=gcd(a,b)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">c</span><span class="mord mathdefault">d</span><span class="mopen">(</span><span class="mord mathdefault">a</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">b</span><span class="mclose">)</span></span></span></span>深度是g的倍数时必要条件....</p>
+<p>然后统计所有深度为g的倍数的点的个数-深度为g倍数走不到的点的个数即可</p>
+<p>换根dp维护</p>
+<p>C</p>
+<p>哇偶!考场直接冲了个<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mi>n</mi></msup><mo>∗</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">2^n*n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.664392em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">n</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span>状压拿到90,复杂度其实是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">2^{n+1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span></span></span></span>?</p>
+<p>首先<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>f</mi><mi>S</mi></msub></mrow><annotation encoding="application/x-tex">f_{S}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.05764em;">S</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>表示S里面的球已经选了,从S局面到游戏结束的最优期望值是什么,倒退dp</p>
+<p>然后转移考虑是否直接结束游戏即可,如果不终结就是从所有多一个球的状态他们的期望 * 概率求和</p>
+<p>否则就是现在的状态结束,得到的值就是这轮结束的价值,二者取max作为答案</p>
+<p>这样子dp qwq,<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>f</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">f_0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>就是答案</p>
+<p>显然的是,状态存在等价的情况qwq</p>
+<p>因为前n/2个和后n/2他们的概率是等价的,所以我们10/01这个状态是一样的,直接记录其中一个就好,然后改变一下转移的系数即可</p>
+<p>这样每一位我们只用一个三进制数压起来<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mn>3</mn><mrow><mi>n</mi><mi mathvariant="normal">/</mi><mn>2</mn></mrow></msup><mo>∗</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(3^{n/2}*n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.138em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord">3</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8879999999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span><span class="mord mtight">/</span><span class="mord mtight">2</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></p>
+<pre><code class="language-cpp">
+#include&lt;bits/stdc++.h&gt;
+#define db double
+#define ll long long
+#define lowbit(x) (x&amp;(-x))
+using namespace std;
+const int MAXH = 30;
+const int MAXS = (1 &lt;&lt; 26) + 1;
+int T, a, b, n;
+ll V[MAXH];
+db dp[MAXH][MAXH];
+db g[MAXS];
+db f[MAXS], ans;
+
+inline void init() {
+	dp[1][1] = 1;
+	for(int i = 2; i &lt;= n; ++i) {
+		for(int j = 1; j &lt;= i; ++j) {
+			dp[i][j] = 0.5 * dp[i - 1][j] + 0.5 * dp[i - 1][j - 1];
+		}
+	}
+	for(int i = 1; i &lt;= n; ++i) {
+		g[(1 &lt;&lt; (i - 1))] = dp[n][i];
+	}
+	ans = 0;
+	return ;
+}
+
+inline void solve() {
+	int mS = (1 &lt;&lt; n) - 1;
+	for(int i = 1; i &lt;= n; ++i)
+		V[i] = a * i * i + b * i;
+	for(int S = mS, cnt; S &gt;= 0; --S) {
+		cnt = 0;
+		int T = (~S)&amp;mS;
+		db psum = 0;
+		while(T) {
+			int t = lowbit(T);
+			psum += f[S ^ t] * g[t];
+			T ^= t;
+			++cnt;
+		}
+		f[S] = (V[n - cnt] &gt; psum) ? V[n - cnt] : psum;
+	}
+	printf(&quot;%.4lf\n&quot;, f[0]);
+	for(int S = 0; S &lt;= mS; ++S) {
+		f[S] = 0;
+	}
+	return ;
+}
+
+int main() {
+	scanf(&quot;%d&quot;, &amp;T);
+	T--;
+	scanf(&quot;%d%d%d&quot;, &amp;n, &amp;a, &amp;b);
+	init();
+	solve();
+	while(T-- &gt; 0) {
+		scanf(&quot;%d%d%d&quot;, &amp;n, &amp;a, &amp;b);
+		solve();
+	}
+	return 0;
+}
+
+
+
+这份是暴力代码...摸了摸了
+</code></pre>
+<p>D</p>
+<p>首先看k=3,会发现每个宽度为2的连通块对答案的倍数贡献要么是0要么是1要么是2</p>
+<p>所以发现,如果我们这个2*3的小矩形,改了两列不同行的贡献就是0</p>
+<p>改了两列相同列贡献为1</p>
+<p>改了中间贡献0,因为所有路径的所有中间都要经过</p>
+<p>没改贡献2</p>
+<p>然后起点和终点被改了就不行</p>
+<p>然后起点终点所在的块的另一端点被改没事情这样子分类讨论.....</p>
+<p>4?矩阵快速幂啊,显然的吧?</p>
+<p>直接维护暴力dp的转移矩阵然后如果有很长的连续段就分隔开这样子qwq</p>
+<p>谁愿意实现啊??</p>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/20zr-ti-gao-zu-shi-lian-ce-day7/">
+              <h3 class="post-title">
+                20zr提高组十连测day7
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
