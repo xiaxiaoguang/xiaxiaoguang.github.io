@@ -1,0 +1,312 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MCOI-03 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1605885554712">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="MCOI-03 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="洛谷11月月赛
+哇靠之前写了啊怎么没了我也会丢博文???
+A
+做法不是很显然,和李队考场上推了好久
+我想到显然的是我们要算每个开头到最后的所有时括号栈大小即为答案
+于是我蒙圈了,好像n2n^2n2
+突然发现这个好像可以算贡献,就是每个一个括..." />
+    <meta name="keywords" content="计数题,线段树二分,交互题,线段树合并,后缀自动机,构造" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1605885554712" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              MCOI-03
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-11-15
+              </span>
+              <span>
+                5 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/JP89ddpfS/" class="post-tag">
+                  # 计数题
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/hnr2LJn_z/" class="post-tag">
+                  # 线段树二分
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/DUHkSH1xT/" class="post-tag">
+                  # 交互题
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/i5COEV3Vw/" class="post-tag">
+                  # 线段树合并
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/m2-tF6st0/" class="post-tag">
+                  # 后缀自动机
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/nuL1JOWcod/" class="post-tag">
+                  # 构造
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://photogz.photo.store.qq.com/psc?/V13b3duC210Fox/45NBuzDIW489QBoVep5mcad0zLL7ld1tWSMSvJoUdfOhe6KXvlZmr94hApe1h4cab1lh1gtnf*FGePd.Ff4ssaZp5wYvOok5Qv1rj1yu1FE!/b" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>洛谷11月月赛</p>
+<p>哇靠之前写了啊怎么没了我也会丢博文???</p>
+<p>A</p>
+<p>做法不是很显然,和李队考场上推了好久</p>
+<p>我想到显然的是我们要算每个开头到最后的所有时括号栈大小即为答案</p>
+<p>于是我蒙圈了,好像<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>n</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">n^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></p>
+<p>突然发现这个好像可以算贡献,就是每个一个括号对于每个时刻的贡献</p>
+<p>因为一个括号和谁匹配其实命运已经确定了</p>
+<p>于是会发现我们能算贡献就能拓展算k级和了</p>
+<p>比方说左括号,在位置i,匹配的在位置j(j&gt;i)</p>
+<p>考虑插板,第一个右端点一定要插在i~j之间,而之后的可以随便插,左端点可以随便插</p>
+<p>方案数为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mrow><mo fence="true">(</mo><mfrac linethickness="0px"><mrow><mi>i</mi><mo>+</mo><mi>k</mi><mo>−</mo><mn>1</mn></mrow><mi>k</mi></mfrac><mo fence="true">)</mo></mrow><mo>∗</mo><mo>(</mo><mrow><mo fence="true">(</mo><mfrac linethickness="0px"><mrow><mi>n</mi><mo>−</mo><mi>i</mi><mo>+</mo><mi>k</mi></mrow><mi>k</mi></mfrac><mo fence="true">)</mo></mrow><mo>−</mo><mrow><mo fence="true">(</mo><mfrac linethickness="0px"><mrow><mi>n</mi><mo>−</mo><mi>j</mi><mo>+</mo><mi>k</mi></mrow><mi>k</mi></mfrac><mo fence="true">)</mo></mrow><mo>)</mo></mrow><annotation encoding="application/x-tex">\binom{i+k-1}{k}*(\binom{n-i+k}{k}-\binom{n-j+k}{k})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.2801179999999999em;vertical-align:-0.35001em;"></span><span class="mord"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size1">(</span></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9301079999999998em;"><span style="top:-2.3550000000000004em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span style="top:-3.144em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mbin mtight">+</span><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size1">)</span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.2801179999999999em;vertical-align:-0.35001em;"></span><span class="mopen">(</span><span class="mord"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size1">(</span></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9301079999999998em;"><span style="top:-2.3550000000000004em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span style="top:-3.144em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span><span class="mbin mtight">−</span><span class="mord mathdefault mtight">i</span><span class="mbin mtight">+</span><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size1">)</span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.2801179999999999em;vertical-align:-0.35001em;"></span><span class="mord"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size1">(</span></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9301079999999998em;"><span style="top:-2.3550000000000004em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span style="top:-3.144em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span><span class="mbin mtight">−</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span><span class="mbin mtight">+</span><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size1">)</span></span></span><span class="mclose">)</span></span></span></span></p>
+<pre><code class="language-cpp">
+#include&lt;bits/stdc++.h&gt;
+#define ll long long
+using namespace std;
+const int MAXN = 2e6+1;
+const int P = 998244353;
+int n, k;
+char s[MAXN];
+int st[MAXN], bel[MAXN];
+ll fac[MAXN], ifac[MAXN];
+inline ll C(int n, int m) {return fac[n] * ifac[m] % P * ifac[n - m] % P;}
+inline void solve() {
+	int tp = 0;
+	for(int i = 1; i &lt;= n; ++i) {
+		if(s[i] == '(')st[++tp] = i;
+		else if(s[i] == ')') {
+			if(tp) {
+				bel[st[tp]] = i,bel[i] = st[tp],--tp;
+			} else
+				bel[i] = 0;
+		}
+	}
+	for(int i = 1; i &lt;= tp; ++i)bel[st[i]] = n + 1;
+	ll ans = 0;
+	for(int i = 1; i &lt;= n; ++i) {
+		if(s[i] == '(')
+			ans = (ans + 1ll * (C(n - i + k, k) - C(n - bel[i] + k, k) + P) % P * C(i + k - 1, k) % P) % P;
+		 else 
+			ans = (ans + 1ll * (C(i + k - 1, k) - C(bel[i] + k - 1, k) + P) % P * C(n - i + k, k) % P) % P;
+	}
+	printf(&quot;%lld\n&quot;, ans);
+	return ;
+}
+
+inline ll ksm(ll x, ll y) {
+	ll ans = 1;
+	while(y) {if(y &amp; 1)ans = ans * x % P;x = x * x % P;y &gt;&gt;= 1;}
+	return ans;
+}
+inline void init() {
+	fac[0] = 1,ifac[1] = 1,ifac[0] = 1;
+	for(int i = 1; i &lt;= n + k; ++i)fac[i] = fac[i - 1] * i % P;
+	ifac[n + k] = ksm(fac[n + k], P - 2);
+	for(int i = n + k - 1; i &gt;= 1; --i)ifac[i] = ifac[i + 1] * (i + 1) % P;
+	return ;
+}
+int main() {
+	scanf(&quot;%d%d&quot;, &amp;n, &amp;k);
+	scanf(&quot;%s&quot;, s + 1);
+	init();	solve();
+	return 0;
+}
+
+</code></pre>
+<p>B</p>
+<p>给出一种可行的构造方案吧....</p>
+<p>你会发现我们有一个类似于摩尔投票法的东西,即如果一个数和另一个数相斥,我们就把他们丢进一个que里面,然后如果出现了相吸的,我们就拿出两个扔进序列,然后继续这个操作</p>
+<p>不难发现,构造到最后我们一定满足相邻相吸,但是que可能不为空</p>
+<p>也就是说我们剩下的还是要加进去,但是他们显然本身是相排斥的,也就是说他们一定是最可能出现次数大于一半的!</p>
+<p>又因为我们构造的序列其实相邻的数不同,所以有一个性质是能插进去的数最多</p>
+<p>因为肯定一开始有些摩尔投票的牺牲品啊,他们二者中的位置如果能插入当然就插了....</p>
+<p>也就是说,我们如果这样做下去还是不行,说明我们确实有个大于n/2的</p>
+<p>也就无解了,否则构造出的就是一个合法解</p>
+<p>C</p>
+<p>就是至少k个子串他们能够构成的最长公共后缀和所有可能的公共后缀种类</p>
+<p>显然我们不用管后缀前缀,先建立SAM</p>
+<p>然后一个区间串相当于在SAM节点上的一个节点上</p>
+<p>于是我们把它挂上去</p>
+<p>然后就考虑计算一个节点的贡献</p>
+<p>然后线段树合并搞出所有标记之后再差分计算本质不同的子串贡献就好了....</p>
+<p>这个可以用线段树二分完成那个最大值的差分,回答询问的时候前缀最大值差分即可</p>
+<p>种类也同理,就是二分找到最早满足k个的时间....</p>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/yan-da-nei-bu-acm-sai-ti-jie/">
+              <h3 class="post-title">
+                烟大(内部)ACM赛题解
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
