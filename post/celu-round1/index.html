@@ -1,0 +1,338 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title> 「C.E.L.U」Round1  | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1606122087696">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title=" 「C.E.L.U」Round1  | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="难度有点梯度...
+A
+obviously,要么奇数为负要么偶数为负
+求最大子段和
+B
+O(n)搜索一下
+考虑u是第i层的祖先,j能否为第i+1层的祖先
+有两种方法:
+
+考虑第k+1层的祖先一定不会在u之上,而最大深度要达到dep+1才能是..." />
+    <meta name="keywords" content="矩阵求交,状态压缩,比赛题,概率,期望,动态规划" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1606122087696" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+               「C.E.L.U」Round1 
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-11-23
+              </span>
+              <span>
+                4 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/ZnSBAx6xG/" class="post-tag">
+                  # 矩阵求交
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/TN_5AiIbO/" class="post-tag">
+                  # 状态压缩
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/A3FIICRYA/" class="post-tag">
+                  # 比赛题
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/tiQQY2AsE/" class="post-tag">
+                  # 概率
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/XzVbJ7xF8I/" class="post-tag">
+                  # 期望
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/CJ-ugjBAY/" class="post-tag">
+                  # 动态规划
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/45NBuzDIW489QBoVep5mcRZXkW4l1xVqXkEWkqGb9ZLlv1KZUVt9AzThoBYg**9b.RuHB5BB0RSUC6T0emIL1nW*6fBePAc8i.deW*62UJE!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>难度有点梯度...</p>
+<p>A</p>
+<p>obviously,要么奇数为负要么偶数为负</p>
+<p>求最大子段和</p>
+<p>B</p>
+<p>O(n)搜索一下</p>
+<p>考虑u是第i层的祖先,j能否为第i+1层的祖先</p>
+<p>有两种方法:</p>
+<ol>
+<li>考虑第k+1层的祖先一定不会在u之上,而最大深度要达到dep+1才能是dep+1的祖先</li>
+</ol>
+<p>而不仅如此,还要满足一个儿子v是dep+1最大深度,其他的儿子最大深度都不能是dep+1才行</p>
+<p>所以说满足这个条件我们就可以向下递归</p>
+<p>预处理深度最大深度即可</p>
+<ol start="2">
+<li>预处理同一深度最大dfn序和最小的</li>
+</ol>
+<p>然后直到子树的siz,可以求出子树dfn范围</p>
+<p>如果包括了最大最小的就继续向下走这样子</p>
+<p>C</p>
+<p>毒瘤</p>
+<p>介绍一下这个题所用的冷门算法：矩形切割。</p>
+<p>矩形切割，就是将它有相交部分的矩形分割成若干个小矩形，从而消除重叠的部分，方便计算面积。当然，其它维度也是一样的。由于每次插入和查询时都要遍历一遍已经存在的所有矩形，所有时间复杂度是 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mtext>O</mtext><mo>(</mo><msup><mi>n</mi><mn>2</mn></msup><mi>k</mi><mo>∼</mo><msup><mi>n</mi><mn>3</mn></msup><mi>k</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">\text{O}(n^2k\sim n^3k)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord">O</span></span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∼</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mclose">)</span></span></span></span> 的。常数与维度和矩形密集程度有关，且较大。<br>
+为了方便，就以二维的情况为进行一次模拟操作，其它维度也是一个道理。<br>
+假设这里有一个矩形 A 和一个矩形 B，它们是相交的（不相交的情况直接忽略）</p>
+<figure data-type="image" tabindex="1"><img src="https://xiaxiaoguang.github.io/post-images/1606121534530.png" alt="" loading="lazy"></figure>
+<p>所谓的矩形切割，就是删除原来的 A，替换成全新的 A1 和 A2，这样，每一个矩形之间就没有相交的部分，所以计算面积就可以直接把所有的矩形的面积加起来，就可以得到答案。</p>
+<figure data-type="image" tabindex="2"><img src="https://xiaxiaoguang.github.io/post-images/1606121541786.png" alt="" loading="lazy"></figure>
+<p>(实际上就是每一维都弄一下的样子)</p>
+<p>D</p>
+<p>考虑一个连通块一个连通块的转移</p>
+<p>f_S表示S集合内的点已经考虑,其他点还没有考虑的期望值</p>
+<p>就是枚举子集进行转移,然后加上另一个的期望值</p>
+<p>然后会发现我们要转移一个子集的内部连通的概率....</p>
+<p>这个可以容斥,就是考虑这个子集的子集单独连通,另外的一部分不向外界连边即可</p>
+<p>code:</p>
+<pre><code class="language-cpp">
+#include&lt;bits/stdc++.h&gt;
+#define db double
+using namespace std;
+const int maxn = 5005;
+db dp[maxn];
+db a[15][15];
+db cte[maxn];
+int n, mS;
+int lowbit(int x) {
+   int cnt = 0;
+   while(x) {
+   	if(x &amp; 1) cnt ++;
+   	x &gt;&gt;= 1;
+   }
+   return cnt;
+}
+db calc(int x) {
+   db ans = 1.0;
+   for(int i = 1; i &lt;= n; ++i)for(int j = i + 1; j &lt;= n; ++j)if(((x &gt;&gt; i - 1) &amp; 1) ^ ((x &gt;&gt; j - 1) &amp; 1))ans *= (1 - a[i][j]);
+   return ans;
+}
+
+db calc2(int x, int y) {
+   db ans = 1.0;
+   for(int i = 1; i &lt;= n; ++i)for(int j = 1; j &lt;= n; ++j)if(((x &gt;&gt; i - 1) &amp; 1) &amp;&amp; ((y &gt;&gt; j - 1) &amp; 1))ans *= (1 - a[i][j]);
+   return ans;
+}
+
+int lowbit2(int x) {
+   return x &amp; (-x);
+}
+
+void init() {
+   for(int S = 1; S &lt;= mS; ++S) {
+   	if(lowbit(S) == 1) {
+   		cte[S] = calc(S);
+   		continue;
+   	}
+   	int g = lowbit2(S);
+   	int T = S ^ g;
+   	for(int j = T; j != -1; j = (j - 1)&amp;T) {
+   		if(j == T) {
+   			cte[S] += calc(S);
+   			continue;
+   		}
+   		cte[S] -= cte[j | g] * calc2(S ^ (j | g), mS ^ S);
+   		if(j == 0) break;
+   	}
+   }
+}
+
+int main() {
+   scanf(&quot;%d&quot;, &amp;n);
+   for(int i = 1; i &lt;= n; ++i) {
+   	for(int j = 1; j &lt;= n; ++j)
+   		scanf(&quot;%lf&quot;, &amp;a[i][j]);
+   }
+   mS = (1 &lt;&lt; n) - 1;
+   init();
+   for(int S = 0; S &lt; 1 &lt;&lt; n; ++S) {
+   	int T = mS ^ S;
+   	for(int T2 = T; T2; T2 = (T2 - 1)&amp;S) {
+   		dp[S | T2] += dp[S] + cte[T2];
+   	}
+   }
+   printf(&quot;%.6lf&quot;, dp[mS]);
+   return 0;
+}
+
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/noip-ti-gao-zu-kao-qian-shua-ti-chong-ci-ban-di-yi-chang/">
+              <h3 class="post-title">
+                NOIP提高组考前刷题冲刺班（第一场）
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
