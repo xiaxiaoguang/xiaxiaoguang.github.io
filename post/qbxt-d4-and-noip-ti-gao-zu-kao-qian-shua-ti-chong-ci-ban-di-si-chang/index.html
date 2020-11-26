@@ -1,0 +1,792 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>qbxt D4 &amp;&amp; NOIP提高组考前刷题冲刺班（第四场） | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1606394259499">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="qbxt D4 &amp;&amp; NOIP提高组考前刷题冲刺班（第四场） | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="A
+模拟即可,用struct和map优化
+
+
+#include&lt;bits/stdc++.h&gt;
+#define ll long long
+using namespace std;
+const int MAXN = 2e4 + 7;..." />
+    <meta name="keywords" content="高斯消元,计数题,NOIP系列,比赛题,概率,期望,动态规划" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1606394259499" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              qbxt D4 &amp;&amp; NOIP提高组考前刷题冲刺班（第四场）
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-11-25
+              </span>
+              <span>
+                16 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/1DE0UAhs8/" class="post-tag">
+                  # 高斯消元
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/JP89ddpfS/" class="post-tag">
+                  # 计数题
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/mVMqQDiCv/" class="post-tag">
+                  # NOIP系列
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/A3FIICRYA/" class="post-tag">
+                  # 比赛题
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/tiQQY2AsE/" class="post-tag">
+                  # 概率
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/XzVbJ7xF8I/" class="post-tag">
+                  # 期望
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/CJ-ugjBAY/" class="post-tag">
+                  # 动态规划
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/45NBuzDIW489QBoVep5mcRZXkW4l1xVqXkEWkqGb9ZKoyX8*DNZSH7CxwUIdVGcEpuctb2uM8G0ayE7gGBg1uAiIiFzMXWsBpkRLHwxcA2w!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>A</p>
+<p>模拟即可,用struct和map优化</p>
+<pre><code class="language-cpp">
+
+#include&lt;bits/stdc++.h&gt;
+#define ll long long
+using namespace std;
+const int MAXN = 2e4 + 7;
+int n;
+char s[MAXN];
+string t;
+map&lt;string, int&gt; mp;
+int tot;
+struct rec {
+	string r;
+	ll v;
+	int kd;
+} a[MAXN];
+
+inline void output(int x) {
+	if(a[x].kd == 1) {
+		printf(&quot;%lld\n&quot;, a[x].v);
+	} else cout &lt;&lt; a[x].r &lt;&lt; '\n';
+	return ;
+}
+
+inline int getid(string s) {
+	if(mp.find(s) != mp.end())return mp[s];
+	mp[s] = ++tot;
+	return mp[s];
+}
+
+int main() {
+	// freopen(&quot;test.in&quot;, &quot;r&quot;, stdin);
+	// freopen(&quot;test.out&quot;, &quot;w&quot;, stdout);
+	scanf(&quot;%d&quot;, &amp;n);
+	for(int i = 1; i &lt;= n; ++i) {
+		scanf(&quot;%s&quot;, s);
+		t.clear();
+		int m = strlen(s);
+		int kd = 0;
+		for(int i = 0; i &lt; m; ++i) {
+			if(s[i] == '+') {
+				kd = i;
+				break;
+			}
+			if(s[i] == '=') {
+				kd = -i;
+				break;
+			}
+		}
+		if(kd == 0) {
+			for(int i = 0; i &lt; m; ++i)t.push_back(s[i]);
+			if(mp.find(t) != mp.end()) {
+				int id = mp[t];
+				output(id);
+			} else puts(&quot;no&quot;);
+		} else if(kd &lt; 0) {
+			kd = -kd;
+			for(int i = 0; i &lt; kd; ++i)t.push_back(s[i]);
+			bool qwq = 0;
+			for(int i = kd + 1; i &lt; m; ++i)if(s[i] == '&quot;') {
+					qwq = 1;
+					break;
+				}
+			//是字符串类型,我们自闭
+			if(qwq) {
+				string  tmp;
+				tmp.clear();
+				for(int i = kd + 1; i &lt; m; ++i) {
+					if(isalpha(s[i]) || isdigit(s[i])) {
+						tmp.push_back(s[i]);
+					}
+				}
+				int id = getid(t);
+				a[id].r = tmp;
+				a[id].kd = 2;
+			} else {
+				ll tmp = 0;
+				for(int i = kd + 1; i &lt; m; ++i) {
+					if(isdigit(s[i])) {
+						tmp = tmp * 10 + s[i] - '0';
+					}
+				}
+				int id = getid(t);
+				a[id].v = tmp;
+				a[id].kd = 1;
+			}
+		} else {
+			for(int i = 0; i &lt; kd; ++i)t.push_back(s[i]);
+			bool qwq = 0;
+			++kd;
+			for(int i = kd + 1; i &lt; m; ++i)if(s[i] == '&quot;') {
+					qwq = 1;
+					break;
+				}
+			if(mp.find(t) != mp.end()) {
+				int id = mp[t];
+				if(qwq) {//字符串加!
+					if(a[id].kd == 1)continue;
+					string  tmp;
+					tmp.clear();
+					for(int i = kd + 1; i &lt; m; ++i) {
+						if(isalpha(s[i]) || isdigit(s[i])) {
+							tmp.push_back(s[i]);
+						}
+					}
+					a[id].r += tmp;
+				} else {//数字加!
+					if(a[id].kd == 1) {
+						ll tmp = 0;
+						for(int i = kd + 1; i &lt; m; ++i) {
+							if(isdigit(s[i])) {
+								tmp = tmp * 10 + s[i] - '0';
+							}
+						}
+						a[id].v += tmp;
+					} else {
+						string  tmp;
+						tmp.clear();
+						for(int i = kd + 1; i &lt; m; ++i) {
+							if(isdigit(s[i])) {
+								tmp.push_back(s[i]);
+							}
+						}
+						a[id].r += tmp;
+					}
+				}
+			}
+		}
+	}
+	return 0;
+}
+
+</code></pre>
+<p>B</p>
+<p>最难的一题(doge)</p>
+<p>首先对于一个字符串有用的只有一个:每个字符数量</p>
+<p>那么我们首先可以枚举Alice和Bob选择的字符串是哪两个</p>
+<p>然后我们想知道Alice选择的字符串能否用一种字典序打爆所有其他字符串</p>
+<p>首先,我们确定的字符集第一个字符,一定要满足数量大于等于所有的其他串!</p>
+<p>然后你会发现,这样满足的字符其实有很多个</p>
+<p>先放a再放b,和先放b再放a是一样的</p>
+<p>因为我们都是先把a比第i个字符串小的剃掉,再把b比第i个字符串小的剃掉</p>
+<p>那么我们会发现这个本质是相同的</p>
+<p>也就是说,无论这些字符以什么顺序去填本质都是相同的!</p>
+<p>先枚举一个i从1~26,表示我们字典集第i位</p>
+<p>然后再去枚举一个k去尝试填他</p>
+<p>把所有剩下的还没有被删掉的暴力出现小于k的删除</p>
+<p>即可</p>
+<p>如果长度不同,还要特判每个字符是否是当且字符串最后一个</p>
+<p>等等被唐爷爷卡了</p>
+<p>aab<br>
+aabb,先a后b,先b后a本质不同.....</p>
+<p>然后么得了/..真被卡了......</p>
+<p>code:</p>
+<pre><code class="language-cpp">
+
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const int MAXN = 2e3 + 7;
+//虽然我觉得跑不过去
+//但是我比较牛逼
+int n;
+char s[MAXN];
+
+struct rec {
+	int b[30];
+} a[MAXN];
+
+int ed;
+//考虑一个字符串能成为老大哥
+//当且仅当他按照自己最优势(最多的)的排完序后
+//比所有其他字符串的字典序都小
+//也就是说暴力比较即可
+//但是还有一种情况
+//就是说如果我有的你没有,还是老子赢
+//因为我可以把它放到开头然后直接胜利
+//另外就是他字符集大于等于老子
+//这个很好看,就是我的字符比到最后一步也一定要比他少
+//不行萎了萎了
+//喵喵喵
+int que[MAXN], tmp[MAXN], vis[MAXN];
+inline int chk(int x) {
+	int tl = 0;
+	for(int i = 1; i &lt;= n; ++i)if(i != x)que[++tl] = i;
+	for(int i = 0; i &lt; 26; ++i)vis[i] = 0;
+	for(int k = 0; k &lt; 26; ++k) {//排名第一???
+		int rc = -1;
+		int mcnt = 0;
+		for(int j = 0; j &lt; 26; ++j) {//n^2*26^2,随便过
+			if(!vis[j] &amp;&amp; a[x].b[j]) {//我要有才行...
+				bool flg = 1;
+				int cnt = 0;
+				for(int i = 1; i &lt;= tl; ++i) {
+					int u = que[i];
+					if(a[u].b[j] &lt; a[x].b[j]) {
+						cnt++;
+					}
+					if(a[u].b[j] &gt; a[x].b[j]) {
+						flg = 0;
+						break;
+					}
+				}
+				if(flg) {
+					if(cnt &gt; mcnt) {
+						mcnt = cnt;
+						rc = j;
+					}
+				}
+			}
+		}
+		if(rc &lt; 0)break;
+		vis[rc] = 1;
+		int hd = 0;
+		for(int i = 1; i &lt;= tl; ++i) {
+			int u = que[i];
+			if(a[u].b[rc] == a[x].b[rc]) {//相同!!
+				tmp[++hd] = u;
+			}
+		}
+		tl = hd;
+		if(tl == 0)return 1;
+		for(int i = 1; i &lt;= tl; ++i)que[i] = tmp[i];
+	}
+	return 0;
+}
+
+int main() {
+	freopen(&quot;T2.in&quot;, &quot;r&quot;, stdin);
+	freopen(&quot;T2.out&quot;, &quot;w&quot;, stdout);
+	scanf(&quot;%d&quot;, &amp;n);
+	for(int i = 1; i &lt;= n; ++i) {
+		scanf(&quot;%s&quot;, s);
+		int m = strlen(s);
+		for(int k = 0; k &lt; m; ++k)a[i].b[s[k] - 'a']++;
+	}
+	int ans = 0;
+	for(int i = 1; i &lt;= n; ++i) {
+		ans += chk(i); //qieke
+	}
+	printf(&quot;%d\n&quot;, ans);
+	return 0;
+}
+
+</code></pre>
+<p>C</p>
+<p>首先我们要找出所有的区间?然后计算每个位置的贡献?</p>
+<p>那要算出有多少个区间包括某个点</p>
+<p>可以发现,我们能够尺取这个区间</p>
+<p>因为随着区间变长,逆序对数单调不减</p>
+<p>就是说<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mi>l</mi><mo separator="true">,</mo><mi>r</mi><mo>]</mo><mo>&gt;</mo><mo>=</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">[l,r]&gt;=k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span></span></span></span>,对于每一个r</p>
+<p>那么我们找到最大的那个l,[1~l,r]这些区间都满足条件</p>
+<p>可以用一个二度差分实现一个前缀区间都满足的加</p>
+<p>然后在右端点+1处再打一个-L的标记</p>
+<p>这样我们求一个二次前缀和和一个一次前缀和,就能知道一个位置被匹配多少次</p>
+<p>然后就能算每个位置的贡献,从而得到答案!</p>
+<p>还有一个版,问有多少区间相交</p>
+<p>唐爷爷:点减边容斥</p>
+<p>就是每个点被覆盖的贡献-每条边被覆盖的贡献</p>
+<p>当然可以做补集转换,就是说考虑有多少不相交的区间</p>
+<p>那可以枚举一个最大的左端点,然后看小于这个左端点的右端点有多少个即可</p>
+<p>code:</p>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+#define ll long long
+#define lowbit(x) (x&amp;(-x))
+
+using namespace std;
+const int MAXN = 4e6 + 7;
+const int P = 1e9 + 7;
+const int inv2 = (P + 1) / 2;
+int n, a[MAXN];
+
+namespace fastIO {
+#define BUF_SIZE (1&lt;&lt;20)
+	static char buf[BUF_SIZE], *p1 = buf, *pend = buf;
+	inline char nc() {
+		if(p1 == pend) {
+			p1 = buf;
+			pend = buf + fread(buf, 1, BUF_SIZE, stdin);
+		}
+		return *p1++;
+	}
+	inline int read() {
+		int x = 0;
+		char s = nc();
+		for(; !isdigit(s); s = nc());
+		for(; isdigit(s); s = nc())x = (x &lt;&lt; 3) + (x &lt;&lt; 1) + s - '0';
+		return x;
+	}
+}
+using namespace fastIO;
+
+struct BIT {
+	int tr[MAXN];
+	inline void add(int x, int V) {
+		for(; x &lt;= n; x += lowbit(x))tr[x] += V;
+	}
+	inline int qry(int x) {
+		ll ret = 0;
+		for(; x; x -= lowbit(x))ret += tr[x];
+		return ret;
+	}
+} tr;
+
+ll Ni, cf[MAXN], cf2[MAXN], K;
+
+inline void add3(int L, int R, int x) {
+	ll ret = R - L - tr.qry(x);//有多少比他小的,就是比他大的
+	Ni += ret;
+	tr.add(x, 1);
+	return;
+}
+
+inline void pop(int x) {
+	tr.add(x, -1);
+	int ret = tr.qry(x - 1);
+	Ni -= ret;
+	return ;
+}
+
+inline void add2(int x) {
+	Ni += tr.qry(x - 1);
+	tr.add(x, 1);
+	return ;
+}
+
+int main() {
+	// freopen(&quot;test.in&quot;, &quot;r&quot;, stdin);
+	n = read();
+	K = read();
+	for(int i = 1; i &lt;= n; ++i)a[i] = read();
+	int L = 1;
+	for(int R = 1; R &lt;= n; ++R) {
+		add3(L, R, a[R]);
+		while(L &lt;= R &amp;&amp; Ni &gt;= K) {
+			pop(a[L]);
+			if(Ni &lt; K) {
+				add2(a[L]);
+				break;//说明这个是极限了
+			}
+			++L;
+		}
+		//相当于所有左端点到这的区间都qwq了
+		if(Ni &gt;= K) {
+			cf2[1]++;
+			cf2[L + 1]--;
+			cf[R + 1] -= L; //左端点在这取的所有终结
+		}
+	}
+	for(int i = 1; i &lt;= n; ++i) {
+		cf2[i] += cf2[i - 1];
+	}
+	for(int i = 1; i &lt;= n; ++i) {
+		cf[i] += cf[i - 1];
+	}
+	for(int i = 1; i &lt;= n; ++i) {
+		cf2[i] += cf2[i - 1];
+	}
+	for(int i = 1; i &lt;= n; ++i)cf[i] += cf2[i], cf[i] %= P;
+	//前缀和!!!!!!!!!
+	ll ans = 0;
+	for(int i = 1; i &lt;= n; ++i) {
+		ans = (ans + (1ll * cf[i] * (cf[i] - 1) % P * inv2 % P)) % P;
+	}
+	printf(&quot;%lld\n&quot;, ans);
+	return 0;
+
+}
+/*
+6
+abbcc
+aabbc
+abbbc
+aaabc
+aabcc
+abccc
+*/
+
+
+</code></pre>
+<p>D</p>
+<p>计数题...</p>
+<p>std:</p>
+<p>可以发现,如果只有一个根的时候我们可以拓扑序树上dp一下</p>
+<p>然后我们再考虑有两个根,会发现他们之间的路径拿出来,其中删除点的方案一定是这个路径的一个区间</p>
+<p>那么我们就能设计<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>f</mi><mrow><mi>l</mi><mo separator="true">,</mo><mi>r</mi></mrow></msub></mrow><annotation encoding="application/x-tex">f_{l,r}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight" style="margin-right:0.02778em;">r</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>表示这个路径的<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mi>l</mi><mo separator="true">,</mo><mi>r</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">[l,r]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mclose">]</span></span></span></span>都被删除的方案数</p>
+<p>然后转移就是考虑l+1和r-1</p>
+<p>方法就是这一段的siz和和那一个子树的siz求个组合数,然后乘上他内部自由分配的方案数</p>
+<p>my:</p>
+<p>暴力出奇迹</p>
+<p>考虑一个树的拓扑序为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mrow><mi>p</mi><mo>!</mo></mrow><mrow><msub><mo>∏</mo><mi>i</mi></msub><mi>s</mi><mi>i</mi><msub><mi>z</mi><mi>i</mi></msub></mrow></mfrac></mrow><annotation encoding="application/x-tex">\frac{p!}{\prod_isiz_i}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.5022229999999999em;vertical-align:-0.5700069999999999em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9322159999999999em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mop mtight"><span class="mop op-symbol small-op mtight" style="position:relative;top:-0.0000050000000000050004em;">∏</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1496471428571428em;"><span style="top:-2.1785614285714283em;margin-left:0em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.32143857142857146em;"><span></span></span></span></span></span></span><span class="mspace mtight" style="margin-right:0.19516666666666668em;"></span><span class="mord mathdefault mtight">s</span><span class="mord mathdefault mtight">i</span><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3280857142857143em;"><span style="top:-2.357em;margin-left:-0.04398em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.446108em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">p</span><span class="mclose mtight">!</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.5700069999999999em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></p>
+<p>然后我们只需要考虑这个链上第一个被删掉的是哪个,后面都是本质不同的了</p>
+<p>会发现我们断掉一条边可以把树分成两个连通块,然后就有了这两个点先被删掉方案</p>
+<p>再每个相邻的做一下即可</p>
+<p>代码如下</p>
+<pre><code class="language-cpp">
+#include&lt;bits/stdc++.h&gt;
+#define ll long long
+using namespace std;
+const int MAXN = 2e5 + 7;
+const int P = 1e9 + 7;
+int home[MAXN], nxt[MAXN], to[MAXN], ccnt, n, p1, p2;
+int vis[MAXN];
+
+inline ll ksm(ll x, ll y) {
+	ll ans = 1;
+	while(y) {
+		if(y &amp; 1)ans = ans * x % P;
+		x = x * x % P;
+		y &gt;&gt;= 1;
+	}
+	return ans;
+}
+
+inline void ct(int x, int y) {
+	ccnt++;
+	nxt[ccnt] = home[x];
+	home[x] = ccnt;
+	to[ccnt] = y;
+}
+
+ll fac[MAXN], ifac[MAXN], ans1, inv[MAXN], ans;
+
+inline void init() {
+	fac[0] = 1;
+	ifac[0] = 1;
+	for(int i = 1; i &lt;= n; ++i) {
+		fac[i] = fac[i - 1] * i % P;
+	}
+	ifac[n] = ksm(fac[n], P - 2);
+	for(int i = n - 1; i &gt;= 1; --i)ifac[i] = ifac[i + 1] * (i + 1) % P;
+	for(int i = 1; i &lt;= n; ++i)inv[i] = ifac[i] * fac[i - 1] % P;
+	return ;
+}
+
+//尺取,一次跳两个点!!
+//随便选取一个点开始即可
+//O(n) chk 应该不会qaq吧??
+
+int fa[MAXN], q[MAXN], tot;
+bool flg = 1;
+
+inline void dfs1(int u, int F) {
+	if(u == p2) {
+		int x = u;
+		while(x != p1) {
+			q[++tot] = x;
+			x = fa[x];
+		}
+		q[++tot] = x;
+		flg = 0;
+		return ;
+	}
+	if(!flg)return ;
+	for(int i = home[u]; i; i = nxt[i]) {
+		int v = to[i];
+		if(v == F)continue;
+		fa[v] = u;
+		dfs1(v, u);
+	}
+	return ;
+}
+
+int siz[MAXN];
+
+inline void dfs2(int u, int F) {
+	siz[u] = 1;
+	for(int i = home[u]; i; i = nxt[i]) {
+		if(vis[i])continue;
+		int v = to[i];
+		if(v == F)continue;
+		dfs2(v, u);
+		siz[u] += siz[v];
+	}
+	ans1 = ans1 * inv[siz[u]] % P;
+}
+
+inline ll C(int x, int y) {
+	return fac[x] * ifac[y] % P * ifac[x - y] % P;
+}
+
+inline void solve() {
+	dfs1(p1, 0);
+	//关键是我们要找个边...QAQ
+	//好吧...其实可以神秘法找边
+	int rc = 0;
+	for(int i = 1; i &lt;= tot; i += 2) {
+		int u = q[i];
+		int x = q[i + 1];//你没了!
+		for(int i = home[u]; i; i = nxt[i]) {
+			int v = to[i];
+			if(v == x) {
+				rc = i;
+				vis[rc] = vis[rc ^ 1] = 1;
+				break;
+			}
+		}
+		ans1 = 1;
+		if(x != 0)dfs2(p1, 0);
+		dfs2(p2, 0);//不访问标记
+		if(x != 0)ans1 = ans1 * fac[siz[p1]] % P * fac[siz[p2]] % P;
+		else ans1 = ans1 * fac[siz[p2]] % P;
+		ans = (ans + ans1 * C(n, siz[p2]) % P) % P;
+		vis[rc] = vis[rc ^ 1] = 0;
+	}
+	printf(&quot;%lld\n&quot;, ans);
+}
+
+inline void solve2() {
+	ans1 = 1;
+	dfs2(p1, 0);
+	ans1 = ans1 * fac[siz[p1]] % P;
+	printf(&quot;%lld\n&quot;, ans1);
+	return ;
+}
+
+int main() {
+	// freopen(&quot;test4.in&quot;, &quot;r&quot;, stdin);
+	// freopen(&quot;test4.out&quot;, &quot;w&quot;, stdout);
+	scanf(&quot;%d%d%d&quot;, &amp;n, &amp;p1, &amp;p2);
+	init();//预处理阶乘
+	ccnt = 1;
+	for(int i = 2, x, y; i &lt;= n; ++i) {
+		scanf(&quot;%d%d&quot;, &amp;x, &amp;y);
+		ct(x, y);
+		ct(y, x);
+	}
+	if(p1 != p2) {
+		solve();
+	} else {
+		solve2();
+	}
+	return 0;
+}
+
+</code></pre>
+<p>口胡T1</p>
+<p>一个<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>∗</mo><mi>m</mi></mrow><annotation encoding="application/x-tex">n*m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.46528em;vertical-align:0em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">m</span></span></span></span>矩阵,问是否存在子矩阵和在[k,2k]之间</p>
+<p>都是正数</p>
+<p>大于k的数都是没意义的,一个能让游戏直接结束,一个能全不选</p>
+<p>所以说我们只需要枚举剩下点的最大值</p>
+<p>假如这个最大值大于2k</p>
+<p>因为我们扣去一行,如果剩下的第一次小于k,那么另一侧一定满足</p>
+<p>考虑悬线,找到这个最大矩阵</p>
+<p>口胡T2_pre</p>
+<p>图上随机游走</p>
+<p>高斯消元</p>
+<p>口胡T2_niubi</p>
+<p>一个01序列,问把这个序列改成全0/全1的期望代价</p>
+<p>操作方式是一个指针只在开始位置,然后随机跳到位置j,然后代价为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">∣</mi><mi>j</mi><mo>−</mo><mi>i</mi><mi mathvariant="normal">∣</mi></mrow><annotation encoding="application/x-tex">|j-i|</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">∣</span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">i</span><span class="mord">∣</span></span></span></span></p>
+<p>2^s然后高消显然是不行的</p>
+<p>根据期望的线性性,我们只需要计算每一个<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi><mo>−</mo><mo>&gt;</mo><mi>j</mi></mrow><annotation encoding="application/x-tex">i-&gt;j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.74285em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">i</span><span class="mord">−</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span></span></span></span>经过期望次数</p>
+<p>我们压压状态,会发现只和指针所在位置以及其他位置0/1态有关</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>f</mi><mrow><mi>i</mi><mo separator="true">,</mo><mi>j</mi><mo separator="true">,</mo><mi>k</mi></mrow></msub></mrow><annotation encoding="application/x-tex">f_{i,j,k}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>表示位置i是否等于位置j,当前指针是否在i,以及其他n-2个位置有多少个和i相同</p>
+<p>转移分指针在不在i,从i走到哪里转移</p>
+<p>高斯消元即可</p>
+<p>然后我们最后枚举两个位置,利用这个期望次数拼起来即可</p>
+<p>时间复杂度相当低.....n可以做150??</p>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/qbxtd3/">
+              <h3 class="post-title">
+                qbxtD3 &amp;&amp; NOIP提高组考前刷题冲刺班（第三场）
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
