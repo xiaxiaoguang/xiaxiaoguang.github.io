@@ -3,7 +3,7 @@
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>NOIP提高组考前刷题冲刺班（第二场） | 夏晓光(loveJY)的博客</title>
-<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1606394259499">
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1606451819987">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
 <link rel="alternate" type="application/atom+xml" title="NOIP提高组考前刷题冲刺班（第二场） | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
@@ -29,7 +29,7 @@ fn=1+pfn−1+(1−p)fnf_..." />
       <div class="main-content">
         <div class="site-header">
   <a href="https://xiaxiaoguang.github.io">
-  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1606394259499" alt="">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1606451819987" alt="">
   </a>
   <h1 class="site-title">
     夏晓光(loveJY)的博客
@@ -95,7 +95,7 @@ fn=1+pfn−1+(1−p)fnf_..." />
                 2020-11-24
               </span>
               <span>
-                5 min read
+                12 min read
               </span>
               
             </div>
@@ -145,6 +145,147 @@ fn=1+pfn−1+(1−p)fnf_..." />
 <p>做法2</p>
 <p>在每个节点上维护log个pair,表示<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>+</mo><mi>x</mi><mi mathvariant="normal">/</mi><mi>y</mi></mrow><annotation encoding="application/x-tex">+x/y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">+</span><span class="mord mathdefault">x</span><span class="mord">/</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span></span></span></span></p>
 <p>显然发现我们下传标记是log清空,而多余log的标记没有意义</p>
+<pre><code class="language-cpp">
+#include&lt;bits/stdc++.h&gt;
+#define ll long  long
+using namespace std;
+const int MAXN = 1e6 + 7;
+int n, m;
+struct rec {
+	ll a, b, c, lz, mx;
+	rec(int A = 0, int B = 1, int C = 0, int LZ = 0, int MX = 0): a(A), b(B), c(C), lz(LZ), mx(MX) {};
+	bool operator!=(const rec &amp;x) const {
+		return x.a != a || x.b != b || x.c != c;
+	}
+} tr[MAXN];
+int a[MAXN], rc[MAXN];
+const int inf = 1e9;
+rec operator+(const rec &amp;x, const rec &amp;y) {
+	rec nw = rec();
+	nw.mx = x.mx;
+	nw.lz = x.lz;
+	nw.a = x.a + x.b * x.c + x.b * y.a;
+	nw.b = x.b * y.b;
+	nw.c = y.c;//order?
+	nw.c += nw.a / nw.b;
+	nw.a %= nw.b;
+	if(nw.b &gt; inf) {
+		nw.a = max(0ll, nw.a - (nw.b - inf));
+		nw.b = inf;
+	}
+	return nw;
+}
+
+inline void pushdown(int k) {
+	// printf(&quot;pd : %d %d? %d %d %d %d??\n&quot;, k, tr[k].b, tr[k].a, tr[k].c, tr[k].mx, tr[k].lz);
+	if(tr[k].lz) {
+		tr[k &lt;&lt; 1 | 1] = rec(0, 1, 0, 1, rc[k &lt;&lt; 1 | 1]);
+		tr[k &lt;&lt; 1] = rec(0, 1, 0, 1, rc[k &lt;&lt; 1]);
+		tr[k].lz = 0;
+	}
+	if(tr[k] != rec()) {
+		tr[k &lt;&lt; 1 | 1] = tr[k &lt;&lt; 1 | 1] + tr[k];
+		// printf(&quot;pd 1 :%d %d\n&quot;, tr[k &lt;&lt; 1].mx, tr[k &lt;&lt; 1 | 1].mx);
+		tr[k &lt;&lt; 1] = tr[k &lt;&lt; 1] + tr[k];
+		tr[k &lt;&lt; 1].mx = (tr[k &lt;&lt; 1].mx + tr[k].a) / tr[k].b + tr[k].c;
+		tr[k &lt;&lt; 1 | 1].mx = (tr[k &lt;&lt; 1 | 1].mx + tr[k].a) / tr[k].b + tr[k].c;
+		// printf(&quot;pd 2 :%d %d %d %d %d\n&quot;, tr[k &lt;&lt; 1].mx, tr[k &lt;&lt; 1 | 1].mx, tr[k].b, tr[k].a, tr[k].c);
+		tr[k] = rec(0, 1, 0, tr[k].lz, tr[k].mx);
+	}
+	return ;
+}
+
+inline void build(int k, int L, int R) {
+	tr[k].b = 1;
+	if(L == R) {
+		tr[k].mx = a[L];
+		rc[k] = tr[k].mx;
+		return ;
+	}
+	int mid = (L + R) &gt;&gt; 1;
+	build(k &lt;&lt; 1, L, mid);
+	build(k &lt;&lt; 1 | 1, mid + 1, R);
+	// printf(&quot;build :%d %d %d %d \n&quot;, L, R, tr[k &lt;&lt; 1].mx, tr[k &lt;&lt; 1 | 1].mx);
+	tr[k].mx = max(tr[k &lt;&lt; 1].mx, tr[k &lt;&lt; 1 | 1].mx);
+	// printf(&quot;b tr mx :%d \n&quot;, tr[k].mx);
+	rc[k] = tr[k].mx;
+}
+
+inline void add(int k, int L, int R, int l, int r, int x) {
+	// printf(&quot;ad :%d %d %d %d %d\n&quot;, k, L, R, x, tr[k].mx);
+	if(l &lt;= L &amp;&amp; R &lt;= r) {
+		tr[k].mx += x;
+		tr[k].c += x;//qaq
+		return ;
+	}
+	pushdown(k);
+	int mid = (L + R) &gt;&gt; 1;
+	if(l &lt;= mid)add(k &lt;&lt; 1, L, mid, l, r, x);
+	if(mid &lt; r)add(k &lt;&lt; 1 | 1, mid + 1, R, l, r, x);
+	tr[k].mx = max(tr[k &lt;&lt; 1].mx, tr[k &lt;&lt; 1 | 1].mx);
+}
+
+inline void div(int k, int L, int R, int l, int r, int x) {
+	// printf(&quot;div : %d %d %d %d %d %d ???a: %d b %d\n&quot;, k, L, R, l, r, tr[k].mx, tr[k].a, tr[k].b);
+	if(l &lt;= L &amp;&amp; R &lt;= r) {
+		rec nw = rec(0, x, 0, 0, 0);
+		tr[k] = tr[k] + nw;
+		tr[k].mx /= x;
+		return ;
+	}
+	pushdown(k);
+	int mid = (L + R) &gt;&gt; 1;
+	if(l &lt;= mid)div(k &lt;&lt; 1, L, mid, l, r, x);
+	if(mid &lt; r)div(k &lt;&lt; 1 | 1, mid + 1, R, l, r, x);
+	tr[k].mx = max(tr[k &lt;&lt; 1].mx, tr[k &lt;&lt; 1 | 1].mx);
+}
+
+inline void callback(int k, int L, int R, int l, int r) {
+	if(l &lt;= L &amp;&amp; R &lt;= r) {
+		tr[k] = rec(0, 1, 0, 1, rc[k]);
+		return ;
+	}
+	pushdown(k);
+	int mid = (L + R) &gt;&gt; 1;
+	if(l &lt;= mid)callback(k &lt;&lt; 1, L, mid, l, r);
+	if(mid &lt; r)callback(k &lt;&lt; 1 | 1, mid + 1, R, l, r);
+	tr[k].mx = max(tr[k &lt;&lt; 1].mx, tr[k &lt;&lt; 1 | 1].mx);
+}
+
+inline ll qry(int k, int L, int R, int l, int r) {
+	// printf(&quot;qry : %d %d %d %d %d %d ???a: %d b %d\n&quot;, k, L, R, l, r, tr[k].mx, tr[k].a, tr[k].b);
+	if(l &lt;= L &amp;&amp; R &lt;= r) return tr[k].mx;
+	pushdown(k);
+	int mid = (L + R) &gt;&gt; 1;
+	if(r &lt;= mid)return qry(k &lt;&lt; 1, L, mid, l, r);
+	else if(l &gt; mid)return qry(k &lt;&lt; 1 | 1, mid + 1, R, l, r);
+	else return max(qry(k &lt;&lt; 1, L, mid, l, r), qry(k &lt;&lt; 1 | 1, mid + 1, R, l, r));
+}
+
+int main() {
+	// freopen(&quot;test.in&quot;, &quot;r&quot;, stdin);
+	// freopen(&quot;test1.out&quot;, &quot;w&quot;, stdout);
+	scanf(&quot;%d%d&quot;, &amp;n, &amp;m);
+	for(int i = 1; i &lt;= n; ++i)scanf(&quot;%d&quot;, &amp;a[i]);
+	build(1, 1, n);
+	for(int i = 1, t, l, r, x; i &lt;= m; ++i) {
+		scanf(&quot;%d%d%d%d&quot;, &amp;t, &amp;l, &amp;r, &amp;x);
+		++l;
+		++r;
+		if(t == 0) {
+			add(1, 1, n, l, r, x);
+		} else if(t == 1) {
+			div(1, 1, n, l, r, x);
+		} else if(t == 2) {
+			printf(&quot;%lld\n&quot;, qry(1, 1, n, l, r));
+		} else {
+			callback(1, 1, n, l, r);
+		}
+	}
+	return 0;
+}
+
+</code></pre>
 <p>D</p>
 <p>枚举最大值,然后会发现我们有相当多的数,他们有固定的一些对象选择配对(不能超过最大值)</p>
 <p>比如2n+3,2n只能和1,2配对</p>

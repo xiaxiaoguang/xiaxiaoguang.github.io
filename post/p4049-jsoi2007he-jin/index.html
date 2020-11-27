@@ -1,0 +1,326 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>P4049 [JSOI2007]合金 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1606451819987">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="P4049 [JSOI2007]合金 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="啊啊啊唐爷爷强
+这个和之前那个很相近啊,就是钟神出的b题
+首先把一个三元的是没用的,知道前两个就知道第三个了
+拿前两个元素作为坐标,每个点拍到平面上
+我们就会发现,这个操作类似于一个加权平均数,也就是类似于表示出一些向量围成的面积
+三个点就..." />
+    <meta name="keywords" content="凸包,Floyd,计算几何" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1606451819987" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              P4049 [JSOI2007]合金
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-11-27
+              </span>
+              <span>
+                4 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/ba_0Cuwoj/" class="post-tag">
+                  # 凸包
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/OvreQmgBU/" class="post-tag">
+                  # Floyd
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/viBkjuGF1n/" class="post-tag">
+                  # 计算几何
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/45NBuzDIW489QBoVep5mcVfB2hpxzDEMjbuW*ttmkQ0jnQ1oppMNJs79xTPBldAgdemfT6VKWtyaURVRlK4vjvtdKBek8aDVJDeReKgVpX8!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>啊啊啊唐爷爷强</p>
+<p>这个和之前那个很相近啊,就是钟神出的b题</p>
+<p>首先把一个三元的是没用的,知道前两个就知道第三个了</p>
+<p>拿前两个元素作为坐标,每个点拍到平面上</p>
+<p>我们就会发现,这个操作类似于一个加权平均数,也就是类似于表示出一些向量围成的面积</p>
+<p>三个点就是三角形内的点都能表示</p>
+<p>n个点就是凸包内的点都能表示</p>
+<p>现在我们想选出最少的边使得所有目标点被圈在中间</p>
+<p>首先你会发现这些边一定是包括了所有目标点凸包</p>
+<p>也就是所有点都在这个边的一侧</p>
+<p>用叉积,叉积大于0在左侧,<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mn>1</mn><mi>y</mi><mn>2</mn><mo>−</mo><mi>x</mi><mn>2</mn><mi>y</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">x1y2-x2y1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">x</span><span class="mord">1</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">x</span><span class="mord">2</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mord">1</span></span></span></span></p>
+<p>然后我们就能<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mi>m</mi><mn>2</mn></msup><mo>∗</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(m^2*n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>找到所有合法边了</p>
+<h2 id="找到以后呢按照传统oi点到为止的规则这个题已经切了">找到以后呢?按照传统OI点到为止的规则,这个题已经切了</h2>
+<p>但是他不讲武德,还是要求一个最小环</p>
+<h2 id="最小环我防出去了防出去了啊">最小环我防出去了,防出去了啊</h2>
+<p>然后它来了个点在线段/直线上</p>
+<h2 id="我反手一个点积大于0判掉所有在直线上的">我反手一个点积大于0判掉所有在直线上的</h2>
+<p>然后此时他竟然来一个点就能成为答案的</p>
+<h2 id="我大意了啊没有闪">我大意了啊,没有闪</h2>
+<p>于是90好几发</p>
+<p>code:</p>
+<pre><code class="language-cpp">
+//考虑怎么做?
+//凸包
+//一条边在另外所有点的一侧就加入
+//然后找最小环
+//叉积判断?
+//del x * del y
+#include&lt;bits/stdc++.h&gt;
+#define db double
+using namespace std;
+const db eps = 1e-8;
+const int MAXN = 507;
+struct  ND {
+	db x, y, z;
+} e[MAXN], d[MAXN];
+//xy-xy
+inline db cross(ND xx, ND yy, ND zz) {
+	return (xx.x - zz.x) * (yy.y - zz.y) - (xx.y - zz.y) * (yy.x - zz.x);
+}
+//xx+yy
+inline db dot(ND xx, ND yy, ND zz) {
+	return (xx.x - zz.x) * (yy.x - zz.x) + (xx.y - zz.y) * (yy.y - zz.y);
+}
+
+int n, m;
+int g[MAXN][MAXN];
+
+int main() {
+	scanf(&quot;%d%d&quot;, &amp;m, &amp;n);
+	for(int i = 1; i &lt;= m; ++i)scanf(&quot;%lf%lf%lf&quot;, &amp;e[i].x, &amp;e[i].y, &amp;e[i].z);
+	for(int i = 1; i &lt;= n; ++i)scanf(&quot;%lf%lf%lf&quot;, &amp;d[i].x, &amp;d[i].y, &amp;d[i].z);
+	memset(g, 0x3f3f3f3f, sizeof(g));
+	for(int i = 1; i &lt;= m; ++i) {
+		int flg = 1;
+		for(int j = 1; j &lt;= n; ++j) {
+			if(fabs(e[i].x - d[j].x) &gt; eps || fabs(e[i].y - d[j].y) &gt; eps) {
+				flg = 0;
+				break;
+			}
+		}
+		if(flg) {
+			puts(&quot;1&quot;);
+			return 0;
+		}
+	}
+	for(int i = 1; i &lt;= m; ++i) {
+		for(int j = 1; j &lt;= m; ++j) {
+			if(i != j) {//看看这线段是否牛逼
+				int flg = 1;
+				for(int k = 1; k &lt;= n; ++k) {
+					if(fabs(cross(e[i], e[j], d[k])) &lt; eps &amp;&amp; dot(e[i], e[j], d[k]) &gt; eps) {
+						//共线不在线段
+						flg = -1;
+						break;
+					}
+					if(cross(e[i], e[j], d[k]) &gt; eps) {
+						flg = -1;
+						break;
+					}
+				}
+				if(flg == -1)continue;
+				g[i][j] = 1;
+			}
+		}
+	}
+	for(int k = 1; k &lt;= m; ++k) {
+		for(int i = 1; i &lt;= m; ++i) {
+			for(int j = 1; j &lt;= m; ++j) {
+				g[i][j] = min(g[i][j], g[i][k] + g[k][j]);
+			}
+		}
+	}
+	int ans = 1e9;
+	for(int i = 1; i &lt;= m; ++i)ans = min(ans, g[i][i]);
+	if(ans == 1e9)puts(&quot;-1&quot;);
+	else printf(&quot;%d\n&quot;, ans);
+	return 0;
+}
+
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E6%89%BE%E5%88%B0%E4%BB%A5%E5%90%8E%E5%91%A2%E6%8C%89%E7%85%A7%E4%BC%A0%E7%BB%9Foi%E7%82%B9%E5%88%B0%E4%B8%BA%E6%AD%A2%E7%9A%84%E8%A7%84%E5%88%99%E8%BF%99%E4%B8%AA%E9%A2%98%E5%B7%B2%E7%BB%8F%E5%88%87%E4%BA%86">找到以后呢?按照传统OI点到为止的规则,这个题已经切了</a></li>
+<li><a href="#%E6%9C%80%E5%B0%8F%E7%8E%AF%E6%88%91%E9%98%B2%E5%87%BA%E5%8E%BB%E4%BA%86%E9%98%B2%E5%87%BA%E5%8E%BB%E4%BA%86%E5%95%8A">最小环我防出去了,防出去了啊</a></li>
+<li><a href="#%E6%88%91%E5%8F%8D%E6%89%8B%E4%B8%80%E4%B8%AA%E7%82%B9%E7%A7%AF%E5%A4%A7%E4%BA%8E0%E5%88%A4%E6%8E%89%E6%89%80%E6%9C%89%E5%9C%A8%E7%9B%B4%E7%BA%BF%E4%B8%8A%E7%9A%84">我反手一个点积大于0判掉所有在直线上的</a></li>
+<li><a href="#%E6%88%91%E5%A4%A7%E6%84%8F%E4%BA%86%E5%95%8A%E6%B2%A1%E6%9C%89%E9%97%AA">我大意了啊,没有闪</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/qbxtd6-and-noip-ti-gao-zu-kao-qian-shua-ti-chong-ci-ban-di-liu-chang/">
+              <h3 class="post-title">
+                qbxtD6 &amp;&amp; NOIP提高组考前刷题冲刺班（第六场）
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
