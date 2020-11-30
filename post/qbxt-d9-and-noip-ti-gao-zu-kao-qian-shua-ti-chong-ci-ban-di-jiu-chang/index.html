@@ -1,0 +1,342 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>qbxt D9 &amp;&amp; NOIP提高组考前刷题冲刺班（第九场） | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1606719943001">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="qbxt D9 &amp;&amp; NOIP提高组考前刷题冲刺班（第九场） | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="A
+不用讲了
+B
+不用讲了
+倍增DP是可以的!
+可以组合计数!
+C
+不用讲了
+容斥,注意乘上每个组内部排序(3!的次方)的方案数
+
+
+//容斥
+#include&lt;bits/stdc++.h&gt;
+const int MAXN = 4..." />
+    <meta name="keywords" content="树链剖分,容斥,组合数学,比赛题,线段树" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1606719943001" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              qbxt D9 &amp;&amp; NOIP提高组考前刷题冲刺班（第九场）
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-11-28
+              </span>
+              <span>
+                4 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/6hHniDvPI/" class="post-tag">
+                  # 树链剖分
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/mUSUJZ9R7J/" class="post-tag">
+                  # 容斥
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/4ztmj65HI/" class="post-tag">
+                  # 组合数学
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/A3FIICRYA/" class="post-tag">
+                  # 比赛题
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/i0TglRCqu/" class="post-tag">
+                  # 线段树
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/45NBuzDIW489QBoVep5mcad0zLL7ld1tWSMSvJoUdfMd7uM*HulwNQvFnBJ5GmsVajsLJQYw9ud1rt4rpDkpV1klQEl5CUTPogSOM3w*S2A!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>A</p>
+<p>不用讲了</p>
+<p>B</p>
+<p>不用讲了</p>
+<p>倍增DP是可以的!</p>
+<p>可以组合计数!</p>
+<p>C</p>
+<p>不用讲了</p>
+<p>容斥,注意乘上每个组内部排序(3!的次方)的方案数</p>
+<pre><code class="language-cpp">
+
+//容斥
+#include&lt;bits/stdc++.h&gt;
+const int MAXN = 4e6 + 7;
+#define ll long long
+using namespace std;
+const int P = 998244353;//摸错人
+int n, N;
+int fac[MAXN], ifac[MAXN];
+ll cf6[MAXN];
+inline ll ksm(ll x, ll y) {
+	ll ans = 1;
+	while(y) {
+		if(y &amp; 1)ans = ans * x % P;
+		x = x * x % P;
+		y &gt;&gt;= 1;
+	}
+	return ans;
+}
+
+inline void add(ll &amp;x, ll y) {
+	x += y;
+	if(x &gt;= P)x -= P;
+}
+
+inline void sub(ll &amp;x, ll y) {
+	x -= y;
+	if(x &lt; 0)x += P;
+}
+
+inline void init() {
+	fac[0] = 1;
+	ifac[0] = 1;
+	for(int i = 1; i &lt;= N; ++i)fac[i] = 1ll * fac[i - 1] * i % P;
+	ifac[N] = ksm(fac[N], P - 2);
+	for(int i = N - 1; i &gt;= 1; --i)ifac[i] = 1ll * ifac[i + 1] * (i + 1) % P;
+	cf6[0] = 1;
+	for(int i = 1; i &lt;= n; ++i)cf6[i] = cf6[i - 1] * 6 % P;
+	return;
+}
+
+inline ll C(int n, int m) {
+	return 1ll * fac[n] * ifac[m] % P * ifac[n - m] % P;
+}
+
+inline void solve() {
+	ll ans = fac[N];
+	for(int i = 1; i &lt;= n; ++i) {
+		if(i &amp; 1)sub(ans, cf6[i] * C(n, i) % P * fac[N - 2 * i]  % P);
+		else add(ans, cf6[i] * C(n, i) % P * fac[N - 2 * i]  % P);
+	}
+	printf(&quot;%lld\n&quot;, ans);
+}
+
+int main() {
+	scanf(&quot;%d&quot;, &amp;n);
+	N = 3 * n;
+	init();
+	solve();
+	return 0;
+}
+
+</code></pre>
+<p>D</p>
+<p>直接树套树剖竟然三个log过5e5</p>
+<p>一个点在这个路径上,和其中某几个端点查LCA一定是这个路径本身,或者这个dis和等于两点距离</p>
+<p>那么我们能<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>n</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">n^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span>预处理然后<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span>查询!</p>
+<p>OnO1rmq....其实写n^2暴力没有这么复杂吧.....</p>
+<p>最小值可以二分一下?假设答案至少为x</p>
+<p>相当于小于x的路径和节点都有交集</p>
+<p>树链求交</p>
+<p>四个端点两两LCA(一条路径上的除外)</p>
+<p>然后LCA排序一下重复的和不在路径上的点去掉后选后两个</p>
+<p>大概分类讨论一下</p>
+<p>我们能维护这个交集</p>
+<p>把链按照权值排序,求一个前缀交集和后缀交集</p>
+<p>二分这个点的答案</p>
+<p>大概可以<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(nlogn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></p>
+<p>这样不带删除或者修改操作就解决了</p>
+<ol>
+<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mi>p</mi><mi>l</mi><mi>a</mi><mi>y</mi></mrow><annotation encoding="application/x-tex">splay</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">p</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span></span></span></span></li>
+<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>C</mi><mi>D</mi><mi>Q</mi></mrow><annotation encoding="application/x-tex">CDQ</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mord mathdefault" style="margin-right:0.02778em;">D</span><span class="mord mathdefault">Q</span></span></span></span></li>
+<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">离</mi><mi mathvariant="normal">线</mi></mrow><annotation encoding="application/x-tex">离线</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0em;vertical-align:0em;"></span><span class="mord cjk_fallback">离</span><span class="mord cjk_fallback">线</span></span></span></span></li>
+</ol>
+<p>线段树分治吧?</p>
+<p>就是考虑单点修改直接改,然后回溯回复整个序列</p>
+<p>线段树直接做?</p>
+<p>就是离线,把所有可能的边情况拿出来</p>
+<p>然后排序,建立线段树,之后就是一个区间路径交的维护</p>
+<p>然后我们就能做了?</p>
+<p>卢卡斯</p>
+<p><span class='katex-error' title='ParseError: KaTeX parse error: Expected &#039;}&#039;, got &#039;EOF&#039; at end of input: …/p}*C_{n%P,m%P}'>C_{n,m}=C_{n/p,m/p}*C_{n%P,m%P}</span></p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>C</mi><mrow><mi>n</mi><mo separator="true">,</mo><mi>m</mi></mrow></msub></mrow><annotation encoding="application/x-tex">C_{n,m}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.15139200000000003em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight">m</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span> %P</p>
+<p>模合数?</p>
+<p>可以质因数分解为每个,然后再做下面的阶乘</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>!</mo><mo>=</mo><msup><mi>p</mi><mi>a</mi></msup><mi>N</mi></mrow><annotation encoding="application/x-tex">n!=p^aN</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">n</span><span class="mclose">!</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault">p</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">a</span></span></span></span></span></span></span></span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span></span></span></span>,然后觳觫的部分直接做(互素)</p>
+<p>P=1e9+7</p>
+<p>第k小子集和</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>&lt;</mo><mo>=</mo><mn>30</mn></mrow><annotation encoding="application/x-tex">n&lt;=30</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span><span class="mord">0</span></span></span></span></p>
+<p>二分一下</p>
+<p>然后mit in middle即可判断这个的rank</p>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/qbxtd8-and-noip-ti-gao-zu-kao-qian-shua-ti-chong-ci-ban-di-ba-chang/">
+              <h3 class="post-title">
+                qbxtD8 &amp;&amp; NOIP提高组考前刷题冲刺班（第八场）
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
