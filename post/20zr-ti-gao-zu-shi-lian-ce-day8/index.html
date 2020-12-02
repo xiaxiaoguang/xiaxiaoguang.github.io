@@ -1,0 +1,522 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>20zr提高组十连测day8 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1606909318814">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="20zr提高组十连测day8 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="qwq重新整理啦
+A. [2020提高组十连测day8]割韭菜
+http://www.zhengruioi.com/contest/748/problem/1622
+经典的技巧叫做行列无关
+就是说我们每一行选多少每一列选多少本质上只有在拼起..." />
+    <meta name="keywords" content="数位DP,比赛题,高精度,猜结论,贪心" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1606909318814" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              20zr提高组十连测day8
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-12-01
+              </span>
+              <span>
+                10 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/xlGCUZEK6/" class="post-tag">
+                  # 数位DP
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/A3FIICRYA/" class="post-tag">
+                  # 比赛题
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/eGza26bkF/" class="post-tag">
+                  # 高精度
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/c7QHdP10U/" class="post-tag">
+                  # 猜结论
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/m-043j5Q1/" class="post-tag">
+                  # 贪心
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/45NBuzDIW489QBoVep5mcS6*y0aCtoxMGhYccn7MqiaTJth.DNJs2u*zDXsV143Ft.JNo.DLflNto7KaRZDGsq5qq4tyJBKwW5aNdxxu9F8!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>qwq重新整理啦</p>
+<p>A. [2020提高组十连测day8]割韭菜</p>
+<p>http://www.zhengruioi.com/contest/748/problem/1622</p>
+<p>经典的技巧叫做行列无关</p>
+<p>就是说我们每一行选多少每一列选多少本质上只有在拼起来的时候才会有影响</p>
+<p>就是说我们能先选行再选列喽</p>
+<p>那我们直接作出选前k次行的最大收益,前k次列的最大收益</p>
+<p>然后计算一下因为行列重复覆盖而导致的收益减损即可</p>
+<p>应该行数*列数个格子要少算</p>
+<pre><code class="language-cpp">
+//你要意识到一个最基本的事情是:行列单独无关
+//那么我们可以处理行操作某些次数最大收益
+//列操作某些次数最大收益
+//然后组合一下下qwq
+#include&lt;bits/stdc++.h&gt;
+#define ll long long
+#define pii pair&lt;ll,int&gt;
+#define mkp(x,y) (make_pair(x,y))
+#define se second
+#define fi first
+using namespace std;
+const int MAXN = 1e3 + 7;
+const int MAXK = 1e6 + 7;
+priority_queue&lt;pii&gt; heap;
+int n, m, k, v0;
+int a[MAXN][MAXN];
+ll f[MAXK], g[MAXK];
+
+namespace fastIO {
+#define BUF_SIZE (1&lt;&lt;20)
+	static char buf[BUF_SIZE], *p1 = buf + BUF_SIZE, *pend = buf + BUF_SIZE;
+	inline char nc() {
+		if(p1 == pend) {
+			p1 = buf;
+			pend = buf + fread(buf, 1, BUF_SIZE, stdin);
+		}
+		return *p1++;
+	}
+	inline int read() {
+		int x = 0;
+		int f = 1;
+		char s = nc();
+		for(; !isdigit(s); s = nc())if(s == '-')f = -1;
+		for(; isdigit(s); s = nc())x = (x &lt;&lt; 1) + (x &lt;&lt; 3) + s - '0';
+		return x * f;
+	}
+}
+using namespace fastIO;
+
+int main() {
+	// freopen(&quot;test.in&quot;, &quot;r&quot;, stdin);
+	// freopen(&quot;test1.out&quot;, &quot;w&quot;, stdout);
+	n = read();
+	m = read();
+	k = read();
+	v0 = read();
+	if(k == 0) {
+		return puts(&quot;0&quot;), 0;
+	}
+	for(int i = 1; i &lt;= n; ++i) {//一行二列
+		for(int j = 1; j &lt;= m; ++j) {
+			a[i][j] = read();
+		}
+	}
+	//行init
+	for(int i = 1; i &lt;= n; ++i) {
+		ll S = 0;
+		for(int j = 1; j &lt;= m; ++j) {
+			S += a[i][j];
+		}
+		heap.push(mkp(S, i));
+	}
+	//行k
+	for(int i = 1; i &lt;= k; ++i) {
+		int u = heap.top().se;
+		ll v = heap.top().fi;
+		heap.pop();
+		f[i] = f[i - 1] + v;
+		heap.push(mkp(v - 1ll * v0 * m, u)); //会每一列都减少QAQ
+	}
+	while(!heap.empty())heap.pop();
+	for(int i = 1; i &lt;= m; ++i) {
+		ll S = 0;
+		for(int j = 1; j &lt;= n; ++j) {
+			S += a[j][i];
+		}
+		heap.push(mkp(S, i));
+	}
+	for(int i = 1; i &lt;= k; ++i) {
+		int u = heap.top().se;
+		ll v = heap.top().fi;
+		heap.pop();
+		g[i] = g[i - 1] + v;
+		heap.push(mkp(v - 1ll * v0 * n, u)); //每一列decQAQ
+	}
+	ll ans = -1e18;
+	for(int i = 0; i &lt;= k; ++i) {
+		ans = max(ans, f[i] + g[k - i] + 1ll * i * (i - k) * v0);//可能爆llQAQ
+	}
+	printf(&quot;%lld\n&quot;, ans);
+	return 0;
+}
+
+
+
+</code></pre>
+<p>B. [2020提高组十连测day8]智勇大闯关</p>
+<p>http://www.zhengruioi.com/contest/748/problem/1623</p>
+<p>咱不知道为啥要把这个题放在B....</p>
+<p>发现最优一定是每个人都停在一个位置上,因为x能到y(结果更优),那我们z也可以按照同样的方式从<br>
+x到y</p>
+<p>这样就很简单了,可以二分人数...也可以发现随着人数的增多这个公共停下来的位置只能单调后移,所以说直接记录一下即可</p>
+<p>这类结论题特容易fst,所以一定要拍拍拍</p>
+<pre><code class="language-cpp">
+//你考虑尺取推进...
+//就是说人数越多,我们只可能单调向前冲啊
+//然后你会发现,一个人能否到达某个点之和这个人的位置到某点位置之间的前缀最小值有关...
+//也就是说,A能到x点,那么B也一定能到达,因为过程和A到达一样,而结果一定是更优了/....
+//所以说我们可以考虑每次多出一个人QAQ
+//然后我们会发现这个推进过程可以直接做....
+//好像就线性了........我直接服了啊
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const int MAXN = 1e6 + 7;
+int T, n;
+char s[MAXN];
+
+inline void solve() {
+	int cnt = 0;
+	int pos = 0;
+	for(int i = 1; i &lt;= n; ++i) {
+		if(s[i] == '1')cnt++;
+		else cnt--;
+		pos = min(pos, cnt);
+	}
+	pos = -pos;
+	int ans = 0;
+	int ret = 0;
+	int premax = 0;
+	//先可怜一个人冲,然后挨个加人
+	cnt = 0;
+	for(int i = 1; i &lt;= n; ++i) {
+		if(s[i] == '1')cnt++;
+		else cnt--;
+		while(cnt + ret &lt; 0) {
+			ans++;
+			ret += premax;
+			if(ans &gt; n) {
+				printf(&quot;-1\n&quot;);
+				return ;
+			}
+		}
+		if(ret &gt;= pos) {
+			printf(&quot;%d\n&quot;, ans);
+			return;
+		}
+		//转折...
+		premax = max(premax, cnt);
+		ret = max(ret, premax * ans);
+	}
+	return ;
+}
+
+int main() {
+	scanf(&quot;%d&quot;, &amp;T);
+	while(T-- &gt; 0) {
+		scanf(&quot;%s&quot;, s + 1);
+		n = strlen(s + 1);
+		solve();
+	}
+	return 0;
+}
+
+
+</code></pre>
+<p>C. [2020提高组十连测day8]剪刀石头布</p>
+<p>http://www.zhengruioi.com/contest/748/problem/1624</p>
+<p>其实也不难/xk</p>
+<p>首先我们有暴力跳区间的做法,因为能统计出每个人最后成为胜者的方案数即可</p>
+<p>而你会发现他成为左/右区间的方案数是一样的.....也就是说其实本质不同的只有这些人向上爬时哪些时候成为左边,哪些时候成为右边</p>
+<p>所以说我们暴力这样做,正解也一样肯定能O(n)推出一下每个手势作为左右胜者概率...1/3(右边)或者2/3(左边)</p>
+<p>然后这个次数好像等价于转换为2进制数后0的个数,一个0就是一个右边...证明,其实可以通过观察每个数的每个二进制位发现(线段树本质)</p>
+<p>那么假如有k个我们就是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>w</mi><mi>i</mi></msub><mo>=</mo><msup><mn>3</mn><mrow><mo>−</mo><mi>n</mi></mrow></msup><msup><mn>2</mn><mi>k</mi></msup></mrow><annotation encoding="application/x-tex">w_i=3^{-n}2^k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.02691em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.849108em;vertical-align:0em;"></span><span class="mord"><span class="mord">3</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.771331em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mathdefault mtight">n</span></span></span></span></span></span></span></span></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.849108em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span></span></span></span></span></span></span></span></p>
+<p>答案就是求解<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msubsup><mo>∑</mo><mrow><mi>l</mi><mo>=</mo><mn>1</mn></mrow><mi>r</mi></msubsup><msup><mn>2</mn><msub><mi>k</mi><mi>i</mi></msub></msup></mrow><annotation encoding="application/x-tex">\sum_{l=1}^r 2^{k_i}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.148818em;vertical-align:-0.29971000000000003em;"></span><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.804292em;"><span style="top:-2.40029em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.2029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.02778em;">r</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.29971000000000003em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.849108em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3280857142857143em;"><span style="top:-2.357em;margin-left:-0.03148em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span>,<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><msup><mn>3</mn><mi>n</mi></msup><msup><mo>)</mo><mrow><mi>r</mi><mo>−</mo><mi>l</mi><mo>+</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">(3^n)^{r-l+1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0991079999999998em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord">3</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">n</span></span></span></span></span></span></span></span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8491079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.02778em;">r</span><span class="mbin mtight">−</span><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span></span></span></span>直接提出</p>
+<p>然后这个可以数位dp,直接记录卡没卡上界就好</p>
+<p>最后的问题在于高精度十进制转二进制,这个可以转换成1e9进制再转换为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mn>3</mn></msup><mn>2</mn></mrow><annotation encoding="application/x-tex">2^32</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span><span class="mord">2</span></span></span></span>进制</p>
+<p>相当于<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>n</mi><mn>2</mn></msup><mi mathvariant="normal">/</mi><mn>9</mn><mo>∗</mo><mn>32</mn></mrow><annotation encoding="application/x-tex">n^2/9*32</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mord">/</span><span class="mord">9</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span><span class="mord">2</span></span></span></span>!</p>
+<pre><code class="language-cpp">
+
+
+#include&lt;cstdio&gt;
+#include&lt;algorithm&gt;
+#include&lt;cctype&gt;
+#include&lt;cstring&gt;
+#include&lt;assert.h&gt;
+using namespace std;
+#define G getchar()
+int read() {
+	int x = 0; char ch = G;
+	for (; !isdigit(ch); ch = G);
+	for (; isdigit(ch); ch = G) x = (x &lt;&lt; 3) + (x &lt;&lt; 1) + (ch ^ 48);
+	return x;
+}
+#undef G
+typedef long long ll;
+const int INF = 1e9, mod = 998244353, inv3 = (mod + 1) / 3;
+inline int upd(int x) {
+	return x + (x &gt;&gt; 31 &amp; mod);
+}
+inline void add(int &amp;x, int y) {
+	x = upd(x + y - mod);
+}
+inline void iadd(int &amp;x, int y) {
+	x = upd(x - y);
+}
+
+int n;
+
+int a[1 &lt;&lt; 15], b[1 &lt;&lt; 15];
+int atot, btot;
+int work() {
+	int res = 0;
+	for (int i = atot; i; i--) {
+		ll t = (1LL * res * INF + a[i]);
+		a[i] = t &gt;&gt; 30, res = t &amp; 1073741823;
+	}
+	while (atot &amp;&amp; !a[atot]) --atot;
+	return res;
+}
+void bigint_minus() {
+	int pos = 1;
+	while (pos &lt;= btot &amp;&amp; !b[pos]) pos++;
+	assert(pos &lt;= btot);
+	--b[pos];
+	for (int i = 1; i &lt; pos; i++) b[i] = 1073741823;
+	while (btot &amp;&amp; !b[btot]) --btot;
+}
+int f[100010];
+int g[100010];
+int solve() {
+	f[0] = 3;
+	for (int i = 1; i &lt;= n; i++) f[i] = 1LL * f[i - 1] * f[i - 1] % mod;
+	g[0] = 3;
+	for (int i = 0, k = 1; i &lt; n; i += 30, k++) {
+		for (int j = 0; j &lt; 30 &amp;&amp; i + j &lt; n; j++) {
+			int id = i + j, v = b[k] &gt;&gt; j &amp; 1;
+			if (!v) g[id + 1] = g[id] * 2LL * inv3 % mod * f[id] % mod;
+			else g[id + 1] = (2LL * inv3 * f[id] % mod * f[id] + 1LL * inv3 * f[id] % mod * g[id]) % mod;
+		}
+	}
+	return g[n];
+}
+
+
+char s[1 &lt;&lt; 15]; int len;
+int ans;
+int main() {
+	n = read();
+
+	scanf(&quot;%s&quot;, s); len = strlen(s);
+	reverse(s, s + len);
+	if (!(len == 1 &amp;&amp; s[0] == '1')) {
+		for (int i = 0; i &lt; len; i += 9) {
+			int x = 0;
+			for (int j = min(len, i + 9) - 1; j &gt;= i; j--) {
+				int v = s[j] ^ 48;
+				x = x * 10 + v;
+			}
+			a[++atot] = x;
+		}
+		while (atot) b[++btot] = work();
+		bigint_minus(); bigint_minus();
+		iadd(ans, solve());
+	}
+	memset(a, 0, sizeof a);
+	memset(b, 0, sizeof b);
+
+	scanf(&quot;%s&quot;, s); len = strlen(s);
+	reverse(s, s + len);
+	atot = 0;
+	for (int i = 0; i &lt; len; i += 9) {
+		int x = 0;
+		for (int j = min(len, i + 9) - 1; j &gt;= i; j--) {
+			int v = s[j] ^ 48;
+			x = x * 10 + v;
+		}
+		a[++atot] = x;
+	}
+	btot = 0;
+	while (atot) b[++btot] = work();
+	bigint_minus();
+	add(ans, solve());
+
+	printf(&quot;%d\n&quot;, ans);
+	return 0;
+}
+
+
+
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/arc-za-ti-xuan-jiang-p2/">
+              <h3 class="post-title">
+                ARC杂题选讲P2
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
