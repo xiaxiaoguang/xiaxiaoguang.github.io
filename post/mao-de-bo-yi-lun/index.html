@@ -1,0 +1,351 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>昴的博弈论1 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1608132150600">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="昴的博弈论1 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="&quot;看着昔日的小伙伴,现在和我犹如天壤之别&quot;
+&quot;难道你就没有什么惋惜想挽回的吗?&quot;
+&quot;......死亡?&quot;
+巴什博奕
+每轮我们可以报出1~n的一个数
+第一个报到m的人胜利,问给出n,..." />
+    <meta name="keywords" content="Re：ゼロから始める異世界生活,博弈论" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1608132150600" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              昴的博弈论1
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-12-07
+              </span>
+              <span>
+                8 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/_2Cz1MS4i/" class="post-tag">
+                  # Re：ゼロから始める異世界生活
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/VQRcKuMe-y/" class="post-tag">
+                  # 博弈论
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/45NBuzDIW489QBoVep5mcfMHulCdkrk*BwQ.oKCYGLY14YIzPrSS0eXbhWpasEFQA44pupah.q6TUs929lLNWXV.XdLXFzd1WCM.rZFscfs!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>&quot;看着昔日的小伙伴,现在和我犹如天壤之别&quot;</p>
+<p>&quot;难道你就没有什么惋惜想挽回的吗?&quot;</p>
+<p>&quot;......死亡?&quot;</p>
+<h1 id="巴什博奕">巴什博奕</h1>
+<p>每轮我们可以报出1~n的一个数</p>
+<p>第一个报到m的人胜利,问给出n,m谁必胜</p>
+<p>m%(n+1)==0后手必胜</p>
+<p>否则先手必胜</p>
+<p>我们一定有一个策略是对手报<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span>,我就报<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>−</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">n-x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span></p>
+<p>如此重复下去,直到报完我一定胜利</p>
+<p>如果<span class="katex"><span class="katex-mathml"><math><semantics><mrow></mrow><annotation encoding="application/x-tex">%(n+1)!=0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"></span></span>,先手第一步可以报余数</p>
+<p>于是后手变为了必败态</p>
+<p>每人给出一个从1到100之间的数字。把所有人的数字求算术平均值。谁选的数字最接近这个算术平均值的2/3，谁就赢得整场游戏。</p>
+<p>1是答案,因为所有人在绝顶聪明的情况下最后都会选择1</p>
+<p>平均选的平均数是50,但是大家为了自己肯定不会让你有50,于是可能爆出100</p>
+<p>接着如果考虑到这一步<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mn>1</mn><mo separator="true">,</mo><mn>66</mn><mo>]</mo></mrow><annotation encoding="application/x-tex">[1,66]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">6</span><span class="mord">6</span><span class="mclose">]</span></span></span></span>的范围内就会被选</p>
+<p>接着是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mn>1</mn><mo separator="true">,</mo><mn>45</mn><mo>]</mo><mo separator="true">,</mo><mo>[</mo><mn>1</mn><mo separator="true">,</mo><mn>30</mn><mo>]</mo></mrow><annotation encoding="application/x-tex">[1,45],[1,30]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">4</span><span class="mord">5</span><span class="mclose">]</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mopen">[</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mord">0</span><span class="mclose">]</span></span></span></span>直到最后<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mn>1</mn><mo separator="true">,</mo><mn>1</mn><mo>]</mo></mrow><annotation encoding="application/x-tex">[1,1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span></p>
+<p>但是并不是所有人都如此聪明,所以说选1反而不会胜出</p>
+<h1 id="p5675-gzoi2017取石子游戏">P5675 [GZOI2017]取石子游戏</h1>
+<ol>
+<li>选出一些异或为0的</li>
+</ol>
+<p>显然这样先手必败,钦点她选哪个都一样</p>
+<ol start="2">
+<li>选出一些异或不为0的</li>
+</ol>
+<p>那么我们钦定她第一步选完后不能选出一个异或值为0(后手必败)的状态</p>
+<p>也就是说分给他的石子堆数要小于异或值最高位</p>
+<p>因为这样他一定没法一步变成异或值为0的后手必败态,然后就输了</p>
+<p>所以我们dp即可<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>f</mi><mrow><mi>i</mi><mo separator="true">,</mo><mi>j</mi><mo separator="true">,</mo><mi>k</mi></mrow></msub></mrow><annotation encoding="application/x-tex">f_{i,j,k}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>表示前i个人异或值为j,而且最高位小于异或值的有k个的方案数</p>
+<p>转移对于一个状态直接计算后继即可</p>
+<p>最后统计方案,不难发现每个状态都是本质不同的,于是我们直接计数即可.....</p>
+<p>题解的方法:枚举一下A选了哪堆,剩下直接dp出方案数即可</p>
+<p>也可以</p>
+<h1 id="sg定理证明">SG定理证明</h1>
+<ol>
+<li>Nim游戏正确性的证明</li>
+</ol>
+<p>我们不难发现,博弈论(五子棋)就是在在于削弱先手优势</p>
+<p>如果先手只能做出一步适得其反的操作,先手就输了</p>
+<p>因为所有石子堆异或起来不为0,设那个值k的最高位为j</p>
+<p>所以先手可以选择一个最高位有j的石子堆,让他取走<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msubsup><mi>a</mi><mi>i</mi><mi>k</mi></msubsup></mrow><annotation encoding="application/x-tex">a_i^k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.107772em;vertical-align:-0.258664em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.849108em;"><span style="top:-2.441336em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.258664em;"><span></span></span></span></span></span></span></span></span></span>,此时一定能取...因为至少最高位j在呢</p>
+<p>于是异或值变成了0,此时后手随便搞一步,先手可以重复上述过程</p>
+<p>直到全局为0,后手搞不了那一步了</p>
+<ol start="2">
+<li>SG定理来了</li>
+</ol>
+<p>用老子的语言描述,一个总游戏的SG值相当于各个互补干扰的子游戏的SG值异或之和</p>
+<p>SG值定义为一个局面能到达所有后继局面异或值的mex,如果SG为0,表示先手必败</p>
+<p>额,这个网上的证明都在口胡,甚至直接套nim板子,因此我也口胡一个自己的证法</p>
+<h2 id="对于一个总游戏sg值为0的状态">对于一个总游戏SG值为0的状态</h2>
+<ol>
+<li>假设现在还有游戏能操作</li>
+</ol>
+<p>递归到SG值不为0的状态,能操作次数减少</p>
+<ol start="2">
+<li>所有子游戏都终结</li>
+</ol>
+<p>先手必败</p>
+<h2 id="对于一个总游戏值不为0的状态">对于一个总游戏值不为0的状态</h2>
+<p>现在必然还有游戏能操作,设当前状态最高位那个为j,值为k</p>
+<p>还是找到一个最高位j为1的子游戏</p>
+<p>因为他的sg值定义为后继mex,所以说一定能转移到一个局面的sg值为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msubsup><mi>a</mi><mi>i</mi><mi>k</mi></msubsup></mrow><annotation encoding="application/x-tex">a_i^k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.107772em;vertical-align:-0.258664em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.849108em;"><span style="top:-2.441336em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.258664em;"><span></span></span></span></span></span></span></span></span></span>,因为不难发现<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msubsup><mi>a</mi><mi>i</mi><mi>k</mi></msubsup><mo>&lt;</mo><msub><mi>a</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">a_i^k&lt;a_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.107772em;vertical-align:-0.258664em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.849108em;"><span style="top:-2.441336em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.258664em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>,所以一定存在一个后继局面满足</p>
+<p>此时SG值为0,递归到SG值不为0状态</p>
+<p>那么我们通过反复归纳,最后一定能得出case1的2情况,又因为先操作的是先手,所以case1永远是留给后手的qwq</p>
+<p>P2148 [SDOI2009]E&amp;D</p>
+<p>会所有子任务,正解可能要打个表</p>
+<p>N=2</p>
+<p>我们会发现,两个数存在一个是偶数先手必胜,否则先手必败</p>
+<p>先手遵循如下原则操作:</p>
+<p>选取其中一个偶数n,划分为1,n-1</p>
+<p>后手只能:</p>
+<p>选择一个奇数,划分成一个奇数+一个偶数,不难发现那之后先手还是能操作</p>
+<p>从而先手逐渐将后手逼上绝境</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>S</mi><mi>i</mi></msub><mo>&lt;</mo><mo>=</mo><mn>1000</mn></mrow><annotation encoding="application/x-tex">S_i&lt;=1000</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.05764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span></span></span></span></p>
+<p>相邻两个操作后还是相邻两个,也就划分为了子游戏</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>f</mi><mrow><mi>i</mi><mo separator="true">,</mo><mi>j</mi></mrow></msub></mrow><annotation encoding="application/x-tex">f_{i,j}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>表示第一堆为i,第二堆为j的sg值</p>
+<p>sg定理</p>
+<p>std:</p>
+<p>本游戏一个子局面的<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mi>g</mi><mo>(</mo><mi>i</mi><mo separator="true">,</mo><mi>j</mi><mo>)</mo><mo>=</mo><mo>(</mo><mi>i</mi><mo>−</mo><mn>1</mn><mo>)</mo><mi mathvariant="normal">∣</mi><mo>(</mo><mi>j</mi><mo>−</mo><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">sg(i,j)=(i-1)|(j-1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord mathdefault">i</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mord">∣</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span></p>
+<p>打表方法:根据一个的(<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><msub><mi>g</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">sg_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">s</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>)sg值来找规律,发现是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span></p>
+<p>于是两个就容易找出了</p>
+<h1 id="p4101-heoi2014人人尽说江南好">P4101 [HEOI2014]人人尽说江南好</h1>
+<p>简单题</p>
+<p>每次我们合并两堆.相当于给某一堆+1因为后手一定可以让你新合并的某堆和某堆合并从而相当于合并入了两个1</p>
+<p>那么我们一共能合并的次数也就能算出来了</p>
+<p>是奇数先手必胜</p>
+<pre><code class="language-cpp">
+#include&lt;bits/stdc++.h&gt;
+#define int long long
+using namespace std;
+int T, a, b;
+signed main() {
+	scanf(&quot;%lld&quot;, &amp;T);
+	while(T-- &gt; 0) {
+		scanf(&quot;%lld%lld&quot;, &amp;a, &amp;b);
+		int ans = a / b * (b - 1);
+		ans += (a % b ? (a % b - 1) : a % b);
+		printf(&quot;%lld\n&quot;, (ans &amp; 1) ^ 1);
+	}
+	return 0;
+}
+
+</code></pre>
+<p>P2964 [USACO09NOV]A Coin Game S</p>
+<p>比较简单,<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>f</mi><mrow><mi>i</mi><mo separator="true">,</mo><mi>j</mi></mrow></msub></mrow><annotation encoding="application/x-tex">f_{i,j}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>表示考虑前i个硬币,然后这一个人走的步数为j,先手操作,先手减去后手的最大收益是什么</p>
+<p>因为是零和博弈,所以可以设计出这样的状态,转移枚举上一个人用了几步</p>
+<p>然后我们可能要更大的空间,不太允许,不妨再用个小技巧就是一个状态向未来转移,但是我们只转移最小可到达的,然后接着一个j向<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>j</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">j+1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>转移就能压下空间了</p>
+<p>当然题解有一个一个数转移可是可以的</p>
+<h1 id="p4576-cqoi2013棋盘游戏">P4576 [CQOI2013]棋盘游戏</h1>
+<p>naive题</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>f</mi><mrow><mi>i</mi><mo separator="true">,</mo><mi>j</mi><mo separator="true">,</mo><mi>k</mi><mo separator="true">,</mo><mi>l</mi><mo separator="true">,</mo><mi>m</mi><mo separator="true">,</mo><mi>n</mi></mrow></msub></mrow><annotation encoding="application/x-tex">f_{i,j,k,l,m,n}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight">m</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>表示第一个棋子在(i,j),第二个在(k,l),目前走了k步,是谁掌棋的最小到结束的回合数</p>
+<p>那么后手会取max,先手会取min</p>
+<p>这个k不会超过3n,所以可能要思考下为啥</p>
+<h1 id="p3480-poi2009kam-pebbles">P3480 [POI2009]KAM-Pebbles</h1>
+<p>差分</p>
+<p>之后发现一次操作对于数组的影响相当于把一个非0的位置数减少一部分加到他后面那个位置</p>
+<p>哎?阶梯nim板子</p>
+<p>阶梯nim的做法是所有奇数位置拿出来做nim</p>
+<h2 id="阶梯nim证明">阶梯nim证明:</h2>
+<p>偶数位置操作完为加到了奇数位置,不妨令0为偶数,定义的局面为奇数位置nim值</p>
+<p>但凡是偶数位置,我们操作之后另一方一定可以再做出同样的操作使得定义的局面不发生改变,但是总能够操作的次数减少了</p>
+<p>和可爱的超现实数一样,只要能减少规模递归定义也可以的啦</p>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#%E5%B7%B4%E4%BB%80%E5%8D%9A%E5%A5%95">巴什博奕</a></li>
+<li><a href="#p5675-gzoi2017%E5%8F%96%E7%9F%B3%E5%AD%90%E6%B8%B8%E6%88%8F">P5675 [GZOI2017]取石子游戏</a></li>
+<li><a href="#sg%E5%AE%9A%E7%90%86%E8%AF%81%E6%98%8E">SG定理证明</a>
+<ul>
+<li><a href="#%E5%AF%B9%E4%BA%8E%E4%B8%80%E4%B8%AA%E6%80%BB%E6%B8%B8%E6%88%8Fsg%E5%80%BC%E4%B8%BA0%E7%9A%84%E7%8A%B6%E6%80%81">对于一个总游戏SG值为0的状态</a></li>
+<li><a href="#%E5%AF%B9%E4%BA%8E%E4%B8%80%E4%B8%AA%E6%80%BB%E6%B8%B8%E6%88%8F%E5%80%BC%E4%B8%8D%E4%B8%BA0%E7%9A%84%E7%8A%B6%E6%80%81">对于一个总游戏值不为0的状态</a></li>
+</ul>
+</li>
+<li><a href="#p4101-heoi2014%E4%BA%BA%E4%BA%BA%E5%B0%BD%E8%AF%B4%E6%B1%9F%E5%8D%97%E5%A5%BD">P4101 [HEOI2014]人人尽说江南好</a></li>
+<li><a href="#p4576-cqoi2013%E6%A3%8B%E7%9B%98%E6%B8%B8%E6%88%8F">P4576 [CQOI2013]棋盘游戏</a></li>
+<li><a href="#p3480-poi2009kam-pebbles">P3480 [POI2009]KAM-Pebbles</a>
+<ul>
+<li><a href="#%E9%98%B6%E6%A2%AFnim%E8%AF%81%E6%98%8E">阶梯nim证明:</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/luo-gu-yi-xie-jing-dian-hao-ti-zheng-li/">
+              <h3 class="post-title">
+                洛谷一些经典好题整理
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
