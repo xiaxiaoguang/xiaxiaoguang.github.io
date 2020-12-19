@@ -3,7 +3,7 @@
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>P3242 [HNOI2015]接水果 | 夏晓光(loveJY)的博客</title>
-<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1608303943190">
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1608391525073">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
 <link rel="alternate" type="application/atom+xml" title="P3242 [HNOI2015]接水果 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
@@ -26,7 +26,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://xiaxiaoguang.github.io">
-  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1608303943190" alt="">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1608391525073" alt="">
   </a>
   <h1 class="site-title">
     夏晓光(loveJY)的博客
@@ -130,61 +130,38 @@
 <p>但是还没完,我们再看看另一类路径</p>
 <h2 id="lcauvuv"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi><mi>c</mi><mi>a</mi><mo>(</mo><mi>u</mi><mo separator="true">,</mo><mi>v</mi><mo>)</mo><mo>!</mo><mo>=</mo><mo>(</mo><mi>u</mi><mi mathvariant="normal">∣</mi><mi mathvariant="normal">∣</mi><mi>v</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">lca(u,v)!=(u||v)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">c</span><span class="mord mathdefault">a</span><span class="mopen">(</span><span class="mord mathdefault">u</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mclose">)</span><span class="mclose">!</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">u</span><span class="mord">∣</span><span class="mord">∣</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mclose">)</span></span></span></span></h2>
 <p>那么我们有(x,y)包括(u,v)的话....</p>
-<p class='katex-block katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;$&#039; in math mode at position 27: …x&lt;=dfn_v+siz[v]$̲$即x在v的子树里!
-
-$$d…'>dfn_v&lt;=dfn_x&lt;=dfn_v+siz[v]$$即x在v的子树里!
-
-$$dfn_u&lt;=dfn_y&lt;=dfn_u+siz[u]$$即x在u的子树里!
-
-这个矩阵加的信息也和$(x,y)$是什么没有关系,所以可以处理!
-
-$(dfn_v,dfn_u)$为左下角,$(dfn_v+siz[v],dfn_u+siz[u])$为右上角的矩形
-
-这样我们可以搞到一个二维平面上,但是问题是第k大怎么处理...QAQ
-
-# 搞事情部分:
-
-既然我们只能很快的查出**有多少个**,不妨把第k大用个二分去解决
-
-1. 二分一个答案,对于一个询问,把所有大于二分值的盘子加入平面
-
-2. 查询水果点上有多少个数,如果多了就调大二分值,否则调小二分值
-
-但是这样也太太太慢了
-
- ##  整体二分!
-
-所有水果我们一起二分一个答案,把大于这个值的盘子加入平面
-
-然后所有都查询一遍$O(mlogm)$
-
-之后我们把数量小于k的(说明要调小)放入左边区间递归,同时把盘子中小于k的放入左边,然后把数量大于k的放入右边区间递归,同时把盘子中大于k的放入右边
-
-## 最后一步!如何实现矩阵+单点求和?
-
-扫描线好题/se
-
-可以考虑用扫描线,把所有的矩形和询问点都加入分界点中,然后遇到修改在线段树上改,遇到查询就查一下
-
-这样复杂度就会O(nlogn)了
-
-总复杂度我们不难得出
-
-$O((m+n)lognlogV)$
-
-4e4的范围应该能过了....
-
-后记:
-
-写代码的时候注意线段树清空,以及第一步建边的时候拆询问,可能导致一些在几千组询问的时候WA掉的锅
-
-还有整体二分的时候同时分盘子和水果....不过相对坑较小
-
-附带7.33kb未删除调试code:
-
-```cpp
-
-//你知道真正的写吐了吗....
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><mi>f</mi><msub><mi>n</mi><mi>v</mi></msub><mo>&lt;</mo><mo>=</mo><mi>d</mi><mi>f</mi><msub><mi>n</mi><mi>x</mi></msub><mo>&lt;</mo><mo>=</mo><mi>d</mi><mi>f</mi><msub><mi>n</mi><mi>v</mi></msub><mo>+</mo><mi>s</mi><mi>i</mi><mi>z</mi><mo>[</mo><mi>v</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">dfn_v&lt;=dfn_x&lt;=dfn_v+siz[v]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">v</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">x</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">v</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mclose">]</span></span></span></span>即x在v的子树里!</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><mi>f</mi><msub><mi>n</mi><mi>u</mi></msub><mo>&lt;</mo><mo>=</mo><mi>d</mi><mi>f</mi><msub><mi>n</mi><mi>y</mi></msub><mo>&lt;</mo><mo>=</mo><mi>d</mi><mi>f</mi><msub><mi>n</mi><mi>u</mi></msub><mo>+</mo><mi>s</mi><mi>i</mi><mi>z</mi><mo>[</mo><mi>u</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">dfn_u&lt;=dfn_y&lt;=dfn_u+siz[u]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">u</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.15139200000000003em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">y</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">u</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="mopen">[</span><span class="mord mathdefault">u</span><span class="mclose">]</span></span></span></span>即x在u的子树里!</p>
+<p>这个矩阵加的信息也和<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">(x,y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mclose">)</span></span></span></span>是什么没有关系,所以可以处理!</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>d</mi><mi>f</mi><msub><mi>n</mi><mi>v</mi></msub><mo separator="true">,</mo><mi>d</mi><mi>f</mi><msub><mi>n</mi><mi>u</mi></msub><mo>)</mo></mrow><annotation encoding="application/x-tex">(dfn_v,dfn_u)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">d</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">v</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">u</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>为左下角,<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>d</mi><mi>f</mi><msub><mi>n</mi><mi>v</mi></msub><mo>+</mo><mi>s</mi><mi>i</mi><mi>z</mi><mo>[</mo><mi>v</mi><mo>]</mo><mo separator="true">,</mo><mi>d</mi><mi>f</mi><msub><mi>n</mi><mi>u</mi></msub><mo>+</mo><mi>s</mi><mi>i</mi><mi>z</mi><mo>[</mo><mi>u</mi><mo>]</mo><mo>)</mo></mrow><annotation encoding="application/x-tex">(dfn_v+siz[v],dfn_u+siz[u])</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">d</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">v</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mclose">]</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">u</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="mopen">[</span><span class="mord mathdefault">u</span><span class="mclose">]</span><span class="mclose">)</span></span></span></span>为右上角的矩形</p>
+<p>这样我们可以搞到一个二维平面上,但是问题是第k大怎么处理...QAQ</p>
+<h1 id="搞事情部分">搞事情部分:</h1>
+<p>既然我们只能很快的查出<strong>有多少个</strong>,不妨把第k大用个二分去解决</p>
+<ol>
+<li>
+<p>二分一个答案,对于一个询问,把所有大于二分值的盘子加入平面</p>
+</li>
+<li>
+<p>查询水果点上有多少个数,如果多了就调大二分值,否则调小二分值</p>
+</li>
+</ol>
+<p>但是这样也太太太慢了</p>
+<h2 id="整体二分">整体二分!</h2>
+<p>所有水果我们一起二分一个答案,把大于这个值的盘子加入平面</p>
+<p>然后所有都查询一遍<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>m</mi><mi>l</mi><mi>o</mi><mi>g</mi><mi>m</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(mlogm)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">m</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">m</span><span class="mclose">)</span></span></span></span></p>
+<p>之后我们把数量小于k的(说明要调小)放入左边区间递归,同时把盘子中小于k的放入左边,然后把数量大于k的放入右边区间递归,同时把盘子中大于k的放入右边</p>
+<h2 id="最后一步如何实现矩阵单点求和">最后一步!如何实现矩阵+单点求和?</h2>
+<p>扫描线好题/se</p>
+<p>可以考虑用扫描线,把所有的矩形和询问点都加入分界点中,然后遇到修改在线段树上改,遇到查询就查一下</p>
+<p>这样复杂度就会O(nlogn)了</p>
+<p>总复杂度我们不难得出</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mo>(</mo><mi>m</mi><mo>+</mo><mi>n</mi><mo>)</mo><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi><mi>l</mi><mi>o</mi><mi>g</mi><mi>V</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O((m+n)lognlogV)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mopen">(</span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">n</span><span class="mclose">)</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class="mclose">)</span></span></span></span></p>
+<p>4e4的范围应该能过了....</p>
+<p>后记:</p>
+<p>写代码的时候注意线段树清空,以及第一步建边的时候拆询问,可能导致一些在几千组询问的时候WA掉的锅</p>
+<p>还有整体二分的时候同时分盘子和水果....不过相对坑较小</p>
+<p>附带7.33kb未删除调试code:</p>
+<pre><code class="language-cpp">//你知道真正的写吐了吗....
 //整体分毒
 #include&lt;bits/stdc++.h&gt;
 using namespace std;
@@ -309,7 +286,7 @@ inline void init() {
 		qry[i].id = a[i].id;
 		qry[i].z = a[i].z;
 	}
-	// puts(&quot;It&#039;s OK!&quot;);
+	// puts(&quot;It's OK!&quot;);
 	return;
 }
 
@@ -504,9 +481,7 @@ int main() {
 }
 
 
-```
-
-~~调了一个晚上+上午50min....~~</p>
+</code></pre>
 
               </div>
               <div class="toc-container">
@@ -515,6 +490,12 @@ int main() {
 <ul>
 <li><a href="#%E5%AF%B9%E4%BA%8Elcauvu%E7%9A%84">对于LCA(u,v)==u的,</a></li>
 <li><a href="#lcauvuv"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi><mi>c</mi><mi>a</mi><mo>(</mo><mi>u</mi><mo separator="true">,</mo><mi>v</mi><mo>)</mo><mo>!</mo><mo>=</mo><mo>(</mo><mi>u</mi><mi mathvariant="normal">∣</mi><mi mathvariant="normal">∣</mi><mi>v</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">lca(u,v)!=(u||v)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">c</span><span class="mord mathdefault">a</span><span class="mopen">(</span><span class="mord mathdefault">u</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mclose">)</span><span class="mclose">!</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">u</span><span class="mord">∣</span><span class="mord">∣</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mclose">)</span></span></span></span></a></li>
+</ul>
+</li>
+<li><a href="#%E6%90%9E%E4%BA%8B%E6%83%85%E9%83%A8%E5%88%86">搞事情部分:</a>
+<ul>
+<li><a href="#%E6%95%B4%E4%BD%93%E4%BA%8C%E5%88%86">整体二分!</a></li>
+<li><a href="#%E6%9C%80%E5%90%8E%E4%B8%80%E6%AD%A5%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E7%9F%A9%E9%98%B5%E5%8D%95%E7%82%B9%E6%B1%82%E5%92%8C">最后一步!如何实现矩阵+单点求和?</a></li>
 </ul>
 </li>
 </ul>
