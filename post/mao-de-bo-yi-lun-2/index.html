@@ -3,7 +3,7 @@
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>昴的博弈论2 | 夏晓光(loveJY)的博客</title>
-<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1608391525073">
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1608478479721">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
 <link rel="alternate" type="application/atom+xml" title="昴的博弈论2 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
@@ -26,7 +26,7 @@ P3185 [HNOI2007]分裂游戏
       <div class="main-content">
         <div class="site-header">
   <a href="https://xiaxiaoguang.github.io">
-  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1608391525073" alt="">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1608478479721" alt="">
   </a>
   <h1 class="site-title">
     夏晓光(loveJY)的博客
@@ -92,7 +92,7 @@ P3185 [HNOI2007]分裂游戏
                 2020-12-13
               </span>
               <span>
-                30 min read
+                33 min read
               </span>
               
                 <a href="https://xiaxiaoguang.github.io/tag/_2Cz1MS4i/" class="post-tag">
@@ -612,7 +612,7 @@ int main() {
 <p>那么可以根据这个图片搞事情啦!</p>
 <p>即找到原点相邻两对角线有没有最后能走到必败的??</p>
 <p>/晕 不太懂</p>
-<p>P2490 [SDOI2011]黑白棋</p>
+<h1 id="p2490-sdoi2011黑白棋">P2490 [SDOI2011]黑白棋</h1>
 <p>SDOI自己抄自己(雾)</p>
 <p>SDOI2019的移动金币很相近吧,这个计数形式好像一模一样</p>
 <p>考虑给出一个局面能不能判断谁必胜....</p>
@@ -648,6 +648,66 @@ int main() {
 </ol>
 <p>那么就不能放在一个空</p>
 <p>先排列,然后考虑选出两个位置,然后剩下<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>+</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">n+2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span>个元素,有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>+</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">n+3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span></span></span></span>个空位,选出m个空格插入</p>
+<p>为什么博弈论里有计数?我也不知道</p>
+<h1 id="sp11414-cot3-combat-on-a-tree">SP11414 COT3 - Combat on a tree</h1>
+<p>经典套路了。。。。qwq</p>
+<p>做法就是直接求sg值就好，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><msub><mi>g</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">sg_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">s</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>表示点i为子树的局面的sg值</p>
+<p>求sg值？就是在这个子树里面操作一次求下sg值</p>
+<p>相当于枚举子树里面所有的白点，然后删掉，然后从那个白点出发向根dfs，然后路过的所有不经过这个白点到根路径上的点的sg值求个异或，再把所有求异或的数拿出来求个mex即可</p>
+<p>如果用个数组维护一下可能就<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mi>n</mi><mn>2</mn></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>了。。。</p>
+<p>然后还记得清华集训那道题吗？我们只需要用个01trie即可优化！</p>
+<p>考虑过了这个点的影响，其实就是把一些点的01trie整体异或上一个除去这个点儿子外其他儿子的异或值这样子</p>
+<p>就是说u-&gt;fa,那么所有里面的sg值全异或上这个u的兄弟的sg值异或和</p>
+<p>然后如果u是白点，那么要新加入一个点，权值是所有儿子异或和</p>
+<p>叶子结点因为不能操作，所有有白点sg值为1，否则为0</p>
+<p>01trie要支持：</p>
+<blockquote>
+<p>全局异或<br>
+查询mex<br>
+快速合并</p>
+</blockquote>
+<p>第三个很好做</p>
+<p>全局异或相当于打标记，就是说我们给全局打一个标记，然后直接向线段树一样下推即可</p>
+<p>然后查询mex需要维护一个子树siz和，如果子树的siz等于这个点代表的串剩下的所有数，那么mex值肯定大于这个值，就向右走这样子，如果右边也一样就是这个点是答案</p>
+<p>实现也有一点细节，就是从高位开始做，然后一开始钦点一下每个串长度,这样我们查mex的时候才知道子树siz的关系</p>
+<h1 id="cf1110g-tree-tac-toe">CF1110G Tree-Tac-Toe</h1>
+<p>一开始秒掉了两种case</p>
+<ol>
+<li>一个点度数大于等于4</li>
+</ol>
+<p>那此时直接先手选住这个点然后和后手轮流选邻居即可</p>
+<ol start="2">
+<li>一个点度数等于3,然后有两个子树大于等于2</li>
+</ol>
+<p>最小的单元是六个点,eg:</p>
+<p>1-&gt;2</p>
+<p>2-&gt;3</p>
+<p>3-&gt;4</p>
+<p>2-&gt;5</p>
+<p>2-&gt;6</p>
+<p>先手选2,后手选3,先手选5,后手选1/6先手选另一个就赢了</p>
+<p>然后就没了,于是我也没了</p>
+<p>剩下的情况只有三种</p>
+<ol>
+<li>链</li>
+<li>左边两个点,右边链</li>
+<li>左边右边都有两个点,中间链</li>
+</ol>
+<figure data-type="image" tabindex="3"><img src="https://xiaxiaoguang.github.io/post-images/1608478110976.png" alt="" loading="lazy"></figure>
+<p>第三种情况当点数为奇数的时候先手也是必胜的,其他的case就真的平局了</p>
+<p>怎么证明?不妨给出先手一种操作顺序,使得一定可以按照这个顺序取胜</p>
+<p>第一步选择最左边度数为三的点后面那个点</p>
+<p>此时后手只能选度数为3,不然立刻死亡</p>
+<p>然后你继续选择第一个染的点右边两个点</p>
+<p>后手染上空位...</p>
+<p>这样下去你一定能染到最右边度数为3的点左边一个点的时候还有先手,直接取胜即可</p>
+<figure data-type="image" tabindex="4"><img src="https://xiaxiaoguang.github.io/post-images/1608478411698.png" alt="" loading="lazy"></figure>
+<p>具体的选取编号为2,4,6,8......的点qwq</p>
+<p>https://www.luogu.com.cn/training/42936#problems</p>
+<p>还有这么个东西没做完</p>
+<p>[HNOI2010]取石头游戏</p>
+<p>未完待续中</p>
+<p>下接:贝尔的数学篇1</p>
 
               </div>
               <div class="toc-container">
@@ -659,7 +719,10 @@ int main() {
 <li><a href="#p3235-hnoi2014%E6%B1%9F%E5%8D%97%E4%B9%90">P3235 [HNOI2014]江南乐</a></li>
 <li><a href="#p2599-zjoi2009%E5%8F%96%E7%9F%B3%E5%AD%90%E6%B8%B8%E6%88%8F">P2599 [ZJOI2009]取石子游戏</a></li>
 <li><a href="#p6791-snoi2020-%E5%8F%96%E7%9F%B3%E5%AD%90">P6791 [SNOI2020] 取石子</a></li>
+<li><a href="#p2490-sdoi2011%E9%BB%91%E7%99%BD%E6%A3%8B">P2490 [SDOI2011]黑白棋</a></li>
 <li><a href="#p3223-hnoi2012%E6%8E%92%E9%98%9F">P3223 [HNOI2012]排队</a></li>
+<li><a href="#sp11414-cot3-combat-on-a-tree">SP11414 COT3 - Combat on a tree</a></li>
+<li><a href="#cf1110g-tree-tac-toe">CF1110G Tree-Tac-Toe</a></li>
 </ul>
 
               </div>
