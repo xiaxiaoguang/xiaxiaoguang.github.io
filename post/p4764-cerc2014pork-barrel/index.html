@@ -1,0 +1,525 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>P4764 [CERC2014]Pork barrel | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1609598036452">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="P4764 [CERC2014]Pork barrel | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="经过两天的努力终于码了出来
+建议黑题
+首先暴力的过程是把[l,r][l,r][l,r]中的边都提出来跑一遍最小生成树,但是这样肯定不行
+结论
+每一条代价为x的边一定存在一个代价下界y,满足对于询问的区间[L,R][L,R][L,R],y&l..." />
+    <meta name="keywords" content="主席树,最小生成树,Link-Cut tree" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1609598036452" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              P4764 [CERC2014]Pork barrel
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-01-02
+              </span>
+              <span>
+                10 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/1bf8dxnXM/" class="post-tag">
+                  # 主席树
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/JfN4bDd29/" class="post-tag">
+                  # 最小生成树
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/uQiC5cX7Y/" class="post-tag">
+                  # Link-Cut tree
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/45NBuzDIW489QBoVep5mcXWdSo2JSaGilHS7uK7M5*7hubR3B.aSVPxrBvL4yO8h1DHPIu7jzxOpR5YH0tcjblLVFuZe5SBWSg8TdozXw9c!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p><s>经过两天的努力终于码了出来</s></p>
+<p>建议黑题</p>
+<p>首先暴力的过程是把<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mi>l</mi><mo separator="true">,</mo><mi>r</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">[l,r]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mclose">]</span></span></span></span>中的边都提出来跑一遍最小生成树,但是这样肯定不行</p>
+<h1 id="结论">结论</h1>
+<p>每一条代价为x的边一定存在一个<strong>代价下界y</strong>,满足对于询问的区间<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mi>L</mi><mo separator="true">,</mo><mi>R</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">[L,R]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathdefault">L</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mclose">]</span></span></span></span>,<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi><mo>&lt;</mo><mi>L</mi><mo>&lt;</mo><mo>=</mo><mi>x</mi><mo separator="true">,</mo><mi>R</mi><mo>&gt;</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">y&lt;L&lt;=x,R&gt;x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7335400000000001em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.72243em;vertical-align:-0.0391em;"></span><span class="mord mathdefault">L</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span>时一定会被算进去,y可以大于等于x</p>
+<h1 id="证明">证明</h1>
+<p>感性理解,假设我们将边权从大到小加入,然后动态维护一颗最小生成树,那么会发现加入到边i的时候i因为i是此时最小的边,所以一定会被算上,同时随着时间再向前推移,总会有一个时间点(可能为0),i会因为不再优而被弹出</p>
+<p>这个变化的过程是连续的,所以一定存在一个y,同时如果他一直没用则<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi><mo>&gt;</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">y&gt;x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7335400000000001em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span>,一直有用对应<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">y=0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span></p>
+<p>有了这个结论,假设求出了每条边的y,不难我们的问题就变成了一个二维数点问题</p>
+<p>即支持</p>
+<blockquote>
+<p>矩阵加<br>
+单点查询</p>
+</blockquote>
+<p>其中单点查询<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>L</mi><mo separator="true">,</mo><mi>R</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">(L,R)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">L</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mclose">)</span></span></span></span>,矩阵加左下角<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mi>y</mi><mo>+</mo><mn>1</mn><mo separator="true">,</mo><mi>y</mi><mo>+</mo><mn>1</mn><mo>]</mo></mrow><annotation encoding="application/x-tex">[y+1,y+1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span>右上角<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mi>x</mi><mo separator="true">,</mo><mi mathvariant="normal">∞</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">[x,\infty]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathdefault">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∞</span><span class="mclose">]</span></span></span></span>,我们可以使用二维差分实现</p>
+<p>注意到题目强制在线,所以这个问题可以用主席树实现</p>
+<p>现在我们如何求y呢?</p>
+<p>其实直接模拟证明中的过程就是可以的!</p>
+<p>因为一条边被删除的时刻,就是他<strong>被弹出时刻</strong>使其弹出的那条边的边权!</p>
+<p>但是动态维护生成树,我们需要:</p>
+<h2 id="lct">LCT!</h2>
+<p>故综上,我们用LCT来求出每条边的y,再用主席树完成二维数点即可</p>
+<h1 id="题意补充">题意补充:</h1>
+<p>强制在线方式:即lst为上次询问的答案,这次询问的l,r需要减去lst(题目中的letax不知道为啥是加?也可能是我英语太菜了)</p>
+<h1 id="细节补充">细节补充</h1>
+<ol>
+<li>清空的时候都要清空,小心二维差分数组没清空</li>
+<li>非常重要的一点是:</li>
+</ol>
+<p>一般的题目中重边是没用的,而我们这个题重边是相当有用的!</p>
+<p>而如果原本u,v间就有边了,再加入一条边会导致<strong>重边成环!</strong></p>
+<p>而显然的是用LCT寻找是找不到这种情况的!!</p>
+<p>所以我们要特判掉,特判有些坑/xyx</p>
+<ol start="3">
+<li>权值要离散化,然后把询问离散回来,而且左右端点离散结果还不一样.....</li>
+<li>建立主席树,我使用了每个版本只新建一个节点的写法,因为对于一个时刻可能有多个修改....具体可以看代码</li>
+</ol>
+<p>3,4都是因为本题恶心的125mb空间限制(</p>
+<p>下面是ACcode:</p>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+#define ll long long
+#define pb push_back
+#define se second
+#define fi first
+#define mkp(x,y) (make_pair(x,y))
+#define pii pair&lt;int,int&gt;
+const int MAXN = 1e3 + 7;
+const int MAXW = 2e5 + 7;
+const int MAXM = 2e5 + 7;
+const int MAXT = 4e6 + 7;
+using namespace std;
+int n, m, q;
+struct rec {
+	int x, y, z, w, k;
+	bool operator&lt;(const rec &amp;X)const {
+		return w &lt; X.w;
+	}
+} e[MAXM];
+namespace LoveJY_Catalan_Tmd {
+#define L (ch[x][0])
+#define R (ch[x][1])
+	int ch[MAXM][2], f[MAXM], tag[MAXM], st[MAXM];
+	int a[MAXM], id[MAXM];//子树中最大标号是啥
+	inline bool nroot(int x) {
+		return ch[f[x]][0] == x || ch[f[x]][1] == x;
+	}
+	inline void pushup(int x) {
+		id[x] = a[id[L]] &lt; a[id[R]] ? id[L] : id[R];
+		id[x] = a[x] &lt; a[id[x]] ? x : id[x];
+	}
+	inline void pushR(int x) {
+		tag[x] ^= 1;
+		L ^= R ^= L ^= R;
+	}
+	inline void pushdown(int x) {
+		if(tag[x]) {
+			if(L)pushR(L);
+			if(R)pushR(R);
+			tag[x] = 0;
+		}
+	}
+	inline void rotate(int x) {
+		int y = f[x], z = f[y], k = ch[y][1] == x, w = ch[x][!k];
+		if(nroot(y))ch[z][ch[z][1] == y] = x;
+		ch[x][!k] = y;
+		ch[y][k] = w;
+		f[y] = x;
+		f[x] = z;
+		if(w)f[w] = y;
+		pushup(y);
+	}
+	inline void splay(int x) {
+		int y = x, z = 0;
+		st[++z] = y;
+		while(nroot(y)) {
+			st[++z] = f[y];
+			y = f[y];
+		}
+		while(z) {
+			pushdown(st[z]);
+			z--;
+		}
+		while(nroot(x)) {
+			y = f[x];
+			z = f[y];
+			if(nroot(y)) {
+				rotate((ch[x][0] == y) ^ (ch[z][0] == y) ? y : x);
+			}
+			rotate(x);
+		}
+		pushup(x);
+	}
+	inline void access(int x) {
+		for(int y = 0; x; x = f[y = x]) {
+			splay(x); R = y; pushup(x);
+		}
+	}
+	inline void makeroot(int x) {
+		access(x);
+		splay(x);
+		pushR(x);
+	}
+	inline int findroot(int x) {
+		access(x);
+		splay(x);
+		while(L)pushdown(x), x = L;
+		splay(x);
+		return x;
+	}
+	inline void split(int x, int y) {
+		makeroot(x);
+		access(y);
+		splay(y);
+	}
+	inline void link(int x, int y) {//把y接到x上去
+		makeroot(x);
+		makeroot(y);
+		f[y] = x;
+	}
+	inline void cut(int x, int y) {
+		split(x, y);
+		ch[y][0] = 0;
+		f[x] = 0;
+		pushup(y);
+	}
+#undef L
+#undef R
+}
+using namespace LoveJY_Catalan_Tmd;
+int mx;
+vector&lt;int&gt; zhq;
+inline int getid(int x) {
+	return lower_bound(zhq.begin(), zhq.end(), x) - zhq.begin() + 1;
+}
+inline void init3() {
+	for(int i = 1; i &lt;= m; ++i) {
+		zhq.pb(e[i].w);
+	}
+	sort(zhq.begin(), zhq.end());
+	zhq.erase(unique(zhq.begin(), zhq.end()), zhq.end());
+	for(int i = 1; i &lt;= m; ++i) {
+		e[i].k = e[i].w;
+		e[i].w = getid(e[i].w);
+	}
+	return ;
+}
+int mp[MAXN][MAXN];
+inline void init2() {
+	sort(e + 1, e + m + 1);
+	a[0] = 1e9 + 1;
+	for(int i = 1; i &lt;= n; ++i)a[i] = 1e9;
+	for(int i = 1; i &lt;= m; ++i) {
+		int u = e[i].x;
+		int v = e[i].y;
+		mx = max(mx, e[i].w);
+		if(u &gt; v)swap(u, v);
+		if(mp[u][v]) {
+			e[i].z = a[mp[u][v]];
+			a[mp[u][v]] = e[i].w;
+			access(mp[u][v]);
+			splay(mp[u][v]);
+			continue;
+		}
+		makeroot(u);
+		if(findroot(v) != u) {
+			a[i + n] = e[i].w;
+			link(i + n, u);
+			link(i + n, v);
+			e[i].z = 0;
+			mp[u][v] = i + n;
+		} else {
+			split(u, v);
+			int qwq = id[v];
+			e[i].z = a[qwq];
+			a[qwq] = 1e9;
+			cut(qwq, e[qwq - n].x);
+			cut(qwq, e[qwq - n].y);
+			mp[e[qwq - n].x][e[qwq - n].y] = 0;
+			a[i + n] = e[i].w;
+			link(i + n, u);
+			link(i + n, v);
+			mp[u][v] = i + n;
+		}
+	}
+	return ;
+}
+int T2;
+int ls[MAXT], rs[MAXT], root[MAXW];
+ll tr[MAXT];
+#define fi first
+#define se second
+#define mid ((l+r)&gt;&gt;1)
+vector&lt;pii&gt; v[MAXW];
+inline void add(int &amp;x, int y, int l, int r, int P, int V) {
+	if(x == y || !x) {
+		x = ++T2;
+		tr[x] = tr[y];
+		ls[x] = ls[y];
+		rs[x] = rs[y];
+	}
+	tr[x] += V;
+	if(l == r) {
+		return ;
+	}
+	if(P &lt;= mid)add(ls[x], ls[y], l, mid, P, V);
+	else add(rs[x], rs[y], mid + 1, r, P, V);
+}
+
+inline ll qry(int k, int l, int r, int L, int R) {
+	if(!k)return 0;
+	if(L &lt;= l &amp;&amp; r &lt;= R) {
+		return tr[k];
+	}
+	if(R &lt;= mid)return qry(ls[k], l, mid, L, R);
+	else if(L &gt; mid)return qry(rs[k], mid + 1, r, L, R);
+	else return qry(ls[k], l, mid, L, R) + qry(rs[k], mid + 1, r, L, R);
+}
+
+inline void init() {
+	for(int i = 1; i &lt;= m; ++i) {
+		if(e[i].z + 1 &gt; e[i].w)continue;//剪 枝
+		if(e[i].z + 1 &lt;= mx)
+			v[e[i].z + 1].pb(mkp(e[i].w, e[i].k));
+		if(e[i].w + 1 &lt;= mx)
+			v[e[i].w + 1].pb(mkp(e[i].w, -e[i].k));
+	}
+	for(int i = 1; i &lt;= mx; ++i) {
+		if(v[i].size() == 0) {
+			root[i] = root[i - 1];
+			continue;
+		}
+		for(auto e : v[i])add(root[i], root[i - 1], 1, mx, e.fi, e.se);
+		v[i].clear();
+	}
+	return;
+}
+inline void clear() {
+	T2 = 0;
+	mx = 0;
+	memset(root, 0, sizeof(root));
+	memset(tag, 0, sizeof(tag));
+	memset(ch, 0, sizeof(ch));
+	memset(f, 0, sizeof(f));
+	memset(id, 0, sizeof(id));
+	memset(ls, 0, sizeof(ls));
+	memset(rs, 0, sizeof(rs));
+	memset(tr, 0, sizeof(tr));
+	memset(mp, 0, sizeof(mp));
+	memset(e, 0, sizeof(e));
+	zhq.clear();
+}
+int T;
+int main() {
+	scanf(&quot;%d&quot;, &amp;T);
+	while(T-- &gt; 0) {
+		scanf(&quot;%d%d&quot;, &amp;n, &amp;m);
+		for(int i = 1; i &lt;= m; ++i) {
+			scanf(&quot;%d%d%d&quot;, &amp;e[i].x, &amp;e[i].y, &amp;e[i].w);
+			if(e[i].x &gt; e[i].y)swap(e[i].x, e[i].y);
+		}
+		init3();
+		init2();//预处理主席树呢
+		init();//把所有的拿出来跑lct
+		scanf(&quot;%d&quot;, &amp;q);
+		ll ans = 0, x, y;
+		for(int i = 1; i &lt;= q; ++i) {
+			scanf(&quot;%lld%lld&quot;, &amp;x, &amp;y);
+			x -= ans;
+			y -= ans;
+			x = getid(x);
+			y = upper_bound(zhq.begin(), zhq.end(), y) - zhq.begin();
+			if(y &lt; x || x &gt; mx)ans = 0;
+			else ans = qry(root[x], 1, mx, 1, y);
+			printf(&quot;%lld\n&quot;, ans);
+		}
+		clear();
+	}
+	return 0;
+}
+
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#%E7%BB%93%E8%AE%BA">结论</a></li>
+<li><a href="#%E8%AF%81%E6%98%8E">证明</a>
+<ul>
+<li><a href="#lct">LCT!</a></li>
+</ul>
+</li>
+<li><a href="#%E9%A2%98%E6%84%8F%E8%A1%A5%E5%85%85">题意补充:</a></li>
+<li><a href="#%E7%BB%86%E8%8A%82%E8%A1%A5%E5%85%85">细节补充</a></li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/zr-sheng-xuan-d2/">
+              <h3 class="post-title">
+                ZR省选讲课D2
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
