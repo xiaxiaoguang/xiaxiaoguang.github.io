@@ -3,7 +3,7 @@
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ZR省选讲课D2 | 夏晓光(loveJY)的博客</title>
-<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1609598036452">
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1609602416746">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
 <link rel="alternate" type="application/atom+xml" title="ZR省选讲课D2 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
@@ -25,7 +25,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://xiaxiaoguang.github.io">
-  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1609598036452" alt="">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1609602416746" alt="">
   </a>
   <h1 class="site-title">
     夏晓光(loveJY)的博客
@@ -444,6 +444,7 @@ s-65,47,-65,47z M834 80H400000v40H845z'/></svg></span></span></span><span class=
 <figure data-type="image" tabindex="16"><img src="https://xiaxiaoguang.github.io/post-images/1609576037813.png" alt="" loading="lazy"></figure>
 <p>T22</p>
 <figure data-type="image" tabindex="17"><img src="https://xiaxiaoguang.github.io/post-images/1609576211015.png" alt="" loading="lazy"></figure>
+<p>矩阵中的数互不同</p>
 <p>找等价操作</p>
 <p>先分析一下这个操作下的不变量是什么。</p>
 <p>首先一列里面三个数字要么是顺着的要么是反着的，它们不可能被分开。并且一次交换只能交换奇数位/偶数位中的相邻两个。</p>
@@ -452,10 +453,15 @@ s-65,47,-65,47z M834 80H400000v40H845z'/></svg></span></span></span><span class=
 <p>接下来我们证明这是充分条件。</p>
 <p>我们先把所有列不管正反先交换到对应位置上。然后设小写字母表示原来的列，大写字母表示反转之后的列：</p>
 <figure data-type="image" tabindex="18"><img src="https://xiaxiaoguang.github.io/post-images/1609597400039.png" alt="" loading="lazy"></figure>
+<p>就是说我们先把两列变成间隔为1的,然后交换回去就好了</p>
 <p>上述构造证明了任意距离为 2 的两列都可以直接被反转。</p>
 <p>由于奇偶性的保证，刚交换完时的 𝑓 必然和最终的 𝑓 相等，因此直接反转必然可以成为答案。</p>
+<p>也就是说,我们奇数列/欧数列单独一定满足不符合的/翻转的位置写出来是</p>
+<p>0111000111,其中有偶数个1</p>
+<p>那么我们从左向右扫一遍,遇到一个1就翻转i和i+1即可</p>
 <p>事实上如果 𝑛≤1000，可以输出方案，步数级别 𝑂(𝑛^2)。</p>
 <p>不要求输出方案只需要球逆序对数量，直接 bit 即可（或者由于只需要球奇偶性可以做到线性）。</p>
+<p>但是这题是判yes/no qwq</p>
 
               </div>
               <div class="toc-container">
