@@ -1,0 +1,682 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>多项式半家桶 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1609842212510">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="多项式半家桶 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="多项式全家桶是什么?
+1e6多点求值?
+5e5快速插值?
+很不幸,下面的板子里一个都没有qwq
+多项式乘法NTT
+FFT是什么?我还真不太会qwq
+#include&lt;bits/stdc++.h&gt;
+#define ll long ..." />
+    <meta name="keywords" content="多项式exp,多项式ln,多项式,NTT,多项式求逆" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1609842212510" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              多项式半家桶
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-01-05
+              </span>
+              <span>
+                18 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/ZxE9ufU0o/" class="post-tag">
+                  # 多项式exp
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/kslGGr13nm/" class="post-tag">
+                  # 多项式ln
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/hvpHMz37C/" class="post-tag">
+                  # 多项式
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/qVpCwotUXi/" class="post-tag">
+                  # NTT
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/DbgARO1feJ/" class="post-tag">
+                  # 多项式求逆
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/45NBuzDIW489QBoVep5mcWgl6acD9A5en3zNyBMisFUszECnr9rJR8ZIRBGpR*enxemLo4qLaU8XXlvDrvOFEvZtsy94NR9GhHdMJ6lz4Lk!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>多项式全家桶是什么?</p>
+<p>1e6多点求值?</p>
+<p>5e5快速插值?</p>
+<p>很不幸,下面的板子里一个都没有qwq</p>
+<h1 id="多项式乘法ntt">多项式乘法NTT</h1>
+<p>FFT是什么?我还真不太会qwq</p>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+#define ll long long
+using namespace std;
+const int P = 998244353;
+const int G = 3;
+const int G1 = 332748118;
+const int MAXN = 3e6 + 7;
+int n, m;
+ll A[MAXN], B[MAXN];
+int L, len, R[MAXN];
+
+inline ll add(ll x, ll y) {
+	x += y;
+	if(x &gt;= P)x -= P;
+	return x;
+}
+
+inline ll ksm(ll x, ll y) {
+	ll ans = 1;
+	while(y) {
+		if(y &amp; 1)ans = ans * x % P;
+		x = x * x % P;
+		y &gt;&gt;= 1;
+	}
+	return ans;
+}
+
+inline void init() {
+	len = 1;
+	while(len &lt;= n + m)len &lt;&lt;= 1, L++;
+	for(int i = 0; i &lt; len; ++i)R[i] = (R[i &gt;&gt; 1] &gt;&gt; 1) | ((i &amp; 1) &lt;&lt; (L - 1));
+	return ;
+}
+
+inline void NTT(ll *F, int len, int typ) {
+	for(int i = 0; i &lt; len; ++i) {
+		if(i &lt; R[i])swap(F[i], F[R[i]]);
+	}
+	for(int mid = 1; mid &lt; len; mid &lt;&lt;= 1) {
+		ll wn = ksm(typ == 1 ? G : G1, (P - 1) / (mid &lt;&lt; 1));
+		for(int j = 0; j &lt; len; j += (mid &lt;&lt; 1)) {
+			ll w = 1;
+			for(int k = 0; k &lt; mid; ++k, w = w * wn % P) {
+				ll x = F[j + k], y = F[j + k + mid] * w % P;
+				F[j + k] = add(x, y);
+				F[j + k + mid] = add(x, P - y);
+			}
+		}
+	}
+	if(typ == -1) {
+		ll inv = ksm(len, P - 2);
+		for(int i = 0; i &lt; len; ++i) {
+			F[i] = F[i] * inv % P;
+		}
+	}
+}
+
+int main() {
+	scanf(&quot;%d%d&quot;, &amp;n, &amp;m);
+	for(int i = 0; i &lt;= n; ++i) {
+		scanf(&quot;%lld&quot;, &amp;A[i]);
+	}
+	for(int i = 0; i &lt;= m; ++i) {
+		scanf(&quot;%lld&quot;, &amp;B[i]);
+	}
+	init();
+	NTT(A, len, 1);
+	NTT(B, len, 1);
+	for(int i = 0; i &lt; len; ++i)A[i] = A[i] * B[i] % P;
+	NTT(A, len, -1);
+	for(int i = 0; i &lt;= n + m; ++i) {
+		printf(&quot;%lld &quot;, A[i]);
+	}
+	return 0;
+}
+</code></pre>
+<p>代码分析:</p>
+<p>首先是init,注意到我们按顺序合并的序列实际上是二进制翻转后的下标序列,所以对于这个R,我们有其在<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mi>l</mi></msup></mrow><annotation encoding="application/x-tex">2^l</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.849108em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.849108em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span></span></span></span></span></span></span></span></span></span></span>意义下的翻转二进制位,递推方式也很简单,先把之前的<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn><mi mathvariant="normal">到</mi><msup><mn>2</mn><mi>l</mi></msup></mrow><annotation encoding="application/x-tex">2到2^{l}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.849108em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord cjk_fallback">到</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.849108em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span></span></span></span></span></span></span></span></span></span></span></span>平移下来,然后再把最后一位提到<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mi>L</mi></msup></mrow><annotation encoding="application/x-tex">2^L</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8413309999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8413309999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">L</span></span></span></span></span></span></span></span></span></span></span>处</p>
+<p>其次是NTT过程,其实框架按照单位根反演的式子背诵就好了,因为那个式子连除n个乘上单位根逆元啥的都有....</p>
+<p>然后是三层循环,这个很好看,就是我们从长度为1到长度为2<sup>n的log层挨个做,然后每层有$2^n/2^g$段,每一段都要和下一段的同相对位置做乘法,而且每一层的某段都要乘上一个wn</sup>(段数-1),wn即单位根,相当于线段树的每一层长度之和,就是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(nlogn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>的</p>
+<p>注意循环卷积要开至少两倍空间</p>
+<h1 id="模板分治-fft">【模板】分治 FFT</h1>
+<p>生成函数做法:</p>
+<p>序列f的OGF为F(x)其中f的第1项是1,g的生成函数为G(x),其中g的第0项是0</p>
+<p>有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi><mo>(</mo><mi>x</mi><mo>)</mo><mo>=</mo><mi>F</mi><mo>(</mo><mi>x</mi><mo>)</mo><mi>G</mi><mo>(</mo><mi>x</mi><mo>)</mo><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">F(x)=F(x)G(x)+1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mord mathdefault">G</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span></p>
+<p>于是可以解得<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi><mo>(</mo><mi>x</mi><mo>)</mo><mo>=</mo><mfrac><mn>1</mn><mrow><mn>1</mn><mo>−</mo><mi>G</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow></mfrac></mrow><annotation encoding="application/x-tex">F(x)=\frac{1}{1-G(x)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.365108em;vertical-align:-0.52em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mbin mtight">−</span><span class="mord mathdefault mtight">G</span><span class="mopen mtight">(</span><span class="mord mathdefault mtight">x</span><span class="mclose mtight">)</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.52em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span>多项式求逆即可</p>
+<p>分治FFT做法:</p>
+<h2 id="cdqyeah">CDQ:Yeah!</h2>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+#define ll long long
+using namespace std;
+const int P = 998244353;
+const int G1 = 3;
+const int G2 = (P + 1) / 3;
+const int MAXN = 4e5 + 7;
+
+int n, L, len;
+int F[MAXN], G[MAXN], R[MAXN];
+ll A[MAXN], B[MAXN];
+
+inline void init(int x) {
+	len = 1;
+	L = 0;
+	while(len &lt;= 2 * x)len &lt;&lt;= 1, ++L;
+	for(int i = 1; i &lt;= len; ++i)R[i] = (R[i &gt;&gt; 1] &gt;&gt; 1) | ((i &amp; 1) &lt;&lt; (L - 1));
+	return ;
+}
+
+inline ll ksm(ll x, ll y) {
+	ll ans = 1;
+	while(y) {
+		if(y &amp; 1)ans = ans * x % P;
+		x = x * x % P;
+		y &gt;&gt;= 1;
+	}
+	return ans;
+}
+
+inline void add(int &amp;x, ll y) {
+	x += y;
+	if(x &gt;= P)x -= P;
+}
+
+inline void NTT(ll *F, int len, int typ) {
+	for(int i = 1; i &lt; len; ++i)if(i &lt; R[i])swap(F[i], F[R[i]]);
+	for(int mid = 1; mid &lt; len; mid &lt;&lt;= 1) {
+		ll wn = ksm(typ == 1 ? G1 : G2, (P - 1) / (mid &lt;&lt; 1));
+		for(int j = 0; j &lt; len; j += (mid &lt;&lt; 1)) {
+			ll w = 1;
+			for(int k = 0; k &lt; mid; ++k, w = w * wn % P) {
+				int x = F[j + k], y = F[j + k + mid] * w % P;
+				F[j + k] = (x + y) % P;
+				F[j + k + mid] = (x + P - y) % P;
+			}
+		}
+	}
+	if(typ == -1) {
+		ll inv = ksm(len, P - 2);
+		for(int i = 0; i &lt; len; ++i)F[i] = F[i] * inv % P;
+	}
+	return ;
+}
+
+inline void out1() {
+	puts(&quot;A-&gt;:&quot;);
+	for(int i = 0; i &lt;= len; ++i) {
+		printf(&quot;%lld &quot;, A[i]);
+	}
+	puts(&quot;&quot;);
+	return ;
+}
+inline void out2() {
+	puts(&quot;B-&gt;:&quot;);
+	for(int i = 0; i &lt;= len; ++i) {
+		printf(&quot;%lld &quot;, B[i]);
+	}
+	puts(&quot;&quot;);
+	return ;
+}
+
+inline void cdq(int l, int r) {
+	if(l == r)return ;
+	int mid = (l + r) &gt;&gt; 1;
+	cdq(l, mid);
+	for(int i = 0; i &lt; r - l + 1; ++i)A[i] = G[i]; //0~r-l+1,注意我们是多项式乘法,所以这个必须是前...项
+	for(int i = l; i &lt;= mid; ++i)B[i - l] = F[i];
+	for(int i = mid + 1; i &lt;= r; ++i)B[i - l] = 0;
+	init(r - l + 1);//传入项数
+	NTT(A, len, 1);
+	NTT(B, len, 1);
+	for(int i = 0; i &lt; len; ++i)A[i] = A[i] * B[i] % P;
+	NTT(A, len, -1);
+	for(int i = mid + 1; i &lt;= r; ++i)add(F[i], A[i - l]);
+	for(int i = 0; i &lt; len; ++i)A[i] = B[i] = 0;
+	cdq(mid + 1, r);
+	return ;
+}
+
+inline void zhqwq() {
+	for(int i = 0; i &lt; 10; ++i)A[i] = 1;
+	for(int j = 0; j &lt; 10; ++j)B[j] = 1;//1+x+x^2.....,等价于求前缀和
+	init(10);
+	NTT(A, len, 1);
+	NTT(B, len, 1);
+	for(int i = 0; i &lt; len; ++i)A[i] = A[i] * B[i] % P;
+	NTT(A, len, -1);
+	return ;
+}
+
+int main() {
+	scanf(&quot;%d&quot;, &amp;n);
+	for(int i = 1; i &lt; n; ++i) {
+		scanf(&quot;%d&quot;, &amp;G[i]);
+	}
+	init(n);
+	F[0] = 1;
+	cdq(0, n - 1);
+	for(int i = 0; i &lt; n; ++i) {
+		printf(&quot;%d &quot;, F[i]);
+	}
+	return 0;
+}
+</code></pre>
+<p>代码分析:调试NTT可以使用zhqwq函数,因为只要生成函数学的好,乘上啥得出啥很容易知道,所以NTT就不会错qwq</p>
+<p>分治过程我们要注意是拿出左半部分的F,右半部分都是0,而且g数组要用从0~r-l项,因为我们是用前半部分进行卷积!</p>
+<p>然后记得清空要把len范围都清空,因为我们是循环卷积,后面不清空会错的</p>
+<h1 id="模板多项式乘法逆">【模板】多项式乘法逆</h1>
+<p>证明:</p>
+<p>如果我们mod的不是x,就把这个mod项减少一下</p>
+<p>假设已知<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>H</mi><mo>(</mo><mi>x</mi><mo>)</mo><mi>F</mi><mo>(</mo><mi>x</mi><mo>)</mo><mo>≡</mo><mn>1</mn><mo>(</mo><mspace></mspace><mspace width="0.6666666666666666em"/><mrow><mi mathvariant="normal">m</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">d</mi></mrow><mtext> </mtext><mtext> </mtext><msup><mi>x</mi><mrow><mo>⌈</mo><mfrac><mi>n</mi><mn>2</mn></mfrac><mo>⌉</mo></mrow></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">H(x)F(x)\equiv 1 (\mod x^{\lceil\frac{n}{2}\rceil})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.08125em;">H</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≡</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mopen">(</span><span class="mspace allowbreak"></span><span class="mspace" style="margin-right:0.6666666666666666em;"></span></span><span class="base"><span class="strut" style="height:1.138em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord"><span class="mord mathrm">m</span><span class="mord mathrm">o</span><span class="mord mathrm">d</span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8879999999999999em;"><span style="top:-3.363em;margin-right:0.05em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">⌈</span><span class="mord mtight"><span class="mopen nulldelimiter sizing reset-size3 size6"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6915428571428572em;"><span style="top:-2.656em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.2255000000000003em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line mtight" style="border-bottom-width:0.049em;"></span></span><span style="top:-3.384em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.344em;"><span></span></span></span></span></span><span class="mclose nulldelimiter sizing reset-size3 size6"></span></span><span class="mclose mtight">⌉</span></span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></p>
+<p>显然的<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi><mo>(</mo><mi>x</mi><mo>)</mo><mi>G</mi><mo>(</mo><mi>x</mi><mo>)</mo><mo>≡</mo><mn>1</mn><mo>(</mo><mspace></mspace><mspace width="0.6666666666666666em"/><mrow><mi mathvariant="normal">m</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">d</mi></mrow><mtext> </mtext><mtext> </mtext><msup><mi>x</mi><mrow><mo>⌈</mo><mfrac><mi>n</mi><mn>2</mn></mfrac><mo>⌉</mo></mrow></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">F(x)G(x)\equiv 1(\mod x^{\lceil \frac{n}{2}\rceil})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mord mathdefault">G</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≡</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mopen">(</span><span class="mspace allowbreak"></span><span class="mspace" style="margin-right:0.6666666666666666em;"></span></span><span class="base"><span class="strut" style="height:1.138em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord"><span class="mord mathrm">m</span><span class="mord mathrm">o</span><span class="mord mathrm">d</span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8879999999999999em;"><span style="top:-3.363em;margin-right:0.05em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">⌈</span><span class="mord mtight"><span class="mopen nulldelimiter sizing reset-size3 size6"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6915428571428572em;"><span style="top:-2.656em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.2255000000000003em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line mtight" style="border-bottom-width:0.049em;"></span></span><span style="top:-3.384em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.344em;"><span></span></span></span></span></span><span class="mclose nulldelimiter sizing reset-size3 size6"></span></span><span class="mclose mtight">⌉</span></span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></p>
+<p>做差有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi><mo>(</mo><mi>x</mi><mo>)</mo><mo>(</mo><mi>G</mi><mo>(</mo><mi>x</mi><mo>)</mo><mo>−</mo><mi>H</mi><mo>(</mo><mi>x</mi><mo>)</mo><mo>)</mo><mo>≡</mo><mn>0</mn><mo>(</mo><mspace></mspace><mspace width="0.6666666666666666em"/><mrow><mi mathvariant="normal">m</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">d</mi></mrow><mtext> </mtext><mtext> </mtext><msup><mi>x</mi><mrow><mo>⌈</mo><mfrac><mi>n</mi><mn>2</mn></mfrac><mo>⌉</mo></mrow></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">F(x)(G(x)-H(x))\equiv 0 (\mod x^{\lceil \frac{n}{2}\rceil})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mopen">(</span><span class="mord mathdefault">G</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.08125em;">H</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≡</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">0</span><span class="mopen">(</span><span class="mspace allowbreak"></span><span class="mspace" style="margin-right:0.6666666666666666em;"></span></span><span class="base"><span class="strut" style="height:1.138em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord"><span class="mord mathrm">m</span><span class="mord mathrm">o</span><span class="mord mathrm">d</span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8879999999999999em;"><span style="top:-3.363em;margin-right:0.05em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">⌈</span><span class="mord mtight"><span class="mopen nulldelimiter sizing reset-size3 size6"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6915428571428572em;"><span style="top:-2.656em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.2255000000000003em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line mtight" style="border-bottom-width:0.049em;"></span></span><span style="top:-3.384em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.344em;"><span></span></span></span></span></span><span class="mclose nulldelimiter sizing reset-size3 size6"></span></span><span class="mclose mtight">⌉</span></span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></p>
+<p>于是我们除掉这个F,然后同时平方有</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>G</mi><mo>(</mo><mi>x</mi><mo>)</mo><mo>−</mo><mi>H</mi><mo>(</mo><mi>x</mi><mo>)</mo><msup><mo>)</mo><mn>2</mn></msup><mo>≡</mo><mi>s</mi><mi>t</mi><mi>h</mi><mo>(</mo><mspace></mspace><mspace width="1em"/><mrow><mi mathvariant="normal">m</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">d</mi></mrow><mtext> </mtext><mtext> </mtext><msup><mi>x</mi><mi>n</mi></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">(G(x)-H(x))^2\equiv sth(\mod x^n)
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">G</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.1141079999999999em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.08125em;">H</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641079999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≡</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault">h</span><span class="mopen">(</span><span class="mspace allowbreak"></span><span class="mspace" style="margin-right:1em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord"><span class="mord mathrm">m</span><span class="mord mathrm">o</span><span class="mord mathrm">d</span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7143919999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">n</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span></p>
+<p>然后我们发现,无论如何左边都会有一项的系数小于<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>x</mi><mrow><mo>⌈</mo><mfrac><mi>n</mi><mn>2</mn></mfrac><mo>⌉</mo></mrow></msup></mrow><annotation encoding="application/x-tex">x^{\lceil \frac{n}{2}\rceil}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8879999999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8879999999999999em;"><span style="top:-3.363em;margin-right:0.05em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">⌈</span><span class="mord mtight"><span class="mopen nulldelimiter sizing reset-size3 size6"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6915428571428572em;"><span style="top:-2.656em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.2255000000000003em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line mtight" style="border-bottom-width:0.049em;"></span></span><span style="top:-3.384em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.344em;"><span></span></span></span></span></span><span class="mclose nulldelimiter sizing reset-size3 size6"></span></span><span class="mclose mtight">⌉</span></span></span></span></span></span></span></span></span></span></span></span>所以就会变没了qwq</p>
+<p>所以说这个就做完啦sth=0!</p>
+<p>那么<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>G</mi><mo>(</mo><mi>x</mi><msup><mo>)</mo><mn>2</mn></msup><mo>+</mo><mi>H</mi><mo>(</mo><mi>x</mi><msup><mo>)</mo><mn>2</mn></msup><mo>−</mo><mn>2</mn><mi>G</mi><mo>(</mo><mi>x</mi><mo>)</mo><mi>H</mi><mo>(</mo><mi>x</mi><mo>)</mo><mo>≡</mo><mo>(</mo><mspace></mspace><mspace width="0.6666666666666666em"/><mrow><mi mathvariant="normal">m</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">d</mi></mrow><mtext> </mtext><mtext> </mtext><msup><mi>x</mi><mi>n</mi></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">G(x)^2+H(x)^2-2G(x)H(x)\equiv (\mod x^n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault">G</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.08125em;">H</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">2</span><span class="mord mathdefault">G</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mord mathdefault" style="margin-right:0.08125em;">H</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≡</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mspace allowbreak"></span><span class="mspace" style="margin-right:0.6666666666666666em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord"><span class="mord mathrm">m</span><span class="mord mathrm">o</span><span class="mord mathrm">d</span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">n</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></p>
+<p>同时乘这个<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi></mrow><annotation encoding="application/x-tex">F</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span></span></span></span>,因为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi><mo>∗</mo><mi>G</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">F*G=1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault">G</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span></p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>G</mi><mo>(</mo><mi>x</mi><mo>)</mo><mo>=</mo><mn>2</mn><mo>∗</mo><mi>H</mi><mo>(</mo><mi>x</mi><mo>)</mo><mo>−</mo><mi>H</mi><mo>(</mo><mi>x</mi><msup><mo>)</mo><mn>2</mn></msup><mo>∗</mo><mi>F</mi><mo>(</mo><mi>x</mi><mo>)</mo><mo>(</mo><mspace></mspace><mspace width="0.6666666666666666em"/><mrow><mi mathvariant="normal">m</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">d</mi></mrow><mtext> </mtext><mtext> </mtext><msup><mi>x</mi><mi>n</mi></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">G(x)=2*H(x)-H(x)^2*F(x)(\mod x^n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">G</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.08125em;">H</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.08125em;">H</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mopen">(</span><span class="mspace allowbreak"></span><span class="mspace" style="margin-right:0.6666666666666666em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord"><span class="mord mathrm">m</span><span class="mord mathrm">o</span><span class="mord mathrm">d</span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">n</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></p>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+#define ll long long
+using namespace std;
+const int MAXN = 4e5 + 7;
+const int P = 998244353;
+const int G1 = 3;
+const int G2 = (P + 1) / 3;
+int N, len, L, R[MAXN];
+ll G[MAXN], A[MAXN], F[MAXN], B[MAXN];
+
+inline void init(int x) {
+	len = 1;
+	L = 0;
+	while(len &lt;= 2 * x)len &lt;&lt;= 1, ++L;
+	for(int i = 1; i &lt; len; ++i)R[i] = (R[i &gt;&gt; 1] &gt;&gt; 1) | ((i &amp; 1) &lt;&lt; (L - 1));
+	return ;
+}
+
+inline ll ksm(ll x, ll y) {
+	ll ans = 1;
+	while(y) {
+		if(y &amp; 1)ans = ans * x % P;
+		x = x * x % P;
+		y &gt;&gt;= 1;
+	}
+	return ans;
+}
+
+inline void NTT(ll *F, int len, int typ) {
+	for(int i = 1; i &lt; len; ++i)if(i &lt; R[i])swap(F[i], F[R[i]]);
+	for(int mid = 1; mid &lt; len; mid &lt;&lt;= 1) {
+		ll wn = ksm(typ == 1 ? G1 : G2, (P - 1) / (mid &lt;&lt; 1));
+		for(int j = 0; j &lt; len; j += (mid &lt;&lt; 1)) {
+			ll w = 1;
+			for(int k = 0; k &lt; mid; ++k, w = w * wn % P) {
+				int x = F[j + k], y = F[j + k + mid] * w % P;
+				F[j + k] = (x + y) % P;
+				F[j + k + mid] = (x + P - y) % P;
+			}
+		}
+	}
+	if(typ == -1) {
+		ll inv = ksm(len, P - 2);
+		for(int i = 0; i &lt; len; ++i)F[i] = F[i] * inv % P;
+	}
+	return ;
+}
+
+inline void out1() {
+	printf(&quot;A-:&quot;);
+	for(int i = 0; i &lt; len; ++i)printf(&quot;%d &quot;, A[i]);
+	puts(&quot;\n&quot;);
+}
+
+inline void getinv(ll *F, int n) {
+	if(n == 1) {
+		G[0] = ksm(F[0], P - 2);
+		return ;
+	}//只有一项qwq
+	int m = (n + 1) / 2;
+	getinv(F, m);
+	init(n);
+	for(int i = 0; i &lt; n; ++i)A[i] = G[i], B[i] = F[i];
+	for(int i = n; i &lt; len; ++i)A[i] = B[i] = 0;
+	NTT(A, len, 1);
+	NTT(B, len, 1);
+	for(int i = 0; i &lt; len; ++i)A[i] = ( 2 * A[i] % P - A[i] * B[i] % P * A[i] % P + P) % P;
+	NTT(A, len, -1);
+	for(int i = 0; i &lt; n; ++i)G[i] = A[i];//还原G
+	return ;
+}
+
+inline void zhqwq() {
+	for(int i = 0; i &lt; 10; ++i)A[i] = 1;
+	for(int j = 0; j &lt; 10; ++j)B[j] = 1;//1+x+x^2.....,等价于求前缀和
+	init(10);
+	NTT(A, len, 1);
+	NTT(B, len, 1);
+	for(int i = 0; i &lt; len; ++i)A[i] = A[i] * B[i] % P;
+	NTT(A, len, -1);
+	return ;
+}
+
+int main() {
+	scanf(&quot;%d&quot;, &amp;N);
+	for(int i = 0; i &lt; N; ++i)scanf(&quot;%lld&quot;, &amp;F[i]);
+	getinv(F, N);//递归这个mod x^n
+	for(int i = 0; i &lt; N; ++i) {
+		printf(&quot;%lld &quot;, G[i]);
+	}
+	return 0;
+}
+</code></pre>
+<p>代码分析:写的时候NTT的w*wn没有取模...服了</p>
+<p>然后小心这个getinv我们递归下去是取一半上取整递归哈qwq以及最后到底层是n=1,我们直接求逆即可</p>
+<h1 id="模板多项式对数函数多项式-ln">【模板】多项式对数函数（多项式 ln）</h1>
+<p>说到ln,很快啊!,就有chz上课不会初中数学的丢人历史</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi><mi>n</mi><mo>(</mo><mi>x</mi><mo>)</mo><mo>=</mo><mo>−</mo><mi>l</mi><mi>n</mi><mo>(</mo><mfrac><mn>1</mn><mi>x</mi></mfrac><mo>)</mo></mrow><annotation encoding="application/x-tex">ln(x)=-ln(\frac{1}{x})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">n</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="mord">−</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">n</span><span class="mopen">(</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">x</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose">)</span></span></span></span></p>
+<p>证明:</p>
+<p>求导,链式法则<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>ln</mi><mo>⁡</mo><mi>F</mi><mo>(</mo><mi>x</mi><mo>)</mo><msup><mo>)</mo><mo mathvariant="normal">′</mo></msup><mo>=</mo><mfrac><mrow><mi>F</mi><mo>(</mo><mi>x</mi><msup><mo>)</mo><mo mathvariant="normal">′</mo></msup></mrow><mrow><mi>F</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow></mfrac></mrow><annotation encoding="application/x-tex">(\ln F(x))&#x27;=\frac{F(x)&#x27;}{F(x)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.001892em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mop">ln</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.751892em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.58448em;vertical-align:-0.52em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.06448em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.13889em;">F</span><span class="mopen mtight">(</span><span class="mord mathdefault mtight">x</span><span class="mclose mtight">)</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.485em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.13889em;">F</span><span class="mopen mtight">(</span><span class="mord mathdefault mtight">x</span><span class="mclose mtight"><span class="mclose mtight">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8278285714285715em;"><span style="top:-2.931em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.52em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></p>
+<p>所以我们直接求出F'和F逆,然后乘一下,然后再积分积回去就好了</p>
+<p>这意味我们没有这个常数项qwq,而你会发现这个常数项是1?</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>e</mi><mn>0</mn></msup><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">e^0=1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>取ln后的多项式常数项是0....</p>
+<p>所以其他有理数不行也很好证明了,因为e是超越数,所以<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>e</mi><mi>c</mi></msup></mrow><annotation encoding="application/x-tex">e^c</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.664392em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">c</span></span></span></span></span></span></span></span></span></span></span>除了c=0是1外,不可能是其他有理数....超越数不能成为任何整数多项式的根..?</p>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+#define ll long long
+using namespace std;
+const int MAXN = 4e5 + 7;
+const int P = 998244353;
+const int G1 = 3;
+const int G2 = (P + 1) / 3;
+int N, len, L, R[MAXN];
+ll F[MAXN], A[MAXN], B[MAXN], C[MAXN], D[MAXN];
+ll fac[MAXN], ifac[MAXN], inv[MAXN];
+
+inline ll ksm(ll x, ll y) {
+	ll ans = 1;
+	while(y) {
+		if(y &amp; 1)ans = ans * x % P;
+		x = x * x % P;
+		y &gt;&gt;= 1;
+	}
+	return ans;
+}
+
+inline void init() {
+	fac[0] = 1;
+	for(int i = 1; i &lt;= N; ++i)fac[i] = fac[i - 1] * i % P;
+	ifac[N] = ksm(fac[N], P - 2);
+	for(int i = N - 1; i &gt;= 1; --i)ifac[i] = ifac[i + 1] * (i + 1) % P;
+	ifac[0] = 1;
+	for(int i = 1; i &lt;= N; ++i)inv[i] = fac[i - 1] * ifac[i] % P;
+	return ;
+}
+
+inline void qiudao(ll *F, ll *B, int N) {
+	for(int i = 1; i &lt; N; ++i) {
+		B[i - 1] = F[i] * i % P;
+	}
+	B[N - 1] = 0;
+	return ;
+}
+
+inline void jifen(ll *F, ll *B, int N) {
+	for(int i = N - 1; i &gt;= 0; --i) {
+		B[i + 1] = F[i] * inv[i + 1] % P;
+	}
+	B[0] = 0;
+	return ;
+}
+
+inline void init(int x) {
+	len = 1;
+	L = 0;
+	while(len &lt;= 2 * x)len &lt;&lt;= 1, ++L;
+	for(int i = 1; i &lt; len; ++i)R[i] = (R[i &gt;&gt; 1] &gt;&gt; 1) | ((i &amp; 1) &lt;&lt; (L - 1));
+}
+
+inline void NTT(ll *F, int len, int typ) {
+	for(int i = 1; i &lt; len; ++i)if(i &lt; R[i])swap(F[i], F[R[i]]);
+	for(int mid = 1; mid &lt; len; mid &lt;&lt;= 1) {
+		ll wn = ksm(typ == 1 ? G1 : G2, (P - 1) / (mid &lt;&lt; 1));
+		for(int j = 0; j &lt; len; j += (mid &lt;&lt; 1)) {
+			ll w = 1;
+			for(int k = 0; k &lt; mid; ++k, w = w * wn % P) {
+				int x = F[j + k], y = F[j + k + mid] * w % P;
+				F[j + k] = (x + y) % P;
+				F[j + k + mid] = (x + P - y) % P;
+			}
+		}
+	}
+	if(typ == -1) {
+		ll inv = ksm(len, P - 2);
+		for(int i = 0; i &lt; len; ++i)F[i] = F[i] * inv % P;
+	}
+	return ;
+}
+
+inline void getinv(ll *F, ll *G, int n) {
+	if(n == 1) {
+		G[0] = ksm(F[0], P - 2);
+		return ;
+	}
+	getinv(F, G, (n + 1) / 2);
+	init(n);
+	for(int i = 0; i &lt; n; ++i)D[i] = F[i], C[i] = G[i];
+	for(int i = n; i &lt; len; ++i)D[i] = 0, C[i] = 0;
+	NTT(D, len, 1);
+	NTT(C, len, 1);
+	for(int i = 0; i &lt; len; ++i)C[i] = (2 * C[i] % P - C[i] * C[i] % P * D[i] % P + P) % P;
+	NTT(C, len, -1);
+	for(int i = 0; i &lt; n; ++i)G[i] = C[i];
+	return;
+}
+
+inline void getln(ll *F, int n) {
+	qiudao(F, A, n);
+	getinv(F, B, n);
+	init(n);
+	NTT(A, len, 1);
+	NTT(B, len, 1);
+	for(int i = 0; i &lt; len; ++i)A[i] = A[i] * B[i] % P;
+	NTT(A, len, -1);
+	jifen(A, F, n);
+	return ;
+}
+
+int main() {
+	scanf(&quot;%d&quot;, &amp;N);
+	for(int i = 0; i &lt; N; ++i)scanf(&quot;%lld&quot;, &amp;F[i]);
+	init();
+	getln(F, N);
+	for(int i = 0; i &lt; N; ++i)printf(&quot;%lld &quot;, F[i]);
+	puts(&quot;&quot;);
+	return 0;
+}
+</code></pre>
+<p>代码分析:没什么好说的,有一个很坑我的点,就是变量重名!</p>
+<p>比如我们再ln中递归这个inv用A数组,然后inv的辅助数组又用了A....</p>
+<p>其实解决方法就是多开两个数组,但是调试的时候可能很痛苦!</p>
+<p>注意求导和积分顺序?</p>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#%E5%A4%9A%E9%A1%B9%E5%BC%8F%E4%B9%98%E6%B3%95ntt">多项式乘法NTT</a></li>
+<li><a href="#%E6%A8%A1%E6%9D%BF%E5%88%86%E6%B2%BB-fft">【模板】分治 FFT</a>
+<ul>
+<li><a href="#cdqyeah">CDQ:Yeah!</a></li>
+</ul>
+</li>
+<li><a href="#%E6%A8%A1%E6%9D%BF%E5%A4%9A%E9%A1%B9%E5%BC%8F%E4%B9%98%E6%B3%95%E9%80%86">【模板】多项式乘法逆</a></li>
+<li><a href="#%E6%A8%A1%E6%9D%BF%E5%A4%9A%E9%A1%B9%E5%BC%8F%E5%AF%B9%E6%95%B0%E5%87%BD%E6%95%B0%E5%A4%9A%E9%A1%B9%E5%BC%8F-ln">【模板】多项式对数函数（多项式 ln）</a></li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/p4707-chong-fan-xian-shi/">
+              <h3 class="post-title">
+                P4707 重返现世
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
