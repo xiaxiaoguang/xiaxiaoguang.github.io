@@ -1,0 +1,473 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>P6125 [JSOI2009]有趣的游戏 &amp;&amp; P3706 [SDOI2017]硬币游戏 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1609912642929">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="P6125 [JSOI2009]有趣的游戏 &amp;&amp; P3706 [SDOI2017]硬币游戏 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="显然有用的状态只有那些在AC自动机上匹配的状态
+然后我们设fif_ifi​表示AC自动机上节点i经过期望次数
+转移考虑直接向下一个节点走过去即可
+根据这些边我们能建立nm个方程然后高斯消元
+注意我们一号点要钦定多1次经过次数!
+然后我们应该..." />
+    <meta name="keywords" content="高斯消元,生成函数,AC自动机,构造" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1609912642929" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              P6125 [JSOI2009]有趣的游戏 &amp;&amp; P3706 [SDOI2017]硬币游戏
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-01-06
+              </span>
+              <span>
+                8 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/1DE0UAhs8/" class="post-tag">
+                  # 高斯消元
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/-ZuT67jZd/" class="post-tag">
+                  # 生成函数
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/BaS68NENpD/" class="post-tag">
+                  # AC自动机
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/nuL1JOWcod/" class="post-tag">
+                  # 构造
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/45NBuzDIW489QBoVep5mcWgl6acD9A5en3zNyBMisFVit0TWoTtkO12IBc9AAouQu6o0.kqJg3xx0LbhwN0z8xkauBhHzNAKAAevu9MWCvM!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>显然有用的状态只有那些在AC自动机上匹配的状态</p>
+<p>然后我们设<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>f</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">f_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>表示AC自动机上节点i经过期望次数</p>
+<p>转移考虑直接向下一个节点走过去即可</p>
+<p>根据这些边我们能建立nm个方程然后高斯消元</p>
+<p>注意我们一号点要钦定多1次经过次数!</p>
+<p>然后我们应该还是可以用概率做的,但是昨天尝试了一下发现不太对啊</p>
+<p>应该是和状态转移冲突了....</p>
+<p>注意fail树上有end的节点不能向下走啊</p>
+<pre><code class="language-cpp">
+//AC 自动机暴力即可
+//如果要n^3我也不拦着你
+#include&lt;bits/stdc++.h&gt;
+#define db double
+using namespace std;
+const int MAXN = 400;
+const int MAXM = 400;
+int n, l, m, T;
+int p[MAXN], q[MAXN], ch[MAXM][MAXN], siz[MAXM], ed[MAXM];
+char s[MAXN];
+
+inline void ins(char *s, int x) {
+	int n = strlen(s);
+	int u = 0;
+ 	for(int i = 0; i &lt; n; ++i) {
+		int t = s[i] - 'A';
+		if(!ch[u][t])ch[u][t] = ++T;
+		u = ch[u][t]; 
+ 	}
+ 	siz[u] = 1;//这个是end节点呢!
+	ed[x] = u;
+	return ;
+}
+
+int que[MAXM], fail[MAXM];
+inline void init() {
+	int hd = 1, tl = 0;
+	for(int i = 0; i &lt; m; ++i) {
+		if(ch[0][i]) {
+			que[++tl] = ch[0][i];//这些节点直接指父亲??
+			fail[ch[0][i]] = 0;
+		}
+	}
+	while(hd &lt;= tl) {
+		int u = que[hd];
+		hd++;
+		siz[u] |= siz[fail[u]];
+		for(int i = 0; i &lt; m; ++i) {
+			if(ch[u][i]) {
+				fail[ch[u][i]] = ch[fail[u]][i];
+				que[++tl] = ch[u][i];
+			} else {
+				ch[u][i] = ch[fail[u]][i];
+			}
+		}
+	}
+ 	return ;
+}
+
+db a[MAXN][MAXN];
+
+inline void out() {
+	for(int u = 0; u &lt;= T; ++u) {
+		for(int j = 0; j &lt;= T + 1; ++j) {
+			printf(&quot;%.2lf &quot;, a[u][j]);
+		}
+		puts(&quot;&quot;);
+	}
+	puts(&quot;\n&quot;);
+}
+
+const db eps = 1e-10;
+inline void guass() {
+	for(int i = 0; i &lt;= T; ++i) {
+		int t = i + 1;
+		while(t &lt;= T &amp;&amp; fabs(a[t][i]) &lt;= fabs(a[i][i]))
+			++t;
+		if(t != i &amp;&amp; t &lt;= T) {
+			for(int j = 0; j &lt;= T + 1; ++j) {
+				swap(a[t][j], a[i][j]);
+			}
+		}
+		db kk = a[i][i];
+		for(int j = 0; j &lt;= T + 1; ++j)a[i][j] /= kk;
+		for(int j = 0; j &lt;= T; ++j) {
+			if(i == j)continue;
+			db kk = a[j][i];
+			for(int k = 0; k &lt;= T + 1; ++k) {
+				a[j][k] = a[j][k] - a[i][k] * kk;
+			}
+		}
+ 	}
+ 	return;
+}
+
+//建立方程吧?....
+inline void solve() {
+	//设立这个方程吧
+	a[0][T + 1] = 1;
+	for(int u = 0; u &lt;= T; ++u) {
+		a[u][u] += 1;
+		if(siz[u])continue;
+		for(int i = 0; i &lt; m; ++i) {
+			a[ch[u][i]][u] -= p[i] / (db)q[i];
+		}
+	}
+ 	guass();
+	for(int i = 1; i &lt;= n; ++i) {
+		printf(&quot;%.2lf\n&quot;, a[ed[i]][T + 1]);
+	}
+	return ;
+}
+
+int main() {
+	scanf(&quot;%d%d%d&quot;, &amp;n, &amp;l, &amp;m);
+	for(int i = 0; i &lt; m; ++i) {
+		scanf(&quot;%d%d&quot;, &amp;p[i], &amp;q[i]);
+	}
+	for(int i = 1; i &lt;= n; ++i) {
+		scanf(&quot;%s&quot;, s);
+		ins(s, i);
+	}
+	init();
+	solve();
+	return 0;
+}
+
+</code></pre>
+<p>关于fail树上传标记一事:</p>
+<p>对于u,v两个点,u-&gt;v,所以我们v不一定有u的fail上信息,因为我们一旦走到v,就一定走过了u,已经有了u的信息</p>
+<ol>
+<li>直接从根走到v</li>
+</ol>
+<p>那显然经过了u</p>
+<ol start="2">
+<li>走fail跳到了v</li>
+</ol>
+<p>你会发现这样一定存在一个节点的fail指向u,而你走过了那个节点!</p>
+<p>举例:</p>
+<p>abcdefghijk</p>
+<p>e~h -&gt;v</p>
+<p>e~f -&gt; u</p>
+<p>a~h -&gt; v'</p>
+<p>a~f -&gt; u'</p>
+<p>v'有fail指向v,u'有fail直到u</p>
+<p>但是如果你走到v'所以一定会经过这个u',而u'得到了u的信息!!</p>
+<p>P3706 [SDOI2017]硬币游戏</p>
+<p>这道题的题解在生成函数进阶里面有,不过我单独分一栏出来吧!</p>
+<p>注意!!double虽然很容易爆精度,但是有效数字有14位,所以是没事情的</p>
+<p>而且一定要写:用绝对值最大的主元来消的写法,否则就会自闭,你eps写个1e-300?</p>
+<figure data-type="image" tabindex="1"><img src="https://xiaxiaoguang.github.io/post-images/1609899458260.png" alt="" loading="lazy"></figure>
+<pre><code class="language-cpp">
+#include&lt;bits/stdc++.h&gt;
+#define ll long long
+#define db double
+using namespace std;
+const int MAXN = 400;
+const ll bas = 12345;
+const int P = 998244353;
+
+db a[MAXN][MAXN];
+long db inv[MAXN];
+int n, m, b[MAXN][MAXN];
+char s[MAXN];
+ll hsh[MAXN][MAXN], hsh2[MAXN][MAXN], B[MAXN];
+
+inline void init() {
+	B[0] = 1;
+	for(int i = 1; i &lt;= m; ++i)B[i] = B[i - 1] * bas % P;
+	for(int i = 1; i &lt;= n; ++i) {
+		for(int j = 1; j &lt;= m; ++j) {
+			hsh[i][j] = hsh[i][j - 1] * bas % P + b[i][j];
+			hsh[i][j] %= P;
+			// printf(&quot;%d %d %lld\n&quot;, i, j, hsh[i][j]);
+		}
+	}
+	for(int i = 1; i &lt;= n; ++i) {
+		for(int j = m; j &gt;= 1; --j) {
+			hsh2[i][j] = hsh2[i][j + 1] + b[i][j] * B[m - j] % P;
+			hsh2[i][j] %= P;
+			// printf(&quot;%d %d %lld\n&quot;, i, j, hsh2[i][j]);
+		}
+	}
+	inv[0] = 1;
+	for(int i = 1; i &lt;= m; ++i) {
+		inv[i] = inv[i - 1] * 0.5;
+	}
+	return;
+}
+
+inline void out(int n) {
+	for(int i = 1; i &lt;= n; ++i) {
+		for(int j = 1; j &lt;= n + 1; ++j) {
+			printf(&quot;%.6lf &quot;, a[i][j]);
+		}
+		puts(&quot;&quot;);
+	}
+	return;
+}
+
+inline void guass(int n) {
+	for(int i = 1; i &lt;= n; ++i) {
+		int t = i + 1;
+		while(t &lt;= n &amp;&amp; fabs(a[t][i]) &lt;= fabs(a[i][i]))++t;
+		if(t &lt;= n) {
+			for(int j = 1; j &lt;= n + 1; ++j)swap(a[t][j], a[i][j]);
+		}
+		db kk = a[i][i];
+		for(int j = 1; j &lt;= n + 1; ++j)a[i][j] /= kk;
+		for(int j = 1; j &lt;= n; ++j) {
+			if(j == i)continue;
+			db kk = a[j][i];
+			for(int k = 1; k &lt;= n + 1; ++k) {
+				a[j][k] -= a[i][k] * kk;
+			}
+		}
+	}
+	// out(n);
+	return ;
+}
+
+inline void solve() {
+	for(int i = 1; i &lt;= n; ++i) {
+		for(int j = 1; j &lt;= n; ++j) {
+			// if(i != j)
+			for(int k = 1; k &lt;= m; ++k) {
+				if(hsh[i][k] == hsh2[j][m - k + 1]) {
+					a[i][j] += inv[m - k];
+				}
+			}
+		}
+		// a[i][i] = 1;
+		a[i][n + 1] = -inv[m];
+	}
+	for(int i = 1; i &lt;= n; ++i)a[n + 1][i] = 1;
+	a[n + 1][n + 2] = 1;
+	// out(n + 1);
+	guass(n + 1);
+	for(int i = 1; i &lt;= n; ++i)printf(&quot;%.9lf\n&quot;, a[i][n + 2]);
+	return ;
+}
+
+int main() {
+	scanf(&quot;%d%d&quot;, &amp;n, &amp;m);
+	for(int i = 1; i &lt;= n; ++i) {
+		scanf(&quot;%s&quot;, s);
+		for(int j = 0; j &lt; m; ++j) {
+			b[i][j + 1] = s[j] - '0';
+		}
+	}
+	init();
+	solve();
+	return 0;
+}
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/duo-xiang-shi-ban-jia-tong/">
+              <h3 class="post-title">
+                多项式半家桶
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
