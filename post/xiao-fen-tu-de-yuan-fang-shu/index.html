@@ -1,0 +1,291 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>小粉兔的圆方树 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1610205857432">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="小粉兔的圆方树 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="圆方树基础入门讲解
+圆方树是解决仙人掌问题的利器!
+
+点双连通分量:任意两点间都至少有两条点不重复的路径的极大子图
+
+这个不重复既指简单路径,也指两点间其他路径
+这个定义基本等价于没有割点的图,当且仅当两个点一条边的时候失效
+和边双连通分量..." />
+    <meta name="keywords" content="圆方树" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1610205857432" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              小粉兔的圆方树
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-01-07
+              </span>
+              <span>
+                4 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/lCjVq_LAM/" class="post-tag">
+                  # 圆方树
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/45NBuzDIW489QBoVep5mcWgl6acD9A5en3zNyBMisFUfR6gXnC.uhL7SGiJB9g.Hg8IghBgMS*gZRAX9P9NEVqyZoY2F0qkAQ28beQuvGT4!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>圆方树基础入门讲解</p>
+<p>圆方树是解决仙人掌问题的利器!</p>
+<blockquote>
+<p>点双连通分量:任意两点间都至少有两条点不重复的路径的极大子图</p>
+</blockquote>
+<p>这个不重复既指简单路径,也指两点间其他路径</p>
+<p>这个定义基本等价于没有割点的图,当且仅当两个点一条边的时候失效</p>
+<p>和边双连通分量正好相反的是,每个边只能属于一个点双,但是每个点可能属于多个(割点)</p>
+<p>在圆方树中,每个方点代表一个原图点双分量,一个原点是一个正常的点qwq</p>
+<p>每个点双对应的方点向这个点双的每个点连边qwq</p>
+<p>这样每个点双形成一个&quot;菊花图&quot;</p>
+<figure data-type="image" tabindex="1"><img src="https://xiaxiaoguang.github.io/post-images/1610030805427.png" alt="" loading="lazy"></figure>
+<p>圆方树的点数小于2n,所以数组要开4倍</p>
+<p>同时注意可能形成森林,即原图不连通</p>
+<p>引入tarjan算法,就是求强联通分量的写法:定义<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><mi>f</mi><msub><mi>n</mi><mi>x</mi></msub></mrow><annotation encoding="application/x-tex">dfn_x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">x</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>为xdfs序,<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi><mi>o</mi><msub><mi>w</mi><mi>u</mi></msub></mrow><annotation encoding="application/x-tex">low_u</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.02691em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">u</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>为u走至多一条返祖边或横跨边能够到达的最小dfn序</p>
+<p>我们考虑在一个点双的深度最浅处确定整个点双,假设那个点是u</p>
+<p>那么对于v为u的儿子,且刚好是走树边到达的,一定都有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi><mi>o</mi><msub><mi>w</mi><mi>v</mi></msub><mo>=</mo><mo>=</mo><mi>d</mi><mi>f</mi><msub><mi>n</mi><mi>u</mi></msub></mrow><annotation encoding="application/x-tex">low_v==dfn_u</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.02691em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">v</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">u</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></p>
+<p>否则v就能走树边/返祖边到达更浅的节点,与u的定义冲突</p>
+<p>找到这个点双后,我们像缩点一样不断的弹出栈直到点u,来得到整个点双的信息</p>
+<p>同时建立一个方点,把他和点双连边即可</p>
+<p>方点编号从n+1开始,这样更为方便</p>
+<p>code:</p>
+<pre><code class="language-cpp">#include &lt;cstdio&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+
+const int MN = 100005;
+
+int N, M, cnt;
+std::vector&lt;int&gt; G[MN], T[MN * 2];
+
+int dfn[MN], low[MN], dfc;
+int stk[MN], tp;
+
+void Tarjan(int u) {
+    printf(&quot;  Enter : #%d\n&quot;, u);
+    low[u] = dfn[u] = ++dfc; // low 初始化为当前节点 dfn
+    stk[++tp] = u; // 加入栈中
+    for (auto v : G[u]) { // 遍历 u 的相邻节点
+        if (!dfn[v]) { // 如果未访问过
+            Tarjan(v); // 递归
+            low[u] = std::min(low[u], low[v]); // 未访问的和 low 取 min
+            if (low[v] == dfn[u]) { // 标志着找到一个以 u 为根的点双连通分量
+                ++cnt; // 增加方点个数
+                printf(&quot;  Found a New BCC #%d.\n&quot;, cnt - N);
+                // 将点双中除了 u 的点退栈，并在圆方树中连边
+                for (int x = 0; x != v; --tp) {
+                    x = stk[tp];
+                    T[cnt].push_back(x);
+                    T[x].push_back(cnt);
+                    printf(&quot;    BCC #%d has vertex #%d\n&quot;, cnt - N, x);
+                }
+                // 注意 u 自身也要连边（但不退栈）
+                T[cnt].push_back(u);
+                T[u].push_back(cnt);
+                printf(&quot;    BCC #%d has vertex #%d\n&quot;, cnt - N, u);
+            }
+        }
+        else low[u] = std::min(low[u], dfn[v]); // 已访问的和 dfn 取 min
+    }
+    printf(&quot;  Exit : #%d : low = %d\n&quot;, u, low[u]);
+    printf(&quot;  Stack:\n    &quot;);
+    for (int i = 1; i &lt;= tp; ++i) printf(&quot;%d, &quot;, stk[i]);
+    puts(&quot;&quot;);
+}
+
+int main() {
+    scanf(&quot;%d%d&quot;, &amp;N, &amp;M);
+    cnt = N; // 点双 / 方点标号从 N 开始
+    for (int i = 1; i &lt;= M; ++i) {
+        int u, v;
+        scanf(&quot;%d%d&quot;, &amp;u, &amp;v);
+        G[u].push_back(v); // 加双向边
+        G[v].push_back(u);
+    }
+    // 处理非连通图
+    for (int u = 1; u &lt;= N; ++u)
+        if (!dfn[u]) Tarjan(u), --tp;
+        // 注意到退出 Tarjan 时栈中还有一个元素即根，将其退栈
+    return 0;
+}
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/ytez-sheng-dui-ji-xun-er-lun-jiang-ke-nei-rong/">
+              <h3 class="post-title">
+                ytez省队集训讲课篇二轮
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
