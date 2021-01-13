@@ -1,0 +1,741 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>补题大赛! | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1610549815675">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="补题大赛! | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="&quot;现在就是把之前欠下的债还清的时刻了!&quot;
+loveJY:QAQ
+题解已经很详细了所以我们以存放代码为主
+P3239 [HNOI2015]亚瑟王
+坑点:清空ans,以及注意这个i和r取min
+#include&lt;bit..." />
+    <meta name="keywords" content="题目集合" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1610549815675" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              补题大赛!
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-01-13
+              </span>
+              <span>
+                17 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/ptq-n3C75J/" class="post-tag">
+                  # 题目集合
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://photo.store.qq.com/psc?/V13b3duC210Fox/45NBuzDIW489QBoVep5mcTunXyYPXBu4AZkNPKXkdOivEoA9VaHtqIRLYvxnKdJN2jshswW*npEkCTESOGvEhlO9*xIm5uyPRMxpcklG0T8!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>&quot;现在就是把之前欠下的债还清的时刻了!&quot;</p>
+<p>loveJY:QAQ</p>
+<p>题解已经很详细了所以我们以存放代码为主</p>
+<h2 id="p3239-hnoi2015亚瑟王">P3239 [HNOI2015]亚瑟王</h2>
+<p>坑点:清空ans,以及注意这个i和r取min</p>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+#define db double
+using namespace std;
+const int MAXN = 500;
+
+int T, n, r;
+int d[MAXN];
+db f[MAXN][MAXN], ans, p[MAXN];
+
+inline db ksm(db x, int y) {
+	db ans = 1;
+	while(y) {
+		if(y &amp; 1)ans = ans * x;
+		x = x * x;
+		y &gt;&gt;= 1;
+	}
+	return ans;
+}
+
+int main() {
+	scanf(&quot;%d&quot;, &amp;T);
+	while(T-- &gt; 0) {
+		scanf(&quot;%d%d&quot;, &amp;n, &amp;r);
+		for(int i = 1; i &lt;= n; ++i)scanf(&quot;%lf%d&quot;, &amp;p[i], &amp;d[i]);
+		f[0][0] = 1;
+		for(int i = 1; i &lt;= n; ++i) {
+			for(int j = 0; j &lt;= min(i, r); ++j) {
+				if(j)
+					f[i][j] += f[i - 1][j - 1] * (1 - ksm(1 - p[i], r - j + 1));
+				f[i][j] += f[i - 1][j] * ksm(1 - p[i], r - j);
+			}
+		}
+		ans = 0;
+		for(int i = 1; i &lt;= n; ++i) {
+			for(int j = 0; j &lt; min(i, r); ++j) {
+				ans += f[i - 1][j] * (1 - (ksm(1 - p[i], r - j))) * d[i];
+			}
+		}
+		printf(&quot;%.8lf\n&quot;, ans);
+		memset(f, 0, sizeof(f));
+	}
+	return 0;
+}
+</code></pre>
+<h2 id="p5516-mtoi2019小铃的烦恼">P5516 [MtOI2019]小铃的烦恼</h2>
+<p>其实题解代码都很短,我手写线性高消被教训了QAQ</p>
+<ol>
+<li>注意高消还是要交换那些0项的,i个i+1交换,比较fabs啊</li>
+<li>回代和消元的时候都要特判n+1项要不要额外搞</li>
+</ol>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+using namespace std;
+#define db double
+const int MAXN = 2e3 + 7;
+const db eps = 1e-9;
+
+char s[MAXN];
+int a[MAXN], n;
+db f[MAXN][MAXN];
+
+//线性高消
+//i消掉i+1,可以得到第n项
+//回代的时候,i+1回代i即可!!
+inline void out() {
+	for(int i = 1; i &lt;= n; ++i) {
+		for(int j = 1; j &lt;= n + 1; ++j) {
+			printf(&quot;%.4lf &quot;, f[i][j]);
+		}
+		puts(&quot;&quot;);
+	}
+}
+inline void guass() {
+	for(int i = 1; i &lt; n; ++i) {
+		if(fabs(f[i][i]) &lt; fabs(f[i + 1][i])) {
+			for(int j = i - 1; j &lt;= i + 2; ++j)swap(f[i][j], f[i + 1][j]);
+			if(i != n - 1)swap(f[i + 1][n + 1], f[i][n + 1]);
+		}
+		db kk = f[i][i];
+		assert(fabs(kk) &gt;= eps);
+		for(int j = i - 1; j &lt;= i + 1; ++j)f[i][j] /= kk;
+		f[i][n + 1] /= kk;
+		kk = f[i + 1][i];
+		for(int j = i; j &lt;= i + 2; ++j)f[i + 1][j] -= kk * f[i][j];
+		if(i != n - 1)f[i + 1][n + 1] -= kk * f[i][n + 1];
+	}
+	//得到一个没有回代的矩阵
+	for(int i = n; i &gt;= 2; --i) {
+		db kk = f[i][i];
+		for(int j = i - 1; j &lt;= i + 1; ++j)f[i][j] /= kk;
+		if(i != n)f[i][n + 1] /= kk;
+		kk = f[i - 1][i];
+		for(int j = i; j &gt;= i - 2; --j)f[i - 1][j] -= kk * f[i][j];
+		f[i - 1][n + 1] -= kk * f[i][n + 1];
+	}
+	return ;
+}
+
+inline void init() {
+	f[1][1] = -1;
+	f[1][n + 1] = -0.5 * n;
+	f[1][2] = 1;
+	for(int i = 2; i &lt; n; ++i) {
+		f[i][i] = -1;
+		f[i][i - 1] = (i - 1) / ((db)2 * i);
+		f[i][i + 1] = (i + 1) / ((db)2 * i);
+		f[i][n + 1] = -1 * n * (n - 1) / (db)(2 * i * (n - i));
+	}
+	f[n][n] = 1;
+	f[n][n + 1] = 0;
+	return ;
+}
+
+inline void solve() {
+	db ans = 0;
+	for(int i = 0; i &lt; 26; ++i)ans += f[a[i]][n + 1] * a[i] / n;
+	printf(&quot;%.1lf\n&quot;, ans);
+	return ;
+}
+
+int main() {
+	scanf(&quot;%s&quot;, s);
+	n = strlen(s);
+	for(int i = 0; i &lt; n; ++i)a[s[i] - 'A']++;
+	init();
+	guass();
+	solve();
+	return 0;
+}
+</code></pre>
+<h2 id="p7245-灯光效果">P7245 灯光效果</h2>
+<p>因为dy的下标写成iWA了几发</p>
+<p>小心m不是longlong</p>
+<pre><code class="language-cpp">//终于取模了
+#include&lt;bits/stdc++.h&gt;
+#define ll long long
+using namespace std;
+const int MAXN = 2e6 + 7;
+const ll P = 998244353;
+const ll inv2 = (P + 1) / 2;
+int n, m, k;
+int dx[MAXN], dy[MAXN];
+inline ll ksm(ll x, ll y) {
+	ll ans = 1;
+	while(y) {
+		if(y &amp; 1)ans = ans * x % P;
+		x = x * x % P;
+		y &gt;&gt;= 1;
+	}
+	return ans;
+}
+inline void add(ll &amp;x, ll y) {
+	x += y;
+	if(x &gt;= P)x -= P;
+}
+
+int main() {
+	scanf(&quot;%d%d%d&quot;, &amp;n, &amp;m, &amp;k);
+	for(int i = 1; i &lt;= m; ++i)scanf(&quot;%d&quot;, &amp;dx[i]);
+	for(int i = 1; i &lt;= m; ++i)scanf(&quot;%d&quot;, &amp;dy[i]);
+	ll ans = (1ll * m * (m - 1) % P * inv2 % P);
+	ll Pm = ksm(ans * ans % P, P - 2);
+	ans = 0;
+	for(int i = 1; i &lt; m; ++i) {
+		for(int j = 1; j &lt; m; ++j) {
+			ll qwq = 1ll * i * (m - i) % P * j % P * (m - j) % P * Pm % P;
+			ll qaq = (inv2 - ksm((1 - 2 * qwq % P + P) % P, k) * inv2 % P + P) % P;
+			add(ans, qaq * (1ll * dx[i + 1] - dx[i]) % P * (1ll * dy[j + 1] - dy[j]) % P);
+		}
+	}
+	printf(&quot;%lld\n&quot;, ans);
+	return 0;
+}
+</code></pre>
+<h2 id="p5405-cts2019氪金手游">P5405 [CTS2019]氪金手游</h2>
+<p>毒瘤啊!</p>
+<p>其实并不难调,因为我抄的题解qwq</p>
+<p>细节小心自然溢出,这个a可能很大QAQ</p>
+<p>然后就是这个背包卷积要*3</p>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+#define ll long long
+using namespace std;
+const int P = 998244353;
+const int MAXN = 4e3 + 7;
+int n, ccnt;
+int a[MAXN][4], siz[MAXN];
+ll f[MAXN][MAXN], ans, inv[MAXN], t[MAXN];
+int home[MAXN], nxt[MAXN], to[MAXN], w[MAXN];
+inline void add(ll &amp;x, ll y) {
+	x += y;
+	if(x &gt;= P)x -= P;
+}
+inline void ct(int x, int y, int z) {
+	ccnt++;
+	nxt[ccnt] = home[x];
+	home[x] = ccnt;
+	to[ccnt] = y;
+	w[ccnt] = z;
+}
+inline ll ksm (ll x, ll y) {
+	ll ans = 1;
+	while(y) {
+		if(y &amp; 1)ans = ans * x % P;
+		x = x * x % P;
+		y &gt;&gt;= 1;
+	}
+	return ans;
+}
+//这里容斥
+//相当于枚举那些边至少是反向的
+//至少没有是正向边
+//那么考虑一个正向边,我们系数就要乘-1
+//然后考虑不选,随意,我们没有关系啊,没有
+//记录子树和,进行转移即可QAQ
+//注意我们的容斥式子是
+//\sum_{S \in T}(-1)^{|S|}\frac{p}{sum}
+//p是概率,sum是权值和Qaq
+//求出方案数*权值即可
+inline void dfs(int u, int F) {
+	f[u][1] = 1ll * a[u][0] * a[u][3] % P; //显然qaq
+	f[u][2] = 1ll * a[u][1] * a[u][3] % P * 2 % P;
+	f[u][3] = 1ll * a[u][2] * a[u][3] % P * 3 % P;
+	siz[u] = 1;
+	for(int i = home[u]; i; i = nxt[i]) {
+		int v = to[i];
+		if(v == F)continue;
+		dfs(v, u);
+		for(int q = 1; q &lt;= siz[u] * 3; ++q) {
+			for(int p = 1; p &lt;= siz[v] * 3; ++p) {
+				if(!w[i]) {
+					add(t[p + q], P - f[u][q] * f[v][p] % P);
+					add(t[q], f[u][q] * f[v][p] % P);
+				} else {
+					add(t[p + q], f[u][q] * f[v][p] % P);
+				}
+			}
+		}
+		siz[u] += siz[v];
+		for(int p = 1; p &lt;= 3 * siz[u]; ++p) {
+			f[u][p] = t[p];
+			t[p] = 0;
+		}
+	}
+	for(int i = 1; i &lt;= siz[u] * 3; ++i) {
+		f[u][i] = 1ll * f[u][i] * inv[i] % P;
+	}
+	return ;
+}
+ll fac[MAXN], ifac[MAXN];
+inline void init() {
+	int N = 4 * n;
+	fac[0] = 1;
+	for(int i = 1; i &lt;= N; ++i)fac[i] = fac[i - 1] * i % P;
+	ifac[N] = ksm(fac[N], P - 2);
+	for(int i = N - 1; i &gt;= 1; --i)ifac[i] = ifac[i + 1] * (i + 1) % P;
+	ifac[0] = 1;
+	for(int i = 1; i &lt;= N; ++i)inv[i] = ifac[i] * fac[i - 1] % P;
+}
+int main() {
+	scanf(&quot;%d&quot;, &amp;n);
+	for(int i = 1; i &lt;= n; ++i)scanf(&quot;%d%d%d&quot;, &amp;a[i][0], &amp;a[i][1], &amp;a[i][2]), a[i][3] = ksm(a[i][1] + a[i][0] + a[i][2], P - 2);
+	for(int i = 1, x, y; i &lt; n; ++i)scanf(&quot;%d%d&quot;, &amp;x, &amp;y), ct(x, y, 1), ct(y, x, 0); //x在y前面QAQ
+	init();
+	dfs(1, 0);
+	for(int i = 1; i &lt;= 3 * n; ++i)add(ans, f[1][i]);
+	printf(&quot;%lld\n&quot;, ans);
+	return 0;
+}
+/*
+3
+0 0 1
+0 1 0
+1 0 0
+1 2
+3 2
+*/
+</code></pre>
+<h2 id="cf961g-partitions">CF961G Partitions</h2>
+<p>一开始zhq的式子是错的,害了我/kk</p>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+#define ll long long
+using namespace std;
+const int MAXN = 4e5 + 7;
+const int P = 1e9 + 7;
+int n, K;
+int w[MAXN];
+ll fac[MAXN], ifac[MAXN];
+inline ll ksm(ll x, ll y) {
+	ll ans = 1;
+	while(y) {
+		if(y &amp; 1)ans = ans * x % P;
+		x = x * x % P;
+		y &gt;&gt;= 1;
+	}
+	return ans;
+}
+inline void add(ll &amp;x, ll y) {
+	x += y;
+	if(x &gt;= P)x -= P;
+}
+inline void init() {
+	fac[0] = ifac[0] = 1;
+	for(int i = 1; i &lt;= K; ++i)fac[i] = fac[i - 1] * i % P;
+	ifac[K] = ksm(fac[K], P - 2);
+	for(int i = K - 1; i &gt;= 1; --i)ifac[i] = ifac[i + 1] * (i + 1) % P;
+}
+int main() {
+	scanf(&quot;%d%d&quot;, &amp;n, &amp;K);
+	for(int i = 1; i &lt;= n; ++i)scanf(&quot;%d&quot;, &amp;w[i]);
+	if(n == 1) {
+		printf(&quot;%d\n&quot;, w[1]);
+		return 0;
+	}
+	init();
+	ll ans = 0;
+	for(int i = 0; i &lt;= K - 1; ++i) {
+		ll tmp = (n - 1) * ksm(K - i, n - 2) % P + ksm(K - i, n - 1);
+		tmp %= P;
+		if(i &amp; 1)add(ans, P - ifac[i] * ifac[K - i - 1] % P * tmp % P);
+		else add(ans, ifac[i] * ifac[K - i - 1] % P * tmp % P);
+	}
+	ll qwq = ans;
+	ans = 0;
+	for(int i = 1; i &lt;= n; ++i)add(ans, qwq * w[i] % P);
+	printf(&quot;%lld\n&quot;, ans);
+	return 0;
+}
+</code></pre>
+<h2 id="p3886-jloi2009神秘的生物">P3886 [JLOI2009]神秘的生物</h2>
+<p>头插DP之最小表示法</p>
+<p><s>调出来纯靠运气</s></p>
+<p>有两个锅,第一个是home数组开小了</p>
+<p>第二个是upd写错了,把都是0也算进去了</p>
+<p>第三个是trs2函数调用vis后没有清空</p>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+#define pii pair&lt;int,int&gt;
+#define se second
+#define fi first
+using namespace std;
+const int MAXN = 11;//qwq???
+const int MAXS = (1 &lt;&lt; 21);
+const int P = 19260817;
+//总状态数2^27=134217728 /xyx
+int n, a[MAXN][MAXN], ccnt, cnt, tot, vis[MAXN], bits[MAXN], ans;
+pii que[MAXS], rc[MAXS];
+int home[P], to[MAXS], nxt[MAXS], w[MAXS];
+//插头dp啊
+//用个hash存一下,懒得写的麻烦了?...qaq
+inline void ct(int x, int y, int z) {
+	ccnt++;
+	assert(ccnt &lt;= MAXS);
+	nxt[ccnt] = home[x];
+	home[x] = ccnt;
+	to[ccnt] = y;
+	w[ccnt] = z;
+	que[++tot].fi = ccnt;//记下来了,这条边!
+	que[tot].se = x;
+}
+inline void ins(int sta, int x) {
+	int u = sta % P;
+	for(int i = home[u]; i; i = nxt[i]) {
+		int v = to[i];
+		if(v == sta) {
+			w[i] = max(x, w[i]);
+			return;
+		}
+	}
+	ct(u, sta, x);
+	return;
+}
+
+inline void initH() {
+	cnt = tot;
+	ccnt = 0;
+	for(int i = 1; i &lt;= tot; ++i) {
+		home[que[i].se] = 0;
+		rc[i].fi = to[que[i].fi];
+		rc[i].se = w[que[i].fi];
+	}//我们无需清空这些的信息啊!
+	tot = 0;
+	return ;
+}
+
+//新建颜色转移
+inline void trs2(int sta, int j, int v) {
+	for(int i = 0; i &lt; n; ++i) {
+		vis[(sta &gt;&gt; bits[i] &amp; 7)]++;
+	}
+	int gt = 0;
+	for(int i = 1; i &lt; 8; ++i)
+		if(!vis[i]) {
+			gt = i;
+			break;
+		}
+	for(int i = 0; i &lt;= 8; ++i)vis[i] = 0;
+	ins(sta ^ (gt &lt;&lt; bits[j - 1]), v);
+	return ;
+}
+
+//合并颜色转移
+inline void trs3(int sta, int j, int v) {
+	int qwq = sta &gt;&gt; bits[j - 1] &amp; 7;
+	int qaq = sta &gt;&gt; bits[j - 2] &amp; 7;
+	for(int i = 0; i &lt; n; ++i) {
+		if((sta &gt;&gt; bits[i] &amp; 7) == min(qwq, qaq)) {
+			sta ^= (((sta &gt;&gt; bits[i] &amp; 7)^max(qwq, qaq)) &lt;&lt; bits[i]);
+		}
+	}
+	ins(sta, v);
+	return;
+}
+
+//上向下转移
+inline void trs1(int sta, int i, int j, int val, int opt) {
+	int QAQ = 0, qwq = sta &gt;&gt; bits[j - 1] &amp; 7;
+	for(int i = 0; i &lt; n; ++i) {
+		if((sta &gt;&gt; bits[i] &amp; 7) == qwq)++QAQ;
+	}
+	if(opt == 1) {//选?
+		ins(sta, val + a[i][j]);
+	} else {
+		if(QAQ &lt;= 1)return ;//不合法转移
+		ins(sta ^ (qwq &lt;&lt; bits[j - 1]), val);
+	}
+	return;
+}
+
+inline void upd(int sta, int v) {
+	for(int i = 0; i &lt; n; ++i) {
+		vis[(sta &gt;&gt; bits[i] &amp; 7)]++;
+	}
+	int QAQ = 0;
+	for(int i = 1; i &lt; 8; ++i)
+		if(vis[i]) {
+			QAQ++;
+			vis[i] = 0;
+		}
+	if(QAQ != 1)return ;//必须要有啊
+	ans = max(ans, v);
+}
+
+inline void touchadp() {
+	//0表示未连通
+	//然后有1,2,3,4,5种颜色
+	ins(0, 0); //插入一个0,0
+	for(int i = 1; i &lt;= n; ++i) {
+		for(int j = 1; j &lt;= n; ++j) {
+			initH();
+			for(int k = 1; k &lt;= cnt; ++k) {
+				int sta = rc[k].fi;
+				int val = rc[k].se;
+				int upu = (sta &gt;&gt; bits[j - 1] &amp; 7);
+				if(j == 1) {
+					if(upu) {
+						trs1(sta, i, j, val, 1); //第一类转移,上面的颜色单独传下来,包括选和不选!!
+						trs1(sta, i, j, val, 0);
+					} else {
+						trs2(sta, j, val + a[i][j]); //新开颜色
+						ins(sta, val);//不开颜色
+					}
+					continue;
+				}
+				int upl = (sta &gt;&gt; bits[j - 2] &amp; 7);
+				if(upu &amp;&amp; upl) {//都有颜色
+					if(upu != upl) {
+						trs3(sta, j, val + a[i][j]);//颜色合并
+						trs1(sta, i, j, val, 0);//不选
+					} else {//颜色相同
+						ins(sta, val + a[i][j]);//选!
+						ins(sta ^ (upu &lt;&lt; bits[j - 1]), val);//不选!!
+					}
+				} else if(upl) {
+					ins(sta ^ (upl &lt;&lt; bits[j - 1]), val + a[i][j]);//只有左边有颜色,焊接
+					ins(sta, val);//放弃
+				} else if(upu) {//只有上方有颜色
+					trs1(sta, i, j, val, 1);//选
+					trs1(sta, i, j, val, 0);//不选
+				} else {//都 没 有 颜 色
+					trs2(sta, j, val + a[i][j]);//新开颜色
+					ins(sta, val);//不要了
+				}
+				upd(sta, val); //更新答案
+			}
+		}
+	}
+	initH();
+	for(int k = 1; k &lt;= cnt; ++k) {
+		upd(rc[k].fi, rc[k].se);
+	}
+	//答案怎么统计啊QAQ
+	//相当于只有一个颜色的statue,他们已经连通了,然后算个答案就好了
+	printf(&quot;%d\n&quot;, ans);
+	return ;
+}
+inline int tp() {
+	ans = -1e9;
+	for(int i = 1; i &lt;= n; ++i) {
+		for(int j = 1; j &lt;= n; ++j) {
+			if(a[i][j] &gt; 0)return 0;
+			ans = max(ans, a[i][j]);
+		}
+	}
+	printf(&quot;%d\n&quot;, ans);
+	return 1;
+}
+int main() {
+	scanf(&quot;%d&quot;, &amp;n);
+	for(int i = 1; i &lt;= n; ++i) {
+		for(int j = 1; j &lt;= n; ++j) {
+			scanf(&quot;%d&quot;, &amp;a[i][j]);
+		}
+	}
+	if(tp())return 0;
+	for(int i = 0; i &lt; n; ++i)bits[i] = i * 3;
+	touchadp();
+	return 0;
+}
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#p3239-hnoi2015%E4%BA%9A%E7%91%9F%E7%8E%8B">P3239 [HNOI2015]亚瑟王</a></li>
+<li><a href="#p5516-mtoi2019%E5%B0%8F%E9%93%83%E7%9A%84%E7%83%A6%E6%81%BC">P5516 [MtOI2019]小铃的烦恼</a></li>
+<li><a href="#p7245-%E7%81%AF%E5%85%89%E6%95%88%E6%9E%9C">P7245 灯光效果</a></li>
+<li><a href="#p5405-cts2019%E6%B0%AA%E9%87%91%E6%89%8B%E6%B8%B8">P5405 [CTS2019]氪金手游</a></li>
+<li><a href="#cf961g-partitions">CF961G Partitions</a></li>
+<li><a href="#p3886-jloi2009%E7%A5%9E%E7%A7%98%E7%9A%84%E7%94%9F%E7%89%A9">P3886 [JLOI2009]神秘的生物</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/lei-mu-de-dong-tai-gui-hua/">
+              <h3 class="post-title">
+                雷姆的动态规划!
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
