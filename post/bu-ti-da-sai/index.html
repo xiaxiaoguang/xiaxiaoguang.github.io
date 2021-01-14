@@ -3,7 +3,7 @@
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>补题大赛! | 夏晓光(loveJY)的博客</title>
-<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1610611329058">
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1610630402719">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
 <link rel="alternate" type="application/atom+xml" title="补题大赛! | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
@@ -26,7 +26,7 @@ P3239 [HNOI2015]亚瑟王
       <div class="main-content">
         <div class="site-header">
   <a href="https://xiaxiaoguang.github.io">
-  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1610611329058" alt="">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1610630402719" alt="">
   </a>
   <h1 class="site-title">
     夏晓光(loveJY)的博客
@@ -92,7 +92,7 @@ P3239 [HNOI2015]亚瑟王
                 2021-01-13
               </span>
               <span>
-                17 min read
+                26 min read
               </span>
               
                 <a href="https://xiaxiaoguang.github.io/tag/ptq-n3C75J/" class="post-tag">
@@ -627,6 +627,296 @@ int main() {
 	return 0;
 }
 </code></pre>
+<h2 id="cf1327f-and-segments">CF1327F AND Segments</h2>
+<p>早该写了QAQ</p>
+<pre><code class="language-cpp">//简单动态规划????QAQAQ
+#include&lt;bits/stdc++.h&gt;
+#define ll long long
+using namespace std;
+const int MAXN = 1e6 + 7;
+const int P = 998244353;
+ll ans;
+int n, k, m;
+int lx[MAXN], rx[MAXN], vx[MAXN];
+int f[MAXN], vis[MAXN], lim[MAXN];
+inline void add(int &amp;x, int y) {
+	x += y;
+	if(x &gt;= P)x -= P;
+}
+inline int solve(int x) {
+	for(int i = 1; i &lt;= m; ++i) {
+		if(vx[i] &gt;&gt; x &amp; 1) {
+			vis[lx[i]]++;
+			vis[rx[i] + 1]--;
+			continue;
+		}
+		lim[rx[i]] = max(lx[i], lim[rx[i]]);
+		//至少有0
+	}
+	for(int i = 1; i &lt;= n; ++i)
+		vis[i] += vis[i - 1];
+	int p = 0;//0号放了可爱的点
+	f[0] = 1;
+	int sum = 1;//可爱全局和
+	for(int i = 1; i &lt;= n; ++i) {
+		f[i] = 0;
+		if(vis[i])
+			f[i] = 0;
+		else {
+			f[i] = sum;
+			add(sum, f[i]);
+		}
+		vis[i] = 0;
+		while(p &lt; lim[i]) {
+			add(sum, P - f[p]);
+			++p;
+		}
+	}
+	for(int i = 1; i &lt;= n; ++i)lim[i] = 0;
+	//考虑我们最后答案是什么呢?
+	return sum;
+}
+
+int main() {
+	scanf(&quot;%d%d%d&quot;, &amp;n, &amp;k, &amp;m);
+	for(int i = 1; i &lt;= m; ++i)scanf(&quot;%d%d%d&quot;, &amp;lx[i], &amp;rx[i], &amp;vx[i]);
+	ans = 1;
+	for(int i = 0; i &lt; k; ++i)ans = ans * solve(i) % P;
+	printf(&quot;%lld\n&quot;, ans);//每一位的方案数乘起来!
+	return 0;
+}
+</code></pre>
+<h2 id="p4229-某位歌姬的故事">P4229 某位歌姬的故事</h2>
+<p>毒瘤DP,一个点是一个区间</p>
+<p>注意转换为左闭右开方便处理QAQ</p>
+<p>然后加入点1,点n方便</p>
+<p>然后特判要小心翼翼QAQ,是判断一个区间的mx至少要有一个达到啊</p>
+<pre><code class="language-cpp">//感觉有一车细节QAQ
+//勇一下
+#include&lt;bits/stdc++.h&gt;
+#define pb push_back
+#define ll long long
+using namespace std;
+const int MAXN = 1550;
+const int P = 998244353;
+int T, n, Q, A;
+map&lt;int, int&gt; mp;
+ll ans;
+int l[MAXN], r[MAXN], m[MAXN], len[MAXN], lim[MAXN], mx[MAXN];
+std::vector&lt;int&gt; v;
+inline ll ksm(ll x, ll y) {
+	ll ans = 1;
+	while(y) {
+		if(y &amp; 1)ans = ans * x % P;
+		x = x * x % P;
+		y &gt;&gt;= 1;
+	}
+	return ans;
+}
+inline int getid(int x) {
+	return lower_bound(v.begin(), v.end(), x) - v.begin() + 1;
+}
+inline void init() {
+	sort(v.begin(), v.end());
+	v.erase(unique(v.begin(), v.end()), v.end());
+	for(int i = 1; i &lt;= Q; ++i) {
+		l[i] = getid(l[i]);
+		r[i] = getid(r[i]) - 1;
+	}
+	// 考虑离散化,相当于排序后的数组上,对于第i个点,对应v[i]~v[i+1]-1
+	for(int i = 0; i &lt; (int)v.size(); ++i) {
+		if(i == (int)v.size() - 1) {
+			len[i + 1] = n - v[i] + 1;
+		} else
+			len[i + 1] = v[i + 1] - v[i];
+	}
+	n = v.size();
+	//于是你会发现这个限制相当于[l+1,r-1]的离散后的点上!
+	return ;
+}
+inline int pd() {
+	for(int i = 1; i &lt;= Q; ++i) {
+		bool flg = 1;
+		for(int j = l[i]; j &lt;= r[i]; ++j) {
+			if(mx[j] &gt;= m[i]) {
+				flg = 0;
+				break;
+			}
+		}
+		if(flg)return 1;
+	}
+	return 0;
+}
+inline int init3() {
+	//包括他的一定不会更严(小于他)
+	//那么对于这个点来说,我们应该取所有限制的最小值
+	//而限制的最小值就相当于对于一个右端点,左端点的最大值啊!
+	//QAQ
+	for(int i = 1; i &lt;= Q; ++i)
+		for(int j = l[i]; j &lt;= r[i]; ++j)
+			mx[j] = min(mx[j], m[i]);
+	for(int i = 1; i &lt;= Q; ++i) {
+		int R;
+		for(R = r[i]; R &gt;= l[i]; --R)
+			if(mx[R] == m[i])break;
+		int L;
+		for(L = l[i]; L &lt;= r[i]; ++L)
+			if(mx[L] == m[i])break;
+		lim[R] = max(L, lim[R]);//挂在限制区间右端点上???
+	}
+	return 0;
+}
+int f[MAXN][MAXN];
+inline void init2() {
+	mp.clear();
+	memset(f, 0, sizeof(f));
+	for(int i = 1; i &lt;= n; ++i)lim[i] = 0, mx[i] = A + 1;//说不定就没限制了!
+	return ;
+}
+inline void add(int &amp;x, int y) {
+	x += y;
+	if(x &gt;= P)x -= P;
+}
+inline ll solve(int x) {
+	f[0][0] = 1;
+	int lst = 0;
+	for(int i = 1; i &lt;= n; ++i) {
+		if(mx[i] != x)continue;//没用啊
+		for(int j = lim[i]; j &lt;= i; ++j) {
+			if(mx[j] != x &amp;&amp; j != 0)continue; //不连续的存在~
+			if(i == j) {
+				if(mx[i] == A + 1)continue;
+				ll t = (ksm(mx[i], len[i]) - ksm(mx[i] - 1, len[i]) + P) % P;
+				for(int k = 0; k &lt;= i; ++k) {
+					add(f[i][i], f[lst][k] * t % P);
+				}
+				continue;
+			}
+			f[i][j] = f[lst][j] * ksm(mx[i] - 1, len[i]) % P;
+		}
+		lst = i;
+	}
+	int ans = 0;
+	for(int i = 0; i &lt;= lst; ++i)add(ans, f[lst][i]);
+	return ans;
+}
+
+int main() {
+	scanf(&quot;%d&quot;, &amp;T);
+	while(T-- &gt; 0) {
+		scanf(&quot;%d%d%d&quot;, &amp;n, &amp;Q, &amp;A);
+		v.clear();//清空啦!
+		v.pb(1);
+		v.pb(n);
+		for(int i = 1; i &lt;= Q; ++i)scanf(&quot;%d%d%d&quot;, &amp;l[i], &amp;r[i], &amp;m[i]), r[i]++, v.pb(l[i]), v.pb(r[i]);
+		//这里变成左闭右开才好处理QaQ
+		init();//离散化
+		init2();
+		init3();
+		if(pd()) {
+			puts(&quot;0&quot;);
+			continue;
+		}
+		ans = 1;
+		for(int i = 1; i &lt;= Q; ++i) {
+			if(mp.find(m[i]) == mp.end()) {
+				ans = ans * solve(m[i]) % P; //DP
+				mp[m[i]] = 1;
+			}
+		}
+		if(mp.find(A + 1) == mp.end())ans = ans * solve(A + 1) % P;
+		printf(&quot;%lld\n&quot;, ans);
+	}
+	return  0;
+}
+/*
+1
+7 3 74
+3 6 56
+2 5 56
+3 7 70
+*/
+</code></pre>
+<h2 id="at5202-agc038e-gachapon">AT5202 [AGC038E] Gachapon</h2>
+<p>容斥dp的精华在于照着式子统计容斥系数吧qwq</p>
+<p>小心式子别抄错了QAQ</p>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+#define ll long long
+using namespace std;
+const int P = 998244353;
+const int MAXN = 405;
+int n, a[MAXN], b[MAXN];
+ll fac[3 * MAXN], ifac[3 * MAXN], inv[MAXN][MAXN];
+int f[MAXN][MAXN][MAXN];//容斥DP
+//前i个数,然后a的和,c的和
+inline ll ksm(ll x, ll y) {
+	ll ans = 1;
+	while(y) {
+		if(y &amp; 1)ans = ans * x % P;
+		x = x * x % P;
+		y &gt;&gt;= 1;
+	}
+	return ans;
+}
+inline void add(int &amp;x, int y) {
+	x += y;
+	if(x &gt;= P)x -= P;
+}
+inline void init() {
+	int mx1 = 0, mx2 = 0, N = 0;
+	for(int i = 1; i &lt;= n; ++i) {
+		mx1 = max(a[i], mx1);
+		mx2 = max(mx2, b[i]);
+		N += max(a[i], b[i]);
+	}
+	for(int i = 1; i &lt;= mx1; ++i) {
+		for(int j = 0; j &lt;= mx2; ++j) {
+			inv[i][j] = ksm(i, j);
+		}
+	}
+	fac[0] = 1;
+	ifac[0] = 1;
+	for(int i = 1; i &lt;= N; ++i)
+		fac[i] = fac[i - 1] * i % P;
+	ifac[N] = ksm(fac[N], P - 2);
+	for(int i = N - 1; i &gt;= 1; --i)ifac[i] = ifac[i + 1] * (i + 1) % P;
+	return ;
+}
+int main() {
+	scanf(&quot;%d&quot;, &amp;n);
+	for(int i = 1; i &lt;= n; ++i) {
+		scanf(&quot;%d%d&quot;, &amp;a[i], &amp;b[i]);
+	}
+	init();
+	f[0][0][0] = P - 1;
+	ll Sa = 0, Sb = 0;
+	for(int i = 1; i &lt;= n; ++i) {
+		Sa += a[i];
+		Sb += b[i];
+		for(int j = 0; j &lt;= Sa; ++j) {
+			for(int k = 0; k &lt;= Sb; ++k) {
+				//选择这个数
+				if(j - a[i] &gt;= 0)
+					for(int l = 0; l &lt; b[i]; ++l) {
+						if(k - l &gt;= 0)
+							add(f[i][j][k], P - 1ll * f[i - 1][j - a[i]][k - l] * inv[a[i]][l] % P * ifac[l] % P);
+						//ifac是i!的逆元
+					}
+				add(f[i][j][k], f[i - 1][j][k]);//不选择这个数,没有变化
+			}
+		}
+	}
+	int ans = 0;
+	for(int i = 0; i &lt;= Sa; ++i) {
+		ll tmp = Sa * ifac[i] % P * fac[i - 1] % P;
+		for(int j = 0; j &lt;= Sb; ++j) {
+			add(ans, tmp * f[n][i][j] % P * fac[j] % P * ksm(ifac[i] * fac[i - 1] % P, j) % P);
+		}
+	}
+	printf(&quot;%d\n&quot;, ans);
+	return 0;
+}
+</code></pre>
 
               </div>
               <div class="toc-container">
@@ -639,6 +929,9 @@ int main() {
 <li><a href="#p5405-cts2019%E6%B0%AA%E9%87%91%E6%89%8B%E6%B8%B8">P5405 [CTS2019]氪金手游</a></li>
 <li><a href="#cf961g-partitions">CF961G Partitions</a></li>
 <li><a href="#p3886-jloi2009%E7%A5%9E%E7%A7%98%E7%9A%84%E7%94%9F%E7%89%A9">P3886 [JLOI2009]神秘的生物</a></li>
+<li><a href="#cf1327f-and-segments">CF1327F AND Segments</a></li>
+<li><a href="#p4229-%E6%9F%90%E4%BD%8D%E6%AD%8C%E5%A7%AC%E7%9A%84%E6%95%85%E4%BA%8B">P4229 某位歌姬的故事</a></li>
+<li><a href="#at5202-agc038e-gachapon">AT5202 [AGC038E] Gachapon</a></li>
 </ul>
 </li>
 </ul>
