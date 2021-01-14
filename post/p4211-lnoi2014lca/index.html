@@ -1,0 +1,374 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>P4211 [LNOI2014]LCA | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1610634984951">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="P4211 [LNOI2014]LCA | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="首先贡献变成前缀的差,即[1,l−1][1,l-1][1,l−1]和[1,r][1,r][1,r]
+然后考虑所有询问离线
+按照一维的前缀信息排序
+差分,深度等于depu−depfdep_u-dep_fdepu​−depf​求和,因此对于u加..." />
+    <meta name="keywords" content="树上差分,Link-Cut tree" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1610634984951" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              P4211 [LNOI2014]LCA
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-01-14
+              </span>
+              <span>
+                5 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/NGD3i1kcEg/" class="post-tag">
+                  # 树上差分
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/uQiC5cX7Y/" class="post-tag">
+                  # Link-Cut tree
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/45NBuzDIW489QBoVep5mcYfi6dd1aEFwO8F8ZwwSYS6DhlrKliRjWjzsO3smEMy01uY6mvPCU1GVWT9bR.gYaO983tRs0wexyq6FjOe2NPM!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>首先贡献变成前缀的差,即<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mn>1</mn><mo separator="true">,</mo><mi>l</mi><mo>−</mo><mn>1</mn><mo>]</mo></mrow><annotation encoding="application/x-tex">[1,l-1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span>和<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mn>1</mn><mo separator="true">,</mo><mi>r</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">[1,r]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mclose">]</span></span></span></span></p>
+<p>然后考虑所有询问离线</p>
+<p>按照一维的前缀信息排序</p>
+<p>差分,深度等于<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><mi>e</mi><msub><mi>p</mi><mi>u</mi></msub><mo>−</mo><mi>d</mi><mi>e</mi><msub><mi>p</mi><mi>f</mi></msub></mrow><annotation encoding="application/x-tex">dep_u-dep_f</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">e</span><span class="mord"><span class="mord mathdefault">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">u</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">e</span><span class="mord"><span class="mord mathdefault">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.10764em;">f</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>求和,因此对于u加入,我们只需要对于u到根的路径加即可</p>
+<p>观察不难得出询问点z相当于z到根路径的前缀求和</p>
+<p>使用LCT实现即可,树剖也可以</p>
+<p>调了两个小锅,第一个是我们pushdown的时候注意根也要pushdown...</p>
+<p>第二个是我们l可能为0,此时我们内层循环不会工作</p>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+const int MAXN = 2e5 + 7;
+const int P = 201314;
+using namespace std;
+
+int n, q, ccnt, tot;
+int home[MAXN], nxt[MAXN], to[MAXN], ans[MAXN];
+
+inline void ct(int x, int y) {
+	ccnt++;
+	nxt[ccnt] = home[x];
+	home[x] = ccnt;
+	to[ccnt] = y;
+}
+
+struct rec {
+	int l, r, z;
+	bool operator&lt;(const rec &amp;x)const {
+		return l &lt; x.l;
+	}
+} b[MAXN];
+
+inline void add(int &amp;x, int y) {
+	x += y;
+	if(x &gt;= P)x -= P;
+}
+
+namespace LCT {
+#define L (ch[x][0])
+#define R (ch[x][1])
+	int ch[MAXN][2], f[MAXN], st[MAXN], fz[MAXN], tag[MAXN], a[MAXN], sz[MAXN], sum[MAXN];
+	inline bool nroot(int x) {
+		return ch[f[x]][0] == x || ch[f[x]][1] == x;
+	}
+	inline void pushup(int x) {
+		sz[x] = sz[L] + sz[R] + 1;
+		sum[x] = 0;
+		add(sum[x], sum[L]);
+		add(sum[x], sum[R]);
+		add(sum[x], a[x]);
+	}
+	inline void mdf(int k, int x) {
+		tag[k] += x;
+		add(sum[k], 1ll * x * sz[k] % P);
+		a[k] += x;
+	}
+	inline void pushR(int x) {
+		L ^= R ^= L ^= R;
+		fz[x] ^= 1;
+	}
+	inline void pushdown(int x) {
+		if(fz[x]) {
+			if(L)pushR(L);
+			if(R)pushR(R);
+			fz[x] = 0;
+		}
+		if(tag[x]) {
+			if(L)mdf(L, tag[x]);
+			if(R)mdf(R, tag[x]);
+			tag[x] = 0;
+		}
+	}
+	inline void rotate(int x) {
+		int y = f[x], z = f[y], k = ch[y][1] == x, w = ch[x][!k];
+		if(nroot(y))ch[z][ch[z][1] == y] = x;
+		ch[x][!k] = y;
+		ch[y][k] = w;
+		if(w)f[w] = y;
+		f[y] = x;
+		f[x] = z;
+		pushup(y);
+	}
+	inline void outtree() {
+		for(int x = 1; x &lt;= n; ++x) {
+			printf(&quot;u:%d L:%d R:%d F:%d %d %d %d %d\n&quot;, x, L, R, f[x], sum[x], a[x], sz[x], tag[x]);
+		}
+		puts(&quot;\n&quot;);
+	}
+	inline void splay(int x) {
+		int y = x, z = 0;
+		st[++z] = y;
+		while(nroot(y)) {
+			st[++z] = f[y];
+			y = f[y];
+		}
+		while(z) {
+			pushdown(st[z]);
+			--z;
+		}
+		while(nroot(x)) {
+			y = f[x], z = f[y];
+			if(nroot(y))
+				rotate((ch[y][1] == x) ^ (ch[z][1] == y) ? x : y);
+			rotate(x);
+		}
+		pushup(x);
+	}
+	inline void access(int x) {
+		for(int y = 0; x; x = f[y = x]) {
+			splay(x);
+			R = y;
+			pushup(x);
+		}
+	}
+	inline void makeroot(int x) {
+		access(x);
+		splay(x);
+		pushR(x);
+	}
+	inline void split(int x, int y) {
+		makeroot(x);
+		access(y);
+		splay(y);
+	}
+	inline void link(int x, int y) {
+		f[y] = x;
+	}
+
+}
+using namespace LCT;
+
+int main() {
+	scanf(&quot;%d%d&quot;, &amp;n, &amp;q);
+	for(int i = 2; i &lt;= n; ++i)scanf(&quot;%d&quot;, &amp;f[i]), link(f[i] + 1, i);
+	for(int i = 1, l, r, z; i &lt;= q; ++i) {
+		scanf(&quot;%d%d%d&quot;, &amp;l, &amp;r, &amp;z);
+		++l;
+		++r;
+		++z;
+		b[++tot].l = l - 1;
+		b[tot].z = z;
+		b[tot].r = -i;
+		b[++tot].l = r;
+		b[tot].z = z;
+		b[tot].r = i;
+	}
+	sort(b + 1, b + tot + 1);
+	int j = 1;
+	while(b[j].l == 0)++j;//有什么用??
+	for(int i = 1; i &lt;= n; ++i) {
+		split(1, i);
+		mdf(i, 1);
+		for(; b[j].l == i &amp;&amp; j &lt;= tot; ++j) {
+			split(1, b[j].z);
+			if(b[j].r &lt; 0) {
+				b[j].r = -b[j].r;
+				add(ans[b[j].r], P - sum[b[j].z]); //直接加就好了
+			} else {
+				add(ans[b[j].r], sum[b[j].z]);
+			}
+		}
+	}
+	for(int i = 1; i &lt;= q; ++i)printf(&quot;%d\n&quot;, ans[i]);
+	return 0;
+}
+</code></pre>
+<p>本题也可以直接套用分块的做法,但是实在没必要qaq</p>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/at5202-agc038e-gachapon/">
+              <h3 class="post-title">
+                AT5202 [AGC038E] Gachapon
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

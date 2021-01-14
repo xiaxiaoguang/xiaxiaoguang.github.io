@@ -1,0 +1,235 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>P6242 [模板]线段树3 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1610634984951">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="P6242 [模板]线段树3 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="线段树3汗
+吉如一线段树
+对于一个区间取min,我们显然没法直接做,因为有些是没法取min的,有些是会发生变的
+所以考虑直接递归左右子树
+这里我们显然有一个剪枝,就是如果区间最大值小于当前的min操作,就不进行
+然后加上这个还不太够,我们再..." />
+    <meta name="keywords" content="历史最大值,DataStructure,线段树" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1610634984951" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              P6242 [模板]线段树3
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-01-14
+              </span>
+              <span>
+                2 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/lv-Et2i4w/" class="post-tag">
+                  # 历史最大值
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/XA5G4wLG-/" class="post-tag">
+                  # DataStructure
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/i0TglRCqu/" class="post-tag">
+                  # 线段树
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/45NBuzDIW489QBoVep5mcYfi6dd1aEFwO8F8ZwwSYS5mjTUMd1LYG9KQFLqwcQ3QKeE4ssH0CXtROaHem9Unt90rLFm3Iy0Gu3FFhllslTM!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p><s>线段树3汗</s></p>
+<p>吉如一线段树</p>
+<p>对于一个区间取min,我们显然没法直接做,因为有些是没法取min的,有些是会发生变的</p>
+<p>所以考虑直接递归左右子树</p>
+<p>这里我们显然有一个剪枝,就是如果区间最大值小于当前的min操作,就不进行</p>
+<p>然后加上这个还不太够,我们再来一个区间次大值</p>
+<p>如果min操作在次大值和最大值之间,我们不递归直接减少最大值,发现需要维护一个最大值的个数</p>
+<p>如果min操作小于次大值,直接递归子区间</p>
+<p>因为你会发现这样我们每次min操作至少有两个数会变得相同qwq那么进行n次操作就会使得所有数都相同了,然后就可以使得我们之后的取min操作快的一比</p>
+<p>同时区间和很好维护,区间max也很好,区间min也很好维护</p>
+<p>这道题就做完了,注意一个加法标记,他的优先度最高了,然后我们因为第二个操作直接减少了最大值,那么还需要一个区间min标记,表示这个区间取min了,也很简单,你会发现我们<strong>min标记不可能引起递归</strong></p>
+<p>然鹅你会发现我们还有一个操作5,噩梦....</p>
+<p>我们会发现如果合并会导致函数段数无限增长,就是考虑一个先加后取min或者取max的操作</p>
+<p>如果我们维护最大值取max</p>
+<figure data-type="image" tabindex="1"><img src="https://xiaxiaoguang.github.io/post-images/1610634858034.png" alt="" loading="lazy"></figure>
+<p>这个加法和这个取max兼容之后得到的最大值结果</p>
+<p>但是如果取min,我们最大值会这样变化</p>
+<figure data-type="image" tabindex="2"><img src="https://xiaxiaoguang.github.io/post-images/1610634864021.png" alt="" loading="lazy"></figure>
+<p>这个我们维护最大值修改的历史最大值就好了额,相当于删掉了这个交点之前的信息</p>
+<p>这样子就做完了这道题QAQ但是标记合并的时候要有整整将近10个标记要合并</p>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/p4211-lnoi2014lca/">
+              <h3 class="post-title">
+                P4211 [LNOI2014]LCA
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
