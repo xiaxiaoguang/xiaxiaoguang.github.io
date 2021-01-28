@@ -1,0 +1,353 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>P4094 [HEOI2016/TJOI2016]字符串 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1611845383562">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="P4094 [HEOI2016/TJOI2016]字符串 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="做法:
+二分答案,变成判定问题,相当于询问某个串的endpos有没有在[l+len−1,r][l+len-1,r][l+len−1,r]中出现,直接做即可
+有许多的坑
+比如定位的时候不能定位错了,是r-l+1
+线段树合并要开新节点(这我直接..." />
+    <meta name="keywords" content="后缀自动机,字符串" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1611845383562" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              P4094 [HEOI2016/TJOI2016]字符串
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-01-19
+              </span>
+              <span>
+                5 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/m2-tF6st0/" class="post-tag">
+                  # 后缀自动机
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/k8ekJE9lH/" class="post-tag">
+                  # 字符串
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://photo.store.qq.com/psc?/V13b3duC210Fox/45NBuzDIW489QBoVep5mcTunXyYPXBu4AZkNPKXkdOivEoA9VaHtqIRLYvxnKdJN2jshswW*npEkCTESOGvEhuM9.hfTv7Rd8qFTobXlOb4!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>做法:</p>
+<p>二分答案,变成判定问题,相当于询问某个串的endpos有没有在<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mi>l</mi><mo>+</mo><mi>l</mi><mi>e</mi><mi>n</mi><mo>−</mo><mn>1</mn><mo separator="true">,</mo><mi>r</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">[l+len-1,r]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.77777em;vertical-align:-0.08333em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mclose">]</span></span></span></span>中出现,直接做即可</p>
+<p>有许多的坑</p>
+<p>比如定位的时候不能定位错了,是r-l+1</p>
+<p>线段树合并要开新节点(这我直接抄没啥锅qwq)</p>
+<p>但是数据结构题只要别写sb小错误都能调吧qwq</p>
+<p>对对对!数组要照着2e5log开!!我一开始re了/ll</p>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const int MAXN = 4e5 + 7;
+int n, m;
+char s[MAXN];
+
+const int MAXT = 5e6 + 7;
+namespace seg {
+#define mid ((l+r)&gt;&gt;1)
+	int tr[MAXT], ls[MAXT], rs[MAXT], tot, root[MAXN];
+	inline void mdf(int &amp;k, int l, int r, int p, int v) {
+		if(!k)k = ++tot;
+		if(l == r) {
+			tr[k] += v;
+			return ;
+		}
+		if(p &lt;= mid)mdf(ls[k], l, mid, p, v);
+		else mdf(rs[k], mid + 1, r, p, v);
+		tr[k] = tr[ls[k]] + tr[rs[k]];
+	}
+	inline int merge(int x, int y) {
+		if(!x || !y)return x | y;//公共节点,我们是不会更改的
+		//而不公共的节点才可能更改,因为我们endpos只会增多
+		int k = ++tot;
+		ls[k] = merge(ls[x], ls[y]);
+		rs[k] = merge(rs[x], rs[y]);
+		tr[k] = tr[ls[k]] + tr[rs[k]];
+		return k;
+	}
+	inline int qry(int k, int l, int r, int L, int R) {
+		if(!k)return 0;
+		if(L &lt;= l &amp;&amp; r &lt;= R)
+			return tr[k];
+		if(R &lt;= mid)return qry(ls[k], l, mid, L, R);
+		else if(L &gt; mid)return qry(rs[k], mid + 1, r, L, R);
+		else return qry(ls[k], l, mid, L, R) + qry(rs[k], mid + 1, r, L, R);
+	}
+	inline void	outtree(int k, int l, int r) {
+		if(ls[k])outtree(ls[k], l, mid);
+		printf(&quot;%d %d %d \n&quot;, l, r, tr[k]);
+		if(rs[k])outtree(rs[k], mid + 1, r);
+		return;
+	}
+#undef mid
+}
+
+namespace sam {
+	int ch[MAXN][26], fa[20][MAXN], T, lst, len[MAXN];
+	int c[MAXN], a[MAXN];
+	inline void ins(int e, int c) {
+		int p = lst, q, nq;
+		int np = lst = ++T;
+		len[np] = len[p] + 1;
+		seg::mdf(seg::root[np], 1, n, e, 1);
+		for(; p &amp;&amp; !ch[p][c]; p = fa[0][p])ch[p][c] = np;
+		if(!p) {
+			fa[0][np] = 1;
+		} else {
+			q = ch[p][c];
+			if(len[q] == len[p] + 1) {
+				fa[0][np] = q;
+				return;
+			}
+			nq = ++T;
+			len[nq] = len[p] + 1;
+			fa[0][nq] = fa[0][q];
+			memcpy(ch[nq], ch[q], sizeof(ch[q]));
+			fa[0][np] = fa[0][q] = nq;
+			for(; ch[p][c] == q; p = fa[0][p])ch[p][c] = nq;
+		}
+	}
+	inline void init() {
+		for(int i = 1; i &lt;= 19; ++i)
+			for(int j = 1; j &lt;= T; ++j) {
+				fa[i][j] = fa[i - 1][fa[i - 1][j]]; //跳就完了...
+			}
+		for(int i = 1; i &lt;= T; ++i)
+			++c[len[i]];
+		for(int i = 1; i &lt;= n; ++i)
+			c[i] += c[i - 1];
+		for(int i = 1; i &lt;= T; ++i)
+			a[c[len[i]]--] = i;
+		for(int i = T; i; --i) {
+			int u = a[i];
+			seg::root[fa[0][u]] = seg::merge(seg::root[fa[0][u]], seg::root[u]);
+		}
+		return;
+	}
+}
+using namespace sam;
+
+int rc[MAXN];
+
+inline int find(int l, int r) {
+	int u = rc[r];
+	for(int i = 19; i &gt;= 0; --i) {
+		if(len[fa[i][u]] &gt;= r - l + 1) {
+			u = fa[i][u];
+		}
+	}
+	//跳完之后就是满足其父亲小于于,也就是这个点表示啦!
+	return u;
+}
+
+inline int chk(int l, int r, int L, int R) {
+	if(r - l &gt; R - L)return 0;
+	int u = find(l, r);
+	return seg::qry(seg::root[u], 1, n, L + r - l, R);
+}
+
+int main() {
+	scanf(&quot;%d%d&quot;, &amp;n, &amp;m);
+	scanf(&quot;%s&quot;, s + 1);
+	lst = T = 1;
+	for(int i = 1; i &lt;= n; ++i) {
+		ins(i, s[i] - 'a');
+		rc[i] = lst;
+	}
+	init();
+	for(int i = 1, a, b, c, d; i &lt;= m; ++i) {
+		scanf(&quot;%d%d%d%d&quot;, &amp;a, &amp;b, &amp;c, &amp;d);
+		int l = 1, r = d - c + 1, ans = 0;
+		while(l &lt;= r) {
+			int mid = (l + r) &gt;&gt; 1;
+			if(chk(c, c + mid - 1, a, b)) {
+				ans = mid;
+				l = mid + 1;
+			} else {
+				r = mid - 1;
+			}
+		}
+		printf(&quot;%d\n&quot;, ans);
+	}
+	return 0;
+}
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/qbxt-sheng-xuan-shu-xue-kao-shi/">
+              <h3 class="post-title">
+                qbxt省选数学考试
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

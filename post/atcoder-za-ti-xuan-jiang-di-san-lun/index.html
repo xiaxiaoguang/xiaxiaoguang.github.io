@@ -1,0 +1,590 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Atcoder杂题选讲第三轮 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1611845383562">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="Atcoder杂题选讲第三轮 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="AT3945 [ARC092D] Two Faced Edges
+有向图没有边双,考虑翻转一条边的影响
+原图中u,v不是同一个强联通分量中的
+原图存在不经过这条边的u−&gt;vu-&gt;vu−&gt;v的一条路径
+
+在这个条件下,原图存..." />
+    <meta name="keywords" content="题目集合,计数题,费用流,构造" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1611845383562" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              Atcoder杂题选讲第三轮
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-01-28
+              </span>
+              <span>
+                16 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/ptq-n3C75J/" class="post-tag">
+                  # 题目集合
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/JP89ddpfS/" class="post-tag">
+                  # 计数题
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/VWgTcnAj2O/" class="post-tag">
+                  # 费用流
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/nuL1JOWcod/" class="post-tag">
+                  # 构造
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/45NBuzDIW489QBoVep5mcYILKTsz51Tr51S*IJ8FL5WNt.HhTG8Laj9crEzv45A11Zm7tcy.vcCzn0YJcAlJZiZ21Babya1X.mulW*vVw7s!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h2 id="at3945-arc092d-two-faced-edges">AT3945 [ARC092D] Two Faced Edges</h2>
+<p>有向图没有边双,考虑翻转一条边的影响</p>
+<p>原图中u,v不是同一个强联通分量中的</p>
+<p>原图存在不经过这条边的<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>u</mi><mo>−</mo><mo>&gt;</mo><mi>v</mi></mrow><annotation encoding="application/x-tex">u-&gt;v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">u</span><span class="mord">−</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span></span></span></span>的一条路径</p>
+<ol>
+<li>在这个条件下,原图存在<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi><mo>−</mo><mo>&gt;</mo><mi>u</mi></mrow><annotation encoding="application/x-tex">v-&gt;u</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mord">−</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">u</span></span></span></span>的一条路径</li>
+</ol>
+<p>那么答案不变....等等好像不可能?</p>
+<ol start="2">
+<li>在这个条件下,原图<strong>不存在</strong><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi><mo>−</mo><mo>&gt;</mo><mi>u</mi></mrow><annotation encoding="application/x-tex">v-&gt;u</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mord">−</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">u</span></span></span></span>的一条路径</li>
+</ol>
+<p>那么一旦翻转,就存在u-&gt;v和v-&gt;u的路径了,u,v就会成为一个强联通分量的,所以答案会减少</p>
+<p>不存在不经过的<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>u</mi><mo>−</mo><mo>&gt;</mo><mi>v</mi></mrow><annotation encoding="application/x-tex">u-&gt;v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">u</span><span class="mord">−</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span></span></span></span>路径</p>
+<p>因为本来就不在一个连通分量中,所以答案不会变</p>
+<p>原图中u,v在一个强联通分量里面</p>
+<ol>
+<li>原图存在不经过这条边的<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>u</mi><mo>−</mo><mo>&gt;</mo><mi>v</mi></mrow><annotation encoding="application/x-tex">u-&gt;v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">u</span><span class="mord">−</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span></span></span></span>的路径</li>
+</ol>
+<p>那么无论<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi><mo>−</mo><mo>&gt;</mo><mi>u</mi></mrow><annotation encoding="application/x-tex">v-&gt;u</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mord">−</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">u</span></span></span></span>,答案都不会变</p>
+<ol start="2">
+<li>原图不存在不经过这条边的<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>u</mi><mo>−</mo><mo>&gt;</mo><mi>v</mi></mrow><annotation encoding="application/x-tex">u-&gt;v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">u</span><span class="mord">−</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span></span></span></span>的路径</li>
+</ol>
+<p>翻转之后,由于<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>u</mi><mo>−</mo><mo>&gt;</mo><mi>v</mi></mrow><annotation encoding="application/x-tex">u-&gt;v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">u</span><span class="mord">−</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span></span></span></span>只有这么一条边,所以答案会变大</p>
+<p>综上,我们如果</p>
+<p>u,v不是一个连通块,且存在<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>u</mi><mo>−</mo><mo>&gt;</mo><mi>v</mi></mrow><annotation encoding="application/x-tex">u-&gt;v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">u</span><span class="mord">−</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span></span></span></span>不经过这条边的路径</p>
+<p>答案减少</p>
+<p>u,v在一个连通块,不存在不经过<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>u</mi><mo>−</mo><mo>&gt;</mo><mi>v</mi></mrow><annotation encoding="application/x-tex">u-&gt;v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">u</span><span class="mord">−</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span></span></span></span></p>
+<p>答案增加</p>
+<p>怎么做这两个呢?</p>
+<p>其实都是相当于判断这条边是不是必经边</p>
+<p>不存在不经过<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>u</mi><mo>−</mo><mo>&gt;</mo><mi>v</mi></mrow><annotation encoding="application/x-tex">u-&gt;v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">u</span><span class="mord">−</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span></span></span></span>的路径,相当于<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>u</mi><mo>−</mo><mo>&gt;</mo><mi>v</mi></mrow><annotation encoding="application/x-tex">u-&gt;v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">u</span><span class="mord">−</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span></span></span></span></p>
+<p>判断必经边的方法,就是我们先从x出发dfs,然后得到每个点到达时x出边的标号</p>
+<p>然后把x的出边翻转再看看这个出边标号是不是一样的就知道答案了</p>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+#define pb push_back
+using namespace std;
+const int MAXN = 2e5 + 7;
+const int MAXT = 1e3 + 7;
+int n, m;
+vector&lt;int&gt; v[MAXN], g[MAXN];
+struct rec {
+	int x, y;
+} e[MAXN];
+int mp[MAXT][MAXT];
+inline void ct(int x, int y, int z) {
+	v[x].pb(y);
+	g[x].pb(z);
+}
+int vis1[MAXN], vis2[MAXN], ans[MAXN];
+inline void dfs1(int x, int e) {
+	if(vis1[x])return;
+	vis1[x] = e;
+	for(int i = 0; i &lt; v[x].size(); ++i) {
+		dfs1(v[x][i], e);
+	}
+	return;
+}
+inline void dfs2(int x, int e) {
+	if(vis2[x])return;
+	vis2[x] = e;
+	for(int i = 0; i &lt; v[x].size(); ++i) {
+		dfs2(v[x][i], e);
+	}
+	return;
+}
+int main() {
+	scanf(&quot;%d%d&quot;, &amp;n, &amp;m);
+	for(int i = 1, x, y; i &lt;= m; ++i) {
+		scanf(&quot;%d%d&quot;, &amp;x, &amp;y);
+		ct(x, y, i);
+		e[i].x = x;
+		e[i].y = y;
+	}
+	for(int u = 1; u &lt;= n; ++u) {
+		dfs1(u, u);
+		for(int j = 1; j &lt;= n; ++j) {
+			if(vis1[j]) {
+				mp[u][j] = 1;
+				vis1[j] = 0;
+			}
+		}
+	}
+	for(int u = 1; u &lt;= n; ++u) {
+		vis1[u] = 1;
+		vis2[u] = 1;
+		for(int i = 0; i &lt; v[u].size(); ++i) {
+			dfs1(v[u][i], g[u][i]);
+		}
+		for(int i = v[u].size() - 1; i &gt;= 0; --i) {
+			dfs2(v[u][i], g[u][i]);
+		}
+		for(int i = 0; i &lt; v[u].size(); ++i) {
+			int to = v[u][i], id = g[u][i];
+			if((vis1[to] != vis2[to]) || (vis1[to] != id || vis2[to] != id)) {
+				ans[id]++;//满足这个条件
+			}
+			if(mp[to][u]) {
+				ans[id]++;
+			}
+		}
+		for(int i = 1; i &lt;= n; ++i)vis1[i] = vis2[i] = 0;
+	}
+	for(int i = 1; i &lt;= m; ++i) {
+		if(ans[i] == 1)puts(&quot;diff&quot;);
+		else puts(&quot;same&quot;);
+	}
+	return 0;
+}
+</code></pre>
+<h2 id="at3955-agc023d-go-home">AT3955 [AGC023D] Go Home</h2>
+<p>考虑1,n两个位置,如果<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>p</mi><mi>n</mi></msub><mo>&gt;</mo><msub><mi>p</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">p_n&gt;p_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7335400000000001em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>,那么无论如何在最后都会向n走,1就会想尽可能向n走,所以删掉1,然后把人数加到那个方向即可,然后删掉1递归</p>
+<p>当1,n同侧,做完了</p>
+<p>统计答案可看code</p>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const int MAXN = 2e5 + 7;
+int n, L, R;
+long long a[MAXN], b[MAXN], s;
+long long ans = 0;
+inline void solve(int l, int r, int g) {
+	if(a[l] &gt;= s &amp;&amp; a[r] &gt;= s) {
+		ans += a[r] - s;
+		return;
+	}
+	if(a[l] &lt;= s &amp;&amp; a[r] &lt;= s) {
+		ans += s - a[l];
+		return;
+	}
+	if(b[l] &gt;= b[r]) {
+		if(g != 0)
+			ans += a[r] - a[l];
+		b[l] += b[r];
+		solve(l, r - 1, 0);
+	} else {
+		if(g != 1)
+			ans += a[r] - a[l];
+		b[r] += b[l];
+		solve(l + 1, r, 1);
+	}
+	return;
+}
+
+int main() {
+	scanf(&quot;%d%lld&quot;, &amp;n, &amp;s);
+	for(int i = 1; i &lt;= n; ++i) {
+		scanf(&quot;%lld%lld&quot;, &amp;a[i], &amp;b[i]);
+		if(a[i] &gt; s &amp;&amp; a[i] &lt;= s)R = i;
+	}
+	L = R - 1;
+	while(a[L] == s)--L;
+	solve(1, n, -1);
+	printf(&quot;%lld\n&quot;, ans);
+	return 0;
+}
+</code></pre>
+<h2 id="at2672-agc018c-coins">AT2672 [AGC018C] Coins</h2>
+<p>最后还是爬过来做AGC</p>
+<p>首先如果只有两个硬币我有个错误的贪心想法就是A-B然后选取这个值最大的前x个</p>
+<p>这个在<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>X</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">X=0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>还真是对的</p>
+<p>正确是建模网络流,左边一排点,然后右边两个点,每个点有个流量限制x,y,然后左边的点向右边连接边,表示选择a的cost和选择b的cost,费用流即可</p>
+<p>本题也可以做一歩转换变成这样子,就是直接每个点减去c,变为选择a得到a-c,选择b得到b-c,然后提前拿到所有c的总和</p>
+<p>现在的问题难在时间复杂度不对</p>
+<p>首先第一种做法是模拟费用流,就是考虑每次增广带来的影响是什么,无疑只有几种情况:</p>
+<ol>
+<li>选择x</li>
+<li>选择y</li>
+<li>选择x,然后让某一个x的放弃(达到了上界弹掉他)</li>
+<li>选择y,然后让某一个y的放弃</li>
+</ol>
+<p>模拟费用流嘛,就是模拟增广的过程:选择一个最大权的放入,如果我能够顶替掉权值最小的那个,那么就顶替,然后他去找另一边的有没有,然后如果另一边也有再继续找下去</p>
+<p>这个路径的总长可以用几个类别表示出来,要么选择x的变成y,选y变为z,选z变为x.这样循环一周,要么选择x的变成y,选y的变为z</p>
+<p>一共有5种情况,我们每次取出这样子的变换的最大值执行即可</p>
+<p>当最大值变为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>&lt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">&lt;0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>结束</p>
+<p>当然我们也可以使用第一种做法的延续</p>
+<p>排序后,枚举一个分界点,我们一定是在这个分界点左边选出最大的A个和右边选出最大的右边最优,因为但凡交换两边选择的位置,都会导致某一边选择的其实不够优秀(交换回来一定更优)</p>
+<p>于是我们也能转换回来,就做完了</p>
+<pre><code class="language-cpp">//W4P3R
+#include&lt;bits/stdc++.h&gt;
+#define inf 1e9
+#define eps 1e-6
+#define mp make_pair
+#define pb push_back
+#define re register ll
+#define fr first
+#define sd second
+#define pa pair&lt;ll,ll&gt;
+#define FOR(i,a,b) for(re i=a;i&lt;=b;i++)
+#define REP(i,a,b) for(re i=a;i&gt;=b;i--)
+#define MEM(a) memset(a,0,sizeof(a))
+#define N 100010
+using namespace std;
+typedef long long ll;
+typedef unsigned long long ull;
+typedef double db;
+inline ll read()
+{
+	char ch=getchar();
+	ll s=0,w=1;
+	while(ch&lt;'0'||ch&gt;'9'){if(ch=='-')w=-1;ch=getchar();}
+	while(ch&gt;='0'&amp;&amp;ch&lt;='9'){s=s*10+ch-'0';ch=getchar();}
+	return s*w;
+}
+inline ll lowbit(ll x){return x&amp;(-x);}
+ll n,X,Y,Z;
+ll a[N],b[N],c[N];
+ll vis[N],ans;
+priority_queue&lt;pa,vector&lt;pa&gt;,less&lt;pa&gt; &gt;q1,q2,q3,q4,q5,q6;
+inline void add(ll x)
+{
+	q1.push(mp(b[x]-a[x],x));//x-&gt;y
+	q2.push(mp(c[x]-b[x],x));//y-&gt;z
+	q3.push(mp(a[x]-c[x],x));//z-&gt;x
+	
+	q4.push(mp(c[x]-a[x],x));//x-&gt;z
+	q5.push(mp(b[x]-c[x],x));//z-&gt;y
+	q6.push(mp(a[x]-b[x],x));//y-&gt;x
+}
+int main()
+{
+	//ios::sync_with_stdio(false);
+	//freopen(&quot;.in&quot;,&quot;r&quot;,stdin);
+	//freopen(&quot;.out&quot;,&quot;w&quot;,stdout);
+	X=read(),Y=read(),Z=read();n=X+Y+Z;
+	FOR(i,1,n)a[i]=read(),b[i]=read(),c[i]=read();
+	FOR(i,1,X)vis[i]=1,ans+=a[i];
+	FOR(i,X+1,X+Y)vis[i]=2,ans+=b[i];
+	FOR(i,X+Y+1,X+Y+Z)vis[i]=3,ans+=c[i];
+	FOR(i,1,n)add(i);
+	while(true)
+	{
+		while(!q1.empty()&amp;&amp;vis[q1.top().sd]!=1)q1.pop();
+		while(!q2.empty()&amp;&amp;vis[q2.top().sd]!=2)q2.pop();
+		while(!q3.empty()&amp;&amp;vis[q3.top().sd]!=3)q3.pop();
+		
+		while(!q4.empty()&amp;&amp;vis[q4.top().sd]!=1)q4.pop();
+		while(!q5.empty()&amp;&amp;vis[q5.top().sd]!=3)q5.pop();
+		while(!q6.empty()&amp;&amp;vis[q6.top().sd]!=2)q6.pop();//反悔贪心在每次取值时弹出不合法状态往往更好写 
+		
+		ll v1=(q1.empty()?-inf:q1.top().fr),v2=(q2.empty()?-inf:q2.top().fr),v3=(q3.empty()?-inf:q3.top().fr);
+		ll v4=(q4.empty()?-inf:q4.top().fr),v5=(q5.empty()?-inf:q5.top().fr),v6=(q6.empty()?-inf:q6.top().fr);
+		ll maxn=0,t=0;
+		if(v1+v2+v3&gt;maxn)maxn=v1+v2+v3,t=1;//情况1
+		if(v4+v5+v6&gt;maxn)maxn=v4+v5+v6,t=2;//情况2
+		if(v1+v6&gt;maxn)maxn=v1+v6,t=3;//情况3
+		if(v2+v5&gt;maxn)maxn=v2+v5,t=4;//情况4
+		if(v3+v4&gt;maxn)maxn=v3+v4,t=5;//情况5
+		if(!maxn)break;ans+=maxn;
+		if(t==1)
+		{
+			ll x=q1.top().sd,y=q2.top().sd,z=q3.top().sd;
+			vis[x]=2,vis[y]=3,vis[z]=1;
+			add(x);add(y);add(z);
+		}
+		if(t==2)
+		{
+			ll x=q4.top().sd,y=q5.top().sd,z=q6.top().sd;
+			vis[x]=3;vis[y]=2;vis[z]=1;
+			add(x);add(y);add(z);
+		}
+		if(t==3)
+		{
+			ll x=q1.top().sd,y=q6.top().sd;
+			vis[x]=2;vis[y]=1;
+			add(x);add(y);
+		}
+		if(t==4)
+		{
+			ll x=q2.top().sd,y=q5.top().sd;
+			vis[x]=3;vis[y]=2;
+			add(x);add(y);
+		}
+		if(t==5)
+		{
+			ll x=q3.top().sd,y=q4.top().sd;
+			vis[x]=1;vis[y]=3;
+			add(x);add(y);
+		}
+	}
+	cout&lt;&lt;ans&lt;&lt;'\n';
+	return 0;
+}
+//gl
+</code></pre>
+<p>其中弹出不合法操作是很重要的,相当于我们给每个元素重新更新信息,但是并不需要特判,只需要把原来信息不符合的删掉即可!<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi><mi>e</mi><mi>s</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">less</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">e</span><span class="mord mathdefault">s</span><span class="mord mathdefault">s</span></span></span></span>是大根堆比较算子</p>
+<h2 id="at2043-agc004c-and-grid">AT2043 [AGC004C] AND Grid</h2>
+<p>我竟然个给出一种构造方式,不可思议啊</p>
+<p>我们首先利用题目给出的条件,第一张图使用最上面一行和最下面一行连通,第二张图利用最左边一列和最右边一列来连通,也就是说只要一个点和上下左右连通,他就在两张图中成为交点了</p>
+<p>然后我们要注意到一个很关键的点,<strong>四个对角一定没有用</strong>,因为我们只需要使用2~n-1的位置就能让方格内部都连通了</p>
+<p>然后考虑怎么让中间的点连通,我们取最左上角的一个点,然后用它画出一条横竖交叉的线,左右连通的信息代表和当前状态的左右连通了,然后上下连通代表和当前状态的上下连通了!于是发现我们只需要交换了行列连通性质就能递归到子问题</p>
+<p>但是此时感觉上可以,如果我们一个画出的线上有多个点,又萎住了QAQ,因为我们一定要保证边界上没有点!</p>
+<p>于是我们又能构造出另一种毒瘤的策略,只要存在点他向左直走向上直走没有其他点,我们就能把这个点和左边连通然后另一张图和上面连通,然后减少问题规模!</p>
+<p>这样你会发现可能我们连通后还是自闭了,因为不能保证每个点向左向上都是和某张图连通....</p>
+<p>题解给出了很不错的构造方法,令人叹为观止</p>
+<pre><code class="language-cpp">####.   ....#
+#....   .####
+####.   ....#
+#....   .####
+####.   ....#
+</code></pre>
+<p>然后如果在中间某些位置有#对应点亮即可</p>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const int MAXN = 505;
+int n, m;
+char s[MAXN][MAXN];
+int a[MAXN][MAXN], b[MAXN][MAXN];
+
+int main() {
+	scanf(&quot;%d%d&quot;, &amp;n, &amp;m);
+	for(int i = 1; i &lt;= n; ++i) {
+		scanf(&quot;%s&quot;, s[i] + 1);
+	}
+	for(int i = 1; i &lt;= n; ++i) {
+		for(int j = 1; j &lt;= m; ++j) {
+			if(i &amp; 1) {
+				if(j != m)
+					a[i][j] = 1;
+				else b[i][j] = 1;
+			} else {
+				if(j != 1)
+					b[i][j] = 1;
+				else a[i][j] = 1;
+			}
+		}
+	}
+	for(int i = 1; i &lt;= n; ++i) {
+		for(int j = 1; j &lt;= m; ++j) {
+			if(s[i][j] == '#') {
+				if(i &amp; 1)b[i][j] = 1;
+				else a[i][j] = 1;
+			}
+		}
+	}
+	for(int i = 1; i &lt;= n; ++i) {
+		for(int j = 1; j &lt;= m; ++j) {
+			printf(&quot;%c&quot;, a[i][j] == 1 ? '#' : '.');
+		}
+		puts(&quot;&quot;);
+	}
+	puts(&quot;&quot;);
+	for(int i = 1; i &lt;= n; ++i) {
+		for(int j = 1; j &lt;= m; ++j) {
+			printf(&quot;%c&quot;, b[i][j] == 1 ? '#' : '.');
+		}
+		puts(&quot;&quot;);
+	}
+	return 0;
+}
+</code></pre>
+<h2 id="at2293-agc009d-uninity">AT2293 [AGC009D] Uninity</h2>
+<p>题目相当于问最小化点分树上最大深度</p>
+<p>给每个点分配一个标签label,表示这个点是第几级别树的树根</p>
+<p>点分树深度不会超过log,所以可以状压深度的信息</p>
+<p>显然对于两个级别相同的点,他们之间一定要有一个级别高于他们的点</p>
+<p>然后考虑对于一个点u子树内两个点v,他们都存在一个级别w,那么u的级别至少是w</p>
+<p>所以这好像告诉我们,u的深度是所有这样限制下的|,然后这个|值的第一个不为1的位置</p>
+<p>不妨定义<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>b</mi><mi>a</mi><mi>n</mi><mo>[</mo><mi>u</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">ban[u]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">b</span><span class="mord mathdefault">a</span><span class="mord mathdefault">n</span><span class="mopen">[</span><span class="mord mathdefault">u</span><span class="mclose">]</span></span></span></span>表示u子树内还有哪些深度没有完成匹配,然后好像就是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>b</mi><mi>a</mi><msub><mi>n</mi><mi>v</mi></msub></mrow><annotation encoding="application/x-tex">ban_v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord mathdefault">b</span><span class="mord mathdefault">a</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">v</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>按位或和的第一个为0的位置</p>
+<p>注意叶子也是可以的</p>
+<p>所以我们还要统计一个任意两个儿子&amp;起来的值的或,不难发现这个值告诉了我们<strong>最严限制</strong>,所以这个限制的前导零部分也是我们可以存在的答案位置</p>
+<p>于是O(log)枚举每一位判断是否合法即可</p>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#at3945-arc092d-two-faced-edges">AT3945 [ARC092D] Two Faced Edges</a></li>
+<li><a href="#at3955-agc023d-go-home">AT3955 [AGC023D] Go Home</a></li>
+<li><a href="#at2672-agc018c-coins">AT2672 [AGC018C] Coins</a></li>
+<li><a href="#at2043-agc004c-and-grid">AT2043 [AGC004C] AND Grid</a></li>
+<li><a href="#at2293-agc009d-uninity">AT2293 [AGC009D] Uninity</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/zrday6/">
+              <h3 class="post-title">
+                ZRDay6
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
