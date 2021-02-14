@@ -1,0 +1,434 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ZRDay7 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1613312169795">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="ZRDay7 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="强连通缩点
+先dfs一遍,按照离开的顺序的到postorder
+他的反序是dag上的拓扑序!
+然后建立反向图
+然后按照postorder正着枚举每一个点dfs,把每个点出发经过的所有点记录,他们就是一个强联通分量,就可以缩点
+然后他就不做人..." />
+    <meta name="keywords" content="网络流,培训题,边双连通分量,图论" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1613312169795" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              ZRDay7
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-01-30
+              </span>
+              <span>
+                15 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/MASIXoy8U/" class="post-tag">
+                  # 网络流
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/GZNzWf9EG/" class="post-tag">
+                  # 培训题
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/thpLKimty/" class="post-tag">
+                  # 边双连通分量
+                </a>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/vkAXDJ4vz/" class="post-tag">
+                  # 图论
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/45NBuzDIW489QBoVep5mcW2axCsNXatgPQiH9ideT6Qj.tDly4dBhGBbidUX8X5lz7U2j.DaMbnpxPVNNC4IYpUGaLelF31xTxhag*CfJfw!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>强连通缩点</p>
+<p>先dfs一遍,按照离开的顺序的到postorder</p>
+<p>他的反序是dag上的拓扑序!</p>
+<p>然后建立反向图</p>
+<p>然后按照postorder正着枚举每一个点dfs,把每个点出发经过的所有点记录,他们就是一个强联通分量,就可以缩点</p>
+<p>然后他就不做人了:</p>
+<h2 id="cf949c-data-center-maintenance">CF949C Data Center Maintenance</h2>
+<p>是相当于一个数组,然后对于位置x,y的值不能相同</p>
+<p>那么如果<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>u</mi><mi>x</mi></msub><mo>+</mo><mn>1</mn><mo>=</mo><msub><mi>u</mi><mi>y</mi></msub></mrow><annotation encoding="application/x-tex">u_x+1=u_y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.73333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">u</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">x</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.716668em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault">u</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.15139200000000003em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">y</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>就从x向y连一有向条边,表示x选了y就一定要选择</p>
+<p>那么你就会发现,一个强联通分量中选择一个就要选择所有的QAQ</p>
+<p>缩点</p>
+<p>那么你就会发现这个就相当于选择最少的点,构成一个闭合子图</p>
+<p>就是那些出度为0的分量中最小的点</p>
+<p>妙啊!</p>
+<p>2-SAT</p>
+<p>两个变量,二元关系,<s>多重酸爽体验!</s></p>
+<h2 id="3101-jsoi2019精准预测">3101. 「JSOI2019」精准预测</h2>
+<p>点为(n,T,0/1)</p>
+<p>然后显然发现不需要nT个点,直接拿出关键点,然后关键点向未来时间连边就可</p>
+<p>点数最多有O(m)了</p>
+<p>然后缩点,如果有i为真到i为假,显然是不合法的,不过你会发现这个图一定是DAG不需要缩点,因为我们没有从假推向真的边啊</p>
+<p>然后没有忽略的x,我们要求出答案,相当于找那些点能走出去得到多少个关键点<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mo>?</mo><mo separator="true">,</mo><mi>T</mi><mo>+</mo><mn>1</mn><mo separator="true">,</mo><mn>0</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">(?,T+1,0)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mclose">?</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">0</span><span class="mclose">)</span></span></span></span></p>
+<p>这个就是bitset优化传递闭包了,此时我们推出的信息应该是x为真哪些一定为假...</p>
+<p>然后这样你会发现我们不知道弱不连通的两个点怎么办qwq</p>
+<p>但是你会发现此时直接钦定这两个点为真,然后其他点为假,题目中的那个函数是一定成立的</p>
+<p>所以就是可以的!</p>
+<p>对于关键点分组,然后你会发现每次可以得到这些关键点的对于其他所有点的贡献</p>
+<p>复杂度就是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mi>B</mi><mi mathvariant="normal">/</mi><mn>64</mn><mo>∗</mo><mi>n</mi><mi mathvariant="normal">/</mi><mi>B</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(nB/64*n/B)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="mord">/</span><span class="mord">6</span><span class="mord">4</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">n</span><span class="mord">/</span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="mclose">)</span></span></span></span></p>
+<p>欧拉回路</p>
+<h2 id="先判断连通">先判断连通!!!!</h2>
+<p>无向图是都是偶数</p>
+<p>圈套圈算法</p>
+<p>就是我们维护一个边的栈,然后每次dfs的时候先走未经过的边,如果这一整条边就走完了就自闭了(就是无路可走了),然后我们就把来到这个点的那条边加入栈中,最后dfs结束得到的从栈顶到栈底的就是正图的欧拉回路了</p>
+<h2 id="cf1361c-johnny-and-megans-necklace">CF1361C Johnny and Megan's Necklace</h2>
+<p>枚举答案</p>
+<p>就是说我们考虑<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mi>k</mi></msup><mi mathvariant="normal">∣</mi><mo>(</mo><mi>u</mi><mi>x</mi><mi>o</mi><mi>r</mi><mi>v</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">2^k|(u xor v)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.099108em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.849108em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span></span></span></span></span><span class="mord">∣</span><span class="mopen">(</span><span class="mord mathdefault">u</span><span class="mord mathdefault">x</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mclose">)</span></span></span></span></p>
+<p>这个条件可以枚举一个k,然后就是说两个点如果在<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi><mi>o</mi><mi>d</mi><msup><mn>2</mn><mi>i</mi></msup></mrow><annotation encoding="application/x-tex">mod 2^i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.824664em;vertical-align:0em;"></span><span class="mord mathdefault">m</span><span class="mord mathdefault">o</span><span class="mord mathdefault">d</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.824664em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span></span></span></span></span></span></span></span>值是相同的,就是异或后整除的,就可以连一条边,然后就变成哈密尔顿路了?</p>
+<p>然后你会发现我们可以对于这个条件可以转欧拉回路,具体的,我们对于原图的一条边(u,v)把<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>u</mi><mspace></mspace><mspace width="0.6666666666666666em"/><mrow><mi mathvariant="normal">m</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">d</mi></mrow><mtext> </mtext><mtext> </mtext><msup><mn>2</mn><mi>i</mi></msup><mo separator="true">,</mo><mi>v</mi><mspace></mspace><mspace width="0.6666666666666666em"/><mrow><mi mathvariant="normal">m</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">d</mi></mrow><mtext> </mtext><mtext> </mtext><msup><mn>2</mn><mi>i</mi></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">(u\mod 2^i,v\mod 2^i)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">u</span><span class="mspace allowbreak"></span><span class="mspace" style="margin-right:0.6666666666666666em;"></span></span><span class="base"><span class="strut" style="height:1.019104em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord"><span class="mord mathrm">m</span><span class="mord mathrm">o</span><span class="mord mathrm">d</span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.824664em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mspace allowbreak"></span><span class="mspace" style="margin-right:0.6666666666666666em;"></span></span><span class="base"><span class="strut" style="height:1.0746639999999998em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord"><span class="mord mathrm">m</span><span class="mord mathrm">o</span><span class="mord mathrm">d</span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.824664em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>两个点连边,然后在新图上的一个欧拉回路,就是经过了各个珍珠的中间边的形成的环的答案</p>
+<p>可以二分,但是很无趣啊</p>
+<p>割点割边</p>
+<p>如果一个点出发走至多一条返祖边只能走到u,说明u是割点</p>
+<p>同样的,如果一个点出发走至多一个返祖边只能走到dfn小于u的,说明u和他之间的是割边,因为如果是等于,还说明我们割掉不一定能走回去啊</p>
+<p>其余的,对于根,如果他有多余一个儿子,也是割点</p>
+<p>对于边双,特判这个父亲</p>
+<p>点双边双</p>
+<p>边双:</p>
+<p>找到割边的时候</p>
+<p>把得到的边弹出来即可</p>
+<p>这些边的点集就是我们边双的点集</p>
+<p>圆方树;</p>
+<p>还是如果lowv==dfnu,就说明u是割点,要得出一个点双了,</p>
+<p>直接取出所有栈里面的元素,然后注意了,此时的割点不弹出栈</p>
+<figure data-type="image" tabindex="1"><img src="https://xiaxiaoguang.github.io/post-images/1612015959532.png" alt="" loading="lazy"></figure>
+<p>最大值</p>
+<p>有个结论:强联通分量无向之后一定是边双</p>
+<p>证明就是你考虑一个割边,他无论怎么定向都只能保证从一侧的点集走到另一侧,不能走回去</p>
+<p>这里好像边双严格定义就是没有割边的连通块哎qwq</p>
+<p>所以我们就缩点后变成一颗树了,然后用LCT维护边双树就好了,也不需要啥圆方树维护点双了</p>
+<p>然后直接单点修改然后链查询就好了</p>
+<p>具体怎么维护呢?先split出来,然后把所有访问点x操作重定义为访问<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>f</mi><mi>x</mi></msub></mrow><annotation encoding="application/x-tex">f_x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">x</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></p>
+<p>将整颗splay的点x改成新点即可</p>
+<p>然后access</p>
+<p>广义圆方树</p>
+<p>对于任意图都可以建立圆方树呢</p>
+<p>就是将所有点双拉一个方点,然后点双内的所有点连边方点</p>
+<p>此时树上两点必经之路就是圆方树上经过的点</p>
+<p>UOJ</p>
+<p>建立圆方树,然后直接用LCT维护链最小值信息</p>
+<p>然后考虑直接做这个修改是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi mathvariant="normal">邻</mi><mi mathvariant="normal">居</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(邻居)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord cjk_fallback">邻</span><span class="mord cjk_fallback">居</span><span class="mclose">)</span></span></span></span>的</p>
+<p>圆方树经典坑了,菊花图,所以我们不管哪个割点,只维护儿子信息,用set维护就能知道了</p>
+<p>然后直接路径最小值</p>
+<p>此时当LCA为方点的时候,还要加上方点父亲的的信息啊</p>
+<p>Dinic</p>
+<p>每次只增广到S距离差为1的边</p>
+<p>就类似于每次增广最短路</p>
+<p>这样就是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mi>n</mi><mn>2</mn></msup><mi>m</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n^2m)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mord mathdefault">m</span><span class="mclose">)</span></span></span></span>了!</p>
+<p>因为最短路最长<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>m</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(m)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">m</span><span class="mclose">)</span></span></span></span>?</p>
+<p>然后有当前弧优化</p>
+<p>如果之前访问的增广完毕的点是无论如何没有必要再增广了</p>
+<p>但是注意如果没有增广完毕,此时我们要直接break要不然当前弧优化就是假的!!</p>
+<p>然后还有一个优化,就是y的所有出边都优化到底之后,要炸掉这个点,就是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><mi>i</mi><msub><mi>s</mi><mi>y</mi></msub><mo>=</mo><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">dis_y=-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">i</span><span class="mord"><span class="mord mathdefault">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.15139200000000003em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">y</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">−</span><span class="mord">1</span></span></span></span></p>
+<p>能很快</p>
+<p>zkw</p>
+<p>就是我们把bfs改成spfa</p>
+<p>每次沿着所有最短路径进行增广</p>
+<p>注意我们这里就没有啥当前弧优化了</p>
+<p>然后也要在反图上跑spfa哈</p>
+<p>然后最后dfs增广</p>
+<h2 id="cf1082g-petya-and-graph">CF1082G Petya and Graph</h2>
+<p>考虑最小割</p>
+<p>先拿到所有的收益</p>
+<p>然后左边一排点表示边,右边一排点表示点</p>
+<p>然后s向左边的点连接点权流量为s的然后右边点向T连接边权流量的边</p>
+<p>然后最后我们一个边向两个点连边即可</p>
+<p>跑Dinic即可得到最大流,角去就是答案</p>
+<p>加势</p>
+<p>三角不等式</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><mi>i</mi><msub><mi>s</mi><mi>x</mi></msub><mo>+</mo><mi>c</mi><mo>−</mo><mi>d</mi><mi>i</mi><msub><mi>s</mi><mi>y</mi></msub><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">dis_x+c-dis_y\geq 0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">i</span><span class="mord"><span class="mord mathdefault">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">x</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">c</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">i</span><span class="mord"><span class="mord mathdefault">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.15139200000000003em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">y</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≥</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span></p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi><mo>+</mo><mi>d</mi><mi>i</mi><msub><mi>s</mi><mn>1</mn></msub><mo>−</mo><mi>d</mi><mi>i</mi><msub><mi>s</mi><mn>2</mn></msub><mo>+</mo><msub><mi>c</mi><mn>2</mn></msub><mo>+</mo><mi>d</mi><mi>i</mi><msub><mi>s</mi><mn>2</mn></msub><mo>−</mo><mi>d</mi><mi>i</mi><msub><mi>s</mi><mn>3</mn></msub><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi></mrow><annotation encoding="application/x-tex">c+dis_1-dis_2+c_2+dis_2-dis_3....</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">c</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">i</span><span class="mord"><span class="mord mathdefault">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">i</span><span class="mord"><span class="mord mathdefault">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.73333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">i</span><span class="mord"><span class="mord mathdefault">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">i</span><span class="mord"><span class="mord mathdefault">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord">.</span><span class="mord">.</span><span class="mord">.</span><span class="mord">.</span></span></span></span></p>
+<p>抵消了</p>
+<p>然后任意一条从S到T的路径,实际距离是新图上的距离再加上一个势函数<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><mi>i</mi><msub><mi>s</mi><mi>s</mi></msub><mo>−</mo><mi>d</mi><mi>i</mi><msub><mi>s</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">dis_s-dis_t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">i</span><span class="mord"><span class="mord mathdefault">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">i</span><span class="mord"><span class="mord mathdefault">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2805559999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></p>
+<p>同时<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><mi>i</mi><msub><mi>s</mi><mi>s</mi></msub><mo>=</mo><mn>0</mn><mo separator="true">,</mo><mo>−</mo><mi>d</mi><mi>i</mi><msub><mi>s</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">dis_s=0,-dis_t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">i</span><span class="mord"><span class="mord mathdefault">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">−</span><span class="mord mathdefault">d</span><span class="mord mathdefault">i</span><span class="mord"><span class="mord mathdefault">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2805559999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>就好了</p>
+<p>这样的话每条边就是正权了</p>
+<p>然后这一遍增广之后也要再把势能函数加上最短路值更新</p>
+<p>第一遍如果负权边流量不是0就要跑spfa的\</p>
+<p>https://community.topcoder.com/stat?c=problem_statement&amp;pm=12432</p>
+<figure data-type="image" tabindex="2"><img src="https://xiaxiaoguang.github.io/post-images/1612015966827.png" alt="" loading="lazy"></figure>
+<p>这个题就很magic啊</p>
+<p>建模的出发点是<strong>一条一条方向确定</strong>,而不是一条条环确定啊</p>
+<p>先黑白染色,那么每次我们只能从黑向白流啊</p>
+<p>就是说我们每个点设置两个大方向上下/左右,然后再从大方向向小方向连边,其中左右和上下对应的<strong>第一个点</strong>要连费用为1的边,第二个点就要用费用为0的边,因为如果我们左右使用了,就一定会我们先从上下的走完了再走左右的!!</p>
+<p>就是说s-&gt;1-&gt;上下</p>
+<p>1-&gt;左右</p>
+<p>上下-(0)&gt;上</p>
+<p>-(1)&gt;下</p>
+<p>左右-(0)&gt;左</p>
+<p>-(1)&gt;右</p>
+<p>之后小方向再向对应那个点的小方向连边即可,就是说s的右方向向t的左方向这样子</p>
+<p>然后s向所有黑点连边,t向所有白点连边,这个流量为2,表示我可以延伸出两个插头</p>
+<p>也就是说每次我们是<strong>贪心每个插头</strong>!!</p>
+<p>又因为我们一定能够达到这个最大流,那么每个活动的点(有解情况下)一定能有两个插头连出去</p>
+<p>同时跑最小费用,所以我们能尽可能的多选择一些点使他们处于拐弯,(充分利用左右)所以也能得到最优答案</p>
+<p>上下界</p>
+<p>流满下界</p>
+<p>注意此时我们有的一定是</p>
+<p>流出大于流入我们向T连边</p>
+<p>流入大于流出的我们S向它连边</p>
+<p>然后容量就是差值</p>
+<p>如果新图能满流就平衡了</p>
+<p>最大流</p>
+<p>这个先流完下界</p>
+<p>然后因为流量可以不平衡,我们原图中t向s连inf即可</p>
+<p>然后求s到t的残量网络的最大流</p>
+<p>最小流</p>
+<p>一样的,从t到s流即可</p>
+<p>CTT2020</p>
+<p>竞赛图,问翻转某条边后强联通分量数</p>
+<p>首先缩点,然后考虑不在一个强联通分量的边,翻转之后会使得这些缩点</p>
+<p>那么会剪掉拓扑序之差个连通块</p>
+<p>然后边界条件就是两个相邻的翻转,大概率是不变的</p>
+<p>然后如果在一个强联通分量</p>
+<p>求一个哈密尔顿回路</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi><msub><mi>x</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">mx_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord mathdefault">m</span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>是不考虑这个环上的边,然后通过非环上的边能够走到的1到i位置中最大的编号的点是什么</p>
+<p>然后我们有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi><msub><mi>x</mi><mi>x</mi></msub><mo>=</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">mx_x=x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord mathdefault">m</span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">x</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span>的,x是这条边指向的点,就是翻转这条边新增的可能的连通块数</p>
+<p>这个怎么O(n)维护呢?</p>
+<p>你考虑我们每次把编号修改了,就是让环上第二个点变成第一个,然后每次暴力重新求每个点的mx,然后我们会发现最后一个点会变成n,也就是变大了,那么指向这个变大的点的mx会变大,直接修改这些点即可</p>
+<p>实际上,我们就是在找每个点在不走他环上的父边的时候能走到的编号最大的点是什么qwq也就是那个low</p>
+<p>怎么找哈密尔顿回路</p>
+<p>考虑一个点去扩大环</p>
+<p>因为是竞赛图,如果新点n和这个连通块存在多于一个入边和出边,就一定能找到一个三元环,然后扩展这个点!</p>
+<p>怎么找这个新点?</p>
+<p>考虑动态维护多个环,如果一些点x对于这个环全是入边,然后接着找到一些点y对于这个环都是出边</p>
+<p>然后找到一个y到x有边的两个,他们两个可以缩成一个点,并入这个哈密尔顿路中</p>
+<p>我们可以动态维护度数,说就是每个点和环上连了多少入边多少出边,在每次新加入一个点的时候显然是可以更新的,然后这样我们每次更新只需要扫一下每个点就能直接找到一个点或者两个点扩展加入了</p>
+<h2 id="p2304-noi2015-小园丁与老司机">P2304 [NOI2015] 小园丁与老司机</h2>
+<p>第一问是dp啊,<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><msub><mi>p</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">dp_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">d</span><span class="mord"><span class="mord mathdefault">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>表示第一次走到第i树所在的行经过的最大树木数</p>
+<p>然后转移就是考虑我们每次一定是只能走这一行一段区间,所以可以先处理所有点向左走的,然后处理同一行所有点向右走的最大值,然后dp值就是取max</p>
+<p>第二问就是有上下界的最小费用流</p>
+<p>我们相当于把下界都流完然后每个点的入流和出流</p>
+<p>如果出流多了s向这个连,否则这个向t连边,然后这样只需要从t向s跑一遍网络流实现最小流即可</p>
+<p>https://community.topcoder.com/stat?c=problem_statement&amp;pm=12500</p>
+<p>L形骨牌铺建</p>
+<p>网络流,只有黑点去匹配白点</p>
+<p>昨天那个建图可以用来输出保证有解的方案QAQ</p>
+<p>然后我们有更巧妙的建图</p>
+<p>就是左边右边两排白点,表示奇数行/偶数行的白格,左边白点向S连,右边向T连然后中间两条黑点限制流量,然后一个白点向相邻最近排黑点连边即可</p>
+<p>连通:</p>
+<p>询问删掉每个点后,剩下编号相同的所有点的所有连通块数-1的和</p>
+<p>建立圆方树,对于所以<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>c</mi><mi>x</mi></msub><mo>=</mo><msub><mi>c</mi><mi>y</mi></msub></mrow><annotation encoding="application/x-tex">c_x=c_y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">x</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.716668em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.15139200000000003em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">y</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>的点,他会对于路径上所有点产生一个贡献</p>
+<p>然后我们就会发现这个问题很线段树合并,相当于查询,u子树中不同的儿子代表子树中编号为x的有多少个把</p>
+<p>所以说我们可以在线段树合并的时候直接更新答案就是对于一个位置就是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>p</mi><mi>r</mi><mi>e</mi><mi>s</mi><mi>u</mi><mi>m</mi><mo>∗</mo><mi>s</mi><mi>i</mi><mi>z</mi></mrow><annotation encoding="application/x-tex">presum*siz</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6597200000000001em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">p</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">e</span><span class="mord mathdefault">s</span><span class="mord mathdefault">u</span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.04398em;">z</span></span></span></span>这样子</p>
+<p>一个长度为n的数组,每次操作是把长度为l的连续段+-1</p>
+<p>然后费用给定</p>
+<p>希望最小费用使得整个数组单调不递减</p>
+<p>显然差分...</p>
+<p>然后我们有小于0的差分值s向他连边,然后大于0的向t连边</p>
+<p>然后我们有对于一个区间加,相当于差分数组前面或者后面某个位置加减</p>
+<p>就对应<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>x</mi><mo separator="true">,</mo><mi>x</mi><mo>+</mo><mi>l</mi><mo separator="true">,</mo><mi>i</mi><mi>n</mi><mi>f</mi><mo separator="true">,</mo><mi>c</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">(x,x+l,inf,c)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">c</span><span class="mclose">)</span></span></span></span>或者<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>x</mi><mo>+</mo><mi>l</mi><mo separator="true">,</mo><mi>x</mi><mo separator="true">,</mo><mi>i</mi><mi>n</mi><mi>f</mi><mo separator="true">,</mo><mi>c</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">(x+l,x,inf,c)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">c</span><span class="mclose">)</span></span></span></span></p>
+<p>然后1和n+1就直接特殊处理qaq</p>
+<p>???不太懂的题-&gt;</p>
+<p>左右都有n个点然后m个边</p>
+<p>然后复制k次得到的图为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>f</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">f_k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></p>
+<p>相邻的两排点有无穷大的边</p>
+<p>我们要判断<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>lim</mi><mo>⁡</mo><mrow><mi>k</mi><mo>−</mo><mo>&gt;</mo><mi mathvariant="normal">∞</mi></mrow></msub><msub><mi>F</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">\lim_{k-&gt;\infty }F_k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.902771em;vertical-align:-0.208331em;"></span><span class="mop"><span class="mop">lim</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span><span class="mord mtight">−</span><span class="mrel mtight">&gt;</span><span class="mord mtight">∞</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.208331em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>,就是无限复制后的网络最大流</p>
+<p>问题就是最大费用循环流,不循环一定去世了</p>
+<p>容易发现,如果每个流量设置一的费用后,可以求最小费用最大流</p>
+<p>然后我们就是要找一些环,使得长度总长最长</p>
+<p>然后你考虑选若干的环,就是入度等于出度,就能保证构成环</p>
+<p>对于每个点,拆成<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span>和<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>i</mi><mo mathvariant="normal">′</mo></msup></mrow><annotation encoding="application/x-tex">i&#x27;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.751892em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault">i</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.751892em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span></span></span></span>,然后我们新建源汇,边直接连边对应的两边的点,x到y'连边费用为-1</p>
+<p>然后x向x'连边inf</p>
+<p>然后根据网络流的最大流限制,你会发现每个点必须要是偶数</p>
+<p>你考虑我们现在的费用流,如果s-&gt;x,x-&gt;t流量一定是n*inf</p>
+<p>而如果<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mo>−</mo><mo>&gt;</mo><msup><mi>x</mi><mo mathvariant="normal">′</mo></msup></mrow><annotation encoding="application/x-tex">x-&gt;x&#x27;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">x</span><span class="mord">−</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.751892em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.751892em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span></span></span></span>流量是inf-i,你就会发现x一定会向外面流了i,然后<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>x</mi><mo mathvariant="normal">′</mo></msup></mrow><annotation encoding="application/x-tex">x&#x27;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.751892em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.751892em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span></span></span></span>接受了i</p>
+<p>所以一定也是满流情况下尽可能多使用其他边啊</p>
+<p>https://uoj.ac/problem/77</p>
+<p>主席树优化建图</p>
+<p>考虑我们最小割,每个点拆点,左边是代表黑点,右边代表白点</p>
+<p>那么如果这个点选择黑色就向他之前满足条件的白点连接一个边啊</p>
+<p>但是要拆点,就是拆出一个新点x表示这个东西,然后从u到这个点连接<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>p</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">p_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>从这个点向v连接<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi><mi>n</mi><mi>f</mi></mrow><annotation encoding="application/x-tex">inf</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span></span></span></span></p>
+<p>然后这个点要向所有满足条件的点连边</p>
+<p>这些边显然可以用主席树优化建图</p>
+<p>具体的就是建立1~i的值域线段树,然后我们每次加入i号点就用i代表的叶子向他连边即可,然后就变成了对于log个区间连边了</p>
+<p>然后最小割整个问题,小心流量不能开小了</p>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#cf949c-data-center-maintenance">CF949C Data Center Maintenance</a></li>
+<li><a href="#3101-jsoi2019%E7%B2%BE%E5%87%86%E9%A2%84%E6%B5%8B">3101. 「JSOI2019」精准预测</a></li>
+<li><a href="#%E5%85%88%E5%88%A4%E6%96%AD%E8%BF%9E%E9%80%9A">先判断连通!!!!</a></li>
+<li><a href="#cf1361c-johnny-and-megans-necklace">CF1361C Johnny and Megan's Necklace</a></li>
+<li><a href="#cf1082g-petya-and-graph">CF1082G Petya and Graph</a></li>
+<li><a href="#p2304-noi2015-%E5%B0%8F%E5%9B%AD%E4%B8%81%E4%B8%8E%E8%80%81%E5%8F%B8%E6%9C%BA">P2304 [NOI2015] 小园丁与老司机</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/20zr-sheng-xuan-day4/">
+              <h3 class="post-title">
+                20ZR省选Day4
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

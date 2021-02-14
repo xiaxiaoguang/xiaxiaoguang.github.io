@@ -1,0 +1,348 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CF204E Little Elephant and Strings | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1613312169795">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="CF204E Little Elephant and Strings | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="退役前WC复习QAQ
+在天羽斩斩的字符串一文中有这个题的部分题解....
+做法就是利用线段树合并维护出所有点的信息,然后对于一些节点出现次数大于k的贡献答案
+这个贡献答案的方式可以很大胆,就是枚举所有存在的节点然后贡献上去就好
+因为我们根据..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1613312169795" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              CF204E Little Elephant and Strings
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-02-03
+              </span>
+              <span>
+                5 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>退役前WC复习QAQ</p>
+<p>在天羽斩斩的字符串一文中有这个题的部分题解....</p>
+<p>做法就是利用线段树合并维护出所有点的信息,然后对于一些节点出现次数大于k的贡献答案</p>
+<p>这个贡献答案的方式可以很大胆,就是枚举所有存在的节点然后贡献上去就好</p>
+<p>因为我们根据SAM上根号科技,所有串一起从正确的广义SAM向上跳的复杂度总和是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><msqrt><mi>n</mi></msqrt><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n\sqrt n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.05028em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8002800000000001em;"><span class="svg-align" style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathdefault" style="padding-left:0.833em;">n</span></span><span style="top:-2.76028em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="min-width:0.853em;height:1.08em;"><svg width='400em' height='1.08em' viewBox='0 0 400000 1080' preserveAspectRatio='xMinYMin slice'><path d='M95,702c-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,
+-10,-9.5,-14c0,-2,0.3,-3.3,1,-4c1.3,-2.7,23.83,-20.7,67.5,-54c44.2,-33.3,65.8,
+-50.3,66.5,-51c1.3,-1.3,3,-2,5,-2c4.7,0,8.7,3.3,12,10s173,378,173,378c0.7,0,
+35.3,-71,104,-213c68.7,-142,137.5,-285,206.5,-429c69,-144,104.5,-217.7,106.5,
+-221c5.3,-9.3,12,-14,20,-14H400000v40H845.2724s-225.272,467,-225.272,467
+s-235,486,-235,486c-2.7,4.7,-9,7,-19,7c-6,0,-10,-1,-12,-3s-194,-422,-194,-422
+s-65,47,-65,47z M834 80H400000v40H845z'/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.23972em;"><span></span></span></span></span></span><span class="mclose">)</span></span></span></span></p>
+<p>又因为我们本质上相当于一个节点被他的所有包含他的串都访问了一遍,就对应了子树构成的线段树上存在的叶子节点</p>
+<p>又显然的是,线段树其他节点和叶子数量级一样,所以我们复杂度还是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><msqrt><mi>n</mi></msqrt><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n\sqrt n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.05028em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8002800000000001em;"><span class="svg-align" style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathdefault" style="padding-left:0.833em;">n</span></span><span style="top:-2.76028em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="min-width:0.853em;height:1.08em;"><svg width='400em' height='1.08em' viewBox='0 0 400000 1080' preserveAspectRatio='xMinYMin slice'><path d='M95,702c-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,
+-10,-9.5,-14c0,-2,0.3,-3.3,1,-4c1.3,-2.7,23.83,-20.7,67.5,-54c44.2,-33.3,65.8,
+-50.3,66.5,-51c1.3,-1.3,3,-2,5,-2c4.7,0,8.7,3.3,12,10s173,378,173,378c0.7,0,
+35.3,-71,104,-213c68.7,-142,137.5,-285,206.5,-429c69,-144,104.5,-217.7,106.5,
+-221c5.3,-9.3,12,-14,20,-14H400000v40H845.2724s-225.272,467,-225.272,467
+s-235,486,-235,486c-2.7,4.7,-9,7,-19,7c-6,0,-10,-1,-12,-3s-194,-422,-194,-422
+s-65,47,-65,47z M834 80H400000v40H845z'/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.23972em;"><span></span></span></span></span></span><span class="mclose">)</span></span></span></span></p>
+<p>空间瓶颈在于线段树合并,完全可以再用一次根号科技代替...</p>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+#define ll long long
+using namespace std;
+const int MAXN = 3e5 + 7;
+const int MAXT = 4e6 + 7;
+int root[MAXN];
+ll ans[MAXN];
+int n, k, ml, cnt;
+
+namespace seg {//线段树
+#define mid ((l+r)&gt;&gt;1)
+	int ls[MAXT], rs[MAXT], T;
+	int sum[MAXT];//存在性
+	int sum2[MAXT];//出现性
+	inline void add(int &amp;k, int l, int r, int P) {//单点加
+		if(!k)k = ++T;
+		if(l == r) {
+			sum[k] = 1;//!!
+			sum2[k]++;//这数组开小了
+			return;
+		}
+		if(P &lt;= mid)add(ls[k], l, mid, P);
+		else add(rs[k], mid + 1, r, P);
+		sum[k] = sum[ls[k]] + sum[rs[k]];
+		sum2[k] = sum2[ls[k]] + sum2[rs[k]];
+	}
+	inline int merge(int x, int y, int l, int r) {
+		if(!x || !y)return (x | y);
+		int k = ++T;
+		if(l == r) {//只代表一个串
+			sum[k] = sum[x] | sum[y];
+			sum2[k] = sum2[x] + sum2[y];
+			return k;
+		}
+		ls[k] = merge(ls[x], ls[y], l, mid);
+		rs[k] = merge(rs[x], rs[y], mid + 1, r);
+		sum[k] = sum[ls[k]] + sum[rs[k]];//这样还是保险点...
+		sum2[k] = sum2[ls[k]] + sum2[rs[k]];
+		return k;
+	}
+	inline void dfs(int k, int l, int r, int V) {
+		if(!k)return;
+		cnt++;
+		if(l == r) {
+			ans[l] += 1ll * V * sum2[k]; //这个串对应的子树中出现了多少次
+			return;
+		}
+		dfs(ls[k], l, mid, V);
+		dfs(rs[k], mid + 1, r, V);
+	}
+}
+
+int ch[MAXN][26], fa[MAXN], len[MAXN], lst, T;
+inline void ins(int c, int x) {//插入第x的字符串
+	int p = lst;
+	int q, nq;
+	if(ch[p][c]) {
+		q = ch[p][c];
+		if(len[q] == len[p] + 1) {
+			lst = q;
+			seg::add(root[q], 1, n, x);
+			return;
+		}
+		nq = ++T;
+		len[nq] = len[p] + 1;
+		memcpy(ch[nq], ch[q], sizeof(ch[q]));
+		fa[nq] = fa[q];
+		fa[q] = nq;
+		lst = nq;
+		for(; ch[p][c] == q; p = fa[p])ch[p][c] = nq;
+		seg::add(root[nq], 1, n, x);
+		return;
+	}
+	int np = lst = ++T;
+	len[np] = len[p] + 1;
+	for(; !ch[p][c] &amp;&amp; p; p = fa[p])ch[p][c] = np;
+	seg::add(root[np], 1, n, x);
+	if(!p)fa[np] = 1;
+	else {
+		q = ch[p][c];
+		if(len[q] == len[p] + 1) {
+			fa[np] = q;
+			return ;
+		}
+		nq = ++T;
+		len[nq] = len[p] + 1;
+		memcpy(ch[nq], ch[q], sizeof(ch[q]));
+		fa[nq] = fa[q];
+		fa[np] = fa[q] = nq;
+		for(; ch[p][c] == q; p = fa[p])ch[p][c] = nq;
+	}
+}
+
+string s[MAXN];
+int a[MAXN], c[MAXN];
+
+inline void solve1() {
+	for(int i = 1; i &lt;= T; ++i)c[len[i]]++;
+	for(int i = 1; i &lt;= ml; ++i)c[i] += c[i - 1];
+	for(int i = 1; i &lt;= T; ++i) {
+		a[c[len[i]]--] = i;
+	}
+	for(int i = T; i ; --i) {
+		int u = a[i];
+		if(seg::sum[root[u]] &gt;= k)
+			seg::dfs(root[u], 1, n, len[u] - len[fa[u]]); //贡献这里面所有的串
+		root[fa[u]] = seg::merge(root[fa[u]], root[u], 1, n);//不会新建立很多节点吧???
+	}
+	return ;
+}
+
+int main() {
+	scanf(&quot;%d%d&quot;, &amp;n, &amp;k);
+	lst = T = 1;
+	for(int i = 1; i &lt;= n; ++i) {
+		cin &gt;&gt; s[i];
+		lst = 1;
+		for(int j = 0; j &lt; (int)s[i].size(); ++j) {
+			ins(s[i][j] - 'a', i);
+		}
+		ml = max(ml, (int)s[i].size());
+	}
+	solve1();
+	for(int i = 1; i &lt;= n; ++i)printf(&quot;%lld &quot;, ans[i]);
+	return 0;
+}
+</code></pre>
+<p>写的时候小心线段树合并叶子节点信息的处理啊!!</p>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/p4823-tjoi2013zheng-jiu-xiao-ai-ren/">
+              <h3 class="post-title">
+                P4823 [TJOI2013]拯救小矮人
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

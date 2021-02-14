@@ -1,0 +1,421 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>P5212 SubString | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1613312169795">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="P5212 SubString | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="小 丑 竟 是 我 自 己
+首先本题的做法:建立SAM,用LCT维护fail树,查询fail树上和就好了
+我: 这还不简单?
+于是开始码吗码
+锅锅锅
+
+维护虚子树要和自己的值分开
+rotate不能写错了,一定要画图,结果我的fa还是写错一次..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1613312169795" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              P5212 SubString
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-02-03
+              </span>
+              <span>
+                6 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>小 丑 竟 是 我 自 己</p>
+<p>首先本题的做法:建立SAM,用LCT维护fail树,查询fail树上和就好了</p>
+<p>我: 这还不简单?</p>
+<p>于是开始码吗码</p>
+<p>锅锅锅</p>
+<ol>
+<li>维护虚子树要和自己的值分开</li>
+<li>rotate不能写错了,一定要画图,结果我的fa还是写错一次</li>
+<li>splay中一定要写对了,是两个在同一方向我们才旋转y</li>
+<li>access的时候改信息</li>
+<li>sam的ins函数中一定别忘了在改<strong>任何一个</strong>的fa时修改LCT</li>
+<li>LCT询问原树子树和</li>
+</ol>
+<h1 id="答案是lct上实树的右子树和虚树和自己值">答案是LCT上实树的右子树和+虚树和+自己值!!</h1>
+<ol start="7">
+<li>充分利用SAM调试必需的拓扑排序函数和outtree函数</li>
+<li>字符集是&quot;A,B&quot;不是&quot;a,b&quot;</li>
+</ol>
+<p>我...好sb啊QAQ</p>
+<pre><code class="language-cpp">//子树求和
+//这个并不难维护,直接LCT做就好了
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const int MAXN = 2e6;
+
+int Q, lsa, T;
+string s;
+char t[MAXN];
+
+namespace LCT {
+#define L ch[x][0]
+#define R ch[x][1]
+	int ch[MAXN][2], sumx[MAXN], sum[MAXN], fa[MAXN], a[MAXN]; //虚树和+自己,总树和
+	int tag[MAXN], st[MAXN];
+	inline int nroot(int x) {
+		return ch[fa[x]][0] == x || ch[fa[x]][1] == x;
+	}
+	//LCT维护子树和
+	//我们应该考虑一个点的答案实际上是左子树加上虚子树加上他自己...
+	inline void pushup(int x) {
+		sum[x] = sum[L] + sum[R] + sumx[x] + a[x];
+	}
+	inline void outtree() {
+		for(int x = 1; x &lt;= T; ++x) {
+			printf(&quot;node : %d %d L %d R %d |sum! %d x %d my %d\n&quot;, x, fa[x], L, R, sum[x], sumx[x], a[x]);
+		}
+		puts(&quot;\n&quot;);
+	}
+	//不能换根!
+	inline void rotate(int x) {
+		int y = fa[x], z = fa[y], k = ch[y][1] == x, w = ch[x][!k];
+		if(nroot(y))ch[z][ch[z][1] == y] = x;
+		ch[x][!k] = y;
+		ch[y][k] = w;
+		if(w)fa[w] = y;
+		fa[x] = z;
+		fa[y] = x;
+		pushup(y);
+	}
+	inline void pushR(int x) {
+		L ^= R ^= L ^= R;
+		tag[x] ^= 1;
+	}
+	inline void pushdown(int x) {
+		if(tag[x]) {
+			if(L)pushR(L);
+			if(R)pushR(R);
+			tag[x] = 0;
+		}
+	}
+	inline void splay(int x) {
+		int z = 0, y = x;
+		st[++z] = y;
+		while(nroot(y))st[++z] = y = fa[y];//从右到左
+		while(z)pushdown(st[z--]);
+		while(nroot(x)) {
+			y = fa[x], z = fa[y];
+			if(nroot(y))rotate(((ch[y][1] == x) ^ (ch[z][1] == y)) ? x : y);
+			rotate(x);
+		}
+		pushup(x);
+		return;
+	}
+	inline void access(int x) {
+		for(int y = 0; x; x = fa[y = x]) {
+			splay(x);
+			sumx[x] -= sum[y];
+			sumx[x] += sum[R];
+			R = y;
+			pushup(x);
+		}
+	}
+	inline void link(int x, int y) {
+		access(x);
+		splay(x);
+		access(y);
+		splay(y);
+		fa[y] = x;
+		pushup(y);
+		sumx[x] += sum[y];
+		pushup(x);
+	}
+	inline void cut(int x, int y) {
+		access(x);
+		splay(x);
+		access(y);
+		splay(y);
+		ch[y][0] = 0;
+		fa[x] = 0;
+		pushup(y);
+	}
+	//找到splay里面的根
+	inline int getrt(int x) {
+		splay(x);
+		while(L)x = L;
+		splay(x);
+		return x;
+	}
+}
+
+int ch[MAXN][4], fa[MAXN], len[MAXN], lst;
+
+inline void ins(int c) {
+	int p = lst;
+	int np = lst = ++T;
+	int nq, q;
+	len[np] = len[p] + 1;
+	for(; p &amp;&amp; !ch[p][c]; p = fa[p])ch[p][c] = np;
+	LCT::a[np]++;
+	if(!p) {
+		fa[np] = 1;
+		LCT::link(1, np);//LCT!
+	} else {
+		q = ch[p][c];
+		if(len[q] == len[p] + 1) {
+			fa[np] = q;
+			LCT::link(q, np);
+			return;
+		}
+		nq = ++T;
+		len[nq] = len[p] + 1;
+		fa[nq] = fa[q];
+		LCT::cut(fa[q], q);
+		LCT::link(fa[q], nq);
+		LCT::link(nq, q);
+		LCT::link(nq, np);
+		fa[q] = fa[np] = nq;
+		memcpy(ch[nq], ch[q], sizeof(ch[q]));
+		for(; ch[p][c] == q; p = fa[p])ch[p][c] = nq;
+	}
+	return ;
+}
+
+int a[MAXN], c[MAXN];
+inline void ts() {
+	for(int i = 1; i &lt;= T; ++i)c[len[i]]++;
+	for(int i = 1; i &lt;= s.size(); ++i)c[i] += c[i - 1];
+	for(int i = 1; i &lt;= T; ++i)a[c[len[i]]--] = i;
+	for(int i = T; i; --i) {
+		int u = a[i];
+		LCT::access(1);
+		LCT::splay(1);
+		printf(&quot;%d %d %d %d\n&quot;, u, fa[u], len[u], LCT::sum[u]);
+	}
+	return;
+}
+
+string decodeWithMask(string &amp;s, int mask) {
+	for (int j = 0; j &lt; (int)s.size(); j++) {
+		mask = (mask * 131 + j) % s.size();
+		char t = s[j];
+		s[j] = s[mask];
+		s[mask] = t;
+	}
+	return s;
+}
+
+inline void solve() {
+	int u = 1;
+	for(int i = 0; i &lt; (int)s.size(); ++i) {
+		int t = s[i] - 'A';
+		if(!ch[u][t]) {
+			lsa = 0;
+			return ;
+		}
+		u = ch[u][t];
+	}
+	LCT::getrt(u);
+	lsa = LCT::sum[LCT::ch[u][1]] + LCT::sumx[u] + LCT::a[u];
+	return ;
+}
+
+int main() {
+	scanf(&quot;%d&quot;, &amp;Q);
+	cin &gt;&gt; s;
+	lst = T = 1;
+	int qwq = 0;
+	for(int i = 0; i &lt; (int)s.size(); ++i)ins(s[i] - 'A');
+	for(int i = 1; i &lt;= Q; ++i) {
+		scanf(&quot;%s&quot;, t);
+		if(t[0] == 'Q') {
+			cin &gt;&gt; s;
+			decodeWithMask(s, qwq);
+			solve();//让他结束生命
+			printf(&quot;%d\n&quot;, lsa);
+			qwq ^= lsa;
+		} else {
+			cin &gt;&gt; s;
+			decodeWithMask(s, qwq);
+			for(int j = 0; j &lt; (int)s.size(); ++j)ins(s[j] - 'A');
+		}
+	}
+	return 0;
+}
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#%E7%AD%94%E6%A1%88%E6%98%AFlct%E4%B8%8A%E5%AE%9E%E6%A0%91%E7%9A%84%E5%8F%B3%E5%AD%90%E6%A0%91%E5%92%8C%E8%99%9A%E6%A0%91%E5%92%8C%E8%87%AA%E5%B7%B1%E5%80%BC">答案是LCT上实树的右子树和+虚树和+自己值!!</a></li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/cf204e-little-elephant-and-strings/">
+              <h3 class="post-title">
+                CF204E Little Elephant and Strings
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

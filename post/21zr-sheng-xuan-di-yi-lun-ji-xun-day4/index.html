@@ -1,0 +1,262 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>21zr省选第一轮集训day4 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1613312169795">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="21zr省选第一轮集训day4 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="A. 【21省选第一轮集训】基础
+并查集dijkstra做法
+首先对于点u,我们所有转移的边出去的权一定是disu+audis_u+a_udisu​+au​
+也就是都是一样的,也就是说我们这个转移是可以直接放入堆里增广的
+那么我们会发现,取..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1613312169795" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              21zr省选第一轮集训day4
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-02-09
+              </span>
+              <span>
+                6 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h1 id="a-21省选第一轮集训基础">A. 【21省选第一轮集训】基础</h1>
+<p>并查集dijkstra做法</p>
+<p>首先对于点u,我们所有转移的边出去的权一定是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><mi>i</mi><msub><mi>s</mi><mi>u</mi></msub><mo>+</mo><msub><mi>a</mi><mi>u</mi></msub></mrow><annotation encoding="application/x-tex">dis_u+a_u</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">i</span><span class="mord"><span class="mord mathdefault">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">u</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">u</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></p>
+<p>也就是都是一样的,也就是说我们这个转移是可以直接放入堆里增广的</p>
+<p>那么我们会发现,取出来一个转移x,就会对于x能够转移到的区间内的决策点全部更新,他们就是直接成为了最短路啊</p>
+<p>然后这样做我们要只把区间内没有经过的点拿出来,把他们的最优转移放入堆里面就好了...</p>
+<p>所以说我们就能用一个并查集,维护那些点已经访问过了,对于指向自己的是没有访问过的,对于这个区间转移,每次从左端点向后跳,然后跳到每个根直接把它转移了就好</p>
+<p>李队做法</p>
+<p>我们考虑一个路径向回走太多一定不会更优,就是从第一行的x位置,走到一个<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mo>−</mo><mi>y</mi><mo>(</mo><mi>y</mi><mo>&gt;</mo><mi>k</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">x-y(y&gt;k)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mclose">)</span></span></span></span>,然后再从这个位置走回x一定不会更优</p>
+<p>所以我们不需要考虑这个下界,所以可以发现我们可以</p>
+<p>每个点向这个点+k位置连边,边权为出点,然后第一排的点向后一个点连边,然后第二排点向前一个点连边,边权为某个点减去某个点</p>
+<p>就是</p>
+<figure data-type="image" tabindex="1"><img src="https://xiaxiaoguang.github.io/post-images/1612880748898.png" alt="" loading="lazy"></figure>
+<h1 id="b-21省选第一轮集训数据结构">B. 【21省选第一轮集训】数据结构</h1>
+<p>我们有一个很简单的暴力想法,就是对于所有已有的修改来维护答案</p>
+<p>比如插入一个y或者x,相当于对于一个点坐标向后移动,一个之前插入的向后移动,同时对于之前插入的操作,假设有一行或者一列覆盖到了这个位置,相应的就会对于这一列产生一个横坐标或者纵坐标推平类的影响,同时这个推平类影响之后所有影响是我们需要知道的东西</p>
+<p>不难发现直接maintain是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mi>Q</mi><mn>2</mn></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(Q^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">Q</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></p>
+<p>第一种做法是可持久化平衡树</p>
+<p>直 接 做</p>
+<p>首先对于前i个操作建立平衡树,然后对于第i次操作,他的影响是所有编号大于他的操作都会被+1,然后加入到集合中</p>
+<p>对于区间加,可以使用可持久化标记,即我们对于这次修改新建立的叶子点直接上去即可</p>
+<p>然后对于插入,直接新建节点即可</p>
+<p>然后我们接下来考虑怎么实现查询有没有覆盖到他的</p>
+<p>可以直接单点查询这个值</p>
+<p>然后考虑怎么实现这个操作之后的有多少个能够对于他产生影响</p>
+<p>我们可持久化就是搞这个的/cy</p>
+<p>你考虑只有序列在这个区间内,然后前k个操作能够使之变小和前i个操作能使之变小的</p>
+<p>但是说你会发现此时我们要的信息是前k个中当前位置在x之后的操作</p>
+<p>但是他们的相对顺序不可能变</p>
+<p>所以只需要直接二分,然后在原树上查询,就是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>p</mi><mi>o</mi><mi>l</mi><mi>y</mi><mi>l</mi><mi>o</mi><mi>g</mi></mrow><annotation encoding="application/x-tex">polylog</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">p</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span></span></span></span>的qwq</p>
+<p>这个可持久化不够阳间啊QAQ</p>
+<p>考虑能不能只按照标号维护一个东西啊?然后让两个log变成一个log啊</p>
+<p>相当于一个平衡树,每次插入一个数,然后每次后继加个1</p>
+<p>可以用重量平衡树维护,因为重量平衡树不需要翻转,所以我们可以用节点x,表示编号为(l,r)实数编号区间,然后这个点的编号就是mid</p>
+<p>然后我们查询直接访问树上这个节点对应编号即可</p>
+<p>修改时插入这个节点一路改到根上</p>
+<p>然后我们如果不平衡就重构一下就能<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi><mo>)</mo><mo>−</mo><mi>O</mi><mo>(</mo><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">O(logn)-O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">n</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span>了!</p>
+<p>所以两个log就被马耀华爷爷搞成1个log了!</p>
+<p>然后我们还有官方做法</p>
+<p>我们现在缺点在于在线QAQ</p>
+<p>离线可以线段树分治,所以在线我们可以考虑二进制分组</p>
+<p>储存前面所有的询问,并且将他们二进制分组,当一组正好满<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mi>k</mi></msup></mrow><annotation encoding="application/x-tex">2^k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.849108em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.849108em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span></span></span></span></span></span></span></span>的时候,我们利用归并排序将他O(n)重构,否则视为不存在</p>
+<p>然后最后我们会有一个两个的零散快,他们是可以直接暴力维护顺序的qwq</p>
+<p>然后我们从最后一个块向前不停的用二分查找第一个覆盖他的操作</p>
+<p>但是有一个问题,我们无法知道实际上被其余操作影响的那些操作的标号/jk</p>
+<p>不难发现我们在建立这一个区间的时候可以直接处理出区间中这些操作对于区间内操作的影响,就是前后左右移动移动类似的,也是归并排序就可以解决</p>
+<p>但是说我们不能保证的是分开的两端之间的答案相互影响qaq</p>
+<p>所以此时我们需要利用题目的性质,就是影响很具有可减性,在回退操作时前面插入一个数使得操作后移了,等价于x向前移动了,所以直接让x,y对应的坐标减少即可</p>
+<p>可以证明这个转化是等价的</p>
+<p>首先对于原来的答案x,x之后的任意操作,他们一定最后会在询问的后方</p>
+<p>那么他们什么时候会在询问的后方,而不至于对于询问产生影响呢?</p>
+<p>你会发现要么是在x减少的时候,x跳到这个操作之前了</p>
+<p>否则,说明是他同一块内的操作淦死了他,这个情况我们再生成这个块的时候,就把标号重新分配好了</p>
+<p>所以就对了</p>
+<p>复杂度<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mi>l</mi><mi>o</mi><msup><mi>g</mi><mn>2</mn></msup><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(nlog^2n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></p>
+<p>可删除线性基</p>
+<p>如果我们要删除一个x</p>
+<p>考虑所有b,表示哪些异或出来的,然后我们有这个<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>b</mi><mrow><mi>j</mi><mo separator="true">,</mo><mi>x</mi></mrow></msub></mrow><annotation encoding="application/x-tex">b_{j,x}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault">b</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight">x</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>为1</p>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#a-21%E7%9C%81%E9%80%89%E7%AC%AC%E4%B8%80%E8%BD%AE%E9%9B%86%E8%AE%AD%E5%9F%BA%E7%A1%80">A. 【21省选第一轮集训】基础</a></li>
+<li><a href="#b-21%E7%9C%81%E9%80%89%E7%AC%AC%E4%B8%80%E8%BD%AE%E9%9B%86%E8%AE%AD%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">B. 【21省选第一轮集训】数据结构</a></li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/21zr-sheng-xuan-di-yi-lun-ji-xun-day2-kao-shi/">
+              <h3 class="post-title">
+                21zr省选第一轮集训day2
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
