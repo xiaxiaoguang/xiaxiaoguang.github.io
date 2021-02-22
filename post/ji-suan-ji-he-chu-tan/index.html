@@ -1,0 +1,335 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>计算几何初探 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1614035802567">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="计算几何初探 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="二维计算几何基础...
+点的表示
+很basic
+需要支持两点对应单位向量叉积,两点对应的单位向量点积,两点坐标直接相减,两点坐标直接相加,使用结构体封装
+struct nd {
+	db x, y;
+	nd(db X = 0, db Y = ..." />
+    <meta name="keywords" content="计算几何" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1614035802567" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              计算几何初探
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-02-22
+              </span>
+              <span>
+                6 min read
+              </span>
+              
+                <a href="https://xiaxiaoguang.github.io/tag/viBkjuGF1n/" class="post-tag">
+                  # 计算几何
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="http://r.photo.store.qq.com/psc?/V13b3duC210Fox/45NBuzDIW489QBoVep5mcZcyoZ0EMcHTJomqlwtYAwjXdbX1hnnE2IilcRrKRU1m5WiG5bxGAhVZFU41ZsCO6XVFcnbHrUkJ*QXLqeumIxQ!/r" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h1 id="二维计算几何基础">二维计算几何基础...</h1>
+<h2 id="点的表示">点的表示</h2>
+<p>很basic</p>
+<p>需要支持两点对应单位向量叉积,两点对应的单位向量点积,两点坐标直接相减,两点坐标直接相加,使用结构体封装</p>
+<pre><code class="language-cpp">struct nd {
+	db x, y;
+	nd(db X = 0, db Y = 0): x(X), y(Y) {};
+	db operator^(const nd &amp;x) {
+		return this-&gt;x * x.y - this-&gt;y * x.x;
+	}
+	db operator*(const nd &amp;x) {
+		return this-&gt;x * x.x + this-&gt;y * x.y;
+	}
+	friend nd operator-(nd a, nd b) {
+		return nd(a.x - b.x, a.y - b.y);
+	}
+	friend nd operator+(nd a, nd b) {
+		return nd(a.x + b.x, a.y + b.y);
+	}
+	nd operator*(db w) {
+		return nd(this-&gt;x * w, this-&gt;y * w);
+	}
+};
+</code></pre>
+<p>c++98可过</p>
+<h2 id="向量直线两点式表示">向量/直线两点式表示</h2>
+<p>调用上述nd定义来定义即可</p>
+<p>我们只需要实现两向量叉积和点积</p>
+<p>但是实际写的时候一般用三个点叉积更多不说了</p>
+<p>还需要实现极角排序,对于不同的题目第二个return内容不同,如果要保留所有直线逆时针方向的半平面,可以使用以下模板</p>
+<pre><code class="language-cpp">struct rec {
+	nd a, b;
+	rec(nd A = nd(0, 0), nd B = nd(0, 0)): a(A), b(B) {};
+	db operator^(const rec &amp;x) {
+		return (this-&gt;b - this-&gt;a) ^ (x.b - x.a); //没有交换律
+	}
+	db operator*(const rec &amp;x) {
+		return (this-&gt;b - this-&gt;a) * (x.b - x.a);
+	}
+	friend bool operator&lt;(rec x, rec y) {
+		db t1 = atan2((x.b - x.a).y, (x.b - x.a).x);
+		db t2 = atan2((y.b - y.a).y, (y.b - y.a).x);  // 求极角
+		if (fabs(t1 - t2) &gt; eps)                      // 如果极角不等
+			return t1 &lt; t2;
+		return sign((x.b - x.a) ^ (y.b - x.a)) &gt; 0; // 判断向量x在y的哪边，令最靠左的排在最右边
+	}
+};
+</code></pre>
+<h2 id="atan2">atan2</h2>
+<p>定义是输入坐标(x,y)</p>
+<p>返回(x,y)对应单位向量的极角k,<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi><mi>r</mi><mi>c</mi><mi>t</mi><mi>a</mi><mi>n</mi><mo>(</mo><mi>k</mi><mo>)</mo><mo>=</mo><mfrac><mi>x</mi><mi>y</mi></mfrac></mrow><annotation encoding="application/x-tex">arctan(k)=\frac{x}{y}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">c</span><span class="mord mathdefault">t</span><span class="mord mathdefault">a</span><span class="mord mathdefault">n</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.1764999999999999em;vertical-align:-0.481108em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.695392em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">y</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">x</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.481108em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></p>
+<p>还是很好用的,实测是先按照x轴负半轴极角从大到小排序,然后x轴正半轴极角从小到大排序</p>
+<p>如果我们只需要上凸壳形成半平面,那么只需要按照斜率从高到底排序即可!</p>
+<h2 id="两点式求交">两点式求交</h2>
+<p>属于我们能考场手推的内容</p>
+<p>这里给出相似的解法</p>
+<pre><code class="language-cpp">nd its(rec x, rec y) {//求交点
+	nd u = x.a - y.a, v = x.b - x.a, w = y.b - y.a;//三角形
+	db t = (w ^ u) / (v ^ w);
+	return x.a + v * t;
+}
+
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://xiaxiaoguang.github.io/post-images/1614002935663.png" alt="" loading="lazy"></figure>
+<p>点斜式求交点更简单,就不写了</p>
+<h2 id="叉积">叉积</h2>
+<p>判断一条直线在另一条直线的某一侧神器</p>
+<p>对于<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi><mi>X</mi><mi>B</mi></mrow><annotation encoding="application/x-tex">A X B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault">A</span><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span></span></span></span>,当其大于0时说明A在B的右侧,否则在B的左侧</p>
+<p>这个判断方法很简单,我们画出A,B向量,然后用右手放在A向量处向B握,当大拇指向纸面里则说明叉积小于0,否则说明大于0</p>
+<h2 id="判断点在线段上">判断点在线段上</h2>
+<p>这个是不错的套路啦...</p>
+<p>首先叉积可以判断点是不是在直线上,等于0说明在直线上</p>
+<p>然后用哪个点和线段两端点求点积,如果得到结果大于0,说明两点在这个点同侧,就不在线段上,反之就在</p>
+<h2 id="多边形求面积">多边形求面积</h2>
+<p>三角剖分</p>
+<p>选取一个顶点,然后加上<strong>每个三角形有向面积</strong>即可,这样凹多边形也能求</p>
+<pre><code class="language-cpp">inline void solve2() {
+	db ans = 0;
+	for(int i = 2; i &lt; num; ++i) {
+		ans += (p[i] - p[1]) ^ (p[i + 1] - p[1]);
+	}
+	printf(&quot;%.3lf\n&quot;, ans / 2.0);
+}
+</code></pre>
+<h1 id="半平面交">半平面交</h1>
+<p>极角排序,然后依次加入</p>
+<p>根据题目特性,我们要放弃一些极角相同的线段!在本题中只需要保留最靠左的</p>
+<p>一条新插入的线段,如果右侧的交点在这个线段的右侧,对于左半平面交就没用了</p>
+<p>又因为我们加在头尾都有可能,所以还要判断头</p>
+<p>然后最后我们可能用头去删掉尾尾干掉头因此要聪明一点点</p>
+<p>直接维护即可</p>
+<pre><code class="language-cpp">inline void solve() {
+	sort(v.begin(), v.end());
+	int l = 1, r = 0, cnt = 0;
+	for(int i = 0; i &lt;= n - 1; ++i) {
+		if(!sign(getang(v[i].b - v[i].a) - getang(v[i + 1].b - v[i + 1].a)))continue;
+		L[++cnt] = v[i];
+	}
+	L[++cnt] = v[n];
+	for(int i = 1; i &lt;= cnt; ++i) {
+		while(l &lt; r &amp;&amp; onright(L[i], q[r], q[r - 1]))r--;
+		while(l &lt; r &amp;&amp; onright(L[i], q[l], q[l + 1]))++l;
+		q[++r] = L[i];
+	}
+	while(l &lt; r &amp;&amp; onright(q[l], q[r], q[r - 1]))--r;
+	while(l &lt; r &amp;&amp; onright(q[r], q[l], q[l + 1]))l++;
+	num = 0;
+	for(int i = l; i &lt;= r; ++i)
+		p[++num] = its(q[i], q[i + 1]);
+	p[++num] = its(q[r], q[l]);
+	return ;
+}
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#%E4%BA%8C%E7%BB%B4%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95%E5%9F%BA%E7%A1%80">二维计算几何基础...</a>
+<ul>
+<li><a href="#%E7%82%B9%E7%9A%84%E8%A1%A8%E7%A4%BA">点的表示</a></li>
+<li><a href="#%E5%90%91%E9%87%8F%E7%9B%B4%E7%BA%BF%E4%B8%A4%E7%82%B9%E5%BC%8F%E8%A1%A8%E7%A4%BA">向量/直线两点式表示</a></li>
+<li><a href="#atan2">atan2</a></li>
+<li><a href="#%E4%B8%A4%E7%82%B9%E5%BC%8F%E6%B1%82%E4%BA%A4">两点式求交</a></li>
+<li><a href="#%E5%8F%89%E7%A7%AF">叉积</a></li>
+<li><a href="#%E5%88%A4%E6%96%AD%E7%82%B9%E5%9C%A8%E7%BA%BF%E6%AE%B5%E4%B8%8A">判断点在线段上</a></li>
+<li><a href="#%E5%A4%9A%E8%BE%B9%E5%BD%A2%E6%B1%82%E9%9D%A2%E7%A7%AF">多边形求面积</a></li>
+</ul>
+</li>
+<li><a href="#%E5%8D%8A%E5%B9%B3%E9%9D%A2%E4%BA%A4">半平面交</a></li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/ya-suo-hou-zhui-zi-dong-ji-yu-sasha-and-swag-strings-jie-ti-bao-gao/">
+              <h3 class="post-title">
+                压缩后缀自动机与Sasha and Swag Strings解题报告
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

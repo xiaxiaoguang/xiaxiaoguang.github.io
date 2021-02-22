@@ -1,0 +1,388 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>某金牌训练营Day4 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1614035802567">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="某金牌训练营Day4 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="A
+考虑行列无关,即行的翻转不会影响列的翻折
+于是我们求出所有行的方案和列的方案然后直接乘起来即可
+就是说,对于只考虑行的一个合法的区间[l,r]他们会贡献(r−l+1)∗(r−l)/2(r-l+1)*(r-l)/2(r−l+1)∗(r−l..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1614035802567" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              某金牌训练营Day4
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-02-17
+              </span>
+              <span>
+                10 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>A</p>
+<p>考虑行列无关,即行的翻转不会影响列的翻折</p>
+<p>于是我们求出所有行的方案和列的方案然后直接乘起来即可</p>
+<p>就是说,对于只考虑行的一个合法的区间[l,r]他们会贡献<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>r</mi><mo>−</mo><mi>l</mi><mo>+</mo><mn>1</mn><mo>)</mo><mo>∗</mo><mo>(</mo><mi>r</mi><mo>−</mo><mi>l</mi><mo>)</mo><mi mathvariant="normal">/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">(r-l+1)*(r-l)/2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.77777em;vertical-align:-0.08333em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mclose">)</span><span class="mord">/</span><span class="mord">2</span></span></span></span>种选取方案,然后这些方案和任意一个列的选取方案都能凑出一个合法解,说明他是对的</p>
+<p>考虑怎么求这两个东西.显然可以区间dp实现</p>
+<p>然后我们考虑对于列求合法区间,一个区间合法的充要条件是对于合法区间<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mn>1</mn><mo separator="true">,</mo><mi>n</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">[1,n]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">n</span><span class="mclose">]</span></span></span></span><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mn>1</mn><mo separator="true">,</mo><mi>l</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">[1,l]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mclose">]</span></span></span></span>能够一刀右边,然后<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mi>r</mi><mo separator="true">,</mo><mi>n</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">[r,n]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">n</span><span class="mclose">]</span></span></span></span>能够移动到左边,这样[l,r]区间一定是合法的</p>
+<p>必要性显然,如何证明充分?</p>
+<p>首先我们把<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mi>r</mi><mo>+</mo><mn>1</mn><mo separator="true">,</mo><mi>n</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">[r+1,n]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">n</span><span class="mclose">]</span></span></span></span>折过来,第一步显然合法,变为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mn>1</mn><mo separator="true">,</mo><mi>r</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">[1,r]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mclose">]</span></span></span></span></p>
+<p>然后剩下部分反证法,假设最靠左的对称轴向右折都跨过右边界,则一定不成立</p>
+<p>显然我们可以知道,将整个序列划分成几个部分,然后向右这一段不能跨过n,但是一定跨过r</p>
+<figure data-type="image" tabindex="1"><img src="https://xiaxiaoguang.github.io/post-images/1613561087575.jpg" alt="" loading="lazy"></figure>
+<p>T是原来[l,r],那么我们有,找到R部分最靠左的轴,这个轴翻转过来,是可以把[r+1,n]翻折到[1,r]的</p>
+<p>于是我们就能发现,这个轴翻过去就能得到另外一个更靠左的轴,这样的一个轴就能至少保证,翻折过去不会超过R的右端点!</p>
+<p>于是我们不断找下去,直到找到这样一条对称轴满足在翻折之后在T右端点之前就是对的</p>
+<p>于是我们就证明了充分性</p>
+<p>然后我们会发现合法区间的左右端点是独立的,那么我们可以找到所有合法的左右端点,然后前缀和计算出合法区间数即可</p>
+<p>比如<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mi>l</mi><mo separator="true">,</mo><mi>n</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">[l,n]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">n</span><span class="mclose">]</span></span></span></span>,我们要找到合法的这些点</p>
+<p>现在的问题在于如何快速找到这些合法的左端点</p>
+<p>假设我们现在有合法的左端点x,于是假设他在以i为回文中心的最长回文半径内,我们就可以沿着i翻折一次,然后得到新的左端点</p>
+<p>右端点[1,r]也类似</p>
+<p>然后前缀和类似的对于一个合法右端点枚举左端点转移即可</p>
+<p>要注意实际上并没有单调性这回事...我们是直接找到所有合法的左右端点对....这个东西没有单调性...</p>
+<p>B</p>
+<p>维护前i个点的上凸壳,你会发现加入第i个点后,凸壳的导数第二个点就是我们要求的i向左能看到的山峰</p>
+<p>然后我们会发现,维护了<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mi mathvariant="normal">到</mi><mi>i</mi></mrow><annotation encoding="application/x-tex">1到i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord cjk_fallback">到</span><span class="mord mathdefault">i</span></span></span></span>的上凸壳,然后找到i向前的那个点即可,单调栈维护一下</p>
+<p>反着重复这个过程我们就知道答案了</p>
+<p>然后我们发现每次是看过的最高高度走,那么假设看过的最高高度<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>h</mi><mo>=</mo><msub><mi>y</mi><mrow><mi>t</mi><msub><mi>o</mi><mi>i</mi></msub></mrow></msub></mrow><annotation encoding="application/x-tex">h=y_{to_i}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">h</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68066em;vertical-align:-0.2501em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2805559999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">t</span><span class="mord mtight"><span class="mord mathdefault mtight">o</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3280857142857143em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2501em;"><span></span></span></span></span></span></span></span></span></span>,在h被更新之前是不会改变的</p>
+<p>但是说你会发现如果我走到某个点导致i的最高高度目标更新了,那么i之前走路的信息就没用了,相当于等价于从j出发重复这个过程</p>
+<p>也就是说我们答案具有可继承性,当<strong>历史最大值</strong>更新时刻</p>
+<p>于是我们如果能够把这棵关系树建出来就能够直接dfs一遍通过继承父亲的答案就做完了</p>
+<p>然后我们发现我们要找到的是i向目标走的第一个使i掉头的点,这个点可以二分+区间rmq,也可以使用单调栈,从左向右找解决所有点的向右看的问题,然后从右向左找解决向左看的那些点,每次加入一个点,可能会导致一些点弹出,这些被弹出的点求出他们的<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>L</mi><mo separator="true">,</mo><mi>R</mi></mrow><annotation encoding="application/x-tex">L,R</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">L</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span></span></span></span>信息即可,可以用并查集维护吧</p>
+<p>如果要在半路上就能掉头呢?</p>
+<p>IOI2013的论文有写加强版</p>
+<p>我们每次弹出凸壳上点的时候其实就等价于凸包上一条边延长到和这个边有交点了</p>
+<p>于是我们把这样的交点额外建立出来即可</p>
+<p>然后你会发现每次凸包弹出一个点就会新建立一个点,所以就可以证明复杂度对</p>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+#define db double
+#define ll long long
+#define pii pair&lt;int,int&gt;
+#define fi first
+#define mkp(x,y) (make_pair(x,y))
+#define se second
+using namespace std;
+const int MAXN = 1e6 + 7;
+const int MAXLOG = 21;
+
+int n, a[MAXN], b[MAXN], P, c[MAXN];
+pii st[MAXN][MAXLOG];
+int que[MAXN];
+int home[MAXN], nxt[MAXN], to[MAXN], ccnt, len[MAXN], R[MAXN], L[MAXN];
+
+namespace fastIO {
+#define BUF_SIZE (1&lt;&lt;21)
+	static char buf[BUF_SIZE], *p1 = buf, *pend = buf;
+	inline char nc() {
+		if(p1 == pend) {
+			p1 = buf;
+			pend = buf + fread(buf, 1, BUF_SIZE, stdin);
+		}
+		return *p1++;
+	}
+	inline int read() {
+		int x = 0;
+		char s = nc();
+		for(; !isdigit(s); s = nc());
+		for(; isdigit(s); s = nc())x = (x &lt;&lt; 1) + (x &lt;&lt; 3) + s - '0';
+		return x;
+	}
+}
+using namespace fastIO;
+
+inline void ct(int x, int y, int z) {
+	ccnt++;
+	nxt[ccnt] = home[x];
+	home[x] = ccnt;
+	to[ccnt] = y;
+	len[ccnt] = z;
+}
+
+inline db slope(int x, int y) {
+	return (b[y] - b[x]) / (1.0 * a[y] - a[x]);
+}
+
+inline void init1() {
+	int hd = 1, tl = 0;
+	que[++tl] = 1;//一号点没意义
+	for(int i = 2; i &lt;= n; ++i) {
+		while(hd &lt; tl &amp;&amp; slope(que[tl - 1], que[tl]) &lt; slope(que[tl], i))
+			--tl;
+		L[i] = que[tl];
+		que[++tl] = i;
+	}
+	hd = 1, tl = 0;
+	que[++tl] = n;
+	for(int i = n - 1; i &gt;= 1; --i) {
+		while(hd &lt; tl &amp;&amp; slope(que[tl - 1], que[tl]) &gt; slope(que[tl], i))
+			--tl;
+		R[i] = que[tl];
+		que[++tl] = i;
+	}
+	P = 0;
+	for(int i = 1; i &lt;= n; ++i) {
+		c[i] = b[L[i]] &gt; b[R[i]] ? L[i] : R[i];
+		if(b[P] &lt;= b[i])P = i;
+		st[i][0] = max(mkp(b[c[i]], c[i]), mkp(b[i], i));
+	}
+	return ;
+}
+
+inline pii qry(int x, int y) {
+	int w = log(y - x + 1) / log(2.0);
+	return max(st[x][w], st[y - (1 &lt;&lt; w) + 1][w]);
+}
+
+inline void init2() {
+	for(int j = 1; j &lt;= 20; ++j) {
+		for(int i = 1; i &lt;= n; ++i) {
+			if(i + (1 &lt;&lt; (j - 1)) &lt;= n)//数组越界警告
+				st[i][j] = max(st[i][j - 1], st[i + (1 &lt;&lt; (j - 1))][j - 1]);
+		}
+	}
+	for(int i = 1; i &lt;= n; ++i) {
+		if(i == P)continue;
+		if(b[R[i]] &gt;= b[L[i]]) {
+			int l = i + 1, r = n, mid = 0, ans = R[i];
+			while(l &lt;= r) {
+				mid = (l + r) &gt;&gt; 1;
+				if(qry(i + 1, mid) &gt;= mkp(b[c[i]], c[i])) {
+					ans = mid;
+					r = mid - 1;
+				} else {
+					l = mid + 1;
+				}
+			}
+			ct(ans, i, ans - i);
+		} else {
+			int l = 1, r = i - 1, mid = 0, ans = L[i];
+			while(l &lt;= r) {
+				mid = (l + r) &gt;&gt; 1;
+				if(qry(mid, i - 1) &gt;= mkp(b[c[i]], c[i])) {
+					ans = mid;
+					l = mid + 1;
+				} else {
+					r = mid - 1;
+				}
+			}
+			ct(ans, i, i - ans);
+		}
+	}
+	return ;
+}
+
+ll ans[MAXN];
+inline void dfs(int x) {
+	for(int i = home[x]; i; i = nxt[i]) {
+		int v = to[i];
+		ans[v] = ans[x] + len[i];
+		dfs(v);
+	}
+}
+
+int main() {
+	freopen(&quot;mountain.in&quot;, &quot;r&quot;, stdin);
+	freopen(&quot;mountain.out&quot;, &quot;w&quot;, stdout);
+	n = read();
+	for(int i = 1; i &lt;= n; ++i) {
+		a[i] = read();
+		b[i] = read();
+	}
+	init1();
+	init2();
+	dfs(P);
+	for(int i = 1; i &lt;= n; ++i)printf(&quot;%lld\n&quot;, ans[i]);
+	return 0;
+}
+</code></pre>
+<p>C</p>
+<p>JSOI合金和他一模一样,就是如何快速判断点集都在一条边的一侧比较难</p>
+<p>考虑这个点集建立凸包</p>
+<p>然后对于一条边(x,y),如果他与凸壳相交,说明我们在凸包的两部分,上凸壳和下凸壳上找到的对应点,满足一个大于等于0,一个小于等于0,就是说叉积结果(汗)</p>
+<p>注意我们建立凸包要分上下凸壳维护,然后上下凸壳分界点是横坐标最大和最小的点,二分的时候两个上面都要二分</p>
+<p>然后我们可以定义所有顺时针的边(叉积结果大于0)为正向,然后逆时针的边为(叉积结果小于0)反向</p>
+<p>然后用floyed求最小环即可!</p>
+<p>李队有一个不错的做法,但是被叉了</p>
+<p>他认为最优的结构一定是凸壳...</p>
+<p>然后就可以使用决策单调性优化建边了,因为这个合法的区域一定是一个双指针的形式</p>
+<p>但是说这个显然不对啊,就是我们答案不一定就是凸包啊所以萎了</p>
+<p>比如一个凹进去的小三角形就叉了</p>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/mou-jin-pai-xun-lian-ying-day3/">
+              <h3 class="post-title">
+                某金牌训练营Day3
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

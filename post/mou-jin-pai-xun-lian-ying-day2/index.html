@@ -1,0 +1,422 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>某金牌训练营Day2 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1614035802567">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="某金牌训练营Day2 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="A. 次短路径
+首先我们知道每个点到1号点最短路的第一条边是确定的,那么你会发现其实就是所有最短路都是确定的
+也就是最短路树是唯一的
+然后我的想法是对于每条边,如果是横叉边,就直接走过去,然后用对面那个点的最短路去解决
+否则如果是返祖边,我..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1614035802567" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              某金牌训练营Day2
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-02-17
+              </span>
+              <span>
+                10 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h1 id="a-次短路径">A. 次短路径</h1>
+<p>首先我们知道每个点到1号点最短路的第一条边是确定的,那么你会发现其实就是所有最短路都是确定的</p>
+<p>也就是最短路树是唯一的</p>
+<p>然后我的想法是对于每条边,如果是横叉边,就直接走过去,然后用对面那个点的最短路去解决</p>
+<p>否则如果是返祖边,我们可能因为走了这条边而导致最短路还需要经过标记边,不能直接统计</p>
+<p>考虑将第一种情况推广,此时我们应该是走非树边再走一条边走出u的子树然后走回根1号点,那么也就是说我们应该是沿着树边走到子树内某个点,然后横叉边</p>
+<p>因为如果不走树边走过去更优,说明我们有更好的选择,而因为最短路树是唯一的,所以我们不可能有更好的选择</p>
+<p>这个横叉边之后的部分很好统计,对于其余的走过去的部分的路径,我们可以使用线段树合并,支持全局加然后合并查询全局最小值即可</p>
+<p>注意点u直接连出去的横叉边</p>
+<p>两个堆删除特定值,直接存入另一个堆,然后每次取出堆顶比较一下即可</p>
+<p>注意我们一个<strong>边</strong>只会对于<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>u</mi><mo separator="true">,</mo><mi>v</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">(u,v)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">u</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mclose">)</span></span></span></span>两对点产生贡献</p>
+<p>注意开longlong1坑死了</p>
+<p>最后写了最好写的启发式合并/ll</p>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+#define pi pair&lt;int,int&gt;
+#define int long long
+#define ps push
+#define pb push_back
+#define fi first
+#define se second
+#define mkp(x,y) (make_pair(x,y))
+#define vi vector&lt;int&gt;
+using namespace std;
+const int MAXN = 5e5 + 7;
+
+int n, m, ccnt, ccnt2;
+int home[MAXN], nxt[MAXN], to[MAXN], w[MAXN], tag[MAXN], ans[MAXN], frm[MAXN];
+int fst[MAXN], tto[MAXN], len[MAXN], nxtt[MAXN];
+
+inline void ct(int x, int y, int z) {
+	ccnt++;
+	nxt[ccnt] = home[x];
+	home[x] = ccnt;
+	to[ccnt] = y;
+	w[ccnt] = z;
+	frm[ccnt] = x;
+}
+
+priority_queue&lt;pi, vector&lt;pi&gt;, greater&lt;pi&gt; &gt; heap;
+int dis[MAXN], pre[MAXN], vis[MAXN], prep[MAXN];
+
+inline void ct2(int x, int y, int z) {
+	ccnt2++;
+	nxtt[ccnt2] = fst[x];
+	fst[x] = ccnt2;
+	tto[ccnt2] = y;
+	len[ccnt2] = z;
+}
+
+inline void dijkstra(int s) {
+	memset(dis, 0x3f3f3f3f, sizeof(dis));
+	dis[s] = 0;
+	heap.ps(mkp(0, s));
+	while(!heap.empty()) {
+		int u = heap.top().se;
+		heap.pop();
+		if(vis[u])continue;
+		vis[u] = 1;
+		for(int i = home[u]; i; i = nxt[i]) {
+			int v = to[i];
+			if(dis[v] &gt; dis[u] + w[i]) {
+				dis[v] = dis[u] + w[i];
+				pre[v] = u;
+				prep[v] = w[i];
+				heap.ps(mkp(dis[v], v));
+			}
+		}
+	}
+	for(int i = 1; i &lt;= n; ++i) {
+		if(pre[i])ct2(pre[i], i, prep[i]);
+	}
+	return ;
+}
+
+int siz[MAXN], son[MAXN], dep[MAXN], top[MAXN], dfn[MAXN], depp, mx[MAXN];
+
+inline void dfs1(int u, int depth) {
+	dfn[u] = ++depp;
+	mx[u] = dfn[u];
+	siz[u] = 1;
+	dep[u] = depth;
+	for(int i = fst[u]; i; i = nxtt[i]) {
+		int v = tto[i];
+		if(v == pre[u])continue;
+		dfs1(v, depth + 1);
+		siz[u] += siz[v];
+		mx[u] = max(mx[v], mx[u]);
+		if(siz[v] &gt; siz[son[u]])son[u] = v;
+	}
+	return ;
+}
+
+inline void dfs2(int u, int topf) {
+	top[u] = topf;
+	if(!son[u])return ;
+	dfs2(son[u], topf);
+	for(int i = fst[u]; i; i = nxtt[i]) {
+		int v = tto[i];
+		if(v == pre[u])continue;
+		dfs2(v, v);
+	}
+	return ;
+}
+
+inline void init() {
+	dfs1(1, 0);
+	memset(ans, -1, sizeof(ans));
+	return ;
+}
+
+priority_queue&lt;pi, vector&lt;pi&gt;, greater&lt;pi&gt; &gt; hp[MAXN];
+
+inline int pd(int u, int i) {
+	if(dfn[frm[i]] &gt;= dfn[u] &amp;&amp; dfn[frm[i]] &lt;= mx[u] &amp;&amp; dfn[to[i]] &gt;= dfn[u] &amp;&amp; dfn[to[i]] &lt;= mx[u])return 0;
+	return 1;
+}
+
+inline void dfs(int u) {
+	for(int i = home[u]; i; i = nxt[i]) {
+		int v = to[i];
+		if((dfn[v] &gt;= dfn[u] &amp;&amp; dfn[v] &lt;= mx[u]) || v == pre[u])continue;
+		hp[u].ps(mkp(w[i] + dis[v], i));//标记这条边
+	}
+	for(int i = fst[u]; i; i = nxtt[i]) {
+		int v = tto[i];
+		if(v == pre[u])continue;
+		dfs(v);
+		if(hp[v].size() &gt; hp[u].size()) {
+			swap(hp[v], hp[u]);
+			swap(tag[u], tag[v]);
+			while(!hp[v].empty()) {
+				pi g = hp[v].top();
+				g.fi += -len[i] + tag[v] - tag[u];
+				hp[u].ps(g);
+				hp[v].pop();
+			}
+			tag[u] += len[i];
+		} else while(!hp[v].empty()) {
+				pi g = hp[v].top();
+				g.fi += len[i] + tag[v] - tag[u]; //被迫延长
+				hp[u].ps(g);
+				hp[v].pop();
+			}
+	}//poly log
+	while(!hp[u].empty()) {
+		pi g = hp[u].top();
+		g.fi += tag[u];
+		if(pd(u, g.se)) {
+			ans[u] = g.fi;
+			break;
+		}
+		hp[u].pop();
+	}
+	return ;
+}
+
+signed main() {
+	freopen(&quot;pal.in&quot;, &quot;r&quot;, stdin);
+	freopen(&quot;pal.out&quot;, &quot;w&quot;, stdout);
+	scanf(&quot;%lld%lld&quot;, &amp;n, &amp;m);
+	for(int i = 1, x, y, z; i &lt;= m; ++i) {
+		scanf(&quot;%lld%lld%lld&quot;, &amp;x, &amp;y, &amp;z);
+		ct(x, y, z);
+		ct(y, x, z);
+	}
+	dijkstra(1);//建树
+	init();//直接tag上
+	dfs(1);//线段树合并
+	for(int i = 2; i &lt;= n; ++i)printf(&quot;%lld\n&quot;, ans[i]);
+	return 0;
+}
+</code></pre>
+<h1 id="b-带权的图">B. 带权的图</h1>
+<p>不阳间,没想</p>
+<p>建议dfs树,会发现一个环两条边走两遍没有意义的</p>
+<p>然后我们找到环,就是几条返祖边和树边构成的</p>
+<p>然后我们发现一个环对应的其他环,(只经过了一返祖边拼成)把这些环找出来</p>
+<p>这个环可以由那些环的加和拼起来,因为我们说过走了多遍的一定没用,而这个情况下只有树边会被经过多次而被消掉</p>
+<p>也就是说,我们求出的C只需要满足dfs树上简单环(一条返祖边构成)的限制即可</p>
+<p>然后再思考我们求得是C,同时有</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>∑</mo><mi>B</mi><mo>∗</mo><mi>C</mi><mo>=</mo><mo>∑</mo><mi>A</mi></mrow><annotation encoding="application/x-tex">\sum B*C= \sum A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.00001em;vertical-align:-0.25001em;"></span><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.00001em;vertical-align:-0.25001em;"></span><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">A</span></span></span></span></p>
+<p>这个形式可以得到<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi><mo>−</mo><mi>n</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">m-n+1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>个方程,每个环和树边组成的方程</p>
+<p>然后这些方程直接高斯消元还不太够,我们再利用上对于一个点满足C的和为0这个条件,就有足够多的方程了,这样就能消得所有的边</p>
+<p>这个复杂度是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mi>m</mi><mn>3</mn></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(m^3)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></p>
+<p>考虑为什么太慢了,因为我们的变量数太多了</p>
+<p>定义变量<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>D</mi><mo>(</mo><mi>u</mi><mo separator="true">,</mo><mi>v</mi><mo>)</mo><mo>=</mo><mi>B</mi><mo>∗</mo><mi>C</mi><mo>(</mo><mi>u</mi><mo separator="true">,</mo><mi>v</mi><mo>)</mo><mo>−</mo><mi>A</mi><mo>(</mo><mi>u</mi><mo separator="true">,</mo><mi>v</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">D(u,v)=B*C(u,v)-A(u,v)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">D</span><span class="mopen">(</span><span class="mord mathdefault">u</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mopen">(</span><span class="mord mathdefault">u</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">A</span><span class="mopen">(</span><span class="mord mathdefault">u</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mclose">)</span></span></span></span></p>
+<p>那么我们就有一个环的D和为0,因为我们一个环满足上述条件3啊</p>
+<p>那么我们一定能把环拆成两部分,满足两条路径的边权和为相反数</p>
+<p>然后,对于任意两条从u到v的路径,他们的D权值和一定是一样的</p>
+<p>因为如果不一样,说明我们把这两条路径拿出来组成环,这个环的权值和不是0</p>
+<p>所以从1号点出发走到u号点的权值为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>ϕ</mi><mi>u</mi></mrow><annotation encoding="application/x-tex">\phi u</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">ϕ</span><span class="mord mathdefault">u</span></span></span></span>,对于边<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>u</mi><mo separator="true">,</mo><mi>v</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">(u,v)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">u</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mclose">)</span></span></span></span>就有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>D</mi><mo>(</mo><mi>u</mi><mo separator="true">,</mo><mi>v</mi><mo>)</mo><mo>=</mo><mi>ϕ</mi><mi>v</mi><mo>−</mo><mi>ϕ</mi><mi>u</mi></mrow><annotation encoding="application/x-tex">D(u,v)=\phi v-\phi u</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">D</span><span class="mopen">(</span><span class="mord mathdefault">u</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">ϕ</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">ϕ</span><span class="mord mathdefault">u</span></span></span></span></p>
+<p>发现实际上我们是使用了第三个限制条件</p>
+<p>根据第二个条件,先让<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>ϕ</mi><mn>1</mn><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\phi 1=0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">ϕ</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span></p>
+<p>有</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mo>∑</mo><mrow><mo>(</mo><mi>u</mi><mo separator="true">,</mo><mi>v</mi><mo>)</mo></mrow></msub><mfrac><mrow><mi>ϕ</mi><mo>(</mo><mi>v</mi><mo>)</mo><mo>−</mo><mi>ϕ</mi><mo>(</mo><mi>u</mi><mo>)</mo><mo>+</mo><mi>A</mi><mo>(</mo><mi>u</mi><mo separator="true">,</mo><mi>v</mi><mo>)</mo></mrow><mrow><mi>B</mi><mo>(</mo><mi>u</mi><mo separator="true">,</mo><mi>v</mi><mo>)</mo></mrow></mfrac><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\sum_{(u,v)} \frac{\phi(v)-\phi(u)+A(u,v)}{B(u,v)}=0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.53em;vertical-align:-0.52em;"></span><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.22528999999999993em;"><span style="top:-2.40029em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mathdefault mtight">u</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight" style="margin-right:0.03588em;">v</span><span class="mclose mtight">)</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.47471em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.01em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.05017em;">B</span><span class="mopen mtight">(</span><span class="mord mathdefault mtight">u</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight" style="margin-right:0.03588em;">v</span><span class="mclose mtight">)</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.485em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">ϕ</span><span class="mopen mtight">(</span><span class="mord mathdefault mtight" style="margin-right:0.03588em;">v</span><span class="mclose mtight">)</span><span class="mbin mtight">−</span><span class="mord mathdefault mtight">ϕ</span><span class="mopen mtight">(</span><span class="mord mathdefault mtight">u</span><span class="mclose mtight">)</span><span class="mbin mtight">+</span><span class="mord mathdefault mtight">A</span><span class="mopen mtight">(</span><span class="mord mathdefault mtight">u</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight" style="margin-right:0.03588em;">v</span><span class="mclose mtight">)</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.52em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span></p>
+<p>直接对于这个方程高斯消元即可,其中(u,v)是所有u的出边</p>
+<h1 id="c-木棍问题">C. 木棍问题</h1>
+<p>首先黑白染色建立费用流模型</p>
+<p>然后我们网格中的点强制由黑点连向白点</p>
+<p>如果流量是一个特定值表示放入多少木棍,那由费用可以直接求出答案了</p>
+<p>当A=B的时候,我们每个木球流量只和度数有关系</p>
+<p>然后我们直接连重边然后差分就好了,在费用流增广我们会优先使用最短路</p>
+<p>然后注意白点要有流量限制为4,不能有度数大于4的点,白点也要向T连四种边,要不然就少算了...</p>
+<p>如果<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>B</mi><mo>&gt;</mo><mi>A</mi></mrow><annotation encoding="application/x-tex">B&gt;A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72243em;vertical-align:-0.0391em;"></span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault">A</span></span></span></span>,我们要使用这个条件啊!</p>
+<p>此时相当于有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>B</mi><mo>−</mo><mi>A</mi><mo>)</mo><mo>+</mo><mi>A</mi></mrow><annotation encoding="application/x-tex">(B-A)+A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">A</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault">A</span></span></span></span>额外费用</p>
+<p>最多只会有两种这样的情况,第一种是横向的三个球,第二种是纵向三个球</p>
+<p>所以拆点,我们一个点拆出三个点,一个点先向拆出的<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>x</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">x_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>,然后连4个A的边,就是第一步的差分的边</p>
+<p>然后再向横向和纵向的两个点,流出一个是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mn>1</mn><mo separator="true">,</mo><mn>0</mn><mo>)</mo><mo separator="true">,</mo><mo>(</mo><mn>1</mn><mo separator="true">,</mo><mi>B</mi><mo>−</mo><mi>A</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">(1,0),(1,B-A)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">0</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">A</span><span class="mclose">)</span></span></span></span>另一个也是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mn>1</mn><mo separator="true">,</mo><mn>0</mn><mo>)</mo><mo>(</mo><mn>1</mn><mo separator="true">,</mo><mi>B</mi><mo>−</mo><mi>A</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">(1,0)(1,B-A)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">0</span><span class="mclose">)</span><span class="mopen">(</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">A</span><span class="mclose">)</span></span></span></span>的边即可</p>
+<p>这样你发现我们一定会优先<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mn>1</mn><mo separator="true">,</mo><mn>0</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">(1,0)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">0</span><span class="mclose">)</span></span></span></span>,第二次在选择这个方向就是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mn>1</mn><mo separator="true">,</mo><mi>B</mi><mo>−</mo><mi>A</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">(1,B-A)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">A</span><span class="mclose">)</span></span></span></span></p>
+<p>实现的时候用zkw费用流加速,然后每次我们虽然可以增加很多流量,这些流量并不需要一点点加,同时推给答案数组即可</p>
+<h2 id="633-左偏树逃跑计划">633. 「左偏树」逃跑计划</h2>
+<p>考虑以1为根</p>
+<p>然后1到t的重链,上面有一些子树</p>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#a-%E6%AC%A1%E7%9F%AD%E8%B7%AF%E5%BE%84">A. 次短路径</a></li>
+<li><a href="#b-%E5%B8%A6%E6%9D%83%E7%9A%84%E5%9B%BE">B. 带权的图</a></li>
+<li><a href="#c-%E6%9C%A8%E6%A3%8D%E9%97%AE%E9%A2%98">C. 木棍问题</a>
+<ul>
+<li><a href="#633-%E5%B7%A6%E5%81%8F%E6%A0%91%E9%80%83%E8%B7%91%E8%AE%A1%E5%88%92">633. 「左偏树」逃跑计划</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/mou-jin-pai-xun-lian-ying-day4/">
+              <h3 class="post-title">
+                某金牌训练营Day4
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
