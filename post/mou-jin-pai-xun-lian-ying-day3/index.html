@@ -3,7 +3,7 @@
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>某金牌训练营Day3 | 夏晓光(loveJY)的博客</title>
-<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1614035802567">
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1614250157489">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
 <link rel="alternate" type="application/atom+xml" title="某金牌训练营Day3 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
@@ -28,7 +28,7 @@ A
       <div class="main-content">
         <div class="site-header">
   <a href="https://xiaxiaoguang.github.io">
-  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1614035802567" alt="">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1614250157489" alt="">
   </a>
   <h1 class="site-title">
     夏晓光(loveJY)的博客
@@ -94,7 +94,7 @@ A
                 2021-02-17
               </span>
               <span>
-                19 min read
+                21 min read
               </span>
               
             </div>
@@ -395,6 +395,82 @@ signed main() {
 <p>然后得到n的总点数,乘上n就好了/ll</p>
 <p>我怎么这么傻啊/ll</p>
 <figure data-type="image" tabindex="1"><img src="https://xiaxiaoguang.github.io/post-images/1613561044906.png" alt="" loading="lazy"></figure>
+<p>然后线性插值即可</p>
+<p>这题还卡常啊能省快速幂就省一个吧...</p>
+<pre><code class="language-cpp">
+#include&lt;bits/stdc++.h&gt;
+#define ll long long
+const int P = 1e9 + 7;
+const int MAXN = 2e6 + 7;
+
+int T, n, k;
+ll a[MAXN], fac[MAXN], jc2, ifac[MAXN], b[MAXN];
+
+inline ll ksm(ll x, ll y) {
+   ll ans = 1;
+   while(y) {
+   	if(y &amp; 1)ans = ans * x % P;
+   	x = x * x % P;
+   	y &gt;&gt;= 1;
+   }
+   return ans;
+}
+
+inline void init() {//k*(2N+1)^(k-1) * n
+   fac[0] = 1;
+   b[0] = 1;
+   for(int i = 1; i &lt;= k + 2; ++i) {
+   	b[i] = ksm(2 * i + 1, k);
+   	a[i] = (b[i] - b[i - 1] + P) % P * i % P;
+   	a[i] = (a[i] + a[i - 1]) % P;
+   	fac[i] = fac[i - 1] * i % P;
+   }
+   ifac[k + 2] = ksm(fac[k + 2], P - 2);
+   for(int i = k + 1; i &gt;= 1; --i)ifac[i] = ifac[i + 1] * (i + 1) % P;
+   ifac[0] = 1;
+   jc2 = 1;
+   for(int i = 1; i &lt;= k + 2; ++i)jc2 = jc2 * (n - i) % P;//i次下降幂
+   return ;
+}
+
+inline ll chazhi() {
+   ll ans = 0;
+   for(int i = 1; i &lt;= k + 2; ++i) {
+   	if(n != i) {
+   		if((k + 2 - i) &amp; 1)
+   			ans = (ans + P - a[i] * jc2 % P * ksm(n - i, P - 2) % P * ifac[i - 1] % P * ifac[k + 2 - i] % P) % P;
+   		else
+   			ans = (ans + a[i] * jc2 % P * ksm(n - i, P - 2) % P * ifac[i - 1] % P * ifac[k + 2 - i] % P) % P;
+   	} else return a[i];
+   }
+   return ans;
+}
+
+ll chazhi2() {
+   ll ans = 0;
+   for(int i = 1; i &lt;= k + 2; ++i) {
+   	ll tmp = a[i];
+   	for(int j = 1; j &lt;= k + 2; ++j) {
+   		if(i == j)continue;
+   		tmp = 1ll * tmp * (n - j) % P * ksm(i - j, P - 2) % P;
+   	}
+   	ans = (ans + tmp) % P;
+   }
+   return ans;
+}
+
+int main() {
+   freopen(&quot;distance.in&quot;, &quot;r&quot;, stdin);
+   freopen(&quot;distance.out&quot;, &quot;w&quot;, stdout);
+   scanf(&quot;%d&quot;, &amp;T);
+   while(T-- &gt; 0) {
+   	scanf(&quot;%d%d&quot;, &amp;k, &amp;n);
+   	init();//预处理
+   	printf(&quot;%lld\n&quot;, chazhi());
+   } return 0;
+}
+
+</code></pre>
 <h2 id="572-二分图匹配不同缩写">572. 「二分图匹配」不同缩写</h2>
 <p>看上去就不是阳间的题</p>
 

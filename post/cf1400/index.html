@@ -1,0 +1,466 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CF1400 | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1614250157489">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="CF1400 | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="CF1400A String Similarity
+输出S的所有偶数位置字符
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+int T, n;
+char s1[10000000];
+i..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1614250157489" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              CF1400
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-02-25
+              </span>
+              <span>
+                9 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h1 id="cf1400a-string-similarity">CF1400A String Similarity</h1>
+<p>输出S的所有偶数位置字符</p>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+using namespace std;
+int T, n;
+char s1[10000000];
+int main() {
+	scanf(&quot;%d&quot;, &amp;T);
+	while(T-- &gt; 0) {
+		scanf(&quot;%d%s&quot;, &amp;n, s1);
+		for(int i = 0; i &lt; 2 * n - 1; i += 2)printf(&quot;%c&quot;, s1[i]);
+		puts(&quot;&quot;);
+	}
+	return 0;
+}
+</code></pre>
+<h1 id="cf1400b-rpg-protagonist">CF1400B RPG Protagonist</h1>
+<p>枚举第一个人买什么</p>
+<p>然后第二个人尽可能买小的</p>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+#define int long long
+using namespace std;
+
+int T, p, f, cnts, cntw, s, w;
+
+signed main() {
+	scanf(&quot;%lld&quot;, &amp;T);
+	while(T-- &gt; 0) {
+		scanf(&quot;%lld%lld&quot;, &amp;p, &amp;f);
+		scanf(&quot;%lld%lld&quot;, &amp;cnts, &amp;cntw);
+		scanf(&quot;%lld%lld&quot;, &amp;s, &amp;w);
+		if(s &gt; w)swap(cnts, cntw), swap(s, w);
+		int ans = 0;
+		for(int i = 0; i &lt;= cnts; ++i) {
+			if(i * s &gt; p)break;
+			int tp = min((p - i * s) / w, cntw);
+			// printf(&quot;First : %d %d\n&quot;, i, i + tp);
+			if((cnts - i) * s &gt;= f) {
+				// puts(&quot;/jk&quot;);
+				ans = max(ans, tp + i + f / s);
+				// printf(&quot;is %d\n&quot;, tp + i + f / s);
+			} else {
+				tp += min((f - (cnts - i) * s) / w, cntw - tp);
+				// printf(&quot;%d %d?\n&quot;, min((f - (cnts - i) * s) / w, cntw - tp), tp + cnts);
+				tp += cnts;
+				ans = max(ans, tp);
+			}
+		}
+		printf(&quot;%lld\n&quot;, ans);
+	}
+	return 0;
+}
+</code></pre>
+<h1 id="cf1400c-binary-string-reconstruction">CF1400C Binary String Reconstruction</h1>
+<p>从小到大扫过去</p>
+<p>对于第一个位置看他前面的能不能放1,能放在前面,否则放在后面并判断能不能放</p>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+const int MAXN = 1e6 + 7;
+int T, x, n;
+char s[MAXN];
+int a[MAXN];
+inline int fpd(int i) {
+	if((i - x &gt; 0 &amp;&amp; a[i - x] == 1) || (i + x &lt;= n &amp;&amp; a[i + x] == 1))return 0;
+	return 1;
+}
+inline int pd(int i) {
+	if((i + x &lt;= n &amp;&amp; s[i + x] != '1') || (i - x &gt; 0 &amp;&amp; s[i - x] != '1'))return 0;
+	return 1;
+}
+int main() {
+	scanf(&quot;%d&quot;, &amp;T);
+	while(T-- &gt; 0) {
+		scanf(&quot;%s&quot;, s + 1);
+		scanf(&quot;%d&quot;, &amp;x);
+		n = strlen(s + 1);
+		for(int i = 1; i &lt;= n; ++i)a[i] = 0;
+		bool flg = 1;
+		for(int i = 1; i &lt;= n; ++i) {
+			if(s[i] == '1' &amp;&amp; fpd(i)) {
+				if(i - x &gt; 0 &amp;&amp; pd(i - x)) {
+					a[i - x] = 1;
+				} else if(i + x &lt;= n &amp;&amp; pd(i + x)) {
+					a[i + x] = 1;
+				} else {
+					flg = 0;
+					break;
+				}
+			}
+		}
+		if(!flg)puts(&quot;-1&quot;);
+		else for(int i = 1; i &lt;= n; ++i)printf(&quot;%d&quot;, a[i]);
+		puts(&quot;&quot;);
+	}
+	return 0;
+}
+</code></pre>
+<h1 id="cf1400d-zigzags">CF1400D Zigzags</h1>
+<p>第一遍预处理前i个位置有多少个相等数对</p>
+<p>第二遍在线统计<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>f</mi><mrow><mi>i</mi><mo separator="true">,</mo><msub><mi>a</mi><mi>i</mi></msub></mrow></msub></mrow><annotation encoding="application/x-tex">f_{i,a_i}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mpunct mtight">,</span><span class="mord mtight"><span class="mord mathdefault mtight">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3280857142857143em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>表示前i个值为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>a</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">a_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>的求和是什么</p>
+<h1 id="cf1400e-clear-the-multiset">CF1400E Clear the Multiset</h1>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>f</mi><mrow><mi>l</mi><mo separator="true">,</mo><mi>r</mi></mrow></msub></mrow><annotation encoding="application/x-tex">f_{l,r}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight" style="margin-right:0.02778em;">r</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>表示区间<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mi>l</mi><mo separator="true">,</mo><mi>r</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">[l,r]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mclose">]</span></span></span></span>全部清空的最小代价</p>
+<p>第一种转移是把所有的数不断进行1操作剪剪剪到最小值为0,然后区间变成子区间</p>
+<p>第二种转移是直接将整个区间使用2操作推平掉</p>
+<p>两类转移取min即可</p>
+<p>因为我们每次都会减少一个数,相对带来多出一个状态的代价,所以是线性的</p>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+#define int long long
+using namespace std;
+const int MAXN = 1e5 + 7;
+int a[MAXN], n;
+
+inline int solve(int l, int r) {
+	if(l &gt; r)return 0;
+	if(l == r) {
+		if(a[l] == 0)return 0;
+		return 1;
+	}
+	int ans = 0;
+	int ans1 = 0;
+	int tmp = 1e9;
+	for(int i = l; i &lt;= r; ++i) {
+		if(a[i] &lt; tmp)tmp = a[i];
+		if(a[i] != 0)ans1++;
+	}
+	for(int i = l; i &lt;= r; ++i)
+		a[i] -= tmp;
+	ans = tmp;
+	tmp = l;
+	for(int i = l; i &lt;= r; ++i) {
+		if(a[i] == 0) {
+			ans += solve(tmp, i - 1);
+			tmp = i + 1;
+		} else if(i == r) {
+			ans += solve(tmp, i);
+		}
+	}
+	ans = min(ans, ans1);
+	return ans;
+}
+
+signed main() {
+	scanf(&quot;%lld&quot;, &amp;n);
+	for(int i = 1; i &lt;= n; ++i)
+		scanf(&quot;%lld&quot;, &amp;a[i]);
+	printf(&quot;%lld\n&quot;, solve(1, n));
+	return 0;
+}
+</code></pre>
+<h1 id="cf1400f-x-prime-substrings">CF1400F x-prime Substrings</h1>
+<p>李队之前讲过,咕掉</p>
+<h1 id="cf1400g-mercenaries">CF1400G Mercenaries</h1>
+<p>容斥</p>
+<p>钦定至少满足其中x个敌对关系</p>
+<p>我们只需要选出一些人使得这些人数量满足限制即可</p>
+<p>不难发现我们可以很容易求出单点值,就是对于集合大小为x的方案数,假设<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>n</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">n_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>为所有满足<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><msub><mi>l</mi><mi>i</mi></msub><mo>≤</mo><mi>x</mi><mo separator="true">,</mo><msub><mi>r</mi><mi>i</mi></msub><mo>≥</mo><mi>x</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">[l_i\leq x,r_i \geq x]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.01968em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8304100000000001em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≥</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">x</span><span class="mclose">]</span></span></span></span>,应该是</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo fence="true">(</mo><mfrac linethickness="0px"><msub><mi>n</mi><mi>i</mi></msub><mi>x</mi></mfrac><mo fence="true">)</mo></mrow><annotation encoding="application/x-tex">\binom{n_i}{x}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.20001em;vertical-align:-0.35001em;"></span><span class="mord"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size1">(</span></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7453919999999999em;"><span style="top:-2.3550000000000004em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">x</span></span></span></span><span style="top:-3.144em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3280857142857143em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size1">)</span></span></span></span></span></span></p>
+<p>然后因为我们钦定了几对人,所以是</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mo>∑</mo><mi>x</mi></msub><mrow><mo fence="true">(</mo><mfrac linethickness="0px"><mrow><msub><mi>n</mi><mi>i</mi></msub><mo>−</mo><mi>c</mi></mrow><mrow><mi>x</mi><mo>−</mo><mi>c</mi></mrow></mfrac><mo fence="true">)</mo></mrow></mrow><annotation encoding="application/x-tex">\sum_x\binom{n_i-c}{x-c}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.255662em;vertical-align:-0.403331em;"></span><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.0016819999999999613em;"><span style="top:-2.40029em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">x</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.29971000000000003em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size1">(</span></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8523310000000001em;"><span style="top:-2.355em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">x</span><span class="mbin mtight">−</span><span class="mord mathdefault mtight">c</span></span></span></span><span style="top:-3.144em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3280857142857143em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span><span class="mbin mtight">−</span><span class="mord mathdefault mtight">c</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.403331em;"><span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size1">)</span></span></span></span></span></span></p>
+<p>这个式子好像没法O(1)求啊/ll</p>
+<p>但是最后关键的一步,我们容斥要看值域大小!!</p>
+<p>这个c的值域只有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mn>0</mn><mo separator="true">,</mo><mn>2</mn><mi>m</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">[0,2m]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mord mathdefault">m</span><span class="mclose">]</span></span></span></span>,而且只有m种取值</p>
+<p>所以就直接做了</p>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+#define ll long long
+#define pb push_back
+using namespace std;
+const int P = 998244353;
+const int MAXN = 3e5 + 7;
+const int MAXM = 45;
+int n, m, x[MAXN], y[MAXN], cnt[MAXN], l[MAXN], r[MAXN];
+int fac[MAXN], ifac[MAXN], vis[MAXN];
+vector&lt;int&gt; v;
+int pre[MAXM][MAXN];
+inline ll ksm(ll x, ll y) {
+	ll ans = 1;
+	while(y) {
+		if(y &amp; 1)ans = ans * x % P;
+		x = x * x % P;
+		y &gt;&gt;= 1;
+	}
+	return ans;
+}
+
+inline ll add(ll x, ll y) {
+	x += y;
+	if(x &gt;= P)x -= P;
+	return x;
+}
+
+inline ll C(ll n, ll m) {
+	if(n &lt; m)return 0;
+	if(m &lt; 0)return 0;
+	return 1ll * fac[n] * ifac[m] % P * ifac[n - m] % P;
+}
+
+inline void init() {
+	sort(v.begin(), v.end());
+	v.erase(unique(v.begin(), v.end()), v.end());
+	fac[0] = 1;
+	for(int i = 1; i &lt;= n; ++i)fac[i] = 1ll * fac[i - 1] * i % P;
+	ifac[n] = ksm(fac[n], P - 2);
+	for(int i = n - 1; i &gt;= 1; --i)ifac[i] = 1ll * ifac[i + 1] * (i + 1) % P;
+	ifac[0] = 1;
+	for(int j = 0; j &lt;= 2 * m; j++) {
+		for(int i = 1; i &lt;= n; ++i) {
+			pre[j][i] = add(pre[j][i - 1], C(cnt[i] - j, i - j));
+		}
+	}
+	return ;
+}
+
+int main() {
+	scanf(&quot;%d%d&quot;, &amp;n, &amp;m);
+	for(int i = 1; i &lt;= n; ++i) {
+		scanf(&quot;%d%d&quot;, &amp;l[i], &amp;r[i]);
+		cnt[l[i]]++;
+		cnt[r[i] + 1]--;
+	}
+	for(int i = 1; i &lt;= n; ++i)cnt[i] += cnt[i - 1];
+	for(int i = 1; i &lt;= m; ++i) {
+		scanf(&quot;%d%d&quot;, &amp;x[i], &amp;y[i]);
+		v.pb(x[i]);
+		v.pb(y[i]);
+	}
+	init();
+	int mS = (1 &lt;&lt; m) - 1;
+	ll ans = 0;
+	for(int S = 0; S &lt;= mS; ++S) {
+		int cnt = 0, lm = 1, rm = n, qc = 0;
+		for(int i = 1; i &lt;= m; ++i) {
+			if(S &gt;&gt; (i - 1) &amp; 1) {
+				vis[x[i]] = vis[y[i]] = 1;
+				qc++;
+				lm = max(lm, l[x[i]]);
+				rm = min(rm, r[x[i]]);
+				lm = max(lm, l[y[i]]);
+				rm = min(rm, r[y[i]]);
+			}
+		}
+		for(auto q : v) {
+			if(vis[q])cnt++;
+			vis[q] = 0;
+		}
+		if(lm &gt; rm)continue;
+		// printf(&quot; ?? %d %d %d %d %d\n&quot;, qc, cnt, lm, rm, pre[cnt][rm] - pre[cnt][lm - 1]);
+		if(qc &amp; 1)ans = add(ans, P - pre[cnt][rm] + pre[cnt][lm - 1]);
+		else ans = add(ans, P + pre[cnt][rm] - pre[cnt][lm - 1]);
+		ans %= P;
+	}
+	printf(&quot;%lld\n&quot;, ans);
+	return 0;
+
+}
+</code></pre>
+<p>直接WA了两发,第一发是求逆元哪里爆int了,然后第二处是我组合数那下标越界了....然后第二个else有减法我又没有判掉WA了第三发.....</p>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#cf1400a-string-similarity">CF1400A String Similarity</a></li>
+<li><a href="#cf1400b-rpg-protagonist">CF1400B RPG Protagonist</a></li>
+<li><a href="#cf1400c-binary-string-reconstruction">CF1400C Binary String Reconstruction</a></li>
+<li><a href="#cf1400d-zigzags">CF1400D Zigzags</a></li>
+<li><a href="#cf1400e-clear-the-multiset">CF1400E Clear the Multiset</a></li>
+<li><a href="#cf1400f-x-prime-substrings">CF1400F x-prime Substrings</a></li>
+<li><a href="#cf1400g-mercenaries">CF1400G Mercenaries</a></li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/ji-suan-ji-he-chu-tan/">
+              <h3 class="post-title">
+                计算几何初探
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
