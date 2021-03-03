@@ -1,0 +1,261 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CF626FGroup Projects | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1614811461873">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="CF626FGroup Projects | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="妙  啊
+一开始我以为是按照顺序分组,这不简单?,我直接dp就能很简单的做完
+第二个样例都过不去,再一看题发现是随意分组....
+像这样随意分组的计数和排列方案计数没区别,总要给你计算代价的时候简单一点吧...比如之前那个sdoi就是相邻最..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1614811461873" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              CF626FGroup Projects
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-03-04
+              </span>
+              <span>
+                3 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>妙  啊</p>
+<p>一开始我以为是按照顺序分组,这不简单?,我直接dp就能很简单的做完</p>
+<p>第二个样例都过不去,再一看题发现是随意分组....</p>
+<p>像这样随意分组的计数和排列方案计数没区别,总要给你计算代价的时候简单一点吧...比如之前那个sdoi就是相邻最大值有关,因此可以很愉快的记录组数就行了</p>
+<p>本题也是一样,按照权值排序之后,每一组的代价之和两个端点有关,也就是说我们可以不断开新组,每次开一个新组代价都是w,然后同时我们可以添加一个右端点封死一组,代价是v,我们要保证最后代价和小于k,因此记录当前代价和就好了</p>
+<p>不现实,因此我们要记录减掉了多少,这个上界是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>∑</mo><msub><mi>a</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">\sum a_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.00001em;vertical-align:-0.25001em;"></span><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></p>
+<p>因此我们可以把权 值 差 分,最大值减去最小值像什么?是不是像前缀和数组对应<strong>区间和</strong>的计算方法啊?</p>
+<p>用小花的话说就是把直线的代价均摊给每个数,从而你会发现每个数都是<strong>大于0的!</strong></p>
+<p>此时我们的转移方程就改了一点点而已,仔细想想就能改过来了</p>
+<p>复杂度<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mi>n</mi><mn>2</mn></msup><mi>k</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n^2k)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mclose">)</span></span></span></span></p>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const int P = 1e9 + 7;
+const int MAXN = 205;
+const int MAXK = 1e3 + 7;
+
+int n, k, a[MAXN], f[MAXN][MAXK], g[MAXN][MAXK], d[MAXN], M; //滚动一维吧
+inline int add(int x, int y ) {
+	x += y;
+	if(x &gt;= P)x -= P;
+	return x;
+}
+
+int main() {
+	scanf(&quot;%d%d&quot;, &amp;n, &amp;k);
+	for(int i = 1; i &lt;= n; ++i) {
+		scanf(&quot;%d&quot;, &amp;a[i]);
+	}
+	sort(a + 1, a + n + 1);
+	g[0][0] = 1;
+	for(int i = 1; i &lt;= n; ++i) {
+		d[i] = a[i] - a[i - 1];
+		for(int j = 0; j &lt;= k; ++j) {
+			for(int l = i; l &gt;= 0; --l) {
+				if(j &gt;= l * d[i])
+					f[l][j] = add(f[l][j], 1ll * g[l][j - l * d[i]] * l % P);
+				if(j &gt;= (l + 1)*d[i] &amp;&amp; l &lt; i)
+					f[l][j] = add(f[l][j], 1ll * (l + 1) * g[l + 1][j - (l + 1) * d[i]] % P);
+				if(j &gt;= (l - 1)*d[i] &amp;&amp; l)
+					f[l][j] = add(f[l][j], g[l - 1][j - (l - 1) * d[i]]);
+				if(j &gt;= l * d[i])
+					f[l][j] = add(f[l][j], g[l][j - l * d[i]]);
+			}
+		}
+		for(int j = 0; j &lt;= k; ++j) {
+			for(int l = i; l &gt;= 0; --l) {
+				g[l][j] = f[l][j];
+				f[l][j] = 0;
+			}
+		}
+	}
+	int ans = 0;
+	for(int j = 0; j &lt;= k; ++j)
+		ans = add(ans, g[0][j]);
+	printf(&quot;%d\n&quot;, ans);
+	return 0;
+}
+/*
+5 222
+58 369 477 58 90
+*/
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/20zrday7/">
+              <h3 class="post-title">
+                20ZRDay7
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
