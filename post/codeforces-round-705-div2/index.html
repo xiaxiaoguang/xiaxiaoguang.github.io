@@ -1,0 +1,429 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Codeforces Round #705 (Div.2)  | 夏晓光(loveJY)的博客</title>
+<link rel="shortcut icon" href="https://xiaxiaoguang.github.io/favicon.ico?v=1615201045259">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xiaxiaoguang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="Codeforces Round #705 (Div.2)  | 夏晓光(loveJY)的博客 - Atom Feed" href="https://xiaxiaoguang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="A. Anti-knapsack
+注意k&lt;nk&lt;nk&lt;n
+答案可以达到啥n-k+k/2的上界
+就是大于k的数和k/2到kk/2到kk/2到k
+B. Planet Lapituletti
+镜像不会改变的只有0,1,2,5,8..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://xiaxiaoguang.github.io">
+  <img class="avatar" src="https://xiaxiaoguang.github.io/images/avatar.png?v=1615201045259" alt="">
+  </a>
+  <h1 class="site-title">
+    夏晓光(loveJY)的博客
+  </h1>
+  <p class="site-description">
+    仍要向下扎根,向上结果
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="https://xiaxiaoguang.github.io/post/you-lian" class="menu">
+          友链
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              Codeforces Round #705 (Div.2) 
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-03-08
+              </span>
+              <span>
+                7 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>A. Anti-knapsack</p>
+<p>注意<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi><mo>&lt;</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">k&lt;n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.73354em;vertical-align:-0.0391em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span></p>
+<p>答案可以达到啥n-k+k/2的上界</p>
+<p>就是大于k的数和<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi><mi mathvariant="normal">/</mi><mn>2</mn><mi mathvariant="normal">到</mi><mi>k</mi></mrow><annotation encoding="application/x-tex">k/2到k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord">/</span><span class="mord">2</span><span class="mord cjk_fallback">到</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span></span></span></span></p>
+<p>B. Planet Lapituletti</p>
+<p>镜像不会改变的只有0,1,2,5,8,其中2,5会互换</p>
+<p>然后观察数据范围,我们想到儒略历一个牛逼的做法:打表</p>
+<p>所以枚举每一分钟向上加判断即可</p>
+<p>C</p>
+<p>枚举哪一位开始大于即可,然后贪心的尽量填大于他最小的字符</p>
+<h1 id="考场上因为z这种字符自闭了">考场上因为z这种字符自闭了!!</h1>
+<p>剩下一些整除k的限制看看代码即可</p>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const int MAXN = 1e6 + 7;
+int T, n, K, res;
+char s[MAXN];
+int pre[MAXN][27], a[MAXN], avi[MAXN];
+
+inline int pd(int x) {//判断什么?
+	//前面的能放下
+	if(s[x] == 'z')return 0;//大于你妈个头
+	res = 0;
+	for(int i = 0; i &lt; 26; ++i) {
+		avi[i] = (K - (pre[x - 1][i] % K)) % K;
+		res += avi[i];
+	}
+	if(n - x + 1 &lt; res || (n - x + 1 - res) % K != 0)return 0; //如果不够,或者说剪掉之后还不太行就不能
+	res = (n - x + 1 - res) / K;
+	if(res &lt;= 0) {
+		for(int i = s[x] - 'a' + 1; i &lt; 26; ++i)
+			if(avi[i])
+				return 1; //有一个牛逼的就行
+		for(int i = 0; i &lt; 26; ++i)avi[i] = 0;
+		return 0;
+	} else {
+		if(!avi[s[x] - 'a' + 1]) {
+			res--;
+			avi[s[x] - 'a' + 1] += K;
+		}
+		return 1;//浪费一个
+	}
+}
+
+inline void solve(int x) {//输出方案!
+	for(int i = s[x] - 'a' + 1; i &lt; 26; ++i)
+		if(avi[i]) {
+			a[x] = i;
+			avi[i]--;
+			break;
+		}
+	for(int i = n; i &gt; x; --i) {//只构造后面的部分
+		bool flg = 1;
+		for(int k = 25; k &gt;= 0; --k)
+			if(avi[k]) {
+				a[i] = k;
+				avi[k]--;
+				flg = 0;
+				break;
+			}
+		if(flg)a[i] = 0;
+	}
+	for(int i = 1; i &lt; x; ++i)a[i] = s[i] - 'a';
+	for(int i = 1; i &lt;= n; ++i)printf(&quot;%c&quot;, a[i] + 'a');
+	puts(&quot;&quot;);
+	return ;
+}
+
+int main() {
+	scanf(&quot;%d&quot;, &amp;T);
+	while(T-- &gt; 0) {
+		scanf(&quot;%d%d&quot;, &amp;n, &amp;K);
+		scanf(&quot;%s&quot;, s + 1);
+		for(int i = 1; i &lt;= n; ++i) {
+			for(int k = 0; k &lt; 26; ++k) {
+				pre[i][k] = pre[i - 1][k];
+			}
+			pre[i][s[i] - 'a']++;
+		}
+		bool flg = 1;
+		if(pd(n + 1)) {
+			printf(&quot;%s\n&quot;, s + 1);
+			continue;
+		}
+		for(int i = n; i &gt;= 1; --i) {
+			if(pd(i)) {//如果这一位开始大于他,能不能行
+				solve(i);
+				flg = 0;
+				break;
+			}
+		}
+		if(flg)puts(&quot;-1&quot;);
+	}
+	return 0;
+}
+</code></pre>
+<p>D</p>
+<p>所有数的gcd等于每个质因数取min</p>
+<p>直接维护所有非零的即可复杂度<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(nlogn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></p>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+using namespace std;
+#define ll long long
+#define ins insert
+#define pii pair&lt;int,int&gt;
+#define mkp(x,y) (make_pair(x,y))
+#define fi first
+#define se second
+const int MAXN = 4e5 + 7;
+const int P = 1e9 + 7;
+
+ll ans;
+int n, q, a[MAXN], lst[MAXN];
+multiset&lt;int&gt; st[MAXN];
+set&lt;pii&gt; v[MAXN];
+int tot, isp[MAXN], pri[MAXN], mix[MAXN];
+
+inline ll ksm(ll x, ll y) {
+	ll ans = 1;
+	while(y) {
+		if(y &amp; 1)ans = ans * x % P;
+		x = x * x % P;
+		y &gt;&gt;= 1;
+	}
+	return ans;
+}
+
+inline void init() {
+	int N = 2e5;
+	for(int i = 2; i &lt;= N; ++i) {
+		if(!isp[i]) {
+			isp[i] = 1;
+			pri[++tot] = i;
+			mix[i] = i;
+		}
+		for(int j = 1; j &lt;= tot &amp;&amp; i * pri[j] &lt;= N; ++j) {
+			isp[i * pri[j]] = 1;
+			mix[i * pri[j]] = pri[j];
+			if(i % pri[j] == 0)break;
+		}
+	}
+	for(int i = 1; i &lt;= n; ++i) {
+		int num = 0;
+		int p = a[i];
+		while(p &gt; 1) {
+			num = 0;
+			while(mix[p] == mix[p / mix[p]]) {
+				num++;
+				p /= mix[p];
+			}
+			num++;
+			st[mix[p]].ins(num);
+			v[i].ins(mkp(mix[p], num)); //次数,是啥
+			p /= mix[p];
+		}
+	}
+	ans = 1;
+	for(int i = 1; i &lt;= N; ++i) {
+		lst[i] = 1;
+		if(st[i].size() == n) {
+			lst[i] = ksm(i, (*st[i].begin()));
+			ans = ans * lst[i] % P;
+		}
+	}
+	return ;
+}
+
+inline void solve(int i, int y) {
+	int p = y;
+	while(p &gt; 1) {
+		int num = 0;
+		while(mix[p] == mix[p / mix[p]]) {
+			num++;
+			p /= mix[p];
+		}
+		num++;
+		auto q = (v[i].lower_bound(mkp(mix[p], 0)));
+		if(q == v[i].end()) {
+			v[i].ins(mkp(mix[p], num));
+			st[mix[p]].ins(num);
+		} else {
+			auto g = *q;
+			if(g.fi == mix[p]) {
+				v[i].erase(g);
+				st[g.fi].erase(st[g.fi].find(g.se));//删掉一个!!!
+				v[i].ins(mkp(g.fi, g.se + num));
+				st[g.fi].ins(g.se + num);
+			} else {//没有,我们要新建
+				v[i].ins(mkp(mix[p], num));
+				st[mix[p]].ins(num);
+			}
+		}
+		if(st[mix[p]].size() == n) {
+			ans = 1ll * ans * ksm(lst[mix[p]], P - 2) % P;
+			lst[mix[p]] = ksm(mix[p], (*st[mix[p]].begin()));
+			ans = 1ll * ans * lst[mix[p]] % P;
+		}
+		p /= mix[p];
+	}
+	printf(&quot;%lld\n&quot;, ans);
+	return ;
+}
+
+int main() {
+	scanf(&quot;%d%d&quot;, &amp;n, &amp;q);
+	for(int i = 1; i &lt;= n; ++i)scanf(&quot;%d&quot;, &amp;a[i]);
+	init();
+	for(int i = 1, x, y; i &lt;= q; ++i) {
+		scanf(&quot;%d%d&quot;, &amp;x, &amp;y);
+		solve(x, y);
+	}
+	return 0;
+}
+</code></pre>
+<p>E</p>
+<p>结论:</p>
+<p>如果l,r跨越2的次幂,答案是全1,方案是</p>
+<p>1000000</p>
+<p>和</p>
+<p>0111111</p>
+<p>否则r是偶数而且<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi><mo>≤</mo><mi>r</mi><mo>−</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">l\leq r-2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83041em;vertical-align:-0.13597em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span>,答案是r+1,否则是r</p>
+<p>证明可以数学归纳</p>
+<p>假设前r-2个成立,显然r+1的方法是选择r,r-1,r-2就一定可以</p>
+<p>然后你会发现如果有更大的位能成为1,在最高位的1不消失的情况下,只有<strong>至少</strong>让r的最高位为0才能异或出来,因为显然需要选择偶数个数,然后这些数都会有最高位的1</p>
+<figure data-type="image" tabindex="1"><img src="https://xiaxiaoguang.github.io/post-images/1615200714531.png" alt="" loading="lazy"></figure>
+<p>就做完了</p>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#%E8%80%83%E5%9C%BA%E4%B8%8A%E5%9B%A0%E4%B8%BAz%E8%BF%99%E7%A7%8D%E5%AD%97%E7%AC%A6%E8%87%AA%E9%97%AD%E4%BA%86">考场上因为z这种字符自闭了!!</a></li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://xiaxiaoguang.github.io/post/zheng-rui-er-lun-ji-xun-day2/">
+              <h3 class="post-title">
+                正瑞二轮集训Day2
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '1c71f40d2d18a0ac8466',
+    clientSecret: '06ff9ddda58d869438ab8631f697626850a7e875',
+    repo: 'Xiaoguangcomment',
+    owner: 'xiaxiaoguang',
+    admin: ['xiaxiaoguang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://xiaxiaoguang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
